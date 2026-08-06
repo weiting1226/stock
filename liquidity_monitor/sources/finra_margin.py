@@ -8,6 +8,7 @@ https://www.finra.org/investors/learn-to-invest/advanced-investing/margin-statis
 """
 from __future__ import annotations
 
+import io
 from typing import Optional
 
 import pandas as pd
@@ -52,7 +53,7 @@ def fetch_margin_debt(
 
     resp = requests.get(FINRA_URL, headers=_HEADERS, timeout=timeout)
     resp.raise_for_status()
-    tables = pd.read_html(resp.text)
+    tables = pd.read_html(io.StringIO(resp.text))  # pandas>=2.1 不再接受純字串
     table = _find_margin_table(tables)
 
     period_col = next(c for c in table.columns if any(k in str(c).lower() for k in ("month", "year", "date")))
