@@ -1,0 +1,17 @@
+{
+  "etf_fund_flow": {
+    "score": null,
+    "as_of": null,
+    "note": "股票型ETF資金流：-2(大幅淨流出)/-1/0(持平)/+1/+2(大幅淨流入)。請人工查證 ICI/State Street/Fidelity 資料後填入 score。"
+  },
+  "fedwatch_path": {
+    "score": null,
+    "as_of": null,
+    "note": "CME FedWatch市場隱含12個月路徑：降息>=2碼:+2/降息1碼:+1/持平:0/升息1碼:-1/升息>=2碼:-2。請至 CME FedWatch 網站人工查證後填入。"
+  },
+  "ndx_fwd_pe": {
+    "value": null,
+    "as_of": null,
+    "note": "NDX前瞻本益比，供 Gate B 脆弱度檢查使用（>85百分位/約>27x 觸發）。本專案無自動資料源，僅供人工填入參考。"
+  }
+}
