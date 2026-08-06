@@ -59,6 +59,19 @@ function fmtNum(v, digits = 2) {
   return n.toFixed(digits);
 }
 
+const HTML_ESCAPES = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
+function escapeHtml(value) {
+  if (value === null || value === undefined) return "";
+  return String(value).replace(/[&<>"']/g, (c) => HTML_ESCAPES[c]);
+}
+// 抓取失敗時例外訊息可能夾帶整頁HTML/JS（見finra_margin.py的教訓）；
+// 就算後端漏放行，前端也不該讓任一欄位撐爆表格版面或把標籤當成HTML解析。
+function safeCell(value, maxLen = 300) {
+  const str = String(value ?? "");
+  const clipped = str.length > maxLen ? str.slice(0, maxLen) + "…" : str;
+  return escapeHtml(clipped);
+}
+
 function renderHero(report) {
   document.getElementById("composite-score").textContent = fmtNum(report.composite_score, 3);
   document.getElementById("composite-score").style.color = LIGHT_COLOR[report.light] || "inherit";
@@ -77,7 +90,7 @@ function renderHero(report) {
 }
 
 function gateCardHtml(title, gate) {
-  if (!gate) return `<div class="gate-card"><h3>${title}</h3><span class="badge muted">暫缺</span></div>`;
+  if (!gate) return `<div class="gate-card"><h3>${escapeHtml(title)}</h3><span class="badge muted">暫缺</span></div>`;
   const cap = gate.cap;
   const badgeClass = cap === "SGOV" ? "bad" : cap === "QQQ" ? "warn" : "ok";
   const badgeText = cap ? `上限 ${cap}` : "未觸發";
@@ -85,9 +98,9 @@ function gateCardHtml(title, gate) {
   const detail = gate.detail || (gate.reasons ? gate.reasons.join("；") : "");
   return `
     <div class="gate-card">
-      <h3>${title} <span class="badge ${badgeClass}">${badgeText}</span></h3>
-      <div class="subtitle">${status || ""}</div>
-      <div style="margin-top:6px;font-size:0.85rem;">${detail || ""}</div>
+      <h3>${escapeHtml(title)} <span class="badge ${badgeClass}">${escapeHtml(badgeText)}</span></h3>
+      <div class="subtitle">${safeCell(status)}</div>
+      <div style="margin-top:6px;font-size:0.85rem;">${safeCell(detail)}</div>
     </div>`;
 }
 
@@ -105,13 +118,13 @@ function renderWarnings(report) {
   let html = "";
   if (w.dominance) {
     const d = w.dominance;
-    html += `<div class="warning-box">⚠️ 本指令實質由單一類別決定：<strong>${d.label}</strong>
+    html += `<div class="warning-box">⚠️ 本指令實質由單一類別決定：<strong>${safeCell(d.label)}</strong>
       （貢獻 ${d.contribution}，占同號貢獻 ${(d.share_of_same_sign * 100).toFixed(1)}%）。
       若排除該類別，綜合分數將變為 <strong>${d.score_if_excluded}</strong>。</div>`;
   }
   if (w.divergence && w.divergence.length) {
     w.divergence.forEach((d) => {
-      html += `<div class="warning-box">⚠️ 結構性背離：${d.pair} 評分差距達 ${d.gap}
+      html += `<div class="warning-box">⚠️ 結構性背離：${safeCell(d.pair)} 評分差距達 ${d.gap}
         （② = ${d.credit_funding}，對照類別 = ${d.other}）。</div>`;
     });
   }
@@ -142,14 +155,15 @@ function renderItemsTable(report) {
       if (ITEM_CATEGORY[key] !== cat) return;
       const tr = document.createElement("tr");
       const confClass = `confidence-${(item.confidence || "").replace(/\(.*\)/, "")}`;
+      const rawCell = typeof item.raw_value === "number" ? fmtNum(item.raw_value, 3) : safeCell(item.raw_value ?? "—", 120);
       tr.innerHTML = `
-        <td>${item.label || key}</td>
-        <td class="num">${typeof item.raw_value === "number" ? fmtNum(item.raw_value, 3) : (item.raw_value ?? "—")}</td>
+        <td>${safeCell(item.label || key)}</td>
+        <td class="num">${rawCell}</td>
         <td class="num">${item.score ?? "—"}</td>
-        <td class="${confClass}">${item.confidence || "—"}</td>
-        <td>${item.data_date || "—"}</td>
-        <td>${item.source || "—"}</td>
-        <td>${item.note || ""}</td>`;
+        <td class="${confClass}">${safeCell(item.confidence || "—")}</td>
+        <td>${safeCell(item.data_date || "—")}</td>
+        <td>${safeCell(item.source || "—")}</td>
+        <td>${safeCell(item.note || "", 200)}</td>`;
       tbody.appendChild(tr);
     });
   });

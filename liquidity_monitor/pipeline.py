@@ -39,6 +39,12 @@ from .timeseries import (
 log = logging.getLogger(__name__)
 
 
+def _short_error(msg: str, limit: int = 160) -> str:
+    """把例外訊息壓成單行、限制長度，避免抓取失敗時把整頁HTML/JS塞進UI的note欄位。"""
+    flat = " ".join(str(msg).split())
+    return flat if len(flat) <= limit else flat[:limit] + "…"
+
+
 class Item:
     __slots__ = ("key", "raw_value", "score", "data_date", "source", "confidence", "note")
 
@@ -262,7 +268,7 @@ def run(as_of: Optional[str] = None, margin_override_csv: Optional[str] = None,
     items["margin_debt_yoy"] = Item("margin_debt_yoy", margin_yoy_latest, scoring.score_margin_debt_yoy(margin_yoy_latest),
                                      as_of, "FINRA margin statistics",
                                      "中" if margin_yoy_latest is not None else "暫缺",
-                                     note="月頻，已套用文件規定之2個月發布時滯" if margin.get("ok") else f"抓取失敗: {margin.get('error','')}")
+                                     note="月頻，已套用文件規定之2個月發布時滯" if margin.get("ok") else f"抓取失敗: {_short_error(margin.get('error',''))}")
 
     # ⑤ 跨資產資金流向 -------------------------------------------------------
     dxy_series = yahoo_panel.get("dxy", pd.Series(dtype=float)).dropna()

@@ -11,6 +11,7 @@
 """
 from __future__ import annotations
 
+import io
 import json
 from pathlib import Path
 from typing import Optional
@@ -34,7 +35,7 @@ def fetch_constituents(cache_path: Optional[str] = None, max_cache_age_days: int
 
     resp = requests.get(WIKI_URL, headers=_HEADERS, timeout=30)
     resp.raise_for_status()
-    tables = pd.read_html(resp.text)
+    tables = pd.read_html(io.StringIO(resp.text))  # pandas>=2.1 不再接受純字串
     ticker_table = None
     for t in tables:
         cols = [str(c).strip().lower() for c in t.columns]
