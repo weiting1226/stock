@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>市場流動性雙軌監控系統 v3.0 — 儀表板</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>📡 市場流動性雙軌監控系統 v3.0 — 每日儀表板</h1>
+      <div class="subtitle">資料每日自動更新一次；本頁純資料呈現，非投資建議（詳見頁尾誠實原則）</div>
+    </div>
+    <div>
+      <label for="date-picker" class="subtitle">查詢歷史日期：</label>
+      <select id="date-picker"></select>
+    </div>
+  </header>
+
+  <div id="error-slot"></div>
+
+  <section class="card" id="hero-card">
+    <div class="hero">
+      <div>
+        <div class="score" id="composite-score">--</div>
+        <div class="subtitle">綜合分數</div>
+      </div>
+      <div>
+        <div class="light-badge" id="light-badge">--</div>
+        <div class="subtitle" id="asof-label">資料基準日：--</div>
+      </div>
+      <div class="meta" id="hero-meta"></div>
+    </div>
+    <div class="position-banner" id="position-banner">部位建議載入中…</div>
+  </section>
+
+  <section class="card">
+    <h2>🚧 三道閘門判定</h2>
+    <div class="grid-3" id="gates-grid"></div>
+  </section>
+
+  <div id="warnings-slot"></div>
+
+  <section class="card">
+    <h2>🚦 六大類別分數</h2>
+    <div class="chart-wrap"><canvas id="category-chart"></canvas></div>
+    <div class="table-scroll">
+      <table id="category-table">
+        <thead><tr><th>類別</th><th class="num">平均分</th><th class="num">權重(實際採用)</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>📈 綜合分數歷史趨勢（最近180個交易日）</h2>
+    <div class="chart-wrap"><canvas id="history-chart"></canvas></div>
+    <div class="legend">
+      <span><span class="dot" style="background:var(--series-1)"></span>綜合分數</span>
+      <span>背景色帶對應燈號區間：深綠 ≥1.2／綠 0.4~1.2／黃 -0.4~0.4／紅 -1.2~-0.4／深紅 ≤-1.2</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>📋 當日18項數據查證清單</h2>
+    <div class="table-scroll">
+      <table id="items-table">
+        <thead>
+          <tr>
+            <th>子項</th><th class="num">原始值</th><th class="num">分數</th>
+            <th>信心等級</th><th>資料日期</th><th>來源</th><th>備註</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>⚡ 軌道二：每日收盤近似訊號（非盤中即時監控）</h2>
+    <ul class="checklist" id="track2-list"></ul>
+    <p class="subtitle" id="track2-note"></p>
+  </section>
+
+  <footer class="disclaimer">
+    <p>本頁為「市場流動性雙軌監控與交易策略系統 v3.0」文件之機械化資料爬取與計分結果，<strong>非投資建議</strong>，提供者非持牌投資顧問。</p>
+    <p>本系統無法預警外生衝擊型事件（如疫情、地緣戰爭）；槓桿 ETF (TQQQ) 具每日重設特性，長期持有於震盪盤中會產生顯著損耗。</p>
+    <p>股票型ETF資金流、CME FedWatch 隱含路徑、NDX前瞻本益比因無可靠免費歷史資料源，預設標記「暫缺」，可於 <code>docs/data/manual_overrides.json</code> 人工填入。</p>
+    <p>資料來源與程式碼：<a id="repo-link" href="#">GitHub repository</a></p>
+  </footer>
+</div>
+
+<script src="vendor/chart.umd.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
