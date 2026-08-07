@@ -1,6 +1,6 @@
 {
   "as_of": "2026-08-07",
-  "generated_at": "2026-08-07T01:36:12.791186Z",
+  "generated_at": "2026-08-07T23:02:38.650655Z",
   "items": {
     "fed_bs_3m_chg": {
       "key": "fed_bs_3m_chg",
@@ -75,7 +75,7 @@
     "move_index": {
       "key": "move_index",
       "label": "MOVE指數",
-      "raw_value": 76.11689758300781,
+      "raw_value": 70.87999725341797,
       "score": 0,
       "data_date": "2026-08-07",
       "source": "Yahoo Finance ^MOVE",
@@ -105,7 +105,7 @@
     "ivts": {
       "key": "ivts",
       "label": "VIX/VIX3M期限結構",
-      "raw_value": 0.8105938569088523,
+      "raw_value": 0.7375851481621666,
       "score": 2,
       "data_date": "2026-08-07",
       "source": "Yahoo Finance ^VIX / ^VIX3M",
@@ -125,7 +125,7 @@
     "dxy_1m_chg": {
       "key": "dxy_1m_chg",
       "label": "DXY美元指數月變動(%)",
-      "raw_value": -1.0796668827510403,
+      "raw_value": -1.0687796125067983,
       "score": 1,
       "data_date": "2026-08-07",
       "source": "Yahoo Finance DX-Y.NYB",
@@ -135,8 +135,8 @@
     "usdjpy_20d_chg": {
       "key": "usdjpy_20d_chg",
       "label": "USD/JPY 20日變化(%)",
-      "raw_value": -3.0386524568359663,
-      "score": -1,
+      "raw_value": -2.4352899670714745,
+      "score": 0,
       "data_date": "2026-08-07",
       "source": "Yahoo Finance JPY=X",
       "confidence": "高",
@@ -188,7 +188,7 @@
     "② 資金成本與信用": 0.5,
     "③ 市場微觀結構": 0.0,
     "④ 風險偏好情緒": 1.0,
-    "⑤ 跨資產資金流向": 0.0,
+    "⑤ 跨資產資金流向": 0.5,
     "⑥ 政策方向": -1.0
   },
   "category_weights_effective": {
@@ -199,15 +199,15 @@
     "⑤ 跨資產資金流向": 0.15,
     "⑥ 政策方向": 0.3
   },
-  "composite_score": -0.0167,
+  "composite_score": 0.0583,
   "light": "🟡 黃",
   "structural_warnings": {
     "dominance": {
       "category": "policy_direction",
       "label": "⑥ 政策方向",
       "contribution": -0.3,
-      "share_of_same_sign": 1.0,
-      "score_if_excluded": 0.2833
+      "share_of_same_sign": 0.837,
+      "score_if_excluded": 0.3583
     },
     "divergence": []
   },
@@ -225,7 +225,7 @@
       },
       "hy_oas": {
         "triggered": "True",
-        "percentile": 13.7,
+        "percentile": 13.72,
         "value": 2.75,
         "approx": false
       },
@@ -266,12 +266,12 @@
   },
   "track2_daily_approx": {
     "signals": {
-      "vix9d_gt_vix": false,
+      "vix9d_gt_vix": true,
       "treasury_1d_move_gt_15bp": false,
       "ndx_1d_drop_gt_2pct": false,
       "stocks_bonds_gold_dollar_all_down": false
     },
-    "triggered_count": 0,
+    "triggered_count": 1,
     "unknown_count": 0,
     "circuit_breaker_suggested": false,
     "reliability_note": "軌道二第二、三層與熔斷判定需盤中即時資料，每日批次爬蟲無法取得，本區僅為收盤後近似估計，不得作為加碼依據（比照文件第230行原則）。"
