@@ -265,3 +265,124 @@ select, input[type="date"] {
   margin-bottom: 16px;
   font-size: 0.9rem;
 }
+
+/* ---- 模組導覽列 ---- */
+.module-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.module-nav a {
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.module-nav a:hover { color: var(--text-primary); }
+
+.module-nav a.active {
+  background: var(--series-1);
+  border-color: var(--series-1);
+  color: #fff;
+}
+
+/* ---- 統計方塊 ---- */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.stat-tile {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+.stat-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.stat-label {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  margin-top: 2px;
+}
+
+/* ---- 漲跌色（正=綠、負=紅） ---- */
+.pos { color: var(--good-deep); }
+.neg { color: var(--critical); }
+td.num.pos, td.num.neg { font-weight: 600; }
+
+/* ---- 篩選列 ---- */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  align-items: flex-end;
+  margin-bottom: 14px;
+}
+
+.filter-bar label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.filter-bar .checkbox-label {
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  padding-bottom: 6px;
+}
+
+.filter-bar input[type="search"] {
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 5px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface-1);
+  color: var(--text-primary);
+  min-width: 180px;
+}
+
+/* ---- 個股表 ---- */
+#valuation-table thead th[data-sort] {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+#valuation-table thead th[data-sort]:hover { color: var(--text-primary); }
+
+#valuation-table tbody tr:hover { background: rgba(137, 135, 129, 0.08); }
+
+.ticker-cell { font-weight: 700; white-space: nowrap; }
+
+.source-pill {
+  display: inline-block;
+  margin-left: 5px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(42, 120, 214, 0.12);
+  color: var(--text-secondary);
+  font-size: 0.65rem;
+  font-weight: 600;
+  vertical-align: middle;
+}
