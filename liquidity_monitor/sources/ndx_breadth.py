@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import io
 import json
+import re
 from pathlib import Path
 from typing import Optional
 
@@ -23,6 +24,48 @@ from . import yahoo
 
 WIKI_URL = "https://en.wikipedia.org/wiki/Nasdaq-100"
 _HEADERS = {"User-Agent": "Mozilla/5.0 (liquidity-monitor-v3 scraper)"}
+
+_TICKER_RE = re.compile(r"^[A-Z]{1,5}(\.[A-Z])?$")
+MIN_EXPECTED_CONSTITUENTS = 50  # NDX 約100檔；低於此數視為抓到錯的表格
+
+
+def _column_ticker_ratio(values: list[str]) -> float:
+    if not values:
+        return 0.0
+    return sum(1 for v in values if _TICKER_RE.match(v)) / len(values)
+
+
+def _extract_tickers(tables: list[pd.DataFrame]) -> list[str]:
+    """從維基百科的多個表格中找出成分股代號欄。
+
+    先看欄位名稱是否含 ticker/symbol；找不到就改用「欄位內容是否長得像股票
+    代號」的啟發式判斷。維基百科改過欄位標題就整個抓不到（2026-08 實際發生過），
+    因此不能只依賴標題文字。
+    """
+    best: tuple[float, list[str]] = (0.0, [])
+
+    for t in tables:
+        for col in t.columns:
+            values = [str(v).strip() for v in t[col].dropna()]
+            values = [v for v in values if v and v.lower() != "nan"]
+            if len(values) < MIN_EXPECTED_CONSTITUENTS:
+                continue
+
+            named = any(k in str(col).lower() for k in ("ticker", "symbol"))
+            ratio = _column_ticker_ratio(values)
+            # 標題明確的欄位放寬門檻，靠內容判斷的欄位則要求幾乎全部像代號
+            if (named and ratio > 0.5) or ratio > 0.9:
+                if ratio > best[0]:
+                    best = (ratio, values)
+
+    if not best[1]:
+        raise ValueError(
+            "無法從維基百科 Nasdaq-100 頁面找到成分股代號欄位（已同時嘗試欄位名稱與內容比對）；"
+            f"共解析到 {len(tables)} 個表格，網站結構可能已變更。"
+        )
+
+    # 維基百科用 BRK.B，Yahoo Finance 用 BRK-B
+    return sorted({v.replace(".", "-") for v in best[1]})
 
 
 def fetch_constituents(cache_path: Optional[str] = None, max_cache_age_days: int = 30) -> list[str]:
@@ -36,18 +79,7 @@ def fetch_constituents(cache_path: Optional[str] = None, max_cache_age_days: int
     resp = requests.get(WIKI_URL, headers=_HEADERS, timeout=30)
     resp.raise_for_status()
     tables = pd.read_html(io.StringIO(resp.text))  # pandas>=2.1 不再接受純字串
-    ticker_table = None
-    for t in tables:
-        cols = [str(c).strip().lower() for c in t.columns]
-        if any("ticker" in c for c in cols) or any("symbol" in c for c in cols):
-            ticker_table = t
-            break
-    if ticker_table is None:
-        raise ValueError("無法從維基百科 Nasdaq-100 頁面找到成分股表格，網站結構可能已變更")
-
-    col = next(c for c in ticker_table.columns if "ticker" in str(c).lower() or "symbol" in str(c).lower())
-    tickers = sorted({str(x).strip().replace(".", "-") for x in ticker_table[col].dropna()})
-    tickers = [t for t in tickers if t and t.lower() != "nan"]
+    tickers = _extract_tickers(tables)
 
     if cache:
         cache.parent.mkdir(parents=True, exist_ok=True)
