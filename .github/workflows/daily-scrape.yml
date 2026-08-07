@@ -50,5 +50,7 @@ jobs:
             echo "no data changes"
           else
             git commit -m "chore: daily liquidity monitor data update"
+            # 兩個模組的排程時間相近，先 rebase 避免撞在一起時 push 被拒
+            git pull --rebase origin main
             git push
           fi
