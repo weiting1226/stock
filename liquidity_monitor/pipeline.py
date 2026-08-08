@@ -39,6 +39,18 @@ from .timeseries import (
 log = logging.getLogger(__name__)
 
 
+def _lagged_yoy_daily(raw: pd.Series, lag_days: int, trading_days) -> pd.Series:
+    """先算年增率，**再套用發布時滯**，最後才對齊到每個交易日。
+
+    順序很重要：年增率必須從原始（未位移）序列計算，否則等於拿位移後的
+    日期去對位移後的日期；但算完之後一定要套用時滯，否則當日就看得到
+    尚未公布的參考月數值 —— 這正是文件第38-48行禁止的前視偏誤。
+    """
+    if raw is None or raw.empty:
+        return pd.Series(dtype=float)
+    return to_daily_panel(apply_publish_lag(yoy(raw), lag_days), trading_days)
+
+
 def _short_error(msg: str, limit: int = 160) -> str:
     """把例外訊息壓成單行、限制長度，避免抓取失敗時把整頁HTML/JS塞進UI的note欄位。"""
     flat = " ".join(str(msg).split())
@@ -106,13 +118,18 @@ def _fetch_margin_debt(as_of: str, override_csv: Optional[str] = None) -> dict:
         return {"raw": pd.Series(dtype=float), "daily": pd.Series(dtype=float, index=trading_days), "ok": False, "error": str(e)}
 
 
-def _fetch_ndx_breadth(as_of: str, cache_path: str) -> Optional[float]:
+def _fetch_ndx_breadth(as_of: str, cache_path: str) -> tuple[Optional[float], Optional[str]]:
+    """回傳 (廣度百分比, 錯誤訊息)。錯誤訊息會一路帶到報告的 note 欄位，
+    否則抓取失敗在儀表板上看起來跟「正常但沒值」一模一樣。"""
     try:
         tickers = ndx_breadth.fetch_constituents(cache_path=cache_path)
-        return ndx_breadth.compute_breadth_200d(tickers, as_of)
+        value = ndx_breadth.compute_breadth_200d(tickers, as_of)
+        if value is None:
+            return None, f"取得 {len(tickers)} 檔成分股，但收盤價歷史不足以計算200日均線"
+        return value, None
     except Exception as e:  # noqa: BLE001
         log.warning("NDX 廣度計算失敗: %s", e)
-        return None
+        return None, f"{type(e).__name__}: {e}"
 
 
 def _fetch_fomc(as_of: str, dfedtaru_daily: pd.Series) -> tuple[Optional[int], dict]:
@@ -180,7 +197,7 @@ def run(as_of: Optional[str] = None, margin_override_csv: Optional[str] = None,
     fred_panel = _fetch_fred_panel(as_of)
     yahoo_panel = _fetch_yahoo_panel(as_of)
     margin = _fetch_margin_debt(as_of, override_csv=margin_override_csv)
-    ndx_breadth_pct = _fetch_ndx_breadth(as_of, ndx_cache_path)
+    ndx_breadth_pct, ndx_breadth_error = _fetch_ndx_breadth(as_of, ndx_cache_path)
     manual = _load_manual_overrides(overrides_path, as_of)
 
     def fred_daily(sid):
@@ -192,7 +209,7 @@ def run(as_of: Optional[str] = None, margin_override_csv: Optional[str] = None,
     items: dict[str, Item] = {}
 
     # ① 總體貨幣流動性 ------------------------------------------------------
-    walcl_yoy_daily = to_daily_panel(yoy(fred_raw("WALCL")), fred_daily("WALCL").index) if not fred_raw("WALCL").empty else pd.Series(dtype=float)
+    walcl_yoy_daily = _lagged_yoy_daily(fred_raw("WALCL"), FRED_SERIES["WALCL"], fred_daily("WALCL").index)
     fed_bs_3m_chg = n_trading_day_change(walcl_yoy_daily, 63)
     items["fed_bs_3m_chg"] = Item("fed_bs_3m_chg", fed_bs_3m_chg, scoring.score_fed_bs_3m_chg(fed_bs_3m_chg),
                                    as_of, "FRED WALCL", "高" if fed_bs_3m_chg is not None else "暫缺")
@@ -208,7 +225,7 @@ def run(as_of: Optional[str] = None, margin_override_csv: Optional[str] = None,
                                    as_of, "FRED RRPONTSYD", "高" if (rrp_pctile is not None or dormant) else "暫缺",
                                    note="結構性休眠(12個月皆<$100B)" if dormant else "")
 
-    m2_yoy_daily = to_daily_panel(yoy(fred_raw("M2SL")), fred_daily("M2SL").index) if not fred_raw("M2SL").empty else pd.Series(dtype=float)
+    m2_yoy_daily = _lagged_yoy_daily(fred_raw("M2SL"), FRED_SERIES["M2SL"], fred_daily("M2SL").index)
     m2_3m_chg = n_trading_day_change(m2_yoy_daily, 63)
     items["m2_yoy_3m_chg"] = Item("m2_yoy_3m_chg", m2_3m_chg, scoring.score_m2_yoy_3m_chg(m2_3m_chg),
                                    as_of, "FRED M2SL", "中" if m2_3m_chg is not None else "暫缺",
@@ -248,7 +265,9 @@ def run(as_of: Optional[str] = None, margin_override_csv: Optional[str] = None,
     items["ndx_breadth_200d"] = Item("ndx_breadth_200d", ndx_breadth_pct, scoring.score_ndx_breadth_200d(ndx_breadth_pct),
                                       as_of, "Wikipedia NASDAQ-100 成分股 + Yahoo Finance",
                                       "中" if ndx_breadth_pct is not None else "暫缺",
-                                      note="以維基百科目前成分股清單回推，非時點正確(look-back bias)")
+                                      note="以維基百科目前成分股清單回推，非時點正確(look-back bias)"
+                                      if ndx_breadth_pct is not None
+                                      else f"計算失敗: {_short_error(ndx_breadth_error or '未知原因')}")
 
     # ④ 風險偏好情緒 ---------------------------------------------------------
     vix_series = yahoo_panel.get("vix", pd.Series(dtype=float)).dropna()
@@ -263,12 +282,23 @@ def run(as_of: Optional[str] = None, margin_override_csv: Optional[str] = None,
     items["ivts"] = Item("ivts", ivts, scoring.score_ivts(ivts),
                           as_of, "Yahoo Finance ^VIX / ^VIX3M", "高" if ivts is not None else "暫缺")
 
-    margin_yoy_daily = to_daily_panel(yoy(margin["raw"]), margin["daily"].index) if not margin["raw"].empty else pd.Series(dtype=float)
+    margin_yoy_daily = _lagged_yoy_daily(margin["raw"], FINRA_PUBLISH_LAG_DAYS, margin["daily"].index)
     margin_yoy_latest = margin_yoy_daily.dropna().iloc[-1] if not margin_yoy_daily.dropna().empty else None
+    if not margin.get("ok"):
+        margin_note = f"抓取失敗: {_short_error(margin.get('error', ''))}"
+    elif margin_yoy_latest is None:
+        # 抓到資料卻算不出年增率，最常見的原因是頁面只提供不到13個月的歷史
+        n_months = len(margin["raw"].dropna())
+        margin_note = (
+            f"僅取得 {n_months} 個月資料，不足以計算年增率（需涵蓋13個月以上）"
+            if n_months else "FINRA 未取得任何月份資料"
+        )
+    else:
+        margin_note = "月頻，已套用文件規定之2個月發布時滯"
     items["margin_debt_yoy"] = Item("margin_debt_yoy", margin_yoy_latest, scoring.score_margin_debt_yoy(margin_yoy_latest),
                                      as_of, "FINRA margin statistics",
                                      "中" if margin_yoy_latest is not None else "暫缺",
-                                     note="月頻，已套用文件規定之2個月發布時滯" if margin.get("ok") else f"抓取失敗: {_short_error(margin.get('error',''))}")
+                                     note=margin_note)
 
     # ⑤ 跨資產資金流向 -------------------------------------------------------
     dxy_series = yahoo_panel.get("dxy", pd.Series(dtype=float)).dropna()
