@@ -280,7 +280,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：HTTPError: 429 Client Error: Too Many Requests for url: https://finnhub.io/api/v1/price-target?symbol=ADBE&token=d9r720pr01qnlhclnungd9r720pr01qnlhclnuo0"
+        "finnhub：HTTPError: 429 Client Error: Too Many Requests for url: https://finnhub.io/api/v1/price-target?symbol=ADBE&token=***REDACTED***"
       ]
     },
     {

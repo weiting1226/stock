@@ -15,6 +15,7 @@ from typing import Optional
 import requests
 
 from ..config import FINNHUB_API_URL, FINNHUB_ENV_KEY
+from ..secrets_redaction import redact_secrets
 from .yahoo_targets import TargetQuote, _as_float
 
 log = logging.getLogger(__name__)
@@ -49,6 +50,7 @@ def fetch_finnhub_target(
         if not quote.ok:
             quote.error = "Finnhub 無此標的目標價資料"
     except Exception as e:  # noqa: BLE001
-        quote.error = f"{type(e).__name__}: {e}"
-        log.debug("Finnhub 目標價抓取失敗 %s: %s", ticker, e)
+        # 金鑰在 query string 裡，例外訊息含完整URL；務必先遮蔽再輸出或記錄
+        quote.error = redact_secrets(f"{type(e).__name__}: {e}")
+        log.debug("Finnhub 目標價抓取失敗 %s: %s", ticker, quote.error)
     return quote
