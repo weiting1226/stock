@@ -15,6 +15,7 @@ from .config import (
     MIN_ANALYSTS_FOR_HIGH_CONFIDENCE,
     MIN_ANALYSTS_TO_INCLUDE,
 )
+from .firms import TargetRecord, build_firm_consensus
 from .sources.prices import PriceSnapshot
 from .sources.yahoo_targets import TargetQuote
 
@@ -38,6 +39,11 @@ class ValuationRow:
     target_dispersion_pct: Optional[float] = None  # (最高-最低)/平均，越大代表分歧越大
     range_source: Optional[str] = None             # 高低價與離散度取自哪個來源
     analyst_count: Optional[int] = None
+
+    # 逐機構層資訊（有 per-firm 資料源時才有值）
+    basis: str = "consensus"        # "per_firm"=自行由各機構目標價平均；"consensus"=沿用資料源彙總值
+    firm_targets: list = field(default_factory=list)  # [{firm, target, source, published}]
+    duplicates_removed: int = 0     # 依機構去重時被合併掉的重複筆數
     recommendation_mean: Optional[float] = None
     recommendation_key: Optional[str] = None
 
@@ -66,23 +72,31 @@ def _pick_primary(usable: list[TargetQuote]) -> TargetQuote:
     return usable[0]
 
 
-def _confidence_for(analyst_count: Optional[int], n_sources: int) -> str:
+def _confidence_for(analyst_count: Optional[int], n_sources: int, basis: str = "consensus") -> str:
     if not analyst_count:
         # 沒有家數資訊但有目標價時，仍算有資料，只是無法判斷代表性
         return "低" if n_sources else "暫缺"
-    if analyst_count >= MIN_ANALYSTS_FOR_HIGH_CONFIDENCE and n_sources >= 2:
+    if analyst_count < MIN_ANALYSTS_FOR_HIGH_CONFIDENCE:
+        return "低"
+    # 逐機構資料可驗證每一家的貢獻、且已去重，本身就比彙總值可信，
+    # 因此不像共識層那樣要求兩個來源才給「高」
+    if basis == "per_firm" or n_sources >= 2:
         return "高"
-    if analyst_count >= MIN_ANALYSTS_FOR_HIGH_CONFIDENCE:
-        return "中"
-    return "低"
+    return "中"
 
 
 def build_row(
     meta: dict,
     price: Optional[PriceSnapshot],
     quotes: list[TargetQuote],
+    firm_records: Optional[list[TargetRecord]] = None,
 ) -> ValuationRow:
-    """合併單一標的的股票池資訊、收盤價與各來源目標價。"""
+    """合併單一標的的股票池資訊、收盤價與目標價。
+
+    `firm_records` 為逐機構目標價。有的話一律優先：先依機構去重（同一家券商
+    只算一次），再**自行計算**平均／中位數／高低，而不是沿用資料源給的共識值。
+    沒有時才退回各共識來源的平均，並把 basis 標為 "consensus"。
+    """
     row = ValuationRow(
         ticker=meta.get("ticker", ""),
         name=meta.get("name", ""),
@@ -106,8 +120,31 @@ def build_row(
         if not q.ok and q.error:
             row.notes.append(f"{q.source}：{q.error}")
 
-    if usable:
-        # 多來源時取各來源共識價的平均（文件需求：「計算平均」）
+    firm_consensus = build_firm_consensus(firm_records or [])
+    if firm_consensus.firm_count:
+        # --- 逐機構層：依機構去重後自行計算，不沿用任何資料源的彙總值 ---
+        row.basis = "per_firm"
+        row.consensus_target = firm_consensus.mean
+        row.target_median = firm_consensus.median
+        row.target_high = firm_consensus.high
+        row.target_low = firm_consensus.low
+        row.analyst_count = firm_consensus.firm_count
+        row.firm_targets = firm_consensus.firms
+        row.duplicates_removed = firm_consensus.duplicates_removed
+        row.range_source = "+".join(firm_consensus.sources)
+        # sources_used 只列出「真的產生了這個數字」的來源；source_targets 保留
+        # 共識來源的值供對照（可看出自算平均與資料源共識差多少）
+        row.sources_used = list(firm_consensus.sources)
+        if firm_consensus.high and firm_consensus.low and firm_consensus.mean:
+            row.target_dispersion_pct = round(
+                (firm_consensus.high - firm_consensus.low) / firm_consensus.mean * 100, 2
+            )
+        # 評級沿用共識來源（逐機構來源不提供）
+        row.recommendation_mean = next((q.recommendation_mean for q in usable if q.recommendation_mean), None)
+        row.recommendation_key = next((q.recommendation_key for q in usable if q.recommendation_key), None)
+
+    elif usable:
+        # --- 共識層：只拿得到彙總值，取各來源共識價的平均 ---
         row.consensus_target = round(mean(q.mean for q in usable), 4)
         primary = _pick_primary(usable)
         row.range_source = primary.source
@@ -141,7 +178,7 @@ def build_row(
         row.upside_pct = round(upside, 2)
 
     row.confidence = (
-        _confidence_for(row.analyst_count, len(row.sources_used))
+        _confidence_for(row.analyst_count, len(row.sources_used), row.basis)
         if row.upside_pct is not None else "暫缺"
     )
     return row

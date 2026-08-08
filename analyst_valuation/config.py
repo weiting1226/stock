@@ -28,10 +28,24 @@ UNIVERSE_CACHE_DAYS = 7  # 成分股清單快取天數（季度調整，一週�
 # 並在輸出中明確標示 sources_used，絕不假裝有多來源平均。
 #
 # 未納入 Finviz / TipRanks 等站：其服務條款明文禁止自動化擷取，且無公開API。
+# 資料源分兩層：
+#   A. 逐機構層（per-firm）：能拿到「每一家券商各自的目標價」，可依機構去重後
+#      自行計算平均。目前僅 FMP 提供，需 API 金鑰。
+#   B. 共識層（consensus）：只提供彙總後的平均／最高／最低，無法做機構層級去重。
+#      Yahoo（免金鑰）與 Finnhub（需金鑰）屬於此層。
+# 有逐機構資料時一律優先採用並自行計算；沒有時才退回共識層，
+# 並在輸出的 basis 欄位誠實標明是哪一種。
 YAHOO_SOURCE = "yahoo"
 FINNHUB_SOURCE = "finnhub"
 FINNHUB_API_URL = "https://finnhub.io/api/v1/price-target"
 FINNHUB_ENV_KEY = "FINNHUB_API_KEY"
+
+FMP_SOURCE = "fmp"
+FMP_PRICE_TARGET_URL = "https://financialmodelingprep.com/stable/price-target-news"
+FMP_ENV_KEY = "FMP_API_KEY"
+
+# 逐機構記錄超過這個天數就不採計：目標價會隨基本面調整，過舊的報告沒有代表性
+FIRM_TARGET_MAX_AGE_DAYS = 180
 
 # ---------------------------------------------------------------------------
 # 資料品質門檻

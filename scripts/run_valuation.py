@@ -3,7 +3,8 @@
 
     python3 scripts/run_valuation.py -v
     python3 scripts/run_valuation.py --limit 20 -v        # 只跑前20檔，快速驗證
-    FINNHUB_API_KEY=xxx python3 scripts/run_valuation.py  # 啟用第二個目標價來源
+    FMP_API_KEY=xxx python3 scripts/run_valuation.py      # 啟用逐機構目標價（依機構去重後自行平均）
+    FINNHUB_API_KEY=xxx python3 scripts/run_valuation.py  # 加入第二個共識來源
 """
 from __future__ import annotations
 
