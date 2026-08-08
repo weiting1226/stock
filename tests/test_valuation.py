@@ -296,3 +296,44 @@ def test_per_firm_confidence_high_without_needing_two_sources():
     row = aggregate.build_row({"ticker": "T"}, PriceSnapshot(ticker="T", close=50.0), [], firms)
     assert row.basis == "per_firm"
     assert row.confidence == "高"
+
+
+# --- 憑證遮蔽 -------------------------------------------------------------
+
+def test_redact_secrets_strips_query_credentials():
+    """Finnhub 把金鑰放在 query string，例外訊息含完整URL；
+    2026-08 曾因此把金鑰 commit 進公開 repo。"""
+    from analyst_valuation.secrets_redaction import redact_secrets
+    leaked = ("HTTPError: 429 Client Error for url: "
+              "https://finnhub.io/api/v1/price-target?symbol=ADBE&token=d9r720pr01qnlhclnung")
+    out = redact_secrets(leaked)
+    assert "d9r720pr01qnlhclnung" not in out
+    assert "***REDACTED***" in out
+    assert "finnhub.io" in out        # 其餘診斷資訊必須保留
+
+
+@pytest.mark.parametrize("raw,secret", [
+    ("https://x.com/a?apikey=SECRET123&s=AAPL", "SECRET123"),
+    ("https://x.com/a?api_key=SECRET123", "SECRET123"),
+    ("https://x.com/a?key=SECRET123", "SECRET123"),
+    ("Authorization: Bearer SECRET123", "SECRET123"),
+])
+def test_redact_secrets_covers_common_credential_shapes(raw, secret):
+    from analyst_valuation.secrets_redaction import redact_secrets
+    assert secret not in redact_secrets(raw)
+
+
+def test_storage_redacts_before_writing(tmp_path):
+    """就算某個來源忘了遮蔽，落地前也必須再擋一次。"""
+    from analyst_valuation import storage
+    report = {
+        "as_of": "2026-08-08",
+        "counts": {"universe": 1, "with_target_and_price": 0},
+        "sources_available": [],
+        "rows": [{"ticker": "T", "upside_pct": None,
+                  "notes": ["HTTPError for url: https://finnhub.io/x?token=LEAKEDKEY123"]}],
+    }
+    storage.save_report(report, data_root=str(tmp_path))
+    written = (tmp_path / "latest.json").read_text()
+    assert "LEAKEDKEY123" not in written
+    assert "***REDACTED***" in written

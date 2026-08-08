@@ -19,6 +19,7 @@ import requests
 
 from ..config import FMP_ENV_KEY, FMP_PRICE_TARGET_URL
 from ..firms import TargetRecord
+from ..secrets_redaction import redact_secrets
 
 log = logging.getLogger(__name__)
 
@@ -54,11 +55,12 @@ def fetch_fmp_firm_targets(
         resp.raise_for_status()
         payload = resp.json()
     except Exception as e:  # noqa: BLE001
-        log.debug("FMP 逐機構目標價抓取失敗 %s: %s", ticker, e)
-        return [], f"{type(e).__name__}: {e}"
+        msg = redact_secrets(f"{type(e).__name__}: {e}")
+        log.debug("FMP 逐機構目標價抓取失敗 %s: %s", ticker, msg)
+        return [], msg
 
     if not isinstance(payload, list):
-        return [], f"FMP 回傳非預期格式：{str(payload)[:120]}"
+        return [], redact_secrets(f"FMP 回傳非預期格式：{str(payload)[:160]}")
 
     records: list[TargetRecord] = []
     for row in payload:

@@ -9,6 +9,7 @@ from typing import Optional
 from .aggregate import ValuationRow, build_row, sector_summary
 from .config import FIRM_TARGET_MAX_AGE_DAYS, MAX_WORKERS
 from .firms import TargetRecord
+from .secrets_redaction import redact_secrets
 from .sources import finnhub_targets, fmp_targets, prices, universe
 from .sources.yahoo_targets import TargetQuote, fetch_yahoo_target
 
@@ -18,17 +19,21 @@ log = logging.getLogger(__name__)
 def _fetch_all_targets_for(
     ticker: str, use_finnhub: bool, finnhub_key: Optional[str],
     use_fmp: bool = False, fmp_key: Optional[str] = None,
-) -> tuple[list[TargetQuote], list[TargetRecord]]:
-    """回傳 (共識層報價, 逐機構層記錄)。"""
+) -> tuple[list[TargetQuote], list[TargetRecord], Optional[str]]:
+    """回傳 (共識層報價, 逐機構層記錄, 逐機構層錯誤訊息)。"""
     quotes = [fetch_yahoo_target(ticker)]
     if use_finnhub:
         quotes.append(finnhub_targets.fetch_finnhub_target(ticker, api_key=finnhub_key))
 
     firm_records: list[TargetRecord] = []
+    firm_error: Optional[str] = None
     if use_fmp:
-        records, _err = fmp_targets.fetch_fmp_firm_targets(ticker, api_key=fmp_key)
-        firm_records.extend(_drop_stale(records))
-    return quotes, firm_records
+        records, firm_error = fmp_targets.fetch_fmp_firm_targets(ticker, api_key=fmp_key)
+        fresh = _drop_stale(records)
+        if records and not fresh:
+            firm_error = f"取得 {len(records)} 筆機構目標價，但全部超過 {FIRM_TARGET_MAX_AGE_DAYS} 天"
+        firm_records.extend(fresh)
+    return quotes, firm_records, firm_error
 
 
 def _drop_stale(records: list[TargetRecord]) -> list[TargetRecord]:
@@ -62,6 +67,7 @@ def run(
 
     quotes_by_ticker: dict[str, list[TargetQuote]] = {}
     firms_by_ticker: dict[str, list[TargetRecord]] = {}
+    firm_errors: dict[str, str] = {}
     with ThreadPoolExecutor(max_workers=max_workers) as pool:
         futures = {
             pool.submit(_fetch_all_targets_for, t, use_finnhub, finnhub_key, use_fmp, fmp_key): t
@@ -70,17 +76,28 @@ def run(
         for fut in as_completed(futures):
             ticker = futures[fut]
             try:
-                quotes_by_ticker[ticker], firms_by_ticker[ticker] = fut.result()
+                quotes_by_ticker[ticker], firms_by_ticker[ticker], err = fut.result()
+                if err:
+                    firm_errors[ticker] = err
             except Exception as e:  # noqa: BLE001
-                log.warning("目標價抓取整體失敗 %s: %s", ticker, e)
+                msg = redact_secrets(f"{type(e).__name__}: {e}")
+                log.warning("目標價抓取整體失敗 %s: %s", ticker, msg)
                 quotes_by_ticker[ticker], firms_by_ticker[ticker] = [], []
+                firm_errors[ticker] = msg
 
-    rows: list[ValuationRow] = [
-        build_row(meta, price_snapshots.get(meta["ticker"]),
-                  quotes_by_ticker.get(meta["ticker"], []),
-                  firms_by_ticker.get(meta["ticker"], []))
-        for meta in constituents
-    ]
+    if firm_errors:
+        # 逐機構來源啟用卻拿不到資料時，要能一眼看出原因，不能靜默退回共識模式
+        sample = next(iter(firm_errors.values()))
+        log.warning("逐機構來源有 %d 檔失敗，例：%s", len(firm_errors), sample)
+
+    rows: list[ValuationRow] = []
+    for meta in constituents:
+        t = meta["ticker"]
+        row = build_row(meta, price_snapshots.get(t), quotes_by_ticker.get(t, []),
+                        firms_by_ticker.get(t, []))
+        if t in firm_errors:
+            row.notes.append(f"逐機構來源：{firm_errors[t]}")
+        rows.append(row)
 
     with_upside = [r for r in rows if r.upside_pct is not None]
     sources_available = sorted({s for r in rows for s in r.sources_used})
@@ -94,6 +111,8 @@ def run(
         "sources_available": sources_available,
         "finnhub_enabled": use_finnhub,
         "fmp_enabled": use_fmp,
+        "firm_source_error_count": len(firm_errors),
+        "firm_source_error_sample": next(iter(firm_errors.values()), None),
         "counts": {
             "universe": len(rows),
             "with_target_and_price": len(with_upside),

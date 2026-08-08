@@ -11,6 +11,8 @@ from pathlib import Path
 
 import pandas as pd
 
+from .secrets_redaction import redact_secrets
+
 
 def _upsert_csv(path: Path, row: dict, key_col: str = "as_of") -> None:
     row_df = pd.DataFrame([row])
@@ -28,7 +30,9 @@ def save_report(report: dict, data_root: str = "docs/data/valuation") -> None:
     root = Path(data_root)
     root.mkdir(parents=True, exist_ok=True)
 
-    payload = json.dumps(report, ensure_ascii=False, indent=2, default=str)
+    # 最後一道防線：任何序列化後的內容都再過一次遮蔽。單一來源的疏忽
+    # （例外訊息夾帶 query string 裡的金鑰）不該有機會被 commit 進公開 repo。
+    payload = redact_secrets(json.dumps(report, ensure_ascii=False, indent=2, default=str))
     (root / "latest.json").write_text(payload)
 
     snapshots = root / "snapshots"
