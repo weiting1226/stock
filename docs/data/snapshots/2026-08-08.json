@@ -1,11 +1,11 @@
 {
   "as_of": "2026-08-08",
-  "generated_at": "2026-08-08T00:13:17.901007Z",
+  "generated_at": "2026-08-08T00:18:26.123014Z",
   "items": {
     "fed_bs_3m_chg": {
       "key": "fed_bs_3m_chg",
       "label": "Fed資產負債表年增率之3個月變化(pp)",
-      "raw_value": 1.592202103138174,
+      "raw_value": 1.6098225336125593,
       "score": 1,
       "data_date": "2026-08-08",
       "source": "FRED WALCL",
@@ -25,8 +25,8 @@
     "m2_yoy_3m_chg": {
       "key": "m2_yoy_3m_chg",
       "label": "M2年增率之3個月變化(pp)",
-      "raw_value": -0.058549243183292354,
-      "score": 0,
+      "raw_value": 0.7992630147396484,
+      "score": 1,
       "data_date": "2026-08-08",
       "source": "FRED M2SL",
       "confidence": "中",
@@ -90,7 +90,7 @@
       "data_date": "2026-08-08",
       "source": "Wikipedia NASDAQ-100 成分股 + Yahoo Finance",
       "confidence": "暫缺",
-      "note": "以維基百科目前成分股清單回推，非時點正確(look-back bias)"
+      "note": "計算失敗: ValueError: 無法從維基百科 Nasdaq-100 頁面找到成分股代號欄位（已同時嘗試欄位名稱與內容比對）；共解析到 18 個表格，網站結構可能已變更。"
     },
     "vix_level": {
       "key": "vix_level",
@@ -115,11 +115,11 @@
     "margin_debt_yoy": {
       "key": "margin_debt_yoy",
       "label": "融資餘額年增率(%)",
-      "raw_value": null,
-      "score": null,
+      "raw_value": 49.020845052536764,
+      "score": -1,
       "data_date": "2026-08-08",
       "source": "FINRA margin statistics",
-      "confidence": "暫缺",
+      "confidence": "中",
       "note": "月頻，已套用文件規定之2個月發布時滯"
     },
     "dxy_1m_chg": {
@@ -184,10 +184,10 @@
     }
   },
   "category_scores": {
-    "① 總體貨幣流動性": 0.3333,
+    "① 總體貨幣流動性": 0.6667,
     "② 資金成本與信用": 0.5,
     "③ 市場微觀結構": 0.0,
-    "④ 風險偏好情緒": 1.5,
+    "④ 風險偏好情緒": 0.6667,
     "⑤ 跨資產資金流向": 0.5,
     "⑥ 政策方向": -1.0
   },
@@ -199,10 +199,16 @@
     "⑤ 跨資產資金流向": 0.15,
     "⑥ 政策方向": 0.3
   },
-  "composite_score": 0.1333,
+  "composite_score": 0.0417,
   "light": "🟡 黃",
   "structural_warnings": {
-    "dominance": null,
+    "dominance": {
+      "category": "policy_direction",
+      "label": "⑥ 政策方向",
+      "contribution": -0.3,
+      "share_of_same_sign": 0.878,
+      "score_if_excluded": 0.3417
+    },
     "divergence": []
   },
   "gate_a": {
@@ -213,9 +219,11 @@
   "gate_b": {
     "checks": {
       "margin_debt_yoy": {
-        "triggered": null,
-        "note": "暫缺",
-        "approx": true
+        "triggered": true,
+        "value": 49.020845052536764,
+        "threshold": 22.0,
+        "approx": true,
+        "note": "歷史資料不足10年，使用文件2026年參考門檻近似值"
       },
       "hy_oas": {
         "triggered": "True",
@@ -224,9 +232,10 @@
         "approx": false
       },
       "margin_debt_gdp": {
-        "triggered": null,
-        "note": "暫缺",
-        "approx": true
+        "triggered": "True",
+        "percentile": 98.43,
+        "value": 4.62528802739074,
+        "approx": false
       },
       "ndx_fwd_pe": {
         "triggered": null,
@@ -240,15 +249,15 @@
         "approx": false
       }
     },
-    "triggered_count": 0,
+    "triggered_count": 1,
     "cap": null,
-    "status": "觸發 0/5 項：未達門檻"
+    "status": "觸發 1/5 項：未達門檻"
   },
   "gate_c": {
     "cap": "QQQ",
     "downgrade_one_level": false,
     "reasons": [
-      "缺失或低信心項達 5 項 (>=3)",
+      "缺失或低信心項達 4 項 (>=3)",
       "⑥ 政策方向類別至少一子項缺失"
     ]
   },
@@ -270,5 +279,5 @@
     "circuit_breaker_suggested": false,
     "reliability_note": "軌道二第二、三層與熔斷判定需盤中即時資料，每日批次爬蟲無法取得，本區僅為收盤後近似估計，不得作為加碼依據（比照文件第230行原則）。"
   },
-  "missing_or_low_confidence_count": 5
+  "missing_or_low_confidence_count": 4
 }
