@@ -48,13 +48,17 @@ def _fetch_one(ticker: str, use_finnhub: bool, use_fmp: bool) -> dict:
 
     usable = [q for q in quotes if q.ok]
     if not usable and not firm_records:
-        # 所有來源都沒有資料：這是「查得到但沒有分析師覆蓋」還是「抓取失敗」？
-        # 由各來源自己的 error 欄位判斷，避免把「無覆蓋」誤記成失敗而不斷重試。
-        errors = [q.error for q in quotes if q.error]
-        if all(e and "無此標的" in e for e in errors) or not errors:
+        # 沒有任何目標價時要分辨兩件事：
+        #   a) 來源有回應，只是這檔沒有分析師覆蓋 -> 有效結果，不該重試
+        #   b) 所有來源都不可用（壞掉／熔斷）      -> 這檔還沒問到，該重試
+        # 關鍵是別讓「某個來源自己壞掉」污染對這檔的判斷：Finnhub 熔斷後
+        # 每一檔都會帶著它的錯誤訊息，若據此判定失敗，會把大量「本來就沒
+        # 分析師覆蓋」的標的（SPAC 單位、權證等）誤記成失敗並反覆重試。
+        if any(q.responded for q in quotes):
             return {"ticker": ticker, "covered": False,
                     "note": "查詢成功但無分析師目標價覆蓋"}
-        raise RuntimeError(redact_secrets("；".join(e for e in errors if e) or "未知錯誤"))
+        errors = [q.error for q in quotes if q.error]
+        raise RuntimeError(redact_secrets("；".join(errors) or "所有來源皆無回應"))
 
     primary = next((q for q in usable if q.source == "yahoo"), usable[0] if usable else None)
     return {
