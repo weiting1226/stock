@@ -122,6 +122,36 @@ def test_extract_tickers_normalizes_dotted_symbols():
     assert "BRK-B" in tickers and "BRK.B" not in tickers
 
 
+def test_extract_tickers_handles_duplicate_column_names():
+    """維基百科表格常有重複欄名，此時 t[col] 回傳 DataFrame，
+    迭代它拿到的是欄名而非儲存格內容，整欄會被誤判成只有兩三筆資料。"""
+    rows = "".join(
+        f"<tr><td>Co {i}</td><td>{chr(65 + i // 26)}{chr(65 + i % 26)}X</td></tr>" for i in range(60)
+    )
+    html = f"<html><table><tr><th>Ticker</th><th>Ticker</th></tr>{rows}</table></html>"
+    tickers = ndx_breadth._extract_tickers(pd.read_html(io.StringIO(html)))
+    assert len(tickers) == 60
+
+
+@pytest.mark.parametrize("cell,expected", [
+    ("AAPL[a]", "AAPL"),        # 維基百科註腳
+    ("NASDAQ: AAPL", "AAPL"),   # 交易所前綴
+    ("  MSFT  ", "MSFT"),
+])
+def test_clean_symbol_strips_wiki_noise(cell, expected):
+    assert ndx_breadth._clean_symbol(cell) == expected
+
+
+def test_extract_tickers_error_reports_actual_columns_for_diagnosis():
+    """失敗訊息必須帶出實際欄位名稱與樣本，否則下次還是只能盲猜。"""
+    html = "<html><table><tr><th>Note</th></tr>" + \
+        "".join("<tr><td>long text here</td></tr>" for _ in range(60)) + "</table></html>"
+    with pytest.raises(ValueError) as exc:
+        ndx_breadth._extract_tickers(pd.read_html(io.StringIO(html)))
+    msg = str(exc.value)
+    assert "Note" in msg and "60列" in msg and "long text here" in msg
+
+
 def test_extract_tickers_raises_when_no_plausible_column():
     html = "<html><body><table><tr><th>Note</th></tr>" + \
         "".join("<tr><td>some long descriptive text</td></tr>" for _ in range(60)) + \
@@ -135,3 +165,38 @@ def test_find_margin_table_raises_clear_error_when_structure_changes():
     empty_table = pd.DataFrame({"foo": [1], "bar": [2]})
     with pytest.raises(ValueError, match="無法從 FINRA 頁面找到"):
         finra_margin._find_margin_table([empty_table])
+
+
+# --- FOMC 聲明索引解析 ---------------------------------------------------
+
+def _fed_index_html(*paths: str) -> str:
+    links = "".join(f'<a href="{p}">statement</a>' for p in paths)
+    return f"<html><body>{links}</body></html>"
+
+
+def test_fomc_accepts_suffix_variants_and_absolute_urls():
+    """聯準會聲明連結出現過 a / a1 等後綴，也可能是絕對網址。"""
+    from liquidity_monitor.sources import fomc
+
+    html = _fed_index_html(
+        "/newsevents/pressreleases/monetary20260318a1.htm",
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm",
+    )
+    statement = mock.Mock(text="<p>voting for the action</p>", raise_for_status=mock.Mock())
+    with mock.patch.object(fomc, "_fetch_index", return_value=html), \
+         mock.patch.object(fomc.requests, "get", return_value=statement):
+        meeting = fomc.latest_meeting_on_or_before("2026-08-08")
+
+    assert str(meeting.date.date()) == "2026-07-29"      # 取最近一次
+    assert meeting.statement_url.startswith("https://www.federalreserve.gov")
+    assert meeting.has_dissent is False
+
+
+def test_fomc_raises_with_diagnostics_instead_of_returning_none():
+    """⑥ 佔30%權重，查無聲明必須帶診斷資訊報錯，不能靜默回傳 None。"""
+    from liquidity_monitor.sources import fomc
+
+    html = _fed_index_html("/newsevents/pressreleases/monetary-policy-something-else.htm")
+    with mock.patch.object(fomc, "_fetch_index", return_value=html):
+        with pytest.raises(ValueError, match="找不到符合格式的 FOMC 聲明連結"):
+            fomc.latest_meeting_on_or_before("2026-08-08")

@@ -26,7 +26,32 @@ WIKI_URL = "https://en.wikipedia.org/wiki/Nasdaq-100"
 _HEADERS = {"User-Agent": "Mozilla/5.0 (liquidity-monitor-v3 scraper)"}
 
 _TICKER_RE = re.compile(r"^[A-Z]{1,5}(\.[A-Z])?$")
+_FOOTNOTE_RE = re.compile(r"\[[^\]]*\]")
 MIN_EXPECTED_CONSTITUENTS = 50  # NDX 約100檔；低於此數視為抓到錯的表格
+
+
+def _clean_symbol(value) -> str:
+    """去掉維基百科註腳與交易所前綴：'AAPL[a]' / 'NASDAQ: AAPL' -> 'AAPL'。"""
+    s = _FOOTNOTE_RE.sub("", str(value)).strip()
+    if ":" in s:
+        s = s.split(":")[-1].strip()
+    return s
+
+
+def _iter_columns(t: pd.DataFrame):
+    """以「位置」逐欄取值，回傳 (欄位標籤, Series)。
+
+    不能用 t[col]：維基百科表格常有重複欄名，此時 t[col] 回傳的是 DataFrame，
+    對它做迭代拿到的是欄名而不是儲存格內容，整欄就被誤判成只有兩三筆資料。
+    """
+    for i in range(t.shape[1]):
+        series = t.iloc[:, i]
+        if isinstance(series, pd.DataFrame):
+            series = series.iloc[:, 0]
+        label = t.columns[i]
+        if isinstance(label, tuple):
+            label = " ".join(str(x) for x in label)
+        yield str(label), series
 
 
 def _column_ticker_ratio(values: list[str]) -> float:
@@ -43,25 +68,29 @@ def _extract_tickers(tables: list[pd.DataFrame]) -> list[str]:
     因此不能只依賴標題文字。
     """
     best: tuple[float, list[str]] = (0.0, [])
+    diagnostics: list[str] = []
 
     for t in tables:
-        for col in t.columns:
-            values = [str(v).strip() for v in t[col].dropna()]
+        for label, series in _iter_columns(t):
+            values = [_clean_symbol(v) for v in series.dropna()]
             values = [v for v in values if v and v.lower() != "nan"]
             if len(values) < MIN_EXPECTED_CONSTITUENTS:
                 continue
 
-            named = any(k in str(col).lower() for k in ("ticker", "symbol"))
             ratio = _column_ticker_ratio(values)
+            named = any(k in label.lower() for k in ("ticker", "symbol"))
+            diagnostics.append(f"{label!r}({len(values)}列, 像代號{ratio:.0%}, 例{values[:2]})")
+
             # 標題明確的欄位放寬門檻，靠內容判斷的欄位則要求幾乎全部像代號
-            if (named and ratio > 0.5) or ratio > 0.9:
-                if ratio > best[0]:
-                    best = (ratio, values)
+            if ((named and ratio > 0.5) or ratio > 0.9) and ratio > best[0]:
+                best = (ratio, [v for v in values if _TICKER_RE.match(v)])
 
     if not best[1]:
         raise ValueError(
             "無法從維基百科 Nasdaq-100 頁面找到成分股代號欄位（已同時嘗試欄位名稱與內容比對）；"
-            f"共解析到 {len(tables)} 個表格，網站結構可能已變更。"
+            f"共解析到 {len(tables)} 個表格。候選欄位："
+            + ("；".join(diagnostics[:6]) if diagnostics
+               else f"沒有任何欄位達到 {MIN_EXPECTED_CONSTITUENTS} 列以上")
         )
 
     # 維基百科用 BRK.B，Yahoo Finance 用 BRK-B

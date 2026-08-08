@@ -20,8 +20,14 @@ import requests
 from ..config import FED_PRESSRELEASE_INDEX
 
 _HEADERS = {"User-Agent": "Mozilla/5.0 (liquidity-monitor-v3 scraper)"}
-_LINK_RE = re.compile(r'href="(/newsevents/pressreleases/monetary\d{8}a\.htm)"', re.IGNORECASE)
-_DATE_RE = re.compile(r"monetary(\d{4})(\d{2})(\d{2})a\.htm", re.IGNORECASE)
+# 聯準會的聲明連結歷史上是 monetary20260729a.htm，但也出現過 a1/b 等後綴，
+# 且可能是絕對網址，所以放寬比對而不是只認單一形式。
+_LINK_RE = re.compile(
+    r'href="((?:https?://www\.federalreserve\.gov)?/newsevents/pressreleases/monetary\d{8}[a-z]\d*\.htm)"',
+    re.IGNORECASE,
+)
+_DATE_RE = re.compile(r"monetary(\d{4})(\d{2})(\d{2})[a-z]", re.IGNORECASE)
+_ANY_MONETARY_RE = re.compile(r'href="([^"]*monetary[^"]*)"', re.IGNORECASE)
 
 
 @dataclass
@@ -40,14 +46,23 @@ def _fetch_index(year: int) -> str:
 
 
 def latest_meeting_on_or_before(as_of: str) -> Optional[FomcMeeting]:
-    """回傳 `as_of` 當天已知的最近一次 FOMC 聲明；查無則回傳 None。"""
+    """回傳 `as_of` 當天已知的最近一次 FOMC 聲明；查無則拋出帶診斷資訊的錯誤。
+
+    查無聲明時不能只回傳 None —— ⑥ 政策方向佔 30% 權重，靜默失效會讓
+    整份報告的權重重分配悄悄改變，必須讓失敗原因浮上檯面。
+    """
     as_of_ts = pd.Timestamp(as_of)
     candidates: list[tuple[pd.Timestamp, str]] = []
+    seen_any: list[str] = []
+    fetched_years: list[int] = []
+
     for year in {as_of_ts.year, as_of_ts.year - 1}:
         try:
             html = _fetch_index(year)
         except requests.RequestException:
             continue
+        fetched_years.append(year)
+        seen_any.extend(m.group(1) for m in _ANY_MONETARY_RE.finditer(html))
         for m in _LINK_RE.finditer(html):
             path = m.group(1)
             dm = _DATE_RE.search(path)
@@ -55,9 +70,18 @@ def latest_meeting_on_or_before(as_of: str) -> Optional[FomcMeeting]:
                 continue
             dt = pd.Timestamp(f"{dm.group(1)}-{dm.group(2)}-{dm.group(3)}")
             if dt <= as_of_ts:
-                candidates.append((dt, "https://www.federalreserve.gov" + path))
+                if path.startswith("http"):
+                    candidates.append((dt, path))
+                else:
+                    candidates.append((dt, "https://www.federalreserve.gov" + path))
+
     if not candidates:
-        return None
+        if not fetched_years:
+            raise ValueError("聯準會新聞稿索引頁全部抓取失敗（網路或網站問題）")
+        raise ValueError(
+            f"已取得 {fetched_years} 年索引頁，但找不到符合格式的 FOMC 聲明連結；"
+            f"頁面上含 'monetary' 的連結範例：{seen_any[:3] or '無'}"
+        )
     dt, url = max(candidates, key=lambda x: x[0])
     resp = requests.get(url, headers=_HEADERS, timeout=30)
     resp.raise_for_status()
