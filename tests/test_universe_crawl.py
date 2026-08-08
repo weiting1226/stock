@@ -284,11 +284,47 @@ def test_runner_stops_retrying_after_max_attempts(_patched_runner, tmp_path):
 
 
 def test_uncovered_ticker_is_success_not_failure(_patched_runner, monkeypatch, tmp_path):
-    """查得到但沒有分析師覆蓋，是有效結果，不該被當成失敗而不斷重試。"""
+    """查得到但沒有分析師覆蓋，是有效結果，不該被當成失敗而不斷重試。
+
+    來源有回應（responded=True）卻沒有目標價，就是「這檔沒人追蹤」的正常結果。
+    """
     from analyst_valuation.sources.yahoo_targets import TargetQuote
     monkeypatch.setattr(universe_runner, "fetch_yahoo_target",
-                        lambda t: TargetQuote(ticker=t, source="yahoo", error="Finnhub 無此標的目標價資料"))
+                        lambda t: TargetQuote(ticker=t, source="yahoo", responded=True))
     res = universe_runner.run(["NOCOV"], str(tmp_path / "l.csv"), str(tmp_path / "r"), max_workers=1)
     assert res["ok"] == 1
     rec = ResultStore(str(tmp_path / "r")).get("NOCOV")
     assert rec["covered"] is False
+
+
+# --- 來源壞掉不得污染對個別標的的判斷 --------------------------------------
+
+def test_broken_source_does_not_mark_uncovered_ticker_as_failed(_patched_runner, monkeypatch, tmp_path):
+    """線上實測 300 檔有 145 檔被誤記為失敗：Finnhub 熔斷後每檔都帶著它的
+    錯誤訊息，讓「本來就沒有分析師覆蓋」的標的（SPAC單位、權證）被判成失敗。
+    來源自己壞掉是來源的問題，不是這一檔的問題。"""
+    from analyst_valuation.sources.yahoo_targets import TargetQuote
+
+    # Yahoo 正常回應但這檔沒有覆蓋；Finnhub 壞掉
+    monkeypatch.setattr(universe_runner, "fetch_yahoo_target",
+                        lambda t: TargetQuote(ticker=t, source="yahoo", responded=True))
+    monkeypatch.setattr(universe_runner.finnhub_targets, "is_enabled", lambda *a, **k: True)
+    monkeypatch.setattr(universe_runner.finnhub_targets, "fetch_finnhub_target",
+                        lambda t: TargetQuote(ticker=t, source="finnhub",
+                                              error="連續 5 檔以相同方式失敗，已停用此來源"))
+
+    res = universe_runner.run(["SPACU"], str(tmp_path / "l.csv"), str(tmp_path / "r"), max_workers=1)
+    assert res["ok"] == 1 and res["failed"] == 0
+    assert ResultStore(str(tmp_path / "r")).get("SPACU")["covered"] is False
+
+
+def test_all_sources_unavailable_is_a_real_failure(_patched_runner, monkeypatch, tmp_path):
+    """反之，若沒有任何來源成功回應，這檔就是還沒問到，必須重試。"""
+    from analyst_valuation.sources.yahoo_targets import TargetQuote
+
+    monkeypatch.setattr(universe_runner, "fetch_yahoo_target",
+                        lambda t: TargetQuote(ticker=t, source="yahoo",
+                                              error="HTTPError: 503", responded=False))
+    res = universe_runner.run(["AAA"], str(tmp_path / "l.csv"), str(tmp_path / "r"), max_workers=1)
+    assert res["failed"] == 1
+    assert Ledger(str(tmp_path / "l.csv")).load().entries["AAA"].status == STATUS_FAILED

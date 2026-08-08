@@ -53,11 +53,22 @@ def fetch_finnhub_target(
             f"Finnhub 回應 {resp.status_code}：金鑰無效或方案不支援此端點，本次執行已停用此來源",
         )
         resp.raise_for_status()
-        data = resp.json() or {}
+        try:
+            data = resp.json() or {}
+        except ValueError:
+            # 免費方案打到付費端點時，Finnhub 可能回 200 但內容不是 JSON
+            #（空字串或純文字說明）。直接讓 JSONDecodeError 冒出來只會得到
+            # 「Expecting value: line 1 column 1」，看不出是方案問題。
+            body = (resp.text or "").strip()
+            hint = body[:120] if body else "空的回應內容"
+            raise RuntimeError(
+                f"Finnhub 回應 {resp.status_code} 但不是 JSON（方案可能不支援此端點）：{hint}"
+            ) from None
         quote.mean = _as_float(data.get("targetMean"))
         quote.median = _as_float(data.get("targetMedian"))
         quote.high = _as_float(data.get("targetHigh"))
         quote.low = _as_float(data.get("targetLow"))
+        quote.responded = True
         if not quote.ok:
             quote.error = "Finnhub 無此標的目標價資料"
         circuit.record_success()

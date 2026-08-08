@@ -31,6 +31,9 @@ class TargetQuote:
     recommendation_key: Optional[str] = None
     currency: Optional[str] = None
     error: Optional[str] = None
+    # 來源是否「成功回應」——即使回應內容是「這檔沒有分析師覆蓋」也算 True。
+    # 用來區分「這檔沒人追蹤」（有效結果）與「這個來源壞掉」（不是這檔的問題）。
+    responded: bool = False
 
     @property
     def ok(self) -> bool:
@@ -72,6 +75,7 @@ def fetch_yahoo_target(ticker: str) -> TargetQuote:
         key = info.get("recommendationKey")
         quote.recommendation_key = str(key) if key else None
         quote.currency = info.get("currency")
+        quote.responded = True
     except Exception as e:  # noqa: BLE001 — 單一標的失敗不能中斷整批
         quote.error = f"{type(e).__name__}: {e}"
         log.debug("Yahoo 目標價抓取失敗 %s: %s", ticker, e)
