@@ -239,3 +239,60 @@ def test_storage_roundtrip(_patched_pipeline, tmp_path):
     assert len(hist) == 1
     assert hist.iloc[0]["covered_count"] == 2
     assert hist.iloc[0]["pct_undervalued"] == 50.0  # 2檔中1檔為正
+
+
+# --- 逐機構模式（per_firm basis）------------------------------------------
+
+def _frec(firm, target, source="fmp", published="2026-08-01"):
+    from analyst_valuation.firms import TargetRecord
+    return TargetRecord(ticker="TEST", firm=firm, target=target, source=source, published=published)
+
+
+def test_per_firm_basis_computes_own_average_and_overrides_consensus():
+    """有逐機構資料時，必須自行平均，不能沿用資料源的共識值。"""
+    meta = {"ticker": "TEST", "sector": "Energy"}
+    price = PriceSnapshot(ticker="TEST", close=100.0)
+    # 資料源共識價說 999（故意與逐機構資料不同），逐機構平均應為 200
+    consensus = [_quote("yahoo", 999.0, count=50)]
+    firms = [_frec("Goldman Sachs", 100.0), _frec("Morgan Stanley", 200.0), _frec("UBS", 300.0)]
+
+    row = aggregate.build_row(meta, price, consensus, firms)
+
+    assert row.basis == "per_firm"
+    assert row.consensus_target == 200.0      # 自行平均，不是 999
+    assert row.upside_pct == 100.0            # (200-100)/100
+    assert row.analyst_count == 3             # 去重後的機構數
+    assert row.target_high == 300.0 and row.target_low == 100.0
+    assert len(row.firm_targets) == 3
+    assert row.sources_used == ["fmp"]
+
+
+def test_per_firm_dedup_is_reflected_in_row():
+    meta = {"ticker": "TEST"}
+    price = PriceSnapshot(ticker="TEST", close=100.0)
+    firms = [
+        _frec("J.P. Morgan Securities LLC", 100.0),
+        _frec("JPMorgan Chase & Co.", 300.0, published="2026-08-02"),
+        _frec("Goldman Sachs", 200.0),
+    ]
+    row = aggregate.build_row(meta, price, [], firms)
+    assert row.analyst_count == 2          # JP Morgan 只算一次
+    assert row.duplicates_removed == 1
+    assert row.consensus_target == 250.0   # (300+200)/2
+
+
+def test_falls_back_to_consensus_when_no_firm_records():
+    row = aggregate.build_row(
+        {"ticker": "TEST"}, PriceSnapshot(ticker="TEST", close=100.0),
+        [_quote("yahoo", 120.0)], firm_records=[],
+    )
+    assert row.basis == "consensus"
+    assert row.consensus_target == 120.0
+
+
+def test_per_firm_confidence_high_without_needing_two_sources():
+    """逐機構資料可逐筆驗證且已去重，單一來源也能給高信心。"""
+    firms = [_frec(f"Firm {i}", 100.0 + i) for i in range(8)]
+    row = aggregate.build_row({"ticker": "T"}, PriceSnapshot(ticker="T", close=50.0), [], firms)
+    assert row.basis == "per_firm"
+    assert row.confidence == "高"

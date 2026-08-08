@@ -64,7 +64,7 @@ function dispersionCell(v) {
 }
 
 function showError(msg) {
-  document.getElementById("error-slot").innerHTML = `<div class="error-banner">⚠️ ${msg}</div>`;
+  document.getElementById("error-slot").innerHTML = `<div class="error-banner">${msg}</div>`;
 }
 
 function renderStats(report) {
@@ -88,18 +88,28 @@ function renderStats(report) {
     ? counts.slice().sort((a, b) => a - b)[Math.floor(counts.length / 2)]
     : null;
 
+  const perFirm = report.counts.per_firm_basis || 0;
   const tiles = [
-    { label: "資料基準日", value: report.as_of, plain: true },
+    { label: "資料基準日", value: report.as_of, plain: true, text: true },
     { label: "已涵蓋標的", value: `${report.counts.with_target_and_price} / ${report.counts.universe}`, plain: true },
     { label: "中位數上漲空間", value: median === null ? "—" : `${median.toFixed(1)}%`, signed: median },
     { label: "共識價高於現價", value: n ? `${((100 * undervalued) / n).toFixed(0)}%` : "—", plain: true },
     { label: "中位數機構數", value: medianCount === null ? "—" : `${medianCount}`, plain: true },
     { label: "中位數離散度", value: medianDisp === null ? "—" : `${medianDisp.toFixed(1)}%`, plain: true },
+    {
+      label: perFirm ? "逐機構計算檔數" : "計算基礎",
+      value: perFirm ? `${perFirm}` : "資料源共識",
+      plain: true,
+      text: !perFirm,
+    },
   ];
 
   document.getElementById("stat-row").innerHTML = tiles
     .map((t) => {
-      const cls = t.plain ? "" : t.signed > 0 ? "pos" : t.signed < 0 ? "neg" : "";
+      const cls = [
+        t.plain ? "" : t.signed > 0 ? "pos" : t.signed < 0 ? "neg" : "",
+        t.text ? "is-text" : "",
+      ].filter(Boolean).join(" ");
       return `<div class="stat-tile">
         <div class="stat-value ${cls}">${escapeHtml(t.value)}</div>
         <div class="stat-label">${escapeHtml(t.label)}</div>
@@ -125,9 +135,9 @@ function renderSectorChart(report) {
       labels: data.map((d) => d.sector),
       datasets: [{
         data: data.map((d) => d.median_upside_pct),
-        // 與表格的漲跌色一致：正=綠、負=紅，避免同一頁對同一指標用兩套語意
+        // 北歐色盤：正向用 spruce、負向用 rust；兩者已通過色盲辨識檢驗
         backgroundColor: data.map((d) =>
-          d.median_upside_pct >= 0 ? cssVar("--good") : cssVar("--critical")),
+          d.median_upside_pct >= 0 ? cssVar("--series-4") : cssVar("--series-2")),
         borderRadius: 4,
       }],
     },
@@ -148,7 +158,7 @@ function renderSectorChart(report) {
       },
       scales: {
         x: {
-          grid: { color: cssVar("--gridline") },
+          grid: { color: cssVar("--hairline") },
           ticks: { color: cssVar("--text-muted"), callback: (v) => `${v}%` },
         },
         y: { grid: { display: false }, ticks: { color: cssVar("--text-muted"), font: { size: 11 } } },
@@ -234,8 +244,20 @@ function renderTable() {
     .map((r) => {
       const upsideCell = pctCell(r.upside_pct);
       const confClass = `confidence-${(r.confidence || "").replace(/\(.*\)/, "")}`;
-      const title = r.notes && r.notes.length ? escapeHtml(r.notes.join(" / ")) : "";
-      const sourceBadges = (r.sources_used || [])
+      // 逐機構模式時，把每一家券商的目標價放進 tooltip，讓平均值可以被檢驗
+      const firmDetail = (r.firm_targets || [])
+        .map((f) => `${f.firm} ${Number(f.target).toFixed(2)}`)
+        .join("　");
+      const tipParts = [
+        firmDetail ? `各機構目標價：${firmDetail}` : "",
+        r.duplicates_removed ? `（已合併 ${r.duplicates_removed} 筆重複機構）` : "",
+        ...(r.notes || []),
+      ].filter(Boolean);
+      const title = tipParts.length ? escapeHtml(tipParts.join(" / ")) : "";
+      // 逐機構模式的列額外標示，讓使用者知道這個平均是我們自行算的
+      const badges = (r.sources_used || []).slice();
+      if (r.basis === "per_firm") badges.unshift("逐機構");
+      const sourceBadges = badges
         .map((s) => `<span class="source-pill">${escapeHtml(s)}</span>`)
         .join("");
       return `<tr${title ? ` title="${title}"` : ""}>

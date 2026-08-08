@@ -40,7 +40,9 @@ jobs:
 
       - name: Run valuation scraper
         env:
-          # 選用：設定後會加入 Finnhub 作為第二個目標價來源，未設定則自動略過
+          # 選用：設定後可取得逐機構目標價，依機構去重後自行計算平均
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+          # 選用：加入 Finnhub 作為第二個共識來源，未設定則自動略過
           FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
         run: |
           ARGS="-v"

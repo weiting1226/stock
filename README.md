@@ -228,25 +228,62 @@ FINNHUB_API_KEY=xxx python3 scripts/run_valuation.py -v   # 啟用第二個目�
 欄位）——分子（最高−最低）與分母（平均）若來自不同的分析師樣本，算出來的數字沒有意義。
 但 `consensus_target` 仍是各來源共識價的平均，兩者用途不同。
 
-## 關於「蒐集各財金網站並計算平均」的實作說明
+## 目標價的蒐集方式：逐機構去重後自行計算平均
 
-分析師目標價本身就是券商研究報告的產物，各大財金網站（Yahoo Finance、MarketWatch、
-TipRanks、Finviz…）呈現的都是**同一批券商報告的彙總共識價**，而非各站獨立的估值。
-因此逐站抓取再平均，實際上多半只是把同一份共識重複計算。此外 Finviz、TipRanks 等站的
-服務條款明文禁止自動化擷取，也沒有公開 API。
+資料源分成兩層，**有逐機構資料時一律優先，並自行計算平均**：
 
-本模組採**可插拔多來源**架構，誠實處理這件事：
+| 層級 | 來源 | 狀態 | 提供內容 |
+|---|---|---|---|
+| **A. 逐機構** | FMP | 選用，需 `FMP_API_KEY` | **每一家券商各自的目標價**（含機構名稱與發布日）|
+| B. 共識 | Yahoo Finance | 預設啟用，免金鑰 | 僅彙總後的 mean/median/high/low + 分析師家數 |
+| B. 共識 | Finnhub | 選用，需 `FINNHUB_API_KEY` | 另一組獨立彙總的共識目標價 |
 
-| 來源 | 狀態 | 說明 |
-|---|---|---|
-| Yahoo Finance | 預設啟用，免金鑰 | 共識 mean/median/high/low + 分析師家數 |
-| Finnhub | 選用，需 `FINNHUB_API_KEY` | 另一組獨立彙總的共識目標價（免費方案 60 calls/min）|
+### 逐機構模式（basis = `per_firm`）
 
-- 兩個來源都取得時，`consensus_target` 為**兩者的平均**；
-- 只有一個來源時就用該來源的值，並在輸出與 UI 上標示 `sources_used`，
-  **不會假裝有做多來源平均**。
-- 要啟用 Finnhub：到 https://finnhub.io/register 申請免費金鑰，
-  在 repo 的 Settings → Secrets and variables → Actions 新增 `FINNHUB_API_KEY`。
+取得逐機構資料時，流程是：
+
+1. **蒐集**各來源的個別券商目標價
+2. **依機構去重**：同一家券商只採計一次，取最新一份報告
+3. **自行計算**平均／中位數／最高／最低——不沿用任何資料源的彙總值
+
+去重是必要的：同一家券商在不同來源會有不同寫法，不正規化就會被當成多家、
+讓平均值被重複計票的機構拉偏。`firms.py` 會把
+`J.P. Morgan Securities LLC`、`JPMorgan Chase & Co.`、`JP Morgan` 一律正規化為同一鍵值
+（去標點、去 Securities/Capital/Group 等修飾詞、再套用別名表）。
+
+輸出中的 `duplicates_removed` 會記錄合併掉幾筆，儀表板的列 tooltip 也會列出
+**每一家券商的目標價**，讓算出來的平均可以被逐筆檢驗。
+
+### 共識模式（basis = `consensus`）
+
+沒有逐機構資料時退回此模式：`consensus_target` 為各啟用共識來源的平均。
+此時**無法依機構去重**（來源只給彙總值），UI 與 JSON 都會標明 basis 為 `consensus`，
+不會假裝做過機構層級的計算。
+
+### 為什麼不逐一爬各財金網站
+
+各大財金網站（Yahoo、MarketWatch、TipRanks、Finviz…）呈現的都是**同一批券商報告的
+彙總共識價**，而非各站獨立的估值；逐站抓取再平均，多半只是把同一份共識重複計算。
+此外 Finviz、TipRanks 的服務條款明文禁止自動化擷取，也沒有公開 API。
+真正能增加資訊量的是「拿到每一家券商的個別報告」，也就是上面的 A 層。
+
+### 啟用逐機構模式
+
+到 https://site.financialmodelingprep.com/developer/docs 申請金鑰，
+在 repo 的 Settings → Secrets and variables → Actions 新增 `FMP_API_KEY`。
+（同理，`FINNHUB_API_KEY` 可加入第二個共識來源。）
+
+## 儀表板設計
+
+兩個模組共用 `docs/style.css`，採**北歐簡潔商務風格**：米白紙感表面、髮絲級分隔線、
+以留白而非外框分區、輕量字重、小型大寫標籤、無陰影、近乎直角的圓角。
+
+資料色則以**可辨識性優先**，不因風格而犧牲：北歐風常見的低彩度色調無法通過色盲辨識
+檢驗，因此採用加深但仍偏沉穩的六色（fjord blue／rust／indigo／spruce／amber／heather），
+並以 `dataviz` 的驗證腳本確認：
+
+- 淺色模式：CVD 相鄰色差 ΔE 13.6、一般視覺 ΔE 23.4、彩度與亮度帶全數通過
+- 深色模式：另行取階（非直接反轉），CVD ΔE 8.7、對比全數 ≥ 3:1
 
 ## 資料品質處理
 

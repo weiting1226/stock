@@ -50,7 +50,7 @@ function parseCsv(text) {
 
 function showError(msg) {
   const slot = document.getElementById("error-slot");
-  slot.innerHTML = `<div class="error-banner">⚠️ ${msg}</div>`;
+  slot.innerHTML = `<div class="error-banner">${msg}</div>`;
 }
 
 function fmtNum(v, digits = 2) {
@@ -82,7 +82,7 @@ function renderHero(report) {
 
   const pos = report.position || {};
   const banner = document.getElementById("position-banner");
-  let text = `🎯 建議部位：${pos.final || "—"}`;
+  let text = `建議部位　${pos.final || "—"}`;
   if (pos.final_cap_applied) {
     text += ` （閘門觸發上限：${pos.final_cap_applied}，計分階梯原始結果為 ${pos.ladder_result}）`;
   }
@@ -95,7 +95,9 @@ function gateCardHtml(title, gate) {
   const badgeClass = cap === "SGOV" ? "bad" : cap === "QQQ" ? "warn" : "ok";
   const badgeText = cap ? `上限 ${cap}` : "未觸發";
   const status = gate.status || (Array.isArray(gate.reasons) ? gate.reasons.join("；") : "");
-  const detail = gate.detail || (gate.reasons ? gate.reasons.join("；") : "");
+  // status 與 detail 都會退回 reasons，相同時只顯示一次，避免整段文字重複
+  const rawDetail = gate.detail || (gate.reasons ? gate.reasons.join("；") : "");
+  const detail = rawDetail === status ? "" : rawDetail;
   return `
     <div class="gate-card">
       <h3>${escapeHtml(title)} <span class="badge ${badgeClass}">${escapeHtml(badgeText)}</span></h3>
@@ -118,13 +120,13 @@ function renderWarnings(report) {
   let html = "";
   if (w.dominance) {
     const d = w.dominance;
-    html += `<div class="warning-box">⚠️ 本指令實質由單一類別決定：<strong>${safeCell(d.label)}</strong>
+    html += `<div class="warning-box">本指令實質由單一類別決定：<strong>${safeCell(d.label)}</strong>
       （貢獻 ${d.contribution}，占同號貢獻 ${(d.share_of_same_sign * 100).toFixed(1)}%）。
       若排除該類別，綜合分數將變為 <strong>${d.score_if_excluded}</strong>。</div>`;
   }
   if (w.divergence && w.divergence.length) {
     w.divergence.forEach((d) => {
-      html += `<div class="warning-box">⚠️ 結構性背離：${safeCell(d.pair)} 評分差距達 ${d.gap}
+      html += `<div class="warning-box">結構性背離：${safeCell(d.pair)} 評分差距達 ${d.gap}
         （② = ${d.credit_funding}，對照類別 = ${d.other}）。</div>`;
     });
   }
@@ -206,7 +208,7 @@ function renderCategoryChart(report) {
       responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
-        y: { min: -2, max: 2, grid: { color: cssVar("--gridline") }, ticks: { color: cssVar("--text-muted") } },
+        y: { min: -2, max: 2, grid: { color: cssVar("--hairline") }, ticks: { color: cssVar("--text-muted") } },
         x: { grid: { display: false }, ticks: { color: cssVar("--text-muted"), font: { size: 10 } } },
       },
     },
@@ -218,12 +220,13 @@ const lightBandPlugin = {
   beforeDraw(chart) {
     const { ctx, chartArea, scales } = chart;
     if (!chartArea) return;
+    // 北歐低彩度色帶：僅作為背景分區，透明度壓低避免與折線爭焦點
     const bands = [
-      [1.2, 2.0, "rgba(12,163,12,0.10)"],
-      [0.4, 1.2, "rgba(12,163,12,0.05)"],
-      [-0.4, 0.4, "rgba(250,178,25,0.08)"],
-      [-1.2, -0.4, "rgba(236,131,90,0.08)"],
-      [-2.0, -1.2, "rgba(208,59,59,0.10)"],
+      [1.2, 2.0, "rgba(30,122,79,0.10)"],
+      [0.4, 1.2, "rgba(30,122,79,0.05)"],
+      [-0.4, 0.4, "rgba(184,134,11,0.06)"],
+      [-1.2, -0.4, "rgba(194,102,47,0.07)"],
+      [-2.0, -1.2, "rgba(168,58,50,0.09)"],
     ];
     bands.forEach(([lo, hi, color]) => {
       const yTop = scales.y.getPixelForValue(hi);
@@ -257,7 +260,7 @@ function renderHistoryChart(rows) {
       responsive: true, maintainAspectRatio: false,
       plugins: { legend: { display: false } },
       scales: {
-        y: { min: -2, max: 2, grid: { color: cssVar("--gridline") }, ticks: { color: cssVar("--text-muted") } },
+        y: { min: -2, max: 2, grid: { color: cssVar("--hairline") }, ticks: { color: cssVar("--text-muted") } },
         x: { grid: { display: false }, ticks: { color: cssVar("--text-muted"), maxTicksLimit: 8, font: { size: 10 } } },
       },
     },
