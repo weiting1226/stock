@@ -10,6 +10,7 @@ from .aggregate import ValuationRow, build_row, sector_summary
 from .config import FIRM_TARGET_MAX_AGE_DAYS, MAX_WORKERS
 from .firms import TargetRecord
 from .secrets_redaction import redact_secrets
+from .throttle import reset_all, tripped_circuits
 from .sources import finnhub_targets, fmp_targets, prices, universe
 from .sources.yahoo_targets import TargetQuote, fetch_yahoo_target
 
@@ -58,6 +59,7 @@ def run(
     tickers = [c["ticker"] for c in constituents]
     log.info("股票池共 %d 檔", len(tickers))
 
+    reset_all()   # 同一行程重複執行時，節流與熔斷狀態不應延續
     price_snapshots = prices.fetch_price_snapshots(tickers)
 
     use_finnhub = finnhub_targets.is_enabled(finnhub_key)
@@ -85,7 +87,10 @@ def run(
                 quotes_by_ticker[ticker], firms_by_ticker[ticker] = [], []
                 firm_errors[ticker] = msg
 
-    if firm_errors:
+    disabled = tripped_circuits()
+    for name, reason in disabled.items():
+        log.warning("來源 %s 已於本次執行熔斷：%s", name, reason)
+    if firm_errors and not disabled:
         # 逐機構來源啟用卻拿不到資料時，要能一眼看出原因，不能靜默退回共識模式
         sample = next(iter(firm_errors.values()))
         log.warning("逐機構來源有 %d 檔失敗，例：%s", len(firm_errors), sample)
@@ -113,6 +118,8 @@ def run(
         "fmp_enabled": use_fmp,
         "firm_source_error_count": len(firm_errors),
         "firm_source_error_sample": next(iter(firm_errors.values()), None),
+        # 因方案／授權限制被熔斷的來源：一次講清楚，不是每檔重複一遍
+        "disabled_sources": disabled,
         "counts": {
             "universe": len(rows),
             "with_target_and_price": len(with_upside),
@@ -136,6 +143,7 @@ def run(
             + ("、FMP（逐機構）" if use_fmp else "")
             + ("。設定 FMP_API_KEY 可取得逐機構目標價並依機構去重自行計算平均。"
                if not use_fmp else "。")
+            + ("".join(f"　⚠️ {n}：{r}" for n, r in disabled.items()) if disabled else "")
         ),
         "sector_summary": sector_summary(rows),
         "rows": [r.as_dict() for r in rows],

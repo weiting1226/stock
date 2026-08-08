@@ -44,6 +44,11 @@ FMP_SOURCE = "fmp"
 FMP_PRICE_TARGET_URL = "https://financialmodelingprep.com/stable/price-target-news"
 FMP_ENV_KEY = "FMP_API_KEY"
 
+# 免費方案的速率上限（calls/min）。抓取是多執行緒並發，不節流會直接被 429。
+# 取略低於官方上限的值當安全邊際。
+FINNHUB_CALLS_PER_MIN = 55   # 官方免費方案 60/min
+FMP_CALLS_PER_MIN = 55       # FMP 另有每日總量限制，見 README
+
 # 逐機構記錄超過這個天數就不採計：目標價會隨基本面調整，過舊的報告沒有代表性
 FIRM_TARGET_MAX_AGE_DAYS = 180
 

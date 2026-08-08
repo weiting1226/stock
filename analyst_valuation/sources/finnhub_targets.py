@@ -14,7 +14,8 @@ from typing import Optional
 
 import requests
 
-from ..config import FINNHUB_API_URL, FINNHUB_ENV_KEY
+from ..config import FINNHUB_API_URL, FINNHUB_CALLS_PER_MIN, FINNHUB_ENV_KEY
+from ..throttle import get_circuit, get_limiter
 from ..secrets_redaction import redact_secrets
 from .yahoo_targets import TargetQuote, _as_float
 
@@ -36,10 +37,20 @@ def fetch_finnhub_target(
         quote.error = "未設定 FINNHUB_API_KEY，此來源停用"
         return quote
 
+    circuit = get_circuit("finnhub")
+    if circuit.is_open():          # 方案不支援時不再浪費配額
+        quote.error = circuit.reason
+        return quote
+
     try:
         http = session or requests
+        get_limiter("finnhub", FINNHUB_CALLS_PER_MIN).acquire()
         resp = http.get(
             FINNHUB_API_URL, params={"symbol": ticker, "token": key}, timeout=timeout
+        )
+        circuit.trip_if_fatal(
+            resp.status_code,
+            f"Finnhub 回應 {resp.status_code}：金鑰無效或方案不支援此端點，本次執行已停用此來源",
         )
         resp.raise_for_status()
         data = resp.json() or {}
