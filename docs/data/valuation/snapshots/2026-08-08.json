@@ -1,12 +1,12 @@
 {
   "as_of": "2026-08-08",
-  "generated_at": "2026-08-08T22:37:27.540900Z",
+  "generated_at": "2026-08-08T22:42:26.382335Z",
   "universe": "S&P 500 (Wikipedia constituents)",
   "sources_available": [
     "yahoo"
   ],
-  "finnhub_enabled": false,
-  "fmp_enabled": false,
+  "finnhub_enabled": true,
+  "fmp_enabled": true,
   "counts": {
     "universe": 40,
     "with_target_and_price": 40,
@@ -15,7 +15,7 @@
     "duplicate_firms_removed": 0
   },
   "coverage_note": "40/40 檔同時取得共識目標價與收盤價；其餘標記暫缺，未以任何方式填補。",
-  "multi_source_note": "共識模式：資料源僅提供彙總後的共識值，無法依機構去重，consensus_target 為各啟用來源之共識價平均。　啟用來源：Yahoo Finance。設定 FMP_API_KEY 可取得逐機構目標價並依機構去重自行計算平均。",
+  "multi_source_note": "共識模式：資料源僅提供彙總後的共識值，無法依機構去重，consensus_target 為各啟用來源之共識價平均。　啟用來源：Yahoo Finance、Finnhub、FMP（逐機構）。",
   "sector_summary": [
     {
       "sector": "Communication Services",
@@ -114,7 +114,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：HTTPError: 429 Client Error: Too Many Requests for url: https://finnhub.io/"
+      ]
     },
     {
       "ticker": "AOS",
@@ -145,7 +147,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "ABT",
@@ -176,7 +180,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "ABBV",
@@ -207,7 +213,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "ACN",
@@ -238,7 +246,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：HTTPError: 429 Client Error: Too Many Requests for url: https://finnhub.io/"
+      ]
     },
     {
       "ticker": "ADBE",
@@ -269,7 +279,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：HTTPError: 429 Client Error: Too Many Requests for url: https://finnhub.io/api/v1/price-target?symbol=ADBE&token=d9r720pr01qnlhclnungd9r720pr01qnlhclnuo0"
+      ]
     },
     {
       "ticker": "AMD",
@@ -300,7 +312,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：HTTPError: 429 Client Error: Too Many Requests for url: https://finnhub.io/"
+      ]
     },
     {
       "ticker": "AES",
@@ -331,7 +345,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：HTTPError: 429 Client Error: Too Many Requests for url: https://finnhub.io/"
+      ]
     },
     {
       "ticker": "AFL",
@@ -362,7 +378,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "A",
@@ -393,7 +411,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "APD",
@@ -424,7 +444,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：HTTPError: 429 Client Error: Too Many Requests for url: https://finnhub.io/"
+      ]
     },
     {
       "ticker": "ABNB",
@@ -455,7 +477,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "AKAM",
@@ -486,7 +510,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：HTTPError: 429 Client Error: Too Many Requests for url: https://finnhub.io/"
+      ]
     },
     {
       "ticker": "ALB",
@@ -517,7 +543,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "ARE",
@@ -548,7 +576,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "ALGN",
@@ -579,7 +609,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "ALLE",
@@ -610,7 +642,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "LNT",
@@ -641,7 +675,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "ALL",
@@ -672,7 +708,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "GOOGL",
@@ -703,7 +741,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "GOOG",
@@ -734,7 +774,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "MO",
@@ -765,7 +807,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "AMZN",
@@ -796,7 +840,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "AMCR",
@@ -827,7 +873,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "AEE",
@@ -858,7 +906,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "AEP",
@@ -889,7 +939,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "AXP",
@@ -920,7 +972,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "AIG",
@@ -951,7 +1005,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "AMT",
@@ -982,7 +1038,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "AWK",
@@ -1013,7 +1071,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "AMP",
@@ -1044,7 +1104,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "AME",
@@ -1075,7 +1137,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "AMGN",
@@ -1106,7 +1170,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "APH",
@@ -1137,7 +1203,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "ADI",
@@ -1168,7 +1236,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：HTTPError: 429 Client Error: Too Many Requests for url: https://finnhub.io/"
+      ]
     },
     {
       "ticker": "AON",
@@ -1199,7 +1269,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "APA",
@@ -1230,7 +1302,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "APO",
@@ -1261,7 +1335,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "AAPL",
@@ -1292,7 +1368,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     },
     {
       "ticker": "AMAT",
@@ -1323,7 +1401,9 @@
         "yahoo"
       ],
       "confidence": "中",
-      "notes": []
+      "notes": [
+        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+      ]
     }
   ]
 }
