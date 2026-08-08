@@ -240,3 +240,33 @@ def test_fetch_constituents_reports_both_sources_when_all_fail(tmp_path):
         with pytest.raises(ValueError) as exc:
             ndx_breadth.fetch_constituents(cache_path=str(tmp_path / "c2.json"))
     assert "qqq down" in str(exc.value) and "wiki down" in str(exc.value)
+
+
+# Invesco 的下載檔在標題列前有數行說明文字，欄數不一致，
+# 直接 pd.read_csv 會拋 "Expected 1 fields in line 11, saw 13"（線上實際發生）。
+QQQ_CSV_WITH_PREAMBLE = (
+    "Invesco QQQ Trust, Series 1\n"
+    "Holdings as of 08/07/2026\n"
+    "This file is provided for informational purposes\n"
+    "\n"
+    + QQQ_CSV
+)
+
+
+def test_read_holdings_csv_skips_invesco_preamble():
+    df = ndx_breadth._read_holdings_csv(QQQ_CSV_WITH_PREAMBLE)
+    assert "Holding Ticker" in [c.strip() for c in df.columns]
+    assert len(df) == 61  # 60 檔 + 1 列現金
+
+
+def test_fetch_qqq_holdings_works_with_preamble():
+    with mock.patch.object(ndx_breadth.requests, "get",
+                           return_value=_mock_response(QQQ_CSV_WITH_PREAMBLE)):
+        tickers = ndx_breadth.fetch_qqq_holdings()
+    assert len(tickers) == 60
+    assert "AAX" in tickers
+
+
+def test_read_holdings_csv_reports_content_when_no_header_found():
+    with pytest.raises(ValueError, match="找不到標題列"):
+        ndx_breadth._read_holdings_csv("just one line\nanother line\n")
