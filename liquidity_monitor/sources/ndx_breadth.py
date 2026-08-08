@@ -99,6 +99,30 @@ def _extract_tickers(tables: list[pd.DataFrame]) -> list[str]:
     return sorted({v.replace(".", "-") for v in best[1]})
 
 
+def _read_holdings_csv(text: str) -> pd.DataFrame:
+    """解析持股 CSV，跳過標題列之前的前言列。
+
+    Invesco 的下載檔在真正的欄位標題之前有數行說明文字（欄數不一致），
+    直接 pd.read_csv 會拋 ParserError: Expected 1 fields ... saw 13。
+    因此先找出真正的標題列（含 ticker 字樣、且有多個逗號），再從該列開始解析。
+    """
+    lines = [ln for ln in text.splitlines() if ln.strip()]
+    if not lines:
+        raise ValueError("持股 CSV 內容為空")
+
+    # 含 ticker 字樣的候選列中取「逗號最多」的那列：前言若剛好也提到 ticker，
+    # 欄位數也不會比真正的標題列多。
+    candidates = [(ln.count(","), i) for i, ln in enumerate(lines)
+                  if "ticker" in ln.lower() and "," in ln]
+    header_idx = max(candidates)[1] if candidates else None
+    if header_idx is None:  # 沒有 ticker 字樣時退回「第一個欄位數夠多的列」
+        header_idx = next((i for i, ln in enumerate(lines) if ln.count(",") >= 4), None)
+    if header_idx is None:
+        raise ValueError(f"持股 CSV 找不到標題列；前3行內容：{lines[:3]}")
+
+    return pd.read_csv(io.StringIO("\n".join(lines[header_idx:])))
+
+
 def fetch_qqq_holdings(timeout: int = 30) -> list[str]:
     """從 Invesco 公開的 QQQ 持股 CSV 取得 NASDAQ-100 成分股。
 
@@ -107,7 +131,7 @@ def fetch_qqq_holdings(timeout: int = 30) -> list[str]:
     """
     resp = requests.get(QQQ_HOLDINGS_URL, headers=_HEADERS, timeout=timeout)
     resp.raise_for_status()
-    df = pd.read_csv(io.StringIO(resp.text))
+    df = _read_holdings_csv(resp.text)
     df.columns = [str(c).strip() for c in df.columns]
 
     col = next(
