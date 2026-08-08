@@ -109,3 +109,40 @@ def test_finnhub_keeps_trying_after_rate_limit():
 def test_tripped_circuits_reports_disabled_sources():
     throttle.get_circuit("fmp").trip("免費方案不支援")
     assert throttle.tripped_circuits() == {"fmp": "免費方案不支援"}
+
+
+# --- 連續失敗熔斷（來源用 200 空白內容表達「不支援」時的防線）-------------
+
+def test_circuit_trips_after_repeated_identical_failures():
+    c = throttle.SourceCircuit("x")
+    for _ in range(throttle.SourceCircuit.CONSECUTIVE_FAILURE_LIMIT - 1):
+        assert c.record_failure("JSONDecodeError") is False
+    assert c.record_failure("JSONDecodeError") is True
+    assert "連續" in c.reason and "JSONDecodeError" in c.reason
+
+
+def test_success_resets_the_failure_streak():
+    """偶發失敗不該累積成熔斷。"""
+    c = throttle.SourceCircuit("x")
+    for _ in range(4):
+        c.record_failure("timeout")
+    c.record_success()
+    for _ in range(4):
+        assert c.record_failure("timeout") is False
+    assert not c.is_open()
+
+
+def test_finnhub_stops_after_repeated_non_json_bodies():
+    """Finnhub 對不支援的端點回 200 空白內容，沒有致命狀態碼可判斷，
+    只能靠「每一檔都以同樣方式失敗」來停手。"""
+    session = mock.Mock()
+    bad = mock.Mock(status_code=200, raise_for_status=mock.Mock())
+    bad.json = mock.Mock(side_effect=ValueError("Expecting value: line 1 column 1 (char 0)"))
+    session.get = mock.Mock(return_value=bad)
+
+    for i in range(throttle.SourceCircuit.CONSECUTIVE_FAILURE_LIMIT + 4):
+        finnhub_targets.fetch_finnhub_target(f"T{i}", api_key="k", session=session)
+
+    # 達上限後就不再送出請求
+    assert session.get.call_count == throttle.SourceCircuit.CONSECUTIVE_FAILURE_LIMIT
+    assert throttle.get_circuit("finnhub").is_open()

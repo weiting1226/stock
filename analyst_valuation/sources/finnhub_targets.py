@@ -60,8 +60,11 @@ def fetch_finnhub_target(
         quote.low = _as_float(data.get("targetLow"))
         if not quote.ok:
             quote.error = "Finnhub 無此標的目標價資料"
+        circuit.record_success()
     except Exception as e:  # noqa: BLE001
         # 金鑰在 query string 裡，例外訊息含完整URL；務必先遮蔽再輸出或記錄
         quote.error = redact_secrets(f"{type(e).__name__}: {e}")
         log.debug("Finnhub 目標價抓取失敗 %s: %s", ticker, quote.error)
+        if circuit.record_failure(type(e).__name__):
+            quote.error = circuit.reason
     return quote
