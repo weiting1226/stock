@@ -1,6 +1,6 @@
 {
   "as_of": "2026-08-08",
-  "generated_at": "2026-08-08T00:18:26.123014Z",
+  "generated_at": "2026-08-08T00:23:44.073951Z",
   "items": {
     "fed_bs_3m_chg": {
       "key": "fed_bs_3m_chg",
@@ -90,7 +90,7 @@
       "data_date": "2026-08-08",
       "source": "Wikipedia NASDAQ-100 成分股 + Yahoo Finance",
       "confidence": "暫缺",
-      "note": "計算失敗: ValueError: 無法從維基百科 Nasdaq-100 頁面找到成分股代號欄位（已同時嘗試欄位名稱與內容比對）；共解析到 18 個表格，網站結構可能已變更。"
+      "note": "計算失敗: ValueError: 無法從維基百科 Nasdaq-100 頁面找到成分股代號欄位（已同時嘗試欄位名稱與內容比對）；共解析到 18 個表格。候選欄位：沒有任何欄位達到 50 列以上"
     },
     "vix_level": {
       "key": "vix_level",
@@ -155,12 +155,12 @@
     "fomc_decision": {
       "key": "fomc_decision",
       "label": "FOMC決議偏向",
-      "raw_value": "查無FOMC聲明",
+      "raw_value": "抓取失敗: 聯準會新聞稿索引頁全部抓取失敗（網路或網站問題）",
       "score": null,
       "data_date": null,
       "source": "federalreserve.gov 新聞稿 + FRED DFEDTARU",
       "confidence": "暫缺",
-      "note": ""
+      "note": "抓取失敗: 聯準會新聞稿索引頁全部抓取失敗（網路或網站問題）"
     },
     "fedwatch_path": {
       "key": "fedwatch_path",
