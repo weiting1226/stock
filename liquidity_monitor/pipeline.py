@@ -329,7 +329,11 @@ def run(as_of: Optional[str] = None, margin_override_csv: Optional[str] = None,
     fomc_score, fomc_meta = _fetch_fomc(as_of, dfedtaru_daily)
     items["fomc_decision"] = Item("fomc_decision", fomc_meta.get("note"), fomc_score, fomc_meta.get("data_date"),
                                    "federalreserve.gov 新聞稿 + FRED DFEDTARU",
-                                   "中" if fomc_score is not None else "暫缺", note=fomc_meta.get("url", ""))
+                                   "中" if fomc_score is not None else "暫缺",
+                                   # 成功時放聲明連結，失敗時放失敗原因；
+                                   # 先前失敗會留下空白備註，跟「正常但沒值」無法區分
+                                   note=fomc_meta.get("url", "") if fomc_score is not None
+                                   else _short_error(fomc_meta.get("note") or "未知原因"))
 
     if "fedwatch_path" in manual:
         items["fedwatch_path"] = manual["fedwatch_path"]
