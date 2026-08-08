@@ -271,7 +271,9 @@ def run(as_of: Optional[str] = None, margin_override_csv: Optional[str] = None,
                                       "中" if ndx_breadth_pct is not None else "暫缺",
                                       note="以維基百科目前成分股清單回推，非時點正確(look-back bias)"
                                       if ndx_breadth_pct is not None
-                                      else f"計算失敗: {_short_error(ndx_breadth_error or '未知原因')}")
+                                      # 這裡的失敗訊息帶有定位問題所需的欄位/樣本資訊，
+                                      # 截太短會把證據切掉，故放寬長度上限
+                                      else f"計算失敗: {_short_error(ndx_breadth_error or '未知原因', 400)}")
 
     # ④ 風險偏好情緒 ---------------------------------------------------------
     vix_series = yahoo_panel.get("vix", pd.Series(dtype=float)).dropna()

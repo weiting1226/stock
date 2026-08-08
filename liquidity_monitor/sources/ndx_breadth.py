@@ -147,8 +147,12 @@ def fetch_qqq_holdings(timeout: int = 30) -> list[str]:
         if _TICKER_RE.match(s)
     })
     if len(tickers) < MIN_EXPECTED_CONSTITUENTS:
+        # 帶出足以直接定位問題的證據：選到哪個欄位、幾列資料、有哪些欄位、值長什麼樣
+        sample = [repr(str(v)) for v in df[col].dropna().head(3)]
         raise ValueError(
-            f"QQQ 持股 CSV 只解析出 {len(tickers)} 檔（預期約100檔），格式可能已變更"
+            f"QQQ 持股 CSV 只解析出 {len(tickers)} 檔（預期約100檔）；"
+            f"採用欄位={col!r}、資料{df.shape[0]}列、"
+            f"欄位={list(df.columns)[:7]}、樣本={sample}"
         )
     return tickers
 
