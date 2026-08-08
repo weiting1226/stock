@@ -270,3 +270,24 @@ def test_fetch_qqq_holdings_works_with_preamble():
 def test_read_holdings_csv_reports_content_when_no_header_found():
     with pytest.raises(ValueError, match="找不到標題列"):
         ndx_breadth._read_holdings_csv("just one line\nanother line\n")
+
+
+def test_read_holdings_csv_rejects_html_response():
+    """Invesco 的下載網址會被導向 React 產品頁；不擋下來的話
+    read_csv 會把 HTML 當成上千列資料，錯誤訊息完全誤導（線上實際發生）。"""
+    spa = '<div id="spa-root" class="react-spa-root" data-model-json="{&#34;id&#34;:&#34;x&#34;}">'
+    with pytest.raises(ValueError, match="HTML 網頁而非 CSV"):
+        ndx_breadth._read_holdings_csv(spa)
+
+
+def test_extract_tickers_error_reports_table_shapes():
+    """失敗時要能看出成分股表到底在不在、形狀為何。"""
+    html = "<html>" + "".join(
+        f"<table><tr><th>ColA{i}</th><th>ColB{i}</th></tr>"
+        + "".join(f"<tr><td>v{j}</td><td>w{j}</td></tr>" for j in range(i * 3 + 2))
+        + "</table>" for i in range(4)
+    ) + "</html>"
+    with pytest.raises(ValueError) as exc:
+        ndx_breadth._extract_tickers(pd.read_html(io.StringIO(html)))
+    msg = str(exc.value)
+    assert "共4個表格" in msg and "列x" in msg and "ColA3" in msg

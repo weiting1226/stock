@@ -88,11 +88,17 @@ def _extract_tickers(tables: list[pd.DataFrame]) -> list[str]:
                 best = (ratio, [v for v in values if _TICKER_RE.match(v)])
 
     if not best[1]:
+        # 印出最大的幾個表格的形狀與欄位名稱，才能判斷成分股表到底在不在、長什麼樣，
+        # 否則只知道「找不到」而無從修起。
+        shapes = sorted(
+            ((t.shape[0], t.shape[1], [str(c)[:16] for c in list(t.columns)[:4]]) for t in tables),
+            key=lambda x: -x[0],
+        )[:5]
+        detail = "；".join(f"{r}列x{c}欄{cols}" for r, c, cols in shapes)
         raise ValueError(
             "無法從維基百科 Nasdaq-100 頁面找到成分股代號欄位（已同時嘗試欄位名稱與內容比對）；"
-            f"共解析到 {len(tables)} 個表格。候選欄位："
-            + ("；".join(diagnostics[:6]) if diagnostics
-               else f"沒有任何欄位達到 {MIN_EXPECTED_CONSTITUENTS} 列以上")
+            f"共{len(tables)}個表格，最大的幾個：{detail}"
+            + (f"｜通過列數門檻的欄位：{'；'.join(diagnostics[:3])}" if diagnostics else "")
         )
 
     # 維基百科用 BRK.B，Yahoo Finance 用 BRK-B
@@ -106,6 +112,12 @@ def _read_holdings_csv(text: str) -> pd.DataFrame:
     直接 pd.read_csv 會拋 ParserError: Expected 1 fields ... saw 13。
     因此先找出真正的標題列（含 ticker 字樣、且有多個逗號），再從該列開始解析。
     """
+    stripped = text.lstrip()
+    if stripped.startswith("<") or "<html" in stripped[:2000].lower():
+        # Invesco 的下載網址會被導向 React 產品頁，回傳 HTML 而不是檔案。
+        # 不擋下來的話 read_csv 會把 HTML 當成上千列資料，錯誤訊息完全誤導。
+        raise ValueError("持股下載網址回傳 HTML 網頁而非 CSV（網址可能已失效或被導向產品頁）")
+
     lines = [ln for ln in text.splitlines() if ln.strip()]
     if not lines:
         raise ValueError("持股 CSV 內容為空")
