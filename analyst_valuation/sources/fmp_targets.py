@@ -17,7 +17,8 @@ from typing import Optional
 
 import requests
 
-from ..config import FMP_ENV_KEY, FMP_PRICE_TARGET_URL
+from ..config import FMP_CALLS_PER_MIN, FMP_ENV_KEY, FMP_PRICE_TARGET_URL
+from ..throttle import get_circuit, get_limiter
 from ..firms import TargetRecord
 from ..secrets_redaction import redact_secrets
 
@@ -47,10 +48,20 @@ def fetch_fmp_firm_targets(
     if not key:
         return [], "未設定 FMP_API_KEY，逐機構目標價來源停用"
 
+    circuit = get_circuit("fmp")
+    if circuit.is_open():          # 402 之後不再對其餘幾百檔重複發同樣的請求
+        return [], circuit.reason
+
     try:
         http = session or requests
+        get_limiter("fmp", FMP_CALLS_PER_MIN).acquire()
         resp = http.get(
             FMP_PRICE_TARGET_URL, params={"symbol": ticker, "apikey": key}, timeout=timeout
+        )
+        circuit.trip_if_fatal(
+            resp.status_code,
+            f"FMP 回應 {resp.status_code}：免費方案不支援逐機構目標價端點"
+            f"（需付費方案），本次執行已停用此來源",
         )
         resp.raise_for_status()
         payload = resp.json()

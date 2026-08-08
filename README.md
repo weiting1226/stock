@@ -267,6 +267,33 @@ FINNHUB_API_KEY=xxx python3 scripts/run_valuation.py -v   # 啟用第二個目�
 此外 Finviz、TipRanks 的服務條款明文禁止自動化擷取，也沒有公開 API。
 真正能增加資訊量的是「拿到每一家券商的個別報告」，也就是上面的 A 層。
 
+### 配合免費方案限制的節流與熔斷
+
+各資料源的免費方案有硬限制，抓取又是多執行緒並發，不處理就會整批失敗：
+
+| 來源 | 免費方案限制 | 本專案的處理 |
+|---|---|---|
+| Finnhub | 60 calls/min | 節流到 **55/min**（`FINNHUB_CALLS_PER_MIN`），跨執行緒共用同一個限流器 |
+| FMP | price-target 端點**需付費方案**（回 402）| 熔斷：第一次遇到 402 就停用該來源，不再對其餘標的重複請求 |
+
+- **暫時性錯誤（429、5xx）不熔斷**，只有方案／授權類錯誤（401/402/403）才會——
+  重試那些狀態碼沒有意義，而且會白白消耗配額。
+- 被熔斷的來源會在報告的 `disabled_sources` 與 UI 說明列**一次講清楚**，
+  而不是每一檔重複一遍同樣的錯誤。
+
+實測結果（2026-08）：FMP 免費金鑰對 `/stable/price-target-news` 回
+`402 Payment Required`，因此**逐機構模式需要 FMP 付費方案**；未升級時系統會
+自動退回共識模式並明確標示，不影響其餘功能。
+
+### ⚠️ 憑證絕不可進入輸出
+
+Finnhub 把金鑰放在 query string，`requests` 的 `HTTPError` 訊息包含完整 URL。
+2026-08 曾因此把金鑰寫進 `notes` 並 commit 進公開 repo。
+
+現在任何來自外部呼叫的例外訊息，都必須先經過 `secrets_redaction.redact_secrets()`
+才能進入輸出或日誌；`storage.save_report()` 落地前還會再過一次，
+所以單一來源的疏忽不足以造成外洩。**新增資料源時請沿用這個規則。**
+
 ### 啟用逐機構模式
 
 到 https://site.financialmodelingprep.com/developer/docs 申請金鑰，
