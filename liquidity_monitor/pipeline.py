@@ -22,7 +22,9 @@ from .config import (
     HISTORY_START,
     ITEM_LABELS,
     LIGHT_BANDS,
+    MANUAL_OVERRIDE_DEFAULT_MAX_AGE_DAYS,
     MANUAL_OVERRIDE_ITEMS,
+    MANUAL_OVERRIDE_MAX_AGE_DAYS,
     POSITION_LADDER,
     YAHOO_TICKERS,
 )
@@ -170,20 +172,22 @@ def _load_manual_overrides(path: str, as_of: str) -> dict[str, Item]:
         asof_date = entry.get("as_of")
         if value is None:
             continue
+        max_age = MANUAL_OVERRIDE_MAX_AGE_DAYS.get(key, MANUAL_OVERRIDE_DEFAULT_MAX_AGE_DAYS)
         stale = False
         if asof_date:
             try:
                 age = (pd.Timestamp(as_of) - pd.Timestamp(asof_date)).days
-                stale = age > 45
+                stale = age > max_age
             except Exception:  # noqa: BLE001
                 pass
         items[key] = Item(
             key=key,
             raw_value=value,
-            score=int(value) if key != "ndx_fwd_pe" else None,
+            # 過期就不採計分數，否則等於拿陳舊資料當今日訊號
+            score=(int(value) if key != "ndx_fwd_pe" else None) if not stale else None,
             data_date=asof_date,
             source="人工手動輸入 (manual_overrides.json)",
-            confidence="低" if not stale else "暫缺(逾45天未更新)",
+            confidence="低" if not stale else f"暫缺(逾{max_age}天未更新)",
             note=entry.get("note", ""),
         )
     return items
@@ -327,13 +331,22 @@ def run(as_of: Optional[str] = None, margin_override_csv: Optional[str] = None,
     # ⑥ 政策方向 --------------------------------------------------------------
     dfedtaru_daily = fred_daily("DFEDTARU")
     fomc_score, fomc_meta = _fetch_fomc(as_of, dfedtaru_daily)
-    items["fomc_decision"] = Item("fomc_decision", fomc_meta.get("note"), fomc_score, fomc_meta.get("data_date"),
-                                   "federalreserve.gov 新聞稿 + FRED DFEDTARU",
-                                   "中" if fomc_score is not None else "暫缺",
-                                   # 成功時放聲明連結，失敗時放失敗原因；
-                                   # 先前失敗會留下空白備註，跟「正常但沒值」無法區分
-                                   note=fomc_meta.get("url", "") if fomc_score is not None
-                                   else _short_error(fomc_meta.get("note") or "未知原因"))
+    if fomc_score is not None:
+        items["fomc_decision"] = Item("fomc_decision", fomc_meta.get("note"), fomc_score,
+                                       fomc_meta.get("data_date"),
+                                       "federalreserve.gov 新聞稿 + FRED DFEDTARU", "中",
+                                       note=fomc_meta.get("url", ""))
+    elif "fomc_decision" in manual:
+        # 自動解析失敗時退回人工填入（GitHub Actions 連不到 federalreserve.gov）
+        item = manual["fomc_decision"]
+        item.note = f"{item.note}（自動抓取失敗：{_short_error(fomc_meta.get('note') or '未知原因', 80)}）"
+        items["fomc_decision"] = item
+    else:
+        items["fomc_decision"] = Item("fomc_decision", fomc_meta.get("note"), None,
+                                       fomc_meta.get("data_date"),
+                                       "federalreserve.gov 新聞稿 + FRED DFEDTARU", "暫缺",
+                                       note=f"抓取失敗: {_short_error(fomc_meta.get('note') or '未知原因')}"
+                                            "。可於 docs/data/manual_overrides.json 手動填入 -2..2 分")
 
     if "fedwatch_path" in manual:
         items["fedwatch_path"] = manual["fedwatch_path"]

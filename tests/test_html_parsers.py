@@ -200,3 +200,43 @@ def test_fomc_raises_with_diagnostics_instead_of_returning_none():
     with mock.patch.object(fomc, "_fetch_index", return_value=html):
         with pytest.raises(ValueError, match="找不到符合格式的 FOMC 聲明連結"):
             fomc.latest_meeting_on_or_before("2026-08-08")
+
+
+# --- QQQ 持股（NDX 成分股主來源）-----------------------------------------
+
+QQQ_CSV = (
+    "Fund Ticker,Holding Ticker,Name,Weight,Sector\n"
+    + "".join(f"QQQ,{chr(65 + i // 26)}{chr(65 + i % 26)}X ,Company {i},0.5,Tech\n" for i in range(60))
+    + "QQQ,-,US DOLLARS,0.1,Cash\n"          # 現金列必須被濾掉
+)
+
+
+def test_fetch_qqq_holdings_parses_csv_and_filters_non_tickers():
+    with mock.patch.object(ndx_breadth.requests, "get", return_value=_mock_response(QQQ_CSV)):
+        tickers = ndx_breadth.fetch_qqq_holdings()
+    assert len(tickers) == 60          # 現金那列被排除
+    assert "AAX" in tickers
+    assert "-" not in tickers
+
+
+def test_fetch_qqq_holdings_raises_when_too_few_rows():
+    csv = "Fund Ticker,Holding Ticker\nQQQ,AAPL\nQQQ,MSFT\n"
+    with mock.patch.object(ndx_breadth.requests, "get", return_value=_mock_response(csv)):
+        with pytest.raises(ValueError, match="只解析出"):
+            ndx_breadth.fetch_qqq_holdings()
+
+
+def test_fetch_constituents_falls_back_to_wikipedia_when_qqq_fails(tmp_path):
+    """QQQ 來源掛掉時要能退回維基百科，而不是整項消失。"""
+    with mock.patch.object(ndx_breadth, "fetch_qqq_holdings", side_effect=RuntimeError("boom")), \
+         mock.patch.object(ndx_breadth.requests, "get", return_value=_mock_response(_wiki_html("Ticker"))):
+        tickers = ndx_breadth.fetch_constituents(cache_path=str(tmp_path / "c.json"))
+    assert len(tickers) == 60
+
+
+def test_fetch_constituents_reports_both_sources_when_all_fail(tmp_path):
+    with mock.patch.object(ndx_breadth, "fetch_qqq_holdings", side_effect=RuntimeError("qqq down")), \
+         mock.patch.object(ndx_breadth.requests, "get", side_effect=RuntimeError("wiki down")):
+        with pytest.raises(ValueError) as exc:
+            ndx_breadth.fetch_constituents(cache_path=str(tmp_path / "c2.json"))
+    assert "qqq down" in str(exc.value) and "wiki down" in str(exc.value)

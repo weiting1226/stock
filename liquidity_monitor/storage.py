@@ -92,6 +92,13 @@ def ensure_manual_overrides_template(path: str = "docs/data/manual_overrides.jso
             "as_of": None,
             "note": "CME FedWatch市場隱含12個月路徑：降息>=2碼:+2/降息1碼:+1/持平:0/升息1碼:-1/升息>=2碼:-2。請至 CME FedWatch 網站人工查證後填入。",
         },
+        "fomc_decision": {
+            "score": None,
+            "as_of": None,
+            "note": "FOMC決議偏向：降息無異議:+2/降息有異議:+1/持平無異議:0/持平但有升息異議:-1/升息:-2。"
+                    "GitHub Actions 連不到 federalreserve.gov，故每次FOMC會後請人工查閱聲明並填入，"
+                    "as_of 填會議日期（逾60天未更新會自動改標暫缺）。",
+        },
         "ndx_fwd_pe": {
             "value": None,
             "as_of": None,
