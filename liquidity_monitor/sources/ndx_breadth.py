@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import io
 import json
+import logging
 import re
 from pathlib import Path
 from typing import Optional
@@ -26,6 +27,8 @@ from ..config import NDX_CONSTITUENTS_WIKI_URL, QQQ_HOLDINGS_URL
 
 WIKI_URL = NDX_CONSTITUENTS_WIKI_URL
 _HEADERS = {"User-Agent": "Mozilla/5.0 (liquidity-monitor-v3 scraper)"}
+
+log = logging.getLogger(__name__)
 
 _TICKER_RE = re.compile(r"^[A-Z]{1,5}(\.[A-Z])?$")
 _FOOTNOTE_RE = re.compile(r"\[[^\]]*\]")
@@ -177,7 +180,9 @@ def fetch_constituents(cache_path: Optional[str] = None, max_cache_age_days: int
     """
     cache = Path(cache_path) if cache_path else None
     if cache and cache.exists():
-        age_days = (pd.Timestamp.utcnow().tz_localize(None) - pd.Timestamp(cache.stat().st_mtime, unit="s")).days
+        # pd.Timestamp.utcnow() 已被 pandas 標記為 deprecated
+        now = pd.Timestamp.now(tz="UTC").tz_localize(None)
+        age_days = (now - pd.Timestamp(cache.stat().st_mtime, unit="s")).days
         if age_days < max_cache_age_days:
             return json.loads(cache.read_text())["tickers"]
 
@@ -192,6 +197,20 @@ def fetch_constituents(cache_path: Optional[str] = None, max_cache_age_days: int
             tickers = _extract_tickers(pd.read_html(io.StringIO(resp.text)))
         except Exception as e2:  # noqa: BLE001
             errors.append(f"維基百科: {type(e2).__name__}: {e2}")
+            # 最後手段：用過期的快取。成分股每季才調整一次，一份舊清單遠比
+            # 完全沒有資料有用；而且這是先前真實抓到（或使用者手動維護）的清單，
+            # 不是臆測出來的內容。
+            if cache and cache.exists():
+                try:
+                    cached = json.loads(cache.read_text())
+                    if cached.get("tickers"):
+                        log.warning(
+                            "成分股即時來源皆失敗，改用 %s 的快取清單（%d檔）：%s",
+                            cached.get("as_of", "未知日期"), len(cached["tickers"]), " | ".join(errors),
+                        )
+                        return cached["tickers"]
+                except (ValueError, KeyError):
+                    pass
             raise ValueError("NASDAQ-100 成分股所有來源皆失敗 -> " + " | ".join(errors)) from e2
 
     if cache:

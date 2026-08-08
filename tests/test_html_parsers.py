@@ -291,3 +291,23 @@ def test_extract_tickers_error_reports_table_shapes():
         ndx_breadth._extract_tickers(pd.read_html(io.StringIO(html)))
     msg = str(exc.value)
     assert "共4個表格" in msg and "列x" in msg and "ColA3" in msg
+
+
+def test_fetch_constituents_uses_stale_cache_as_last_resort(tmp_path):
+    """成分股每季才調整，即時來源全掛時，舊清單遠比完全沒資料有用；
+    且那是真實抓過（或人工維護）的清單，不是臆測內容。"""
+    import json as _json
+    cache = tmp_path / "ndx.json"
+    cache.write_text(_json.dumps({"as_of": "2025-01-01", "tickers": ["AAPL", "MSFT", "NVDA"]}))
+    # 讓快取「過期」：max_cache_age_days=0 使新鮮度檢查必定失敗
+    with mock.patch.object(ndx_breadth, "fetch_qqq_holdings", side_effect=RuntimeError("qqq down")), \
+         mock.patch.object(ndx_breadth.requests, "get", side_effect=RuntimeError("wiki down")):
+        tickers = ndx_breadth.fetch_constituents(cache_path=str(cache), max_cache_age_days=0)
+    assert tickers == ["AAPL", "MSFT", "NVDA"]
+
+
+def test_fetch_constituents_still_raises_when_no_cache_exists(tmp_path):
+    with mock.patch.object(ndx_breadth, "fetch_qqq_holdings", side_effect=RuntimeError("qqq down")), \
+         mock.patch.object(ndx_breadth.requests, "get", side_effect=RuntimeError("wiki down")):
+        with pytest.raises(ValueError, match="所有來源皆失敗"):
+            ndx_breadth.fetch_constituents(cache_path=str(tmp_path / "missing.json"))
