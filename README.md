@@ -65,7 +65,7 @@ GitHub Actions 的 `schedule` (cron) **只會在預設分支 (通常是 main) �
 | ② | 2Y-10Y公債利差 | FRED `DGS10`/`DGS2` | ✅ 自動 |
 | ② | SOFR-IORB利差 | FRED `SOFR`/`IORB` | ✅ 自動 |
 | ③市場微觀結構(10%) | MOVE指數 | Yahoo Finance `^MOVE` | ✅ 自動 |
-| ③ | NDX站上200日線比例 | Invesco QQQ 持股CSV（維基百科為備援）+ Yahoo Finance批次收盤價 | ✅ 自動（成分股清單為目前值，非時點正確） |
+| ③ | NDX站上200日線比例 | 成分股清單（見下方說明）+ Yahoo Finance批次收盤價 | ⚠️ 成分股清單需人工維護一次，見下方 |
 | ④風險偏好情緒(15%) | VIX | Yahoo Finance `^VIX` | ✅ 自動 |
 | ④ | VIX/VIX3M期限結構 | Yahoo Finance `^VIX`/`^VIX3M` | ✅ 自動 |
 | ④ | 融資餘額年增率(鐘型計分) | FINRA margin statistics（已套用文件規定之2個月發布時滯） | ✅ 自動，網頁解析未經即時流量驗證 |
@@ -133,6 +133,31 @@ Gate B 脆弱度閘門另外用到：融資餘額/GDP（FINRA + FRED `GDP`）、
 | `fedwatch_path` | 14 天 | 每週 |
 | `etf_fund_flow` | 14 天 | 每週 |
 | `ndx_fwd_pe` | 45 天 | 每月 |
+
+### ③ NDX 成分股清單（`docs/data/ndx100_constituents.json`）
+
+抓取順序：**未過期的快取 → Invesco QQQ 持股 → 維基百科 → 過期的快取（最後手段）**。
+
+2026-08 實測兩個自動來源都不可用：
+
+- Invesco 的下載網址回傳的是 React 產品頁的 HTML，不是 CSV 檔
+- 維基百科 Nasdaq-100 條目**已經沒有成分股表格了**（該頁18個表格中最大的是41列的
+  年度報酬表，成分股清單已不在該頁）
+
+因此實務上請**手動維護一次**這個檔案，之後每季調整時更新即可（成分股一年只換4次）：
+
+```json
+{
+  "as_of": "2026-08-08",
+  "tickers": ["AAPL", "MSFT", "NVDA", "..."]
+}
+```
+
+放進去之後，程式會優先使用它；即使超過快取有效期、且兩個線上來源都失敗，
+仍會退回使用這份清單（並在日誌標明是用了哪一天的舊清單）。這份清單是你提供的
+真實資料，不是程式臆測出來的內容，所以採用它不違反誠實原則。
+
+沒有這個檔案時，③ 的廣度子項會標記「暫缺」，但 ③ 仍由 MOVE 指數正常計分。
 
 **為什麼 FOMC 需要人工填？** GitHub Actions 的執行環境連不到
 `federalreserve.gov`（2026-08 實測，索引頁請求全部失敗）。程式仍會先嘗試自動抓取，
