@@ -35,6 +35,8 @@ class ValuationRow:
     target_median: Optional[float] = None
     target_high: Optional[float] = None
     target_low: Optional[float] = None
+    target_dispersion_pct: Optional[float] = None  # (最高-最低)/平均，越大代表分歧越大
+    range_source: Optional[str] = None             # 高低價與離散度取自哪個來源
     analyst_count: Optional[int] = None
     recommendation_mean: Optional[float] = None
     recommendation_key: Optional[str] = None
@@ -47,6 +49,21 @@ class ValuationRow:
 
     def as_dict(self) -> dict:
         return asdict(self)
+
+
+def _pick_primary(usable: list[TargetQuote]) -> TargetQuote:
+    """挑出提供高低價區間的主來源。
+
+    離散度的分子（最高−最低）與分母（平均）必須來自**同一批分析師**，
+    否則等於拿 A 券商群的區間去除以 A、B 混合的平均，數字沒有意義。
+    因此高低價、中位數、離散度一律取自同一個來源，優先 Yahoo。
+    """
+    complete = [q for q in usable if q.high and q.low]
+    for pool in (complete, usable):
+        if not pool:
+            continue
+        return next((q for q in pool if q.source == "yahoo"), pool[0])
+    return usable[0]
 
 
 def _confidence_for(analyst_count: Optional[int], n_sources: int) -> str:
@@ -92,11 +109,15 @@ def build_row(
     if usable:
         # 多來源時取各來源共識價的平均（文件需求：「計算平均」）
         row.consensus_target = round(mean(q.mean for q in usable), 4)
-        # 中位數/高低/家數以 Yahoo 為主，其次任一有值的來源
-        primary = next((q for q in usable if q.source == "yahoo"), usable[0])
+        primary = _pick_primary(usable)
+        row.range_source = primary.source
         row.target_median = primary.median
         row.target_high = primary.high
         row.target_low = primary.low
+        if primary.high and primary.low and primary.mean and primary.high >= primary.low:
+            row.target_dispersion_pct = round(
+                (primary.high - primary.low) / primary.mean * 100, 2
+            )
         row.analyst_count = next(
             (q.analyst_count for q in usable if q.analyst_count), None
         )

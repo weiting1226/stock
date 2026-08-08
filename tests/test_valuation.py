@@ -126,6 +126,51 @@ def test_implausible_target_is_flagged_but_kept():
     assert any("疑似資料異常" in n for n in row.notes)
 
 
+def test_dispersion_and_range_are_reported():
+    row = aggregate.build_row(
+        {"ticker": "T"}, PriceSnapshot(ticker="T", close=100.0),
+        [TargetQuote(ticker="T", source="yahoo", mean=120.0, median=118.0,
+                     high=180.0, low=60.0, analyst_count=25)],
+    )
+    assert row.target_high == 180.0
+    assert row.target_low == 60.0
+    assert row.analyst_count == 25
+    # (180-60)/120 = 100%
+    assert row.target_dispersion_pct == 100.0
+    assert row.range_source == "yahoo"
+
+
+def test_dispersion_uses_one_source_for_numerator_and_denominator():
+    """離散度的高低價與平均必須同源，否則等於拿A的區間除以A+B的混合平均。"""
+    yahoo = TargetQuote(ticker="T", source="yahoo", mean=100.0, high=150.0, low=50.0, analyst_count=20)
+    finnhub = TargetQuote(ticker="T", source="finnhub", mean=200.0, high=260.0, low=140.0, analyst_count=9)
+    row = aggregate.build_row({"ticker": "T"}, PriceSnapshot(ticker="T", close=100.0), [yahoo, finnhub])
+
+    assert row.consensus_target == 150.0   # 共識價仍是兩來源平均
+    assert row.range_source == "yahoo"
+    # 離散度用 Yahoo 自己的 (150-50)/100 = 100%，不是拿 Yahoo 區間除以 150
+    assert row.target_dispersion_pct == 100.0
+
+
+def test_range_falls_back_to_source_that_has_high_low():
+    """Yahoo 沒有高低價時，改用有提供區間的來源，而不是留空。"""
+    yahoo = TargetQuote(ticker="T", source="yahoo", mean=100.0, analyst_count=20)
+    finnhub = TargetQuote(ticker="T", source="finnhub", mean=110.0, high=130.0, low=90.0)
+    row = aggregate.build_row({"ticker": "T"}, PriceSnapshot(ticker="T", close=100.0), [yahoo, finnhub])
+    assert row.range_source == "finnhub"
+    assert row.target_dispersion_pct == pytest.approx((130 - 90) / 110 * 100, abs=0.01)
+
+
+def test_dispersion_absent_when_no_high_low():
+    row = aggregate.build_row(
+        {"ticker": "T"}, PriceSnapshot(ticker="T", close=100.0),
+        [TargetQuote(ticker="T", source="yahoo", mean=120.0, analyst_count=8)],
+    )
+    assert row.target_dispersion_pct is None
+    assert row.target_high is None
+    assert row.upside_pct == 20.0  # 沒有區間不影響上漲空間的計算
+
+
 def test_sector_summary_ranks_by_median_upside():
     rows = [
         aggregate.build_row({"ticker": "A", "sector": "Energy"},
