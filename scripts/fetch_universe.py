@@ -77,7 +77,7 @@ def main() -> int:
     s = result["summary"]
     print(
         f"本次處理 {result['processed']} 檔（成功 {result.get('ok', 0)}、"
-        f"失敗 {result.get('failed', 0)}）｜"
+        f"失敗 {result.get('failed', 0)}、順延 {result.get('deferred', 0)}）｜"
         f"帳本：完成 {s.get('ok', 0)}／待處理 {s.get('pending', 0)}／"
         f"可重試 {s.get('failed', 0)}／已放棄 {s.get('dead', 0)}，共 {s.get('total', 0)} 檔"
     )

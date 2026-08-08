@@ -30,8 +30,27 @@ log = logging.getLogger(__name__)
 CHECKPOINT_EVERY = 200
 
 
+class SourceUnavailable(Exception):
+    """來源整個不能用（限流／熔斷），這一檔根本沒問到。
+
+    與「這一檔查詢失敗」必須分開：來源掛掉時若照樣記成失敗，一次限流就會
+    讓上千檔各消耗一次重試次數，三次之後全部變成 dead——問題明明出在來源。
+    """
+
+
 def _now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
+
+
+def _profile(quotes) -> dict:
+    """從已取得的報價中挑出公司基本資料（名稱／類股／產業）。
+
+    沒有分析師覆蓋的標的也要有這些欄位，否則儀表板的類股篩選會漏掉它們。
+    """
+    for q in quotes:
+        if q.sector or q.name:
+            return {"name": q.name, "sector": q.sector, "industry": q.industry}
+    return {"name": None, "sector": None, "industry": None}
 
 
 def _fetch_one(ticker: str, use_finnhub: bool, use_fmp: bool) -> dict:
@@ -56,14 +75,19 @@ def _fetch_one(ticker: str, use_finnhub: bool, use_fmp: bool) -> dict:
         # 分析師覆蓋」的標的（SPAC 單位、權證等）誤記成失敗並反覆重試。
         if any(q.responded for q in quotes):
             return {"ticker": ticker, "covered": False,
-                    "note": "查詢成功但無分析師目標價覆蓋"}
+                    "note": "查詢成功但無分析師目標價覆蓋",
+                    **_profile(quotes)}
         errors = [q.error for q in quotes if q.error]
-        raise RuntimeError(redact_secrets("；".join(errors) or "所有來源皆無回應"))
+        message = redact_secrets("；".join(errors) or "所有來源皆無回應")
+        if any(q.source_unavailable for q in quotes):
+            raise SourceUnavailable(message)
+        raise RuntimeError(message)
 
     primary = next((q for q in usable if q.source == "yahoo"), usable[0] if usable else None)
     return {
         "ticker": ticker,
         "covered": True,
+        **_profile(quotes),
         "quotes": [
             {"source": q.source, "mean": q.mean, "median": q.median,
              "high": q.high, "low": q.low, "analyst_count": q.analyst_count,
@@ -116,7 +140,7 @@ def run(
              "啟用" if use_fmp else "停用")
 
     pending_records: list[dict] = []
-    ok = failed = 0
+    ok = failed = deferred = 0
     processed = 0
 
     def _flush() -> None:
@@ -144,6 +168,9 @@ def run(
                 pending_records.append(record)
                 ledger.record_success(ticker)
                 ok += 1
+            except SourceUnavailable:
+                # 來源掛掉，這一檔留在 pending，不計嘗試次數、不記錯誤
+                deferred += 1
             except Exception as e:  # noqa: BLE001 — 單檔失敗不能中斷整批
                 ledger.record_failure(ticker, redact_secrets(f"{type(e).__name__}: {e}"))
                 failed += 1
@@ -151,14 +178,18 @@ def run(
             processed += 1
             if processed % CHECKPOINT_EVERY == 0:
                 _flush()
-                log.info("進度 %d/%d（成功 %d、失敗 %d）", processed, len(work), ok, failed)
+                log.info("進度 %d/%d（成功 %d、失敗 %d、順延 %d）",
+                         processed, len(work), ok, failed, deferred)
 
     _flush()
     disabled = tripped_circuits()
+    if deferred:
+        log.warning("來源中途停用，%d 檔順延至下次執行（狀態仍為 pending）", deferred)
     return {
         "processed": processed,
         "ok": ok,
         "failed": failed,
+        "deferred": deferred,
         "sync": sync,
         "summary": ledger.summary(),
         "stored_total": store.count(),

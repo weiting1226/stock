@@ -49,6 +49,13 @@ FMP_ENV_KEY = "FMP_API_KEY"
 FINNHUB_CALLS_PER_MIN = 55   # 官方免費方案 60/min
 FMP_CALLS_PER_MIN = 55       # FMP 另有每日總量限制，見 README
 
+# Yahoo 沒有公開的速率上限，數字來自實測：全市場掃描時 300 檔那批安然通過，
+# 1500 檔那批在大約第 465 檔之後整批回 YFRateLimitError，1190 檔全數失敗。
+# 可見它是「滾動視窗內的總量」而非單純的每秒上限，因此要壓低到能長時間維持
+# 的水準。每檔會發兩個請求（analyst_price_targets 與 info），所以每分鐘
+# 120 次呼叫約等於 60 檔／分；配合每天多班次執行，一天足以掃完 7500 檔。
+YAHOO_CALLS_PER_MIN = 120
+
 # 逐機構記錄超過這個天數就不採計：目標價會隨基本面調整，過舊的報告沒有代表性
 FIRM_TARGET_MAX_AGE_DAYS = 180
 

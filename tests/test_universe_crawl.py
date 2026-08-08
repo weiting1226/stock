@@ -318,6 +318,83 @@ def test_broken_source_does_not_mark_uncovered_ticker_as_failed(_patched_runner,
     assert ResultStore(str(tmp_path / "r")).get("SPACU")["covered"] is False
 
 
+def test_rate_limited_ticker_is_deferred_not_failed(_patched_runner, monkeypatch, tmp_path):
+    """線上實測：1500 檔那批有 1190 檔敗在 Yahoo 限流。來源被限流時整批都會
+    這樣，若照樣記成失敗，一次限流就讓上千檔各耗掉一次重試次數，三次之後
+    全部變 dead——問題其實出在來源。這種情況要留在 pending 等下次執行。"""
+    from analyst_valuation.sources.yahoo_targets import TargetQuote
+
+    monkeypatch.setattr(universe_runner, "fetch_yahoo_target",
+                        lambda t: TargetQuote(ticker=t, source="yahoo",
+                                              error="YFRateLimitError: Too Many Requests",
+                                              source_unavailable=True))
+    ledger_path = str(tmp_path / "l.csv")
+    res = universe_runner.run(["AAA", "BBB"], ledger_path, str(tmp_path / "r"), max_workers=1)
+
+    assert res["deferred"] == 2 and res["failed"] == 0 and res["ok"] == 0
+    led = Ledger(ledger_path).load()
+    for t in ("AAA", "BBB"):
+        assert led.entries[t].status == STATUS_PENDING
+        assert led.entries[t].attempts == 0      # 關鍵：沒有消耗重試次數
+    # 下次執行時它們仍在待辦清單裡
+    assert set(led.select_work()) == {"AAA", "BBB"}
+
+
+def test_yahoo_rate_limit_trips_circuit_and_skips_rest(monkeypatch):
+    """第一檔被限流之後就該熔斷，不再對其餘標的發請求——繼續打只會延長封鎖。"""
+    from analyst_valuation.sources import yahoo_targets
+    from analyst_valuation.throttle import reset_all
+
+    reset_all()
+    calls = []
+
+    class _Boom:
+        def __init__(self, ticker):
+            calls.append(ticker)
+
+        @property
+        def analyst_price_targets(self):
+            raise RuntimeError("YFRateLimitError: Too Many Requests. Rate limited.")
+
+    monkeypatch.setattr(yahoo_targets.yf, "Ticker", _Boom)
+    monkeypatch.setattr(yahoo_targets, "YAHOO_CALLS_PER_MIN", 100000)
+
+    first = yahoo_targets.fetch_yahoo_target("AAA")
+    second = yahoo_targets.fetch_yahoo_target("BBB")
+
+    assert first.source_unavailable and second.source_unavailable
+    assert calls == ["AAA"]              # 熔斷後第二檔完全沒有發出請求
+    assert "限流" in second.error
+    reset_all()
+
+
+def test_yahoo_blanket_outage_defers_instead_of_burning_retries(monkeypatch):
+    """整個網路不通時每一檔都會失敗；連續同型失敗要熔斷成來源層級問題，
+    否則一次斷網就把全部標的的重試次數耗掉。"""
+    from analyst_valuation.sources import yahoo_targets
+    from analyst_valuation.throttle import SourceCircuit, reset_all
+
+    reset_all()
+
+    class _Down:
+        def __init__(self, ticker):
+            pass
+
+        @property
+        def analyst_price_targets(self):
+            raise ConnectionError("Failed to perform, curl: (7) CONNECT tunnel failed")
+
+    monkeypatch.setattr(yahoo_targets.yf, "Ticker", _Down)
+    monkeypatch.setattr(yahoo_targets, "YAHOO_CALLS_PER_MIN", 100000)
+
+    quotes = [yahoo_targets.fetch_yahoo_target(f"T{i}") for i in range(8)]
+    # 熔斷門檻之前算個別失敗，之後轉為來源層級
+    assert not quotes[0].source_unavailable
+    assert quotes[SourceCircuit.CONSECUTIVE_FAILURE_LIMIT].source_unavailable
+    assert quotes[-1].source_unavailable
+    reset_all()
+
+
 def test_all_sources_unavailable_is_a_real_failure(_patched_runner, monkeypatch, tmp_path):
     """反之，若沒有任何來源成功回應，這檔就是還沒問到，必須重試。"""
     from analyst_valuation.sources.yahoo_targets import TargetQuote

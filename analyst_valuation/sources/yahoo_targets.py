@@ -15,7 +15,18 @@ from typing import Optional
 
 import yfinance as yf
 
+from ..config import YAHOO_CALLS_PER_MIN
+from ..throttle import get_circuit, get_limiter
+
 log = logging.getLogger(__name__)
+
+# yfinance 的限流例外在不同版本下類別名稱不一，用名稱比對比 import 穩。
+_RATE_LIMIT_MARKERS = ("ratelimit", "too many requests", "429")
+
+
+def _is_rate_limited(exc: Exception) -> bool:
+    text = f"{type(exc).__name__} {exc}".lower()
+    return any(m in text for m in _RATE_LIMIT_MARKERS)
 
 
 @dataclass
@@ -30,7 +41,15 @@ class TargetQuote:
     recommendation_mean: Optional[float] = None   # 1=Strong Buy … 5=Sell
     recommendation_key: Optional[str] = None
     currency: Optional[str] = None
+    # 公司基本資料：全市場掃描時沒有 S&P 500 那份現成的類股對照表，
+    # 而這些欄位就在同一份 info 裡，順手帶出來才能做類股篩選。
+    name: Optional[str] = None
+    sector: Optional[str] = None
+    industry: Optional[str] = None
     error: Optional[str] = None
+    # 這次失敗是「來源整個不能用」（限流／熔斷），不是這一檔的問題。
+    # 用來決定該不該把這一檔記成失敗並消耗重試次數。
+    source_unavailable: bool = False
     # 來源是否「成功回應」——即使回應內容是「這檔沒有分析師覆蓋」也算 True。
     # 用來區分「這檔沒人追蹤」（有效結果）與「這個來源壞掉」（不是這檔的問題）。
     responded: bool = False
@@ -50,6 +69,13 @@ def _as_float(value) -> Optional[float]:
     return f
 
 
+def _as_text(value) -> Optional[str]:
+    if value is None:
+        return None
+    text = str(value).strip()
+    return text or None
+
+
 def _as_int(value) -> Optional[int]:
     try:
         i = int(value)
@@ -61,7 +87,15 @@ def _as_int(value) -> Optional[int]:
 def fetch_yahoo_target(ticker: str) -> TargetQuote:
     """抓取單一標的的 Yahoo 共識目標價。任何例外都收斂成 error 欄位。"""
     quote = TargetQuote(ticker=ticker, source="yahoo")
+    circuit = get_circuit("yahoo")
+    if circuit.is_open():
+        # 已經被限流了，再打只會延長封鎖；這一檔留給下次執行。
+        quote.error = circuit.reason
+        quote.source_unavailable = True
+        return quote
+
     try:
+        get_limiter("yahoo", YAHOO_CALLS_PER_MIN).acquire()
         t = yf.Ticker(ticker)
         targets = t.analyst_price_targets or {}
         quote.mean = _as_float(targets.get("mean"))
@@ -75,8 +109,23 @@ def fetch_yahoo_target(ticker: str) -> TargetQuote:
         key = info.get("recommendationKey")
         quote.recommendation_key = str(key) if key else None
         quote.currency = info.get("currency")
+        quote.name = _as_text(info.get("shortName") or info.get("longName"))
+        quote.sector = _as_text(info.get("sector"))
+        quote.industry = _as_text(info.get("industry"))
         quote.responded = True
+        circuit.record_success()
     except Exception as e:  # noqa: BLE001 — 單一標的失敗不能中斷整批
         quote.error = f"{type(e).__name__}: {e}"
         log.debug("Yahoo 目標價抓取失敗 %s: %s", ticker, e)
+        if _is_rate_limited(e):
+            # 被限流代表「這一批問太快了」，不是這一檔有問題。熔斷後本次執行
+            # 剩下的標的直接跳過，留在帳本裡等下一班次，避免整批被判死刑。
+            circuit.trip("Yahoo 回報限流（Too Many Requests），本次執行已停用此來源，"
+                         "未處理的標的留待下次執行")
+            quote.source_unavailable = True
+        elif circuit.record_failure(type(e).__name__):
+            # 連續同型失敗（例如整個網路不通）同樣是來源層級的問題。
+            # 少了這一道，一次斷網就會讓每一檔各消耗一次重試次數。
+            quote.error = circuit.reason
+            quote.source_unavailable = True
     return quote
