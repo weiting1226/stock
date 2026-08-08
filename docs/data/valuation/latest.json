@@ -1,72 +1,84 @@
 {
   "as_of": "2026-08-08",
-  "generated_at": "2026-08-08T00:13:16.018712Z",
+  "generated_at": "2026-08-08T00:18:24.724778Z",
   "universe": "S&P 500 (Wikipedia constituents)",
   "sources_available": [
     "yahoo"
   ],
   "finnhub_enabled": false,
   "counts": {
-    "universe": 20,
-    "with_target_and_price": 20,
+    "universe": 40,
+    "with_target_and_price": 40,
     "missing": 0
   },
-  "coverage_note": "20/20 檔同時取得共識目標價與收盤價；其餘標記暫缺，未以任何方式填補。",
+  "coverage_note": "40/40 檔同時取得共識目標價與收盤價；其餘標記暫缺，未以任何方式填補。",
   "multi_source_note": "consensus_target 為各啟用來源之共識目標價平均；目前僅啟用 Yahoo Finance 單一來源（設定 FINNHUB_API_KEY 可加入第二來源）。",
   "sector_summary": [
     {
-      "sector": "Materials",
-      "count": 2,
-      "median_upside_pct": 25.74,
-      "mean_upside_pct": 25.74
-    },
-    {
       "sector": "Communication Services",
-      "count": 1,
-      "median_upside_pct": 20.81,
-      "mean_upside_pct": 20.81
+      "count": 2,
+      "median_upside_pct": 20.07,
+      "mean_upside_pct": 20.07
     },
     {
       "sector": "Information Technology",
-      "count": 4,
-      "median_upside_pct": 13.81,
-      "mean_upside_pct": 17.89
-    },
-    {
-      "sector": "Health Care",
-      "count": 4,
-      "median_upside_pct": 10.48,
-      "mean_upside_pct": 12.55
-    },
-    {
-      "sector": "Utilities",
-      "count": 2,
-      "median_upside_pct": 7.71,
-      "mean_upside_pct": 7.71
+      "count": 8,
+      "median_upside_pct": 16.88,
+      "mean_upside_pct": 15.71
     },
     {
       "sector": "Real Estate",
-      "count": 1,
-      "median_upside_pct": 4.11,
-      "mean_upside_pct": 4.11
+      "count": 2,
+      "median_upside_pct": 14.5,
+      "mean_upside_pct": 14.5
     },
     {
-      "sector": "Industrials",
+      "sector": "Materials",
       "count": 3,
-      "median_upside_pct": 2.4,
-      "mean_upside_pct": 3.7
+      "median_upside_pct": 13.16,
+      "mean_upside_pct": 17.51
+    },
+    {
+      "sector": "Utilities",
+      "count": 5,
+      "median_upside_pct": 12.03,
+      "mean_upside_pct": 9.25
+    },
+    {
+      "sector": "Energy",
+      "count": 1,
+      "median_upside_pct": 11.28,
+      "mean_upside_pct": 11.28
+    },
+    {
+      "sector": "Health Care",
+      "count": 5,
+      "median_upside_pct": 9.84,
+      "mean_upside_pct": 8.28
     },
     {
       "sector": "Financials",
-      "count": 2,
-      "median_upside_pct": -3.62,
-      "mean_upside_pct": -3.62
+      "count": 7,
+      "median_upside_pct": 9.84,
+      "mean_upside_pct": 7.26
+    },
+    {
+      "sector": "Industrials",
+      "count": 4,
+      "median_upside_pct": 5.83,
+      "mean_upside_pct": 5.09
     },
     {
       "sector": "Consumer Discretionary",
+      "count": 2,
+      "median_upside_pct": 4.48,
+      "mean_upside_pct": 4.48
+    },
+    {
+      "sector": "Consumer Staples",
       "count": 1,
-      "median_upside_pct": -9.73,
-      "mean_upside_pct": -9.73
+      "median_upside_pct": 3.35,
+      "mean_upside_pct": 3.35
     }
   ],
   "rows": [
@@ -83,6 +95,8 @@
       "target_median": 191.0,
       "target_high": 219.0,
       "target_low": 120.0,
+      "target_dispersion_pct": 54.44,
+      "range_source": "yahoo",
       "analyst_count": 17,
       "recommendation_mean": 2.22222,
       "recommendation_key": "buy",
@@ -109,6 +123,8 @@
       "target_median": 70.0,
       "target_high": 84.0,
       "target_low": 59.0,
+      "target_dispersion_pct": 35.76,
+      "range_source": "yahoo",
       "analyst_count": 11,
       "recommendation_mean": 2.53846,
       "recommendation_key": "hold",
@@ -135,6 +151,8 @@
       "target_median": 118.5,
       "target_high": 135.0,
       "target_low": 103.0,
+      "target_dispersion_pct": 27.02,
+      "range_source": "yahoo",
       "analyst_count": 24,
       "recommendation_mean": 1.66667,
       "recommendation_key": "buy",
@@ -161,6 +179,8 @@
       "target_median": 280.0,
       "target_high": 328.0,
       "target_low": 200.0,
+      "target_dispersion_pct": 46.82,
+      "range_source": "yahoo",
       "analyst_count": 28,
       "recommendation_mean": 1.74194,
       "recommendation_key": "buy",
@@ -187,6 +207,8 @@
       "target_median": 179.0,
       "target_high": 275.0,
       "target_low": 130.0,
+      "target_dispersion_pct": 81.06,
+      "range_source": "yahoo",
       "analyst_count": 25,
       "recommendation_mean": 2.07407,
       "recommendation_key": "buy",
@@ -213,6 +235,8 @@
       "target_median": 250.0,
       "target_high": 380.0,
       "target_low": 190.0,
+      "target_dispersion_pct": 70.47,
+      "range_source": "yahoo",
       "analyst_count": 34,
       "recommendation_mean": 2.725,
       "recommendation_key": "hold",
@@ -239,6 +263,8 @@
       "target_median": 605.0,
       "target_high": 1250.0,
       "target_low": 365.0,
+      "target_dispersion_pct": 145.51,
+      "range_source": "yahoo",
       "analyst_count": 46,
       "recommendation_mean": 1.4902,
       "recommendation_key": "strong_buy",
@@ -265,6 +291,8 @@
       "target_median": 15.0,
       "target_high": 15.0,
       "target_low": 15.0,
+      "target_dispersion_pct": 0.0,
+      "range_source": "yahoo",
       "analyst_count": 8,
       "recommendation_mean": 3.0,
       "recommendation_key": "hold",
@@ -291,6 +319,8 @@
       "target_median": 118.0,
       "target_high": 137.0,
       "target_low": 99.0,
+      "target_dispersion_pct": 32.26,
+      "range_source": "yahoo",
       "analyst_count": 14,
       "recommendation_mean": 3.07143,
       "recommendation_key": "hold",
@@ -317,6 +347,8 @@
       "target_median": 159.0,
       "target_high": 185.0,
       "target_low": 135.0,
+      "target_dispersion_pct": 31.38,
+      "range_source": "yahoo",
       "analyst_count": 19,
       "recommendation_mean": 1.61905,
       "recommendation_key": "buy",
@@ -343,6 +375,8 @@
       "target_median": 350.0,
       "target_high": 365.0,
       "target_low": 314.0,
+      "target_dispersion_pct": 14.85,
+      "range_source": "yahoo",
       "analyst_count": 19,
       "recommendation_mean": 1.80952,
       "recommendation_key": "buy",
@@ -369,6 +403,8 @@
       "target_median": 163.0,
       "target_high": 195.0,
       "target_low": 115.0,
+      "target_dispersion_pct": 49.77,
+      "range_source": "yahoo",
       "analyst_count": 39,
       "recommendation_mean": 2.15556,
       "recommendation_key": "buy",
@@ -395,6 +431,8 @@
       "target_median": 165.0,
       "target_high": 195.0,
       "target_low": 87.0,
+      "target_dispersion_pct": 68.68,
+      "range_source": "yahoo",
       "analyst_count": 23,
       "recommendation_mean": 2.12,
       "recommendation_key": "buy",
@@ -421,6 +459,8 @@
       "target_median": 177.5,
       "target_high": 250.0,
       "target_low": 83.28,
+      "target_dispersion_pct": 91.93,
+      "range_source": "yahoo",
       "analyst_count": 20,
       "recommendation_mean": 1.95455,
       "recommendation_key": "buy",
@@ -447,6 +487,8 @@
       "target_median": 52.0,
       "target_high": 60.0,
       "target_low": 42.0,
+      "target_dispersion_pct": 34.76,
+      "range_source": "yahoo",
       "analyst_count": 14,
       "recommendation_mean": 2.9375,
       "recommendation_key": "hold",
@@ -473,6 +515,8 @@
       "target_median": 209.0,
       "target_high": 240.0,
       "target_low": 170.0,
+      "target_dispersion_pct": 33.56,
+      "range_source": "yahoo",
       "analyst_count": 15,
       "recommendation_mean": 2.0,
       "recommendation_key": "buy",
@@ -499,6 +543,8 @@
       "target_median": 170.0,
       "target_high": 200.0,
       "target_low": 142.0,
+      "target_dispersion_pct": 33.53,
+      "range_source": "yahoo",
       "analyst_count": 11,
       "recommendation_mean": 2.27273,
       "recommendation_key": "buy",
@@ -525,6 +571,8 @@
       "target_median": 78.0,
       "target_high": 86.0,
       "target_low": 73.0,
+      "target_dispersion_pct": 16.5,
+      "range_source": "yahoo",
       "analyst_count": 13,
       "recommendation_mean": 1.85714,
       "recommendation_key": "buy",
@@ -551,6 +599,8 @@
       "target_median": 261.5,
       "target_high": 334.0,
       "target_low": 176.0,
+      "target_dispersion_pct": 60.24,
+      "range_source": "yahoo",
       "analyst_count": 22,
       "recommendation_mean": 2.4,
       "recommendation_key": "buy",
@@ -577,12 +627,574 @@
       "target_median": 428.0,
       "target_high": 515.0,
       "target_low": 340.0,
+      "target_dispersion_pct": 40.88,
+      "range_source": "yahoo",
       "analyst_count": 55,
       "recommendation_mean": 1.39062,
       "recommendation_key": "strong_buy",
       "upside_pct": 20.81,
       "source_targets": {
         "yahoo": 428.0406
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": []
+    },
+    {
+      "ticker": "GOOG",
+      "name": "Alphabet Inc. (Class C)",
+      "sector": "Communication Services",
+      "sub_industry": "Interactive Media & Services",
+      "close": 353.47,
+      "close_date": "2026-08-07",
+      "change_1w_pct": -0.89,
+      "change_1m_pct": -0.78,
+      "consensus_target": 421.7886,
+      "target_median": 425.0,
+      "target_high": 475.0,
+      "target_low": 340.0,
+      "target_dispersion_pct": 32.01,
+      "range_source": "yahoo",
+      "analyst_count": 14,
+      "recommendation_mean": 1.39683,
+      "recommendation_key": "strong_buy",
+      "upside_pct": 19.33,
+      "source_targets": {
+        "yahoo": 421.7886
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": []
+    },
+    {
+      "ticker": "MO",
+      "name": "Altria",
+      "sector": "Consumer Staples",
+      "sub_industry": "Tobacco",
+      "close": 68.35,
+      "close_date": "2026-08-07",
+      "change_1w_pct": 0.03,
+      "change_1m_pct": -4.53,
+      "consensus_target": 70.6364,
+      "target_median": 71.0,
+      "target_high": 82.0,
+      "target_low": 59.0,
+      "target_dispersion_pct": 32.56,
+      "range_source": "yahoo",
+      "analyst_count": 11,
+      "recommendation_mean": 2.64286,
+      "recommendation_key": "hold",
+      "upside_pct": 3.35,
+      "source_targets": {
+        "yahoo": 70.6364
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": []
+    },
+    {
+      "ticker": "AMZN",
+      "name": "Amazon",
+      "sector": "Consumer Discretionary",
+      "sub_industry": "Broadline Retail",
+      "close": 274.48,
+      "close_date": "2026-08-07",
+      "change_1w_pct": 1.07,
+      "change_1m_pct": 11.11,
+      "consensus_target": 325.8123,
+      "target_median": 325.0,
+      "target_high": 400.0,
+      "target_low": 230.0,
+      "target_dispersion_pct": 52.18,
+      "range_source": "yahoo",
+      "analyst_count": 60,
+      "recommendation_mean": 1.32787,
+      "recommendation_key": "strong_buy",
+      "upside_pct": 18.7,
+      "source_targets": {
+        "yahoo": 325.8123
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": []
+    },
+    {
+      "ticker": "AMCR",
+      "name": "Amcor",
+      "sector": "Materials",
+      "sub_industry": "Paper & Plastic Packaging Products & Materials",
+      "close": 47.86,
+      "close_date": "2026-08-07",
+      "change_1w_pct": 6.64,
+      "change_1m_pct": 12.08,
+      "consensus_target": 48.3564,
+      "target_median": 47.0,
+      "target_high": 60.0,
+      "target_low": 42.0,
+      "target_dispersion_pct": 37.22,
+      "range_source": "yahoo",
+      "analyst_count": 11,
+      "recommendation_mean": 2.07692,
+      "recommendation_key": "buy",
+      "upside_pct": 1.04,
+      "source_targets": {
+        "yahoo": 48.3564
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": []
+    },
+    {
+      "ticker": "AEE",
+      "name": "Ameren",
+      "sector": "Utilities",
+      "sub_industry": "Multi-Utilities",
+      "close": 108.84,
+      "close_date": "2026-08-07",
+      "change_1w_pct": -0.7,
+      "change_1m_pct": -2.62,
+      "consensus_target": 121.9375,
+      "target_median": 121.0,
+      "target_high": 137.0,
+      "target_low": 108.0,
+      "target_dispersion_pct": 23.78,
+      "range_source": "yahoo",
+      "analyst_count": 16,
+      "recommendation_mean": 1.76471,
+      "recommendation_key": "buy",
+      "upside_pct": 12.03,
+      "source_targets": {
+        "yahoo": 121.9375
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": []
+    },
+    {
+      "ticker": "AEP",
+      "name": "American Electric Power",
+      "sector": "Utilities",
+      "sub_industry": "Electric Utilities",
+      "close": 125.73,
+      "close_date": "2026-08-07",
+      "change_1w_pct": -1.66,
+      "change_1m_pct": -6.07,
+      "consensus_target": 144.8571,
+      "target_median": 145.0,
+      "target_high": 173.0,
+      "target_low": 129.0,
+      "target_dispersion_pct": 30.37,
+      "range_source": "yahoo",
+      "analyst_count": 21,
+      "recommendation_mean": 2.04167,
+      "recommendation_key": "buy",
+      "upside_pct": 15.21,
+      "source_targets": {
+        "yahoo": 144.8571
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": []
+    },
+    {
+      "ticker": "AXP",
+      "name": "American Express",
+      "sector": "Financials",
+      "sub_industry": "Consumer Finance",
+      "close": 340.91,
+      "close_date": "2026-08-07",
+      "change_1w_pct": 1.39,
+      "change_1m_pct": -1.68,
+      "consensus_target": 374.4628,
+      "target_median": 375.0,
+      "target_high": 450.0,
+      "target_low": 315.0,
+      "target_dispersion_pct": 36.05,
+      "range_source": "yahoo",
+      "analyst_count": 25,
+      "recommendation_mean": 2.23333,
+      "recommendation_key": "buy",
+      "upside_pct": 9.84,
+      "source_targets": {
+        "yahoo": 374.4628
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": []
+    },
+    {
+      "ticker": "AIG",
+      "name": "American International Group",
+      "sector": "Financials",
+      "sub_industry": "Multi-line Insurance",
+      "close": 78.78,
+      "close_date": "2026-08-07",
+      "change_1w_pct": 0.25,
+      "change_1m_pct": -0.42,
+      "consensus_target": 88.7,
+      "target_median": 89.0,
+      "target_high": 102.0,
+      "target_low": 80.0,
+      "target_dispersion_pct": 24.8,
+      "range_source": "yahoo",
+      "analyst_count": 20,
+      "recommendation_mean": 2.31818,
+      "recommendation_key": "buy",
+      "upside_pct": 12.59,
+      "source_targets": {
+        "yahoo": 88.7
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": []
+    },
+    {
+      "ticker": "AMT",
+      "name": "American Tower",
+      "sector": "Real Estate",
+      "sub_industry": "Telecom Tower REITs",
+      "close": 172.54,
+      "close_date": "2026-08-07",
+      "change_1w_pct": -0.47,
+      "change_1m_pct": 4.57,
+      "consensus_target": 215.4783,
+      "target_median": 210.0,
+      "target_high": 260.0,
+      "target_low": 188.0,
+      "target_dispersion_pct": 33.41,
+      "range_source": "yahoo",
+      "analyst_count": 23,
+      "recommendation_mean": 1.56,
+      "recommendation_key": "buy",
+      "upside_pct": 24.89,
+      "source_targets": {
+        "yahoo": 215.4783
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": []
+    },
+    {
+      "ticker": "AWK",
+      "name": "American Water Works",
+      "sector": "Utilities",
+      "sub_industry": "Water Utilities",
+      "close": 135.31,
+      "close_date": "2026-08-07",
+      "change_1w_pct": 0.85,
+      "change_1m_pct": 3.65,
+      "consensus_target": 140.1818,
+      "target_median": 140.0,
+      "target_high": 155.0,
+      "target_low": 128.0,
+      "target_dispersion_pct": 19.26,
+      "range_source": "yahoo",
+      "analyst_count": 11,
+      "recommendation_mean": 2.61538,
+      "recommendation_key": "hold",
+      "upside_pct": 3.6,
+      "source_targets": {
+        "yahoo": 140.1818
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": []
+    },
+    {
+      "ticker": "AMP",
+      "name": "Ameriprise Financial",
+      "sector": "Financials",
+      "sub_industry": "Asset Management & Custody Banks",
+      "close": 551.98,
+      "close_date": "2026-08-07",
+      "change_1w_pct": 1.12,
+      "change_1m_pct": 10.36,
+      "consensus_target": 574.3637,
+      "target_median": 562.0,
+      "target_high": 645.0,
+      "target_low": 489.0,
+      "target_dispersion_pct": 27.16,
+      "range_source": "yahoo",
+      "analyst_count": 11,
+      "recommendation_mean": 2.5,
+      "recommendation_key": "buy",
+      "upside_pct": 4.06,
+      "source_targets": {
+        "yahoo": 574.3637
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": []
+    },
+    {
+      "ticker": "AME",
+      "name": "Ametek",
+      "sector": "Industrials",
+      "sub_industry": "Electrical Components & Equipment",
+      "close": 253.66,
+      "close_date": "2026-08-07",
+      "change_1w_pct": 4.94,
+      "change_1m_pct": 8.87,
+      "consensus_target": 277.2222,
+      "target_median": 281.0,
+      "target_high": 316.0,
+      "target_low": 217.0,
+      "target_dispersion_pct": 35.71,
+      "range_source": "yahoo",
+      "analyst_count": 18,
+      "recommendation_mean": 1.75,
+      "recommendation_key": "buy",
+      "upside_pct": 9.29,
+      "source_targets": {
+        "yahoo": 277.2222
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": []
+    },
+    {
+      "ticker": "AMGN",
+      "name": "Amgen",
+      "sector": "Health Care",
+      "sub_industry": "Biotechnology",
+      "close": 410.945,
+      "close_date": "2026-08-07",
+      "change_1w_pct": 6.69,
+      "change_1m_pct": 13.01,
+      "consensus_target": 374.6897,
+      "target_median": 375.0,
+      "target_high": 452.0,
+      "target_low": 230.0,
+      "target_dispersion_pct": 59.25,
+      "range_source": "yahoo",
+      "analyst_count": 29,
+      "recommendation_mean": 2.47059,
+      "recommendation_key": "buy",
+      "upside_pct": -8.82,
+      "source_targets": {
+        "yahoo": 374.6897
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": []
+    },
+    {
+      "ticker": "APH",
+      "name": "Amphenol",
+      "sector": "Information Technology",
+      "sub_industry": "Electronic Components",
+      "close": 169.18,
+      "close_date": "2026-08-07",
+      "change_1w_pct": 5.28,
+      "change_1m_pct": 4.28,
+      "consensus_target": 198.0588,
+      "target_median": 198.0,
+      "target_high": 230.0,
+      "target_low": 170.0,
+      "target_dispersion_pct": 30.29,
+      "range_source": "yahoo",
+      "analyst_count": 17,
+      "recommendation_mean": 1.47059,
+      "recommendation_key": "strong_buy",
+      "upside_pct": 17.07,
+      "source_targets": {
+        "yahoo": 198.0588
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": []
+    },
+    {
+      "ticker": "ADI",
+      "name": "Analog Devices",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductors",
+      "close": 389.93,
+      "close_date": "2026-08-07",
+      "change_1w_pct": 6.13,
+      "change_1m_pct": -0.94,
+      "consensus_target": 457.7333,
+      "target_median": 455.0,
+      "target_high": 550.0,
+      "target_low": 365.0,
+      "target_dispersion_pct": 40.42,
+      "range_source": "yahoo",
+      "analyst_count": 30,
+      "recommendation_mean": null,
+      "recommendation_key": "none",
+      "upside_pct": 17.39,
+      "source_targets": {
+        "yahoo": 457.7333
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": []
+    },
+    {
+      "ticker": "AON",
+      "name": "Aon plc",
+      "sector": "Financials",
+      "sub_industry": "Insurance Brokers",
+      "close": 358.3,
+      "close_date": "2026-08-07",
+      "change_1w_pct": -0.62,
+      "change_1m_pct": 0.77,
+      "consensus_target": 402.4737,
+      "target_median": 412.0,
+      "target_high": 445.0,
+      "target_low": 339.0,
+      "target_dispersion_pct": 26.34,
+      "range_source": "yahoo",
+      "analyst_count": 19,
+      "recommendation_mean": 2.04545,
+      "recommendation_key": "buy",
+      "upside_pct": 12.33,
+      "source_targets": {
+        "yahoo": 402.4737
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": []
+    },
+    {
+      "ticker": "APA",
+      "name": "APA Corporation",
+      "sector": "Energy",
+      "sub_industry": "Oil & Gas Exploration & Production",
+      "close": 37.63,
+      "close_date": "2026-08-07",
+      "change_1w_pct": 0.83,
+      "change_1m_pct": 13.04,
+      "consensus_target": 41.875,
+      "target_median": 40.5,
+      "target_high": 62.0,
+      "target_low": 31.0,
+      "target_dispersion_pct": 74.03,
+      "range_source": "yahoo",
+      "analyst_count": 24,
+      "recommendation_mean": 2.68,
+      "recommendation_key": "hold",
+      "upside_pct": 11.28,
+      "source_targets": {
+        "yahoo": 41.875
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": []
+    },
+    {
+      "ticker": "APO",
+      "name": "Apollo Global Management",
+      "sector": "Financials",
+      "sub_industry": "Asset Management & Custody Banks",
+      "close": 127.44,
+      "close_date": "2026-08-07",
+      "change_1w_pct": 1.47,
+      "change_1m_pct": 6.34,
+      "consensus_target": 152.0,
+      "target_median": 154.0,
+      "target_high": 173.0,
+      "target_low": 126.0,
+      "target_dispersion_pct": 30.92,
+      "range_source": "yahoo",
+      "analyst_count": 19,
+      "recommendation_mean": 1.7619,
+      "recommendation_key": "buy",
+      "upside_pct": 19.27,
+      "source_targets": {
+        "yahoo": 152.0
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": []
+    },
+    {
+      "ticker": "AAPL",
+      "name": "Apple Inc.",
+      "sector": "Information Technology",
+      "sub_industry": "Technology Hardware, Storage & Peripherals",
+      "close": 313.33,
+      "close_date": "2026-08-07",
+      "change_1w_pct": 1.43,
+      "change_1m_pct": -0.91,
+      "consensus_target": 322.8185,
+      "target_median": 330.0,
+      "target_high": 400.0,
+      "target_low": 215.0,
+      "target_dispersion_pct": 57.31,
+      "range_source": "yahoo",
+      "analyst_count": 41,
+      "recommendation_mean": 2.08696,
+      "recommendation_key": "buy",
+      "upside_pct": 3.03,
+      "source_targets": {
+        "yahoo": 322.8185
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": []
+    },
+    {
+      "ticker": "AMAT",
+      "name": "Applied Materials",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductor Materials & Equipment",
+      "close": 539.14,
+      "close_date": "2026-08-07",
+      "change_1w_pct": 6.2,
+      "change_1m_pct": -8.41,
+      "consensus_target": 629.0571,
+      "target_median": 650.0,
+      "target_high": 900.0,
+      "target_low": 358.0,
+      "target_dispersion_pct": 86.16,
+      "range_source": "yahoo",
+      "analyst_count": 35,
+      "recommendation_mean": 1.46154,
+      "recommendation_key": "strong_buy",
+      "upside_pct": 16.68,
+      "source_targets": {
+        "yahoo": 629.0571
       },
       "sources_used": [
         "yahoo"
