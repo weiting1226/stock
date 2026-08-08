@@ -45,10 +45,15 @@ class SourceCircuit:
     # 這些狀態碼代表「這把金鑰／這個方案就是不能用這個端點」，重試沒有意義
     FATAL_STATUS = {401, 402, 403}
 
+    # 連續失敗這麼多次就熔斷：有些來源不用狀態碼表達「這個端點你不能用」，
+    # 而是回 200 空白內容，此時只能靠「每一檔都以同樣方式失敗」來判斷。
+    CONSECUTIVE_FAILURE_LIMIT = 5
+
     def __init__(self, name: str):
         self.name = name
         self._lock = threading.Lock()
         self._reason: Optional[str] = None
+        self._consecutive_failures = 0
 
     @property
     def reason(self) -> Optional[str]:
@@ -68,6 +73,21 @@ class SourceCircuit:
             self.trip(reason)
             return True
         return False
+
+    def record_success(self) -> None:
+        with self._lock:
+            self._consecutive_failures = 0
+
+    def record_failure(self, reason: str) -> bool:
+        """記錄一次失敗；連續失敗達上限就熔斷。回傳是否已熔斷。"""
+        with self._lock:
+            self._consecutive_failures += 1
+            if self._consecutive_failures >= self.CONSECUTIVE_FAILURE_LIMIT and self._reason is None:
+                self._reason = (
+                    f"連續 {self._consecutive_failures} 檔以相同方式失敗（{reason}），"
+                    "研判此來源／方案不支援，本次執行已停用"
+                )
+            return self._reason is not None
 
 
 _limiters: dict[str, RateLimiter] = {}

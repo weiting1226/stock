@@ -68,11 +68,14 @@ def fetch_fmp_firm_targets(
     except Exception as e:  # noqa: BLE001
         msg = redact_secrets(f"{type(e).__name__}: {e}")
         log.debug("FMP 逐機構目標價抓取失敗 %s: %s", ticker, msg)
+        if circuit.record_failure(type(e).__name__):
+            return [], circuit.reason
         return [], msg
 
     if not isinstance(payload, list):
         return [], redact_secrets(f"FMP 回傳非預期格式：{str(payload)[:160]}")
 
+    circuit.record_success()
     records: list[TargetRecord] = []
     for row in payload:
         if not isinstance(row, dict):
