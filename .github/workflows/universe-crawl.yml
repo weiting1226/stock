@@ -1,0 +1,94 @@
+name: US universe crawl
+
+# 全美股約 8000+ 檔，逐檔抓目標價無法在一次執行內跑完（有6小時上限、外部來源也限流）。
+# 因此排程分成兩段：
+#   1. 每天一次「開新輪」，重建公司清單並把帳本歸零（保留已成功者由 keep_ok 控制）
+#   2. 每天多次「續跑」，每次處理一批，由帳本決定還有哪些沒做完
+on:
+  schedule:
+    # 每日 01:10 UTC：重建公司清單並開新一輪
+    - cron: "10 1 * * *"
+    # 每 3 小時續跑一批（開新輪那次會被上面那條先跑到）
+    - cron: "40 4,7,10,13,16,19 * * *"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "執行模式"
+        required: true
+        default: "continue"
+        type: choice
+        options: [continue, new_cycle, new_cycle_full, reset_dead, rebuild_universe]
+      max_tickers:
+        description: "本次最多處理幾檔"
+        required: false
+        default: "1500"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: universe-crawl        # 絕不可並行：兩個執行同時寫帳本會互相覆蓋
+  cancel-in-progress: false
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330       # 低於 GitHub 的 360 分上限，留時間 commit
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Decide mode
+        id: mode
+        run: |
+          MODE="${{ github.event.inputs.mode }}"
+          if [ -z "$MODE" ]; then
+            # 排程觸發：01:10 那班開新輪，其餘續跑
+            if [ "${{ github.event.schedule }}" = "10 1 * * *" ]; then
+              MODE="new_cycle"
+            else
+              MODE="continue"
+            fi
+          fi
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+          echo "本次模式：$MODE"
+
+      - name: Rebuild company universe
+        if: steps.mode.outputs.mode == 'new_cycle' || steps.mode.outputs.mode == 'new_cycle_full' || steps.mode.outputs.mode == 'rebuild_universe'
+        run: python3 scripts/build_universe.py -v
+
+      - name: Fetch per-ticker data
+        if: steps.mode.outputs.mode != 'rebuild_universe'
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
+        run: |
+          ARGS="-v --max-tickers ${{ github.event.inputs.max_tickers || '1500' }}"
+          case "${{ steps.mode.outputs.mode }}" in
+            new_cycle)      ARGS="$ARGS --new-cycle --keep-ok" ;;
+            new_cycle_full) ARGS="$ARGS --new-cycle" ;;
+            reset_dead)     ARGS="$ARGS --reset-dead" ;;
+          esac
+          python3 scripts/fetch_universe.py $ARGS
+
+      - name: Commit progress
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data
+          if git diff --cached --quiet; then
+            echo "no changes"
+          else
+            git commit -m "chore: US universe crawl progress"
+            # 其他排程也會寫入 repo，先 rebase 再推
+            git pull --rebase origin main
+            git push
+          fi

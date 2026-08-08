@@ -300,6 +300,69 @@ Finnhub 把金鑰放在 query string，`requests` 的 `HTTPError` 訊息包含�
 在 repo 的 Settings → Secrets and variables → Actions 新增 `FMP_API_KEY`。
 （同理，`FINNHUB_API_KEY` 可加入第二個共識來源。）
 
+## 全美股逐檔抓取（模組二的擴充）
+
+除了 S&P 500 的每日彙總，另有一條「**全美股上市公司逐檔抓取**」的流程，
+處理約 8000+ 檔、可續跑、失敗自動重試、每一檔的結果逐筆保存。
+
+```
+data/universe.csv     公司清單（ticker, name, exchange, is_etf, source）
+data/ledger.csv       抓取帳本（status, attempts, last_attempt_at, last_ok_at, last_error）
+data/results/A.jsonl  逐檔結果，依代碼首字分片，一行一檔
+```
+
+### 使用方式
+
+```bash
+python3 scripts/build_universe.py -v                                  # 1. 建立公司清單
+python3 scripts/fetch_universe.py --new-cycle --keep-ok -v            # 2. 開新一輪
+python3 scripts/fetch_universe.py --max-tickers 1500 -v               # 3. 續跑（可重複執行）
+python3 scripts/fetch_universe.py --reset-dead -v                     #    排除問題後重試已放棄的
+```
+
+### 公司清單來源
+
+| 來源 | 角色 | 提供內容 |
+|---|---|---|
+| NASDAQ Trader Symbol Directory | 主 | 交易所官方每日更新，含 Test Issue 與 ETF 旗標 |
+| SEC `company_tickers.json` | 備援 | 含 CIK，但無交易所／ETF 旗標 |
+
+- 交易所代碼會轉成 Yahoo Finance 格式：`BRK.B → BRK-B`、特別股 `BAC$B → BAC-PB`
+- 檔尾的 `File Creation Time` 那行、以及 `Test Issue = Y` 的測試代碼都會濾掉
+- 解析出的筆數若明顯過少（< 3000），**直接報錯而不覆蓋既有清單**，
+  避免用殘缺資料把好的清單洗掉
+
+### 帳本與重試
+
+每一檔有四種狀態：
+
+| 狀態 | 意義 |
+|---|---|
+| `pending` | 尚未嘗試 |
+| `ok` | 成功 |
+| `failed` | 失敗但仍可重試（`attempts < 3`）|
+| `dead` | 已達重試上限，不再自動重試（需 `--reset-dead`）|
+
+- **取件順序**：先做沒試過的，再做失敗次數少的。避免某幾檔一直卡在前面重試、
+  讓其餘還沒試過的標的餓死。
+- **「查得到但無分析師覆蓋」記為成功**，不是失敗——否則這類標的會每輪都被重試，
+  永遠佔用配額卻不可能成功。
+- 每處理 200 檔就把帳本與結果落地一次，**執行中途被中斷不會白做**。
+- 帳本刻意用 CSV 而非 SQLite：它要 commit 進 repo 才能跨執行保存進度，
+  文字格式的 diff 看得懂、衝突也處理得了。
+
+### 為什麼結果是分片 JSONL 而不是「一檔一個檔案」
+
+8000+ 檔會產生 8000+ 個小檔，而價格每天都變，等於每天 commit 八千個檔案變更，
+repo 會迅速膨脹。分片 JSONL 同樣是「一筆結果一筆記錄」、可逐筆讀寫更新，
+但檔案數收斂到約 40 個，git diff 仍然看得懂。
+
+### 排程
+
+`.github/workflows/universe-crawl.yml`：每日 01:10 UTC 重建清單並開新一輪，
+之後每 3 小時續跑一批。單次上限 1500 檔、job 上限 330 分鐘（低於 GitHub 的 360 分）。
+`concurrency` 群組確保兩次執行不會同時寫帳本。
+
 ## 儀表板設計
 
 兩個模組共用 `docs/style.css`，採**北歐簡潔商務風格**：米白紙感表面、髮絲級分隔線、
