@@ -56,6 +56,21 @@
           <option value="30">&gt; 30%</option>
         </select>
       </label>
+      <label>最少機構數
+        <select id="analyst-filter">
+          <option value="">不限</option>
+          <option value="5">≥ 5 家</option>
+          <option value="10">≥ 10 家</option>
+          <option value="20">≥ 20 家</option>
+        </select>
+      </label>
+      <label>最高離散度
+        <select id="dispersion-filter">
+          <option value="">不限</option>
+          <option value="30">≤ 30%（共識度高）</option>
+          <option value="60">≤ 60%</option>
+        </select>
+      </label>
       <label>搜尋
         <input type="search" id="search-box" placeholder="代號或公司名稱" />
       </label>
@@ -74,9 +89,11 @@
             <th class="num" data-sort="close">收盤價</th>
             <th class="num" data-sort="consensus_target">共識目標價</th>
             <th class="num" data-sort="upside_pct">上漲空間 ▼</th>
+            <th class="num" data-sort="analyst_count">機構數</th>
+            <th data-sort="target_low">目標價區間（低－高）</th>
+            <th class="num" data-sort="target_dispersion_pct">離散度</th>
             <th class="num" data-sort="change_1w_pct">近一週</th>
             <th class="num" data-sort="change_1m_pct">近一月</th>
-            <th class="num" data-sort="analyst_count">分析師</th>
             <th data-sort="confidence">信心</th>
           </tr>
         </thead>
@@ -89,6 +106,7 @@
   <footer class="disclaimer">
     <p><strong>非投資建議。</strong>本頁為分析師共識目標價與市價差異的機械化呈現，提供者非持牌投資顧問。</p>
     <p>「上漲空間為正」只代表分析師共識價高於現價，<strong>不等於便宜或值得買進</strong>：目標價會隨股價變動而事後調整，且分析師普遍存在偏多傾向；共識價本身也可能因為基本面惡化而尚未反映。</p>
+    <p><strong>關於離散度：</strong>資料來源只公布最高／最低／平均／中位數，不提供每一家機構的個別目標價，因此這裡的離散度是<strong>以區間寬度估算</strong>（最高 − 最低）／共識目標價，並非統計上的標準差。它會被單一極端值放大，機構數少時尤其不穩定，請搭配「機構數」一起看。</p>
     <p id="source-note"></p>
     <p>資料來源與程式碼：<a href="https://github.com/weiting1226/stock">GitHub repository</a></p>
   </footer>

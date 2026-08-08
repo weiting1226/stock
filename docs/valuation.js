@@ -21,6 +21,48 @@ function pctCell(v) {
 
 const state = { report: null, rows: [], sortKey: "upside_pct", sortDir: -1 };
 
+const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+
+/**
+ * 目標價區間視覺化：一條軌道代表 [最低目標價, 最高目標價]，
+ * ● 為目前收盤價的位置，▲ 為共識目標價的位置。
+ * 軌道越寬（離散度越大）代表各機構看法分歧越大。
+ */
+function rangeCell(r) {
+  const { target_low: lo, target_high: hi, consensus_target: mid, close } = r;
+  if (lo === null || lo === undefined || hi === null || hi === undefined) {
+    return '<td class="range-cell">—</td>';
+  }
+  const span = hi - lo;
+  const pos = (v) => (span > 0 ? clamp(((v - lo) / span) * 100, 0, 100) : 50);
+  const tip = [
+    `最低 ${lo.toFixed(2)}`,
+    `共識 ${mid !== null && mid !== undefined ? mid.toFixed(2) : "—"}`,
+    `最高 ${hi.toFixed(2)}`,
+    close !== null && close !== undefined ? `收盤 ${close.toFixed(2)}` : null,
+    r.range_source ? `區間來源：${r.range_source}` : null,
+  ].filter(Boolean).join("　");
+
+  const markers = [
+    close !== null && close !== undefined
+      ? `<span class="range-close" style="left:${pos(close).toFixed(1)}%"></span>` : "",
+    mid !== null && mid !== undefined
+      ? `<span class="range-target" style="left:${pos(mid).toFixed(1)}%"></span>` : "",
+  ].join("");
+
+  return `<td class="range-cell" title="${escapeHtml(tip)}">
+    <div class="range-nums"><span>${lo.toFixed(2)}</span><span>${hi.toFixed(2)}</span></div>
+    <div class="range-track">${markers}</div>
+  </td>`;
+}
+
+/** 離散度分級：區間寬度相對共識價越大，分歧越嚴重。 */
+function dispersionCell(v) {
+  if (v === null || v === undefined) return '<td class="num">—</td>';
+  const cls = v >= 60 ? "disp-high" : v >= 30 ? "disp-mid" : "disp-low";
+  return `<td class="num ${cls}">${v.toFixed(1)}%</td>`;
+}
+
 function showError(msg) {
   document.getElementById("error-slot").innerHTML = `<div class="error-banner">⚠️ ${msg}</div>`;
 }
@@ -32,11 +74,27 @@ function renderStats(report) {
   const median = n ? (n % 2 ? upsides[(n - 1) / 2] : (upsides[n / 2 - 1] + upsides[n / 2]) / 2) : null;
   const undervalued = upsides.filter((u) => u > 0).length;
 
+  const disps = report.rows
+    .map((r) => r.target_dispersion_pct)
+    .filter((v) => v !== null && v !== undefined)
+    .sort((a, b) => a - b);
+  const dn = disps.length;
+  const medianDisp = dn ? (dn % 2 ? disps[(dn - 1) / 2] : (disps[dn / 2 - 1] + disps[dn / 2]) / 2) : null;
+
+  const counts = report.rows
+    .map((r) => r.analyst_count)
+    .filter((v) => v !== null && v !== undefined);
+  const medianCount = counts.length
+    ? counts.slice().sort((a, b) => a - b)[Math.floor(counts.length / 2)]
+    : null;
+
   const tiles = [
     { label: "資料基準日", value: report.as_of, plain: true },
     { label: "已涵蓋標的", value: `${report.counts.with_target_and_price} / ${report.counts.universe}`, plain: true },
     { label: "中位數上漲空間", value: median === null ? "—" : `${median.toFixed(1)}%`, signed: median },
     { label: "共識價高於現價", value: n ? `${((100 * undervalued) / n).toFixed(0)}%` : "—", plain: true },
+    { label: "中位數機構數", value: medianCount === null ? "—" : `${medianCount}`, plain: true },
+    { label: "中位數離散度", value: medianDisp === null ? "—" : `${medianDisp.toFixed(1)}%`, plain: true },
   ];
 
   document.getElementById("stat-row").innerHTML = tiles
@@ -115,6 +173,8 @@ function currentFilters() {
     sector: document.getElementById("sector-filter").value,
     confidence: document.getElementById("confidence-filter").value,
     minUpside: document.getElementById("upside-filter").value,
+    minAnalysts: document.getElementById("analyst-filter").value,
+    maxDispersion: document.getElementById("dispersion-filter").value,
     query: document.getElementById("search-box").value.trim().toLowerCase(),
     hideMissing: document.getElementById("hide-missing").checked,
   };
@@ -130,6 +190,17 @@ function applyFilters() {
   if (f.minUpside !== "") {
     const min = Number(f.minUpside);
     rows = rows.filter((r) => r.upside_pct !== null && r.upside_pct !== undefined && r.upside_pct > min);
+  }
+  if (f.minAnalysts !== "") {
+    const min = Number(f.minAnalysts);
+    rows = rows.filter((r) => r.analyst_count !== null && r.analyst_count !== undefined && r.analyst_count >= min);
+  }
+  if (f.maxDispersion !== "") {
+    const max = Number(f.maxDispersion);
+    rows = rows.filter(
+      (r) => r.target_dispersion_pct !== null && r.target_dispersion_pct !== undefined
+        && r.target_dispersion_pct <= max
+    );
   }
   if (f.query) {
     rows = rows.filter(
@@ -174,17 +245,23 @@ function renderTable() {
         <td class="num">${fmtNum(r.close)}</td>
         <td class="num">${fmtNum(r.consensus_target)}</td>
         ${upsideCell}
+        <td class="num">${r.analyst_count ?? "—"}</td>
+        ${rangeCell(r)}
+        ${dispersionCell(r.target_dispersion_pct)}
         ${pctCell(r.change_1w_pct)}
         ${pctCell(r.change_1m_pct)}
-        <td class="num">${r.analyst_count ?? "—"}</td>
         <td class="${confClass}">${escapeHtml(r.confidence || "—")}</td>
       </tr>`;
     })
     .join("");
 
-  document.getElementById("table-footer").textContent =
+  document.getElementById("table-footer").innerHTML =
     `顯示 ${rows.length} 檔（股票池共 ${state.report.counts.universe} 檔）。`
-    + "滑鼠移到列上可看資料備註；上漲空間為正＝分析師共識價高於現價。";
+    + "「目標價區間」欄：軌道兩端為最低／最高目標價，"
+    + '<span class="legend-close"></span> 為目前收盤價、'
+    + '<span class="legend-target"></span> 為共識目標價；'
+    + "離散度 =（最高 − 最低）／共識目標價，數值越大代表各機構看法越分歧。"
+    + "滑鼠移到區間上可看完整數字，移到列上可看資料備註。";
 }
 
 function wireSorting() {
@@ -208,7 +285,8 @@ function wireSorting() {
 }
 
 function wireFilters() {
-  ["sector-filter", "confidence-filter", "upside-filter", "hide-missing"].forEach((id) =>
+  ["sector-filter", "confidence-filter", "upside-filter", "analyst-filter",
+   "dispersion-filter", "hide-missing"].forEach((id) =>
     document.getElementById(id).addEventListener("change", applyFilters)
   );
   document.getElementById("search-box").addEventListener("input", applyFilters);

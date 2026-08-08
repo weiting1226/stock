@@ -375,6 +375,76 @@ td.num.pos, td.num.neg { font-weight: 600; }
 
 .ticker-cell { font-weight: 700; white-space: nowrap; }
 
+/* ---- 目標價區間視覺化 ---- */
+.range-cell { min-width: 116px; }
+
+.range-nums {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+}
+
+.range-track {
+  position: relative;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(to right, var(--gridline), var(--baseline));
+}
+
+/* ● 目前收盤價 */
+.range-close {
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-primary);
+  border: 2px solid var(--surface-1);
+  transform: translate(-50%, -50%);
+}
+
+/* ▲ 共識目標價 */
+.range-target {
+  position: absolute;
+  top: 50%;
+  width: 3px;
+  height: 12px;
+  border-radius: 1px;
+  background: var(--series-1);
+  box-shadow: 0 0 0 1.5px var(--surface-1);
+  transform: translate(-50%, -50%);
+}
+
+/* 說明文字裡的圖例符號 */
+.legend-close, .legend-target {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 1px;
+}
+
+.legend-close {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-primary);
+}
+
+.legend-target {
+  width: 3px;
+  height: 11px;
+  border-radius: 1px;
+  background: var(--series-1);
+}
+
+/* 離散度分級 */
+.disp-low { color: var(--good-deep); }
+.disp-mid { color: var(--text-secondary); }
+.disp-high { color: var(--serious); font-weight: 600; }
+
 .source-pill {
   display: inline-block;
   margin-left: 5px;
