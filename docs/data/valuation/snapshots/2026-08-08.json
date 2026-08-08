@@ -1,6 +1,6 @@
 {
   "as_of": "2026-08-08",
-  "generated_at": "2026-08-08T22:52:40.074373Z",
+  "generated_at": "2026-08-08T22:55:35.386644Z",
   "universe": "S&P 500 (Wikipedia constituents)",
   "sources_available": [
     "yahoo"
@@ -8,8 +8,9 @@
   "finnhub_enabled": true,
   "fmp_enabled": true,
   "firm_source_error_count": 40,
-  "firm_source_error_sample": "HTTPError: 402 Client Error: Payment Required for url: https://financialmodelingprep.com/stable/price-target-news?symbol=AOS&apikey=***REDACTED***",
+  "firm_source_error_sample": "FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源",
   "disabled_sources": {
+    "finnhub": "連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
     "fmp": "FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
   },
   "counts": {
@@ -20,7 +21,7 @@
     "duplicate_firms_removed": 0
   },
   "coverage_note": "40/40 檔同時取得共識目標價與收盤價；其餘標記暫缺，未以任何方式填補。",
-  "multi_source_note": "共識模式：資料源僅提供彙總後的共識值，無法依機構去重，consensus_target 為各啟用來源之共識價平均。　啟用來源：Yahoo Finance、Finnhub、FMP（逐機構）。　⚠️ fmp：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源",
+  "multi_source_note": "共識模式：資料源僅提供彙總後的共識值，無法依機構去重，consensus_target 為各啟用來源之共識價平均。　啟用來源：Yahoo Finance、Finnhub、FMP（逐機構）。　⚠️ finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用　⚠️ fmp：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源",
   "sector_summary": [
     {
       "sector": "Communication Services",
@@ -120,7 +121,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -155,7 +156,7 @@
       "confidence": "中",
       "notes": [
         "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
-        "逐機構來源：HTTPError: 402 Client Error: Payment Required for url: https://financialmodelingprep.com/stable/price-target-news?symbol=AOS&apikey=***REDACTED***"
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
     {
@@ -290,7 +291,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -324,7 +325,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -358,7 +359,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -392,7 +393,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -426,7 +427,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -460,7 +461,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -494,7 +495,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -528,7 +529,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -562,7 +563,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -596,7 +597,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -630,7 +631,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -664,7 +665,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -698,7 +699,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -732,7 +733,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -766,7 +767,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -800,7 +801,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -834,7 +835,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -868,7 +869,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -902,7 +903,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -936,7 +937,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -970,7 +971,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -1004,7 +1005,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -1038,7 +1039,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -1072,7 +1073,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -1106,7 +1107,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -1140,7 +1141,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -1174,7 +1175,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -1208,7 +1209,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -1242,7 +1243,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -1276,7 +1277,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -1310,7 +1311,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -1344,7 +1345,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -1378,7 +1379,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -1412,7 +1413,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     },
@@ -1446,7 +1447,7 @@
       ],
       "confidence": "中",
       "notes": [
-        "finnhub：JSONDecodeError: Expecting value: line 1 column 1 (char 0)",
+        "finnhub：連續 5 檔以相同方式失敗（JSONDecodeError），研判此來源／方案不支援，本次執行已停用",
         "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
       ]
     }
