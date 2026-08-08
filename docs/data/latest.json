@@ -1,6 +1,6 @@
 {
   "as_of": "2026-08-08",
-  "generated_at": "2026-08-08T00:37:06.409774Z",
+  "generated_at": "2026-08-08T00:41:51.455951Z",
   "items": {
     "fed_bs_3m_chg": {
       "key": "fed_bs_3m_chg",
@@ -90,7 +90,7 @@
       "data_date": "2026-08-08",
       "source": "Wikipedia NASDAQ-100 成分股 + Yahoo Finance",
       "confidence": "暫缺",
-      "note": "計算失敗: ValueError: NASDAQ-100 成分股所有來源皆失敗 -> QQQ持股CSV: ValueError: QQQ 持股 CSV 只解析出 0 檔（預期約100檔）；採用欄位='&#34;fieldName&#34;:&#34;ticker&#34;'、資料1194列、欄位=['<div id=\"spa-root\" class=\"react-spa-root\" data-model-json=\"{&#34;id&#34;:&#34;spa-page-0dfd19f334&#34;', '&#34;templateName&#34;:&#34;spa-product-list-page-template&#34;', '&#34;designPath&#34;:&#34;/etc/designs/invesco&#34;', '&#34;cssClassNames&#34;:&#3…"
+      "note": "計算失敗: ValueError: NASDAQ-100 成分股所有來源皆失敗 -> QQQ持股CSV: ValueError: 持股下載網址回傳 HTML 網頁而非 CSV（網址可能已失效或被導向產品頁） | 維基百科: ValueError: 無法從維基百科 Nasdaq-100 頁面找到成分股代號欄位（已同時嘗試欄位名稱與內容比對）；共18個表格，最大的幾個：41列x4欄['Year', 'Closing level', 'Change in Index ', 'Change in Index ']；34列x2欄['vteStock market ', 'vteStock market ']；30列x3欄['Milestone (closi', 'Date of Record (', 'Trading Days[8]']；11列x2欄['0', '1']；8列x2欄['vteMajor stoc…"
     },
     "vix_level": {
       "key": "vix_level",
