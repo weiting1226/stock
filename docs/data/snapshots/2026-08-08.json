@@ -1,6 +1,6 @@
 {
   "as_of": "2026-08-08",
-  "generated_at": "2026-08-08T00:41:51.455951Z",
+  "generated_at": "2026-08-08T22:07:03.465504Z",
   "items": {
     "fed_bs_3m_chg": {
       "key": "fed_bs_3m_chg",
@@ -75,7 +75,7 @@
     "move_index": {
       "key": "move_index",
       "label": "MOVE指數",
-      "raw_value": 72.03019714355469,
+      "raw_value": 70.87999725341797,
       "score": 0,
       "data_date": "2026-08-08",
       "source": "Yahoo Finance ^MOVE",
@@ -105,7 +105,7 @@
     "ivts": {
       "key": "ivts",
       "label": "VIX/VIX3M期限結構",
-      "raw_value": 0.7959401797574264,
+      "raw_value": 0.7254137757738134,
       "score": 2,
       "data_date": "2026-08-08",
       "source": "Yahoo Finance ^VIX / ^VIX3M",
@@ -125,7 +125,7 @@
     "dxy_1m_chg": {
       "key": "dxy_1m_chg",
       "label": "DXY美元指數月變動(%)",
-      "raw_value": -1.3235646247644062,
+      "raw_value": -1.327525198013546,
       "score": 1,
       "data_date": "2026-08-08",
       "source": "Yahoo Finance DX-Y.NYB",
@@ -269,12 +269,12 @@
   },
   "track2_daily_approx": {
     "signals": {
-      "vix9d_gt_vix": false,
+      "vix9d_gt_vix": true,
       "treasury_1d_move_gt_15bp": false,
       "ndx_1d_drop_gt_2pct": false,
       "stocks_bonds_gold_dollar_all_down": false
     },
-    "triggered_count": 0,
+    "triggered_count": 1,
     "unknown_count": 0,
     "circuit_breaker_suggested": false,
     "reliability_note": "軌道二第二、三層與熔斷判定需盤中即時資料，每日批次爬蟲無法取得，本區僅為收盤後近似估計，不得作為加碼依據（比照文件第230行原則）。"
