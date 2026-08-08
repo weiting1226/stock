@@ -38,6 +38,16 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      # 只印長度、不印內容：用來分辨「secret 沒設到」與「設了但值是空的」。
+      # GitHub 本身也會遮蔽 secret 值，這裡連值都不碰。
+      - name: Check optional API keys are reaching the runner
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
+        run: |
+          echo "FMP_API_KEY 長度     = ${#FMP_API_KEY}  (0 表示未設定或值為空)"
+          echo "FINNHUB_API_KEY 長度 = ${#FINNHUB_API_KEY}"
+
       - name: Run valuation scraper
         env:
           # 選用：設定後可取得逐機構目標價，依機構去重後自行計算平均
