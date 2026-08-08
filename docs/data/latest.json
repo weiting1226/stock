@@ -1,6 +1,6 @@
 {
   "as_of": "2026-08-08",
-  "generated_at": "2026-08-08T00:32:12.593706Z",
+  "generated_at": "2026-08-08T00:34:55.171185Z",
   "items": {
     "fed_bs_3m_chg": {
       "key": "fed_bs_3m_chg",
@@ -90,7 +90,7 @@
       "data_date": "2026-08-08",
       "source": "Wikipedia NASDAQ-100 成分股 + Yahoo Finance",
       "confidence": "暫缺",
-      "note": "計算失敗: ValueError: NASDAQ-100 成分股所有來源皆失敗 -> QQQ持股CSV: ParserError: Error tokenizing data. C error: Expected 1 fields in line 11, saw 13 | 維基百科: ValueError: 無法從維基百科 Nas…"
+      "note": "計算失敗: ValueError: NASDAQ-100 成分股所有來源皆失敗 -> QQQ持股CSV: ValueError: QQQ 持股 CSV 只解析出 0 檔（預期約100檔），格式可能已變更 | 維基百科: ValueError: 無法從維基百科 Nasdaq-100 頁面找到成分股代號欄位（已同時嘗試欄位名稱與內容比…"
     },
     "vix_level": {
       "key": "vix_level",
