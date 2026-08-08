@@ -65,14 +65,14 @@ GitHub Actions 的 `schedule` (cron) **只會在預設分支 (通常是 main) �
 | ② | 2Y-10Y公債利差 | FRED `DGS10`/`DGS2` | ✅ 自動 |
 | ② | SOFR-IORB利差 | FRED `SOFR`/`IORB` | ✅ 自動 |
 | ③市場微觀結構(10%) | MOVE指數 | Yahoo Finance `^MOVE` | ✅ 自動 |
-| ③ | NDX站上200日線比例 | 維基百科NASDAQ-100成分股 + Yahoo Finance批次收盤價 | ✅ 自動（成分股清單為目前值，非時點正確） |
+| ③ | NDX站上200日線比例 | Invesco QQQ 持股CSV（維基百科為備援）+ Yahoo Finance批次收盤價 | ✅ 自動（成分股清單為目前值，非時點正確） |
 | ④風險偏好情緒(15%) | VIX | Yahoo Finance `^VIX` | ✅ 自動 |
 | ④ | VIX/VIX3M期限結構 | Yahoo Finance `^VIX`/`^VIX3M` | ✅ 自動 |
 | ④ | 融資餘額年增率(鐘型計分) | FINRA margin statistics（已套用文件規定之2個月發布時滯） | ✅ 自動，網頁解析未經即時流量驗證 |
 | ⑤跨資產資金流向(15%) | DXY美元指數月變動 | Yahoo Finance `DX-Y.NYB`（失敗時退回FRED `DTWEXBGS`） | ✅ 自動 |
 | ⑤ | 股票型ETF資金流 | — | ❌ 暫缺，需人工填入 `docs/data/manual_overrides.json` |
 | ⑤ | USD/JPY 20日變化 | Yahoo Finance `JPY=X` | ✅ 自動 |
-| ⑥政策方向(30%) | FOMC決議偏向(升降息+異議票) | federalreserve.gov 新聞稿 + FRED `DFEDTARU`(規則式文字解析) | ✅ 自動，規則式解析，非語意理解 |
+| ⑥政策方向(30%) | FOMC決議偏向(升降息+異議票) | federalreserve.gov 新聞稿（GitHub Actions 連不到，實務上退回人工填入） | ⚠️ 需人工填入 `docs/data/manual_overrides.json` |
 | ⑥ | CME FedWatch隱含路徑 | — | ❌ 暫缺，需人工填入 `docs/data/manual_overrides.json` |
 | ⑥ | 30Y殖利率60日動能 | FRED `DGS30` | ✅ 自動（bp門檻為本專案量化假設，見`scoring.py`註解） |
 
@@ -111,20 +111,35 @@ Gate B 脆弱度閘門另外用到：融資餘額/GDP（FINRA + FRED `GDP`）、
    （這兩個資料源版面最容易改版）。若解析失敗，函式會拋出清楚的錯誤訊息而不是
    回傳錯誤數字，可用 `--margin-override-csv` 或 `manual_overrides.json` 人工備援。
 
-## 人工手動填入的三個欄位
+## 人工手動填入的欄位
 
 `docs/data/manual_overrides.json`：
 
 ```json
 {
-  "etf_fund_flow": {"score": 1, "as_of": "2026-08-05", "note": "..."},
-  "fedwatch_path": {"score": -1, "as_of": "2026-08-05", "note": "..."},
-  "ndx_fwd_pe": {"value": 28.5, "as_of": "2026-08-05", "note": "..."}
+  "fomc_decision": {"score": 2,    "as_of": "2026-07-29", "note": "降息一碼、無異議票"},
+  "fedwatch_path": {"score": -1,   "as_of": "2026-08-05", "note": "..."},
+  "etf_fund_flow": {"score": 1,    "as_of": "2026-08-05", "note": "..."},
+  "ndx_fwd_pe":    {"value": 28.5, "as_of": "2026-08-05", "note": "..."}
 }
 ```
 
-`score` 需為 -2..2 的整數（依文件表格人工判斷後填入）；超過45天沒更新會被標記
-「暫缺(逾45天未更新)」並停止採計，避免用陳舊資料當成今日訊號。
+`score` 需為 -2..2 的整數（依文件表格人工判斷後填入）。各欄位有不同的過期天數，
+超過就會標記「暫缺」**並停止採計**，避免用陳舊資料當成今日訊號：
+
+| 欄位 | 過期天數 | 建議更新時機 |
+|---|---|---|
+| `fomc_decision` | 60 天 | 每次 FOMC 會後（一年8次，平均間隔約46天）|
+| `fedwatch_path` | 14 天 | 每週 |
+| `etf_fund_flow` | 14 天 | 每週 |
+| `ndx_fwd_pe` | 45 天 | 每月 |
+
+**為什麼 FOMC 需要人工填？** GitHub Actions 的執行環境連不到
+`federalreserve.gov`（2026-08 實測，索引頁請求全部失敗）。程式仍會先嘗試自動抓取，
+失敗才退回人工填入的分數，並在備註標明「自動抓取失敗」。若在自己電腦執行、
+網路可通，就會自動解析、不需人工介入。
+
+⑥ 佔 30% 權重，**沒填的話 Gate C 會持續觸發禁用槓桿**（部位上限固定在 100% QQQ）。
 
 ---
 

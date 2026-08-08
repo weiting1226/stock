@@ -51,6 +51,15 @@ FINRA_PUBLISH_LAG_DAYS = 35  # 文件規定：當月只能使用兩個月前的�
 FED_PRESSRELEASE_INDEX = "https://www.federalreserve.gov/newsevents/pressreleases/{year}-monetary.htm"
 
 # NASDAQ-100 成分股清單來源（用於計算③ NDX 200日線廣度）
+#
+# 主來源改用 Invesco QQQ 的公開持股 CSV：QQQ 完整複製 NASDAQ-100，
+# 其持股清單就是成分股清單，且由發行商每日更新，比維基百科可靠。
+# 2026-08 維基百科 Nasdaq-100 頁面已無法解析出成分股表格（18個表格全不足50列），
+# 因此把維基百科降為備援。
+QQQ_HOLDINGS_URL = (
+    "https://www.invesco.com/us/financial-products/etfs/holdings/main/holdings/0"
+    "?audienceType=Investor&action=download&ticker=QQQ"
+)
 NDX_CONSTITUENTS_WIKI_URL = "https://en.wikipedia.org/wiki/Nasdaq-100"
 
 # ---------------------------------------------------------------------------
@@ -105,9 +114,21 @@ ITEM_LABELS = {
     "yield30y_60d_momentum": "30Y殖利率60日動能",
 }
 
-# 沒有可靠免費歷史資料源、永遠標記「暫缺」的欄位（除非使用者於
-# manual_overrides.json 手動填入）。對應文件第103、124、136行的說明。
-MANUAL_OVERRIDE_ITEMS = {"etf_fund_flow", "fedwatch_path"}
+# 沒有可靠免費資料源、需由使用者於 manual_overrides.json 手動填入的欄位。
+# 對應文件第103、124、136行的說明。
+# fomc_decision 原本可從聯準會新聞稿自動解析，但 GitHub Actions 的執行環境
+# 連不到 federalreserve.gov（2026-08 實測），因此改為「自動抓取失敗時退回人工填入」。
+MANUAL_OVERRIDE_ITEMS = {"etf_fund_flow", "fedwatch_path", "fomc_decision"}
+
+# 人工填入的資料多久算過期（超過即改標「暫缺」，避免拿陳舊資料當今日訊號）。
+# 依各項目的實際更新頻率設定：資金流與利率路徑每週都在變，FOMC 約6週才開一次會。
+MANUAL_OVERRIDE_MAX_AGE_DAYS = {
+    "etf_fund_flow": 14,
+    "fedwatch_path": 14,
+    "fomc_decision": 60,   # FOMC 一年8次、平均間隔約46天，須大於此值
+    "ndx_fwd_pe": 45,
+}
+MANUAL_OVERRIDE_DEFAULT_MAX_AGE_DAYS = 45
 
 # ---------------------------------------------------------------------------
 # 燈號區間（文件第148-154行）

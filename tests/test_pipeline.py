@@ -136,3 +136,44 @@ def test_pipeline_end_to_end_storage_roundtrip(_patch_sources, tmp_path):
     df = pd.read_csv(data_root / "scores_history.csv")
     assert len(df) == 1
     assert df.iloc[0]["as_of"] == "2026-08-05"
+
+
+# --- FOMC 人工填入退回機制 -------------------------------------------------
+
+def test_fomc_falls_back_to_manual_override_when_scrape_fails(_patch_sources, monkeypatch, tmp_path):
+    """GitHub Actions 連不到 federalreserve.gov，需能退回人工填入的分數。"""
+    import json as _json
+    from liquidity_monitor.sources import fomc as fomc_src
+
+    monkeypatch.setattr(fomc_src, "latest_meeting_on_or_before",
+                        lambda as_of: (_ for _ in ()).throw(ValueError("網站連不到")))
+    overrides = tmp_path / "ov.json"
+    overrides.write_text(_json.dumps({
+        "fomc_decision": {"score": 2, "as_of": "2026-07-29", "note": "降息一碼無異議"}
+    }))
+
+    report = pipeline.run(as_of="2026-08-05", overrides_path=str(overrides),
+                          ndx_cache_path=str(tmp_path / "ndx.json"))
+    item = report["items"]["fomc_decision"]
+    assert item["score"] == 2
+    assert item["confidence"] == "低"
+    assert "自動抓取失敗" in item["note"]
+
+
+def test_stale_manual_override_is_not_scored(_patch_sources, monkeypatch, tmp_path):
+    """人工資料過期就不採計，避免拿陳舊資料當今日訊號。"""
+    import json as _json
+    from liquidity_monitor.sources import fomc as fomc_src
+
+    monkeypatch.setattr(fomc_src, "latest_meeting_on_or_before",
+                        lambda as_of: (_ for _ in ()).throw(ValueError("網站連不到")))
+    overrides = tmp_path / "ov2.json"
+    overrides.write_text(_json.dumps({
+        "fomc_decision": {"score": 2, "as_of": "2026-01-01", "note": "很久以前"}
+    }))
+
+    report = pipeline.run(as_of="2026-08-05", overrides_path=str(overrides),
+                          ndx_cache_path=str(tmp_path / "ndx2.json"))
+    item = report["items"]["fomc_decision"]
+    assert item["score"] is None
+    assert "逾60天" in item["confidence"]

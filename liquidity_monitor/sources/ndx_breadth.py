@@ -22,7 +22,9 @@ import requests
 
 from . import yahoo
 
-WIKI_URL = "https://en.wikipedia.org/wiki/Nasdaq-100"
+from ..config import NDX_CONSTITUENTS_WIKI_URL, QQQ_HOLDINGS_URL
+
+WIKI_URL = NDX_CONSTITUENTS_WIKI_URL
 _HEADERS = {"User-Agent": "Mozilla/5.0 (liquidity-monitor-v3 scraper)"}
 
 _TICKER_RE = re.compile(r"^[A-Z]{1,5}(\.[A-Z])?$")
@@ -97,18 +99,60 @@ def _extract_tickers(tables: list[pd.DataFrame]) -> list[str]:
     return sorted({v.replace(".", "-") for v in best[1]})
 
 
+def fetch_qqq_holdings(timeout: int = 30) -> list[str]:
+    """從 Invesco 公開的 QQQ 持股 CSV 取得 NASDAQ-100 成分股。
+
+    QQQ 完整複製 NASDAQ-100，持股清單即成分股清單，由發行商每日更新，
+    比維基百科條目穩定得多（2026-08 維基百科該頁已解析不出成分股表格）。
+    """
+    resp = requests.get(QQQ_HOLDINGS_URL, headers=_HEADERS, timeout=timeout)
+    resp.raise_for_status()
+    df = pd.read_csv(io.StringIO(resp.text))
+    df.columns = [str(c).strip() for c in df.columns]
+
+    col = next(
+        (c for c in df.columns if "holding ticker" in c.lower()),
+        next((c for c in df.columns if "ticker" in c.lower() and "fund" not in c.lower()), None),
+    )
+    if col is None:
+        raise ValueError(f"QQQ 持股 CSV 找不到持股代號欄位；實際欄位：{list(df.columns)[:8]}")
+
+    tickers = sorted({
+        s.replace(".", "-")
+        for s in (_clean_symbol(v) for v in df[col].dropna())
+        if _TICKER_RE.match(s)
+    })
+    if len(tickers) < MIN_EXPECTED_CONSTITUENTS:
+        raise ValueError(
+            f"QQQ 持股 CSV 只解析出 {len(tickers)} 檔（預期約100檔），格式可能已變更"
+        )
+    return tickers
+
+
 def fetch_constituents(cache_path: Optional[str] = None, max_cache_age_days: int = 30) -> list[str]:
-    """回傳 NASDAQ-100 成分股 ticker 清單，優先用未過期的本地快取。"""
+    """回傳 NASDAQ-100 成分股 ticker 清單。
+
+    順序：未過期的本地快取 → Invesco QQQ 持股 CSV（主）→ 維基百科（備援）。
+    兩個來源都失敗才拋錯，且錯誤訊息同時帶出兩邊的失敗原因。
+    """
     cache = Path(cache_path) if cache_path else None
     if cache and cache.exists():
         age_days = (pd.Timestamp.utcnow().tz_localize(None) - pd.Timestamp(cache.stat().st_mtime, unit="s")).days
         if age_days < max_cache_age_days:
             return json.loads(cache.read_text())["tickers"]
 
-    resp = requests.get(WIKI_URL, headers=_HEADERS, timeout=30)
-    resp.raise_for_status()
-    tables = pd.read_html(io.StringIO(resp.text))  # pandas>=2.1 不再接受純字串
-    tickers = _extract_tickers(tables)
+    errors: list[str] = []
+    try:
+        tickers = fetch_qqq_holdings()
+    except Exception as e:  # noqa: BLE001 — 主來源失敗要能退回備援
+        errors.append(f"QQQ持股CSV: {type(e).__name__}: {e}")
+        try:
+            resp = requests.get(WIKI_URL, headers=_HEADERS, timeout=30)
+            resp.raise_for_status()
+            tickers = _extract_tickers(pd.read_html(io.StringIO(resp.text)))
+        except Exception as e2:  # noqa: BLE001
+            errors.append(f"維基百科: {type(e2).__name__}: {e2}")
+            raise ValueError("NASDAQ-100 成分股所有來源皆失敗 -> " + " | ".join(errors)) from e2
 
     if cache:
         cache.parent.mkdir(parents=True, exist_ok=True)
