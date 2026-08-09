@@ -20,11 +20,17 @@
     </div>
   </header>
 
+  <div id="source-switch" class="source-switch" role="group" aria-label="資料範圍">
+    <button type="button" data-source="sp500" class="active">S&amp;P 500</button>
+    <button type="button" data-source="universe">全美股（約 7,500 檔）</button>
+  </div>
+
   <div id="error-slot"></div>
 
   <section class="card">
     <div class="stat-row" id="stat-row"></div>
     <p class="subtitle" id="coverage-note" style="margin-bottom:0"></p>
+    <p class="subtitle progress-note" id="progress-note"></p>
   </section>
 
   <section class="card">
@@ -76,6 +82,9 @@
       </label>
       <label class="checkbox-label">
         <input type="checkbox" id="hide-missing" checked /> 隱藏無目標價標的
+      </label>
+      <label class="checkbox-label" title="目標價相對現價偏離超過 300%（或低於 −90%）者，多為單一分析師覆蓋的極低價股，數字通常不可靠">
+        <input type="checkbox" id="hide-implausible" checked /> 隱藏疑似異常
       </label>
     </div>
 

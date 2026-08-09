@@ -48,6 +48,9 @@ class ValuationRow:
     recommendation_key: Optional[str] = None
 
     upside_pct: Optional[float] = None
+    # 目標價相對現價偏離到不合理的程度（多為雞蛋水餃股搭配單一分析師）。
+    # 做成結構化欄位而不是只寫進 notes：排序與篩選要靠它，比對說明文字太脆弱。
+    implausible: bool = False
     source_targets: dict = field(default_factory=dict)  # {source: mean_target}
     sources_used: list = field(default_factory=list)
     confidence: str = "暫缺"   # 高／中／低／暫缺
@@ -172,6 +175,7 @@ def build_row(
     if row.consensus_target and row.close:
         upside = (row.consensus_target / row.close - 1) * 100
         if upside > IMPLAUSIBLE_UPSIDE_PCT or upside < IMPLAUSIBLE_DOWNSIDE_PCT:
+            row.implausible = True
             row.notes.append(
                 f"目標價相對現價偏離 {upside:.0f}%，疑似資料異常，已標記但未剔除"
             )
@@ -185,10 +189,15 @@ def build_row(
 
 
 def sector_summary(rows: list[ValuationRow]) -> list[dict]:
-    """各類股的中位數上漲空間與樣本數，供儀表板的類股比較圖使用。"""
+    """各類股的中位數上漲空間與樣本數，供儀表板的類股比較圖使用。
+
+    排除已標記為異常的列：全市場範圍內有數百檔雞蛋水餃股帶著上千 % 的
+    「上漲空間」，把它們算進去，類股中位數反映的是資料雜訊而不是行情。
+    （S&P 500 範圍幾乎沒有這種列，因此原本的數字不受影響。）
+    """
     buckets: dict[str, list[float]] = {}
     for r in rows:
-        if r.upside_pct is None:
+        if r.upside_pct is None or r.implausible:
             continue
         buckets.setdefault(r.sector, []).append(r.upside_pct)
 

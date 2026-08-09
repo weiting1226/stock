@@ -317,10 +317,22 @@ def test_redact_secrets_strips_query_credentials():
     ("https://x.com/a?api_key=SECRET123", "SECRET123"),
     ("https://x.com/a?key=SECRET123", "SECRET123"),
     ("Authorization: Bearer SECRET123", "SECRET123"),
+    ("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"),
 ])
 def test_redact_secrets_covers_common_credential_shapes(raw, secret):
     from analyst_valuation.secrets_redaction import redact_secrets
     assert secret not in redact_secrets(raw)
+
+
+@pytest.mark.parametrize("text", [
+    "Basic Materials",          # 類股名稱：實際被寫成「Basic ***REDACTED***」存進資料檔
+    "Basic Industries",
+    "Bearer Corporation",
+])
+def test_redact_secrets_does_not_eat_ordinary_english(text):
+    """遮蔽做過頭一樣是損壞資料，而且壞得更安靜：外洩看得出來，被吃掉的字沒人會發現。"""
+    from analyst_valuation.secrets_redaction import redact_secrets
+    assert redact_secrets(text) == text
 
 
 def test_storage_redacts_before_writing(tmp_path):

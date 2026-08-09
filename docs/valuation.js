@@ -1,4 +1,14 @@
-const DATA_PATH = "data/valuation/latest.json";
+// 兩份資料源：S&P 500 是每日全量重抓的完整快照；全美股是跨多班次逐檔累積的
+// 掃描結果，覆蓋率會隨當天進度成長。共用同一套渲染與篩選程式碼，避免兩邊的
+// 上漲空間／離散度定義各自演化。
+const DATA_SOURCES = {
+  sp500: { path: "data/valuation/latest.json", label: "S&P 500" },
+  universe: { path: "data/valuation/universe_latest.json", label: "全美股" },
+};
+
+// 7,498 列一次全畫進 DOM 會讓瀏覽器卡住好幾秒，而且沒有人會捲到第 500 列。
+// 篩選與排序仍在全部資料上進行，只是渲染截斷，並在表尾說明還有多少列。
+const MAX_RENDERED_ROWS = 300;
 
 const cssVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
@@ -19,7 +29,7 @@ function pctCell(v) {
   return `<td class="num ${cls}">${sign}${n.toFixed(2)}%</td>`;
 }
 
-const state = { report: null, rows: [], sortKey: "upside_pct", sortDir: -1 };
+const state = { report: null, rows: [], sortKey: "upside_pct", sortDir: -1, source: "sp500" };
 
 const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 
@@ -126,9 +136,18 @@ function renderStats(report) {
 let sectorChart;
 function renderSectorChart(report) {
   const data = (report.sector_summary || []).slice();
-  if (!data.length) return;
   const ctx = document.getElementById("sector-chart");
   if (sectorChart) sectorChart.destroy();
+  // 只有 Unknown 一類時畫出來的是一根沒有意義的長條（類股要等下一輪掃描才填得上），
+  // 與其顯示假的比較圖，不如整段收起來
+  const meaningful = data.filter((d) => d.sector && d.sector !== "Unknown");
+  // 切換資料源時若新的沒有類股資料，得把舊圖清掉，否則會留著上一份的長條
+  if (!meaningful.length) {
+    sectorChart = undefined;
+    ctx.closest("section").hidden = true;
+    return;
+  }
+  ctx.closest("section").hidden = false;
   sectorChart = new Chart(ctx, {
     type: "bar",
     data: {
@@ -170,6 +189,8 @@ function renderSectorChart(report) {
 function populateSectorFilter(report) {
   const sectors = [...new Set(report.rows.map((r) => r.sector).filter(Boolean))].sort();
   const sel = document.getElementById("sector-filter");
+  // 切換資料源時要重建；只用 append 會把兩份清單疊在一起
+  sel.innerHTML = '<option value="">全部類股</option>';
   sectors.forEach((s) => {
     const opt = document.createElement("option");
     opt.value = s;
@@ -187,6 +208,7 @@ function currentFilters() {
     maxDispersion: document.getElementById("dispersion-filter").value,
     query: document.getElementById("search-box").value.trim().toLowerCase(),
     hideMissing: document.getElementById("hide-missing").checked,
+    hideImplausible: document.getElementById("hide-implausible").checked,
   };
 }
 
@@ -195,6 +217,7 @@ function applyFilters() {
   let rows = state.report.rows.slice();
 
   if (f.hideMissing) rows = rows.filter((r) => r.upside_pct !== null && r.upside_pct !== undefined);
+  if (f.hideImplausible) rows = rows.filter((r) => !r.implausible);
   if (f.sector) rows = rows.filter((r) => r.sector === f.sector);
   if (f.confidence) rows = rows.filter((r) => r.confidence === f.confidence);
   if (f.minUpside !== "") {
@@ -238,7 +261,8 @@ function applyFilters() {
 
 function renderTable() {
   const tbody = document.querySelector("#valuation-table tbody");
-  const rows = state.rows;
+  const rows = state.rows.slice(0, MAX_RENDERED_ROWS);
+  const truncated = state.rows.length - rows.length;
 
   tbody.innerHTML = rows
     .map((r) => {
@@ -278,7 +302,12 @@ function renderTable() {
     .join("");
 
   document.getElementById("table-footer").innerHTML =
-    `顯示 ${rows.length} 檔（股票池共 ${state.report.counts.universe} 檔）。`
+    `顯示 ${rows.length} 檔（符合條件共 ${state.rows.length} 檔，`
+    + `股票池共 ${state.report.counts.universe} 檔）。`
+    + (truncated > 0
+        ? `<strong>另有 ${truncated} 檔未顯示</strong>——表格最多列出 ${MAX_RENDERED_ROWS} 列，`
+          + "請用上方篩選或點欄位標題排序來縮小範圍。"
+        : "")
     + "「目標價區間」欄：軌道兩端為最低／最高目標價，"
     + '<span class="legend-close"></span> 為目前收盤價、'
     + '<span class="legend-target"></span> 為共識目標價；'
@@ -308,31 +337,69 @@ function wireSorting() {
 
 function wireFilters() {
   ["sector-filter", "confidence-filter", "upside-filter", "analyst-filter",
-   "dispersion-filter", "hide-missing"].forEach((id) =>
+   "dispersion-filter", "hide-missing", "hide-implausible"].forEach((id) =>
     document.getElementById(id).addEventListener("change", applyFilters)
   );
   document.getElementById("search-box").addEventListener("input", applyFilters);
 }
 
-async function main() {
+function wireSourceSwitch() {
+  document.querySelectorAll("#source-switch button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (btn.dataset.source === state.source) return;
+      state.source = btn.dataset.source;
+      document.querySelectorAll("#source-switch button").forEach((b) =>
+        b.classList.toggle("active", b.dataset.source === state.source)
+      );
+      loadAndRender();
+    });
+  });
+}
+
+/** 全美股是跨班次累積的，覆蓋率會隨進度成長——沒說清楚會被誤讀成「資料不全」。 */
+function renderProgressNote(report) {
+  const slot = document.getElementById("progress-note");
+  const p = report.crawl_progress;
+  if (state.source !== "universe" || !p || !p.total) {
+    slot.innerHTML = "";
+    return;
+  }
+  const done = (p.ok || 0);
+  const pct = ((done / p.total) * 100).toFixed(1);
+  slot.innerHTML =
+    `<strong>本輪掃描進度 ${pct}%</strong>（${done} / ${p.total} 檔）。`
+    + `尚待處理 ${p.pending || 0} 檔、可重試 ${p.failed || 0} 檔、已放棄 ${p.dead || 0} 檔。`
+    + "全美股逐檔查詢受外部來源限流，分成每天多個班次完成，因此未列出的標的"
+    + "多半是<strong>今天還沒輪到</strong>，而不是查不到。";
+}
+
+async function loadAndRender() {
+  const src = DATA_SOURCES[state.source];
+  document.getElementById("error-slot").innerHTML = "";
   try {
-    const res = await fetch(DATA_PATH, { cache: "no-store" });
+    const res = await fetch(src.path, { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     state.report = await res.json();
   } catch (e) {
     showError(
-      `讀取估值資料失敗：${escapeHtml(e.message)}。` +
-      "可能是模組二的每日爬蟲尚未執行過，docs/data/valuation/latest.json 還不存在。"
+      `讀取${src.label}估值資料失敗：${escapeHtml(e.message)}。` +
+      `可能是對應的爬蟲尚未執行過，${escapeHtml(src.path)} 還不存在。`
     );
     return;
   }
 
   renderStats(state.report);
+  renderProgressNote(state.report);
   renderSectorChart(state.report);
   populateSectorFilter(state.report);
+  applyFilters();
+}
+
+async function main() {
   wireSorting();
   wireFilters();
-  applyFilters();
+  wireSourceSwitch();
+  await loadAndRender();
 }
 
 main();

@@ -120,6 +120,45 @@ body {
   border-bottom-color: var(--text-primary);
 }
 
+/* ---- 資料範圍切換（S&P 500／全美股）---- */
+.source-switch {
+  display: inline-flex;
+  gap: 0;
+  margin-bottom: 32px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.source-switch button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 9px 20px;
+  font: inherit;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.source-switch button + button { border-left: 1px solid var(--hairline); }
+.source-switch button:hover { color: var(--text-secondary); }
+
+.source-switch button.active {
+  background: var(--surface-1);
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.progress-note {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.progress-note:empty { display: none; }
+
 /* ---- 頁首 ---- */
 header.top {
   display: flex;
