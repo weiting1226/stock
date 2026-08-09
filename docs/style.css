@@ -538,8 +538,8 @@ select:focus, input:focus {
 
 /* 股價淨值比 < 1：市價低於帳上股東權益 */
 .pb-cheap { color: var(--good-deep); font-weight: 500; }
-/* 負淨值：比值不適用，用弱化的字樣與「查無資料」區分開 */
-.pb-negative { color: var(--text-muted); font-size: 0.78rem; }
+/* 比值算得出來但不可用（負淨值、股別不符）：用弱化的字樣與「查無資料」區分開 */
+.pb-issue { color: var(--text-muted); font-size: 0.78rem; }
 
 /* ---- 檢查清單 ---- */
 .checklist { list-style: none; padding: 0; margin: 0; font-size: 0.85rem; }

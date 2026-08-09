@@ -72,8 +72,14 @@ function rangeCell(r) {
  * 留白會讓它跟「查無資料」混在一起，但兩者在篩選時的意義完全相反。
  */
 function pbCell(r) {
-  if (r.negative_book_value) {
-    return '<td class="num pb-negative" title="每股淨值為負，股價淨值比不適用">負淨值</td>';
+  // 「算得出來但不能用」要說明原因。留白會跟「查無資料」混在一起，
+  // 而這兩者對使用者的意義完全不同。
+  const issue = r.book_value_issue;
+  if (issue === "negative") {
+    return '<td class="num pb-issue" title="每股淨值為負，股價淨值比不適用">負淨值</td>';
+  }
+  if (issue === "share_class_mismatch") {
+    return '<td class="num pb-issue" title="每股淨值與收盤價落差過大，研判為不同股別的數值">股別不符</td>';
   }
   const v = r.price_to_book;
   if (v === null || v === undefined) return '<td class="num">—</td>';
@@ -255,9 +261,9 @@ function applyFilters() {
   }
   if (f.maxPb !== "") {
     const max = Number(f.maxPb);
-    // 負淨值一併排除：它算得出比值但沒有意義，不該混進「便宜」的結果裡
+    // 有問題的列不得混進「便宜」的結果裡——它們算得出比值，但那個數字沒有意義
     rows = rows.filter(
-      (r) => !r.negative_book_value && r.price_to_book !== null
+      (r) => !r.book_value_issue && r.price_to_book !== null
         && r.price_to_book !== undefined && r.price_to_book < max
     );
   }
