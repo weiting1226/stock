@@ -34,6 +34,7 @@ from .sources import (
     etf_flows,
     finra_margin,
     fomc,
+    fomc_ai,
     fred,
     ndx_breadth,
     tradingview_ndx,
@@ -246,11 +247,43 @@ def _fetch_fomc(as_of: str, dfedtaru_daily: pd.Series) -> tuple[Optional[int], d
             return None, {"note": "缺聯邦資金目標區間資料", "data_date": str(meeting.date.date())}
         target_before = float(before.iloc[-1])
         target_after = float(after.iloc[-1])
+        rates = f"目標區間上緣 {target_before}%→{target_after}%"
+
+        # AI 分類為主：正則只知道「有沒有人投反對票」，不知道反對的方向，
+        # 而規格第135行要的是「持平但有**升息**異議」——方向不分，等於把一個
+        # 訊號和它的反面混為一談。
+        if fomc_ai.is_enabled():
+            try:
+                cls = fomc_ai.classify_statement(meeting.statement_text)
+                cls = fomc_ai.reconcile_with_rate_data(cls, target_before, target_after)
+                score = fomc_ai.score_from_classification(cls)
+                dissent = (f"{cls.dissent_count} 票異議（{cls.dissent_direction}）"
+                           if cls.has_dissent else "無異議")
+                note = f"{dissent}；{rates}"
+                if cls.summary_zh:
+                    note += f"｜AI摘要：{cls.summary_zh}"
+                if cls.warnings:
+                    note += f"｜註記：{'；'.join(cls.warnings)}"
+                return score, {
+                    "note": note,
+                    "data_date": str(meeting.date.date()),
+                    "url": meeting.statement_url,
+                    "source": f"federalreserve.gov 聲明 + AI 分類（{cls.model}）",
+                    "ai": True,
+                }
+            except Exception as e:  # noqa: BLE001 — AI 失敗要能退回規則式判斷
+                log.warning("FOMC AI 分類失敗，改用字串比對: %s", e)
+                ai_error = _short_error(e, 200)
+        else:
+            ai_error = f"未設定 {fomc_ai.API_KEY_ENV}"
+
         score = fomc.score_fomc_decision(meeting, target_before, target_after)
         return score, {
-            "note": f"{'有異議' if meeting.has_dissent else '無異議'}；目標區間上緣 {target_before}%→{target_after}%",
+            "note": (f"{'有異議' if meeting.has_dissent else '無異議'}；{rates}"
+                     f"｜以字串比對判定，無法分辨異議方向（AI 分類未啟用：{ai_error}）"),
             "data_date": str(meeting.date.date()),
             "url": meeting.statement_url,
+            "ai": False,
         }
     except Exception as e:  # noqa: BLE001
         log.warning("FOMC 判定失敗: %s", e)
@@ -439,10 +472,12 @@ def run(as_of: Optional[str] = None, margin_override_csv: Optional[str] = None,
     dfedtaru_daily = fred_daily("DFEDTARU")
     fomc_score, fomc_meta = _fetch_fomc(as_of, dfedtaru_daily)
     if fomc_score is not None:
-        items["fomc_decision"] = Item("fomc_decision", fomc_meta.get("note"), fomc_score,
-                                       fomc_meta.get("data_date"),
-                                       "federalreserve.gov 新聞稿 + FRED DFEDTARU", "中",
-                                       note=fomc_meta.get("url", ""))
+        items["fomc_decision"] = Item(
+            "fomc_decision", fomc_meta.get("note"), fomc_score, fomc_meta.get("data_date"),
+            fomc_meta.get("source", "federalreserve.gov 新聞稿 + FRED DFEDTARU"),
+            # AI 能分辨異議方向，規格要的判準才算真的滿足；字串比對只能算部分滿足
+            "高" if fomc_meta.get("ai") else "中",
+            note=fomc_meta.get("url", ""))
     elif "fomc_decision" in manual:
         # 自動解析失敗時退回人工填入（GitHub Actions 連不到 federalreserve.gov）
         item = manual["fomc_decision"]
