@@ -34,6 +34,10 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run daily scraper
+        env:
+          # ⑥ FOMC 決議偏向用 AI 分類異議方向（規格要的是「升息異議」，
+          # 正則式判斷分辨不出方向）。沒設定就自動退回字串比對，不會中斷。
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           if [ -n "${{ github.event.inputs.as_of }}" ]; then
             python3 scripts/run_daily.py --as-of "${{ github.event.inputs.as_of }}" -v
