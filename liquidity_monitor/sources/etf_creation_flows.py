@@ -199,6 +199,13 @@ def compute_flow(
     basis = "shares" if use_shares else "aum"
 
     if not pairs:
+        if not previous:
+            # 這是第一天（或同一天重跑）的正常狀態，不是故障。訊息要講清楚差別，
+            # 否則「等明天就好」跟「壞掉了」在畫面上長得一模一樣。
+            raise ValueError(
+                f"尚無前一日觀測可比較（今日已取得 {len(today)} 檔快照並存檔）；"
+                "資金流需要相隔一天的兩次觀測，明日起即可計算"
+            )
         raise ValueError(
             "無法計算 ETF 資金流：沒有任何一檔取得可用的前後兩次觀測；"
             f"共 {len(today)} 檔，略過原因={skipped[:6]}"
