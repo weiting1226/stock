@@ -263,7 +263,20 @@ def test_first_ever_run_fails_loudly_rather_than_reporting_zero():
     """第一次執行必然沒有前一次觀測。回報 0 會被當成「持平」——那是假訊號。"""
     with pytest.raises(ValueError) as exc:
         ecf.compute_flow([_snap("SPY", shares=1_000_000)], {})
-    assert "無前一次觀測" in str(exc.value)
+    msg = str(exc.value)
+    # 「等明天就好」跟「壞掉了」在畫面上必須看得出差別
+    assert "明日起即可計算" in msg
+    assert "已取得 1 檔快照並存檔" in msg
+
+
+def test_broken_state_reads_differently_from_the_first_day():
+    """有前次觀測卻仍算不出來，那是真的有問題，訊息不能跟第一天長得一樣。"""
+    prev = {"SPY": _prev("SPY", shares=1_000_000, as_of="2026-01-01")}   # 過舊
+    with pytest.raises(ValueError) as exc:
+        ecf.compute_flow([_snap("SPY", shares=1_010_000)], prev)
+    msg = str(exc.value)
+    assert "明日起即可計算" not in msg
+    assert "過久不採計" in msg
 
 
 def test_snapshot_history_roundtrip_and_excludes_today(tmp_path):
