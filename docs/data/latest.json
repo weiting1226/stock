@@ -1,6 +1,6 @@
 {
   "as_of": "2026-08-09",
-  "generated_at": "2026-08-09T06:32:19.267554Z",
+  "generated_at": "2026-08-09T14:40:29.934845Z",
   "items": {
     "fed_bs_3m_chg": {
       "key": "fed_bs_3m_chg",
@@ -148,9 +148,9 @@
       "raw_value": null,
       "score": null,
       "data_date": null,
-      "source": "ETF.com（抓取失敗）",
+      "source": "ETF 申贖流量（計算失敗）",
       "confidence": "暫缺",
-      "note": "自動抓取失敗：ETF.com 無法取得股票型ETF資金流；已嘗試 —— https://www.etf.com/etfanalytics/etf-fund-flows-tool: HTTP 403（可能是 Cloudflare 或需登入）｜https://www.etf.com/etf-fund-flows: HTTP 403（可能是 Cloudflare 或需登入）｜https://www.etf.com/etfanalytics/etf-fund-flows: HTTP 403（可能是 Cloudflare 或需登入）｜可於 docs/data/manual_overrides.json 手動填入 -2..2 分"
+      "note": "自動計算失敗：無法計算 ETF 資金流：沒有任何一檔取得可用的前後兩次觀測；共 16 檔，略過原因=[('SPY', '無前一次觀測'), ('IVV', '無前一次觀測'), ('VOO', '無前一次觀測'), ('VTI', '無前一次觀測'), ('QQQ', '無前一次觀測'), ('IWM', '無前一次觀測')]｜可於 docs/data/manual_overrides.json 手動填入 -2..2 分"
     },
     "fomc_decision": {
       "key": "fomc_decision",
