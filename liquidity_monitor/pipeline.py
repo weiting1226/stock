@@ -28,7 +28,7 @@ from .config import (
     POSITION_LADDER,
     YAHOO_TICKERS,
 )
-from .sources import finra_margin, fomc, fred, ndx_breadth, yahoo
+from .sources import finra_margin, fomc, fred, ndx_breadth, tradingview_ndx, yahoo
 from .timeseries import (
     apply_publish_lag,
     is_trailing_max,
@@ -120,18 +120,34 @@ def _fetch_margin_debt(as_of: str, override_csv: Optional[str] = None) -> dict:
         return {"raw": pd.Series(dtype=float), "daily": pd.Series(dtype=float, index=trading_days), "ok": False, "error": str(e)}
 
 
-def _fetch_ndx_breadth(as_of: str, cache_path: str) -> tuple[Optional[float], Optional[str]]:
-    """回傳 (廣度百分比, 錯誤訊息)。錯誤訊息會一路帶到報告的 note 欄位，
-    否則抓取失敗在儀表板上看起來跟「正常但沒值」一模一樣。"""
+def _fetch_ndx_breadth(as_of: str, cache_path: str) -> tuple[Optional[float], Optional[str], dict]:
+    """回傳 (廣度百分比, 錯誤訊息, 明細)。錯誤訊息會一路帶到報告的 note 欄位，
+    否則抓取失敗在儀表板上看起來跟「正常但沒值」一模一樣。
+
+    先用 TradingView：它一個請求就給出成分股與各條均線，取代「清單來源 +
+    約100次逐檔下載」那整段。失敗才退回原本的路徑（Invesco QQQ 持股 →
+    維基百科 → 過期快取，再自行以 yfinance 計算），並把兩邊的原因都帶出來。
+    """
+    try:
+        breadth, components = tradingview_ndx.fetch_ndx_breadth()
+        breadth["source"] = "tradingview"
+        breadth["as_of"] = as_of
+        return breadth["pct_above_200dma"], None, breadth
+    except Exception as e:  # noqa: BLE001 — 主來源失敗要能退回備援
+        primary_error = f"TradingView: {type(e).__name__}: {e}"
+        log.warning("TradingView NDX 廣度失敗，改用備援來源: %s", e)
+
     try:
         tickers = ndx_breadth.fetch_constituents(cache_path=cache_path)
         value = ndx_breadth.compute_breadth_200d(tickers, as_of)
         if value is None:
-            return None, f"取得 {len(tickers)} 檔成分股，但收盤價歷史不足以計算200日均線"
-        return value, None
+            return None, (f"{primary_error}｜備援：取得 {len(tickers)} 檔成分股，"
+                          "但收盤價歷史不足以計算200日均線"), {}
+        return value, None, {"source": "fallback", "as_of": as_of,
+                             "constituents": len(tickers), "pct_above_200dma": value}
     except Exception as e:  # noqa: BLE001
         log.warning("NDX 廣度計算失敗: %s", e)
-        return None, f"{type(e).__name__}: {e}"
+        return None, f"{primary_error}｜備援 {type(e).__name__}: {e}", {}
 
 
 def _fetch_fomc(as_of: str, dfedtaru_daily: pd.Series) -> tuple[Optional[int], dict]:
@@ -201,7 +217,7 @@ def run(as_of: Optional[str] = None, margin_override_csv: Optional[str] = None,
     fred_panel = _fetch_fred_panel(as_of)
     yahoo_panel = _fetch_yahoo_panel(as_of)
     margin = _fetch_margin_debt(as_of, override_csv=margin_override_csv)
-    ndx_breadth_pct, ndx_breadth_error = _fetch_ndx_breadth(as_of, ndx_cache_path)
+    ndx_breadth_pct, ndx_breadth_error, ndx_breadth_detail = _fetch_ndx_breadth(as_of, ndx_cache_path)
     manual = _load_manual_overrides(overrides_path, as_of)
 
     def fred_daily(sid):
@@ -266,10 +282,19 @@ def run(as_of: Optional[str] = None, margin_override_csv: Optional[str] = None,
     items["move_index"] = Item("move_index", move_level, scoring.score_move_index(move_level),
                                 as_of, "Yahoo Finance ^MOVE", "高" if move_level is not None else "暫缺")
 
+    _breadth_source = ndx_breadth_detail.get("source")
     items["ndx_breadth_200d"] = Item("ndx_breadth_200d", ndx_breadth_pct, scoring.score_ndx_breadth_200d(ndx_breadth_pct),
-                                      as_of, "Wikipedia NASDAQ-100 成分股 + Yahoo Finance",
+                                      as_of,
+                                      "TradingView NDX 成分股" if _breadth_source == "tradingview"
+                                      else "Invesco QQQ 持股／Wikipedia 成分股 + Yahoo Finance",
                                       "中" if ndx_breadth_pct is not None else "暫缺",
-                                      note="以維基百科目前成分股清單回推，非時點正確(look-back bias)"
+                                      note=(
+                                          f"{ndx_breadth_detail.get('constituents', '?')} 檔成分股；"
+                                          f"站上50日線 {ndx_breadth_detail.get('pct_above_50dma')}%、"
+                                          f"20日線 {ndx_breadth_detail.get('pct_above_20dma')}%；"
+                                          "以目前成分股清單回推，非時點正確(look-back bias)"
+                                      ) if _breadth_source == "tradingview"
+                                      else "以目前成分股清單回推，非時點正確(look-back bias)"
                                       if ndx_breadth_pct is not None
                                       # 這裡的失敗訊息帶有定位問題所需的欄位/樣本資訊，
                                       # 截太短會把證據切掉，故放寬長度上限
@@ -453,6 +478,10 @@ def run(as_of: Optional[str] = None, margin_override_csv: Optional[str] = None,
             "final_cap_applied": final_cap,
         },
         "track2_daily_approx": track2,
+        # ③ 只採計「站上200日線比例」計分，但同一次抓取還算出 20／50 日線廣度、
+        # 漲跌家數與 RSI 分布。單看 200 日線分不出「短線鬆動」與「中期轉弱」，
+        # 因此把完整明細一併輸出供儀表板呈現。
+        "ndx_breadth_detail": ndx_breadth_detail,
         "missing_or_low_confidence_count": missing_low_conf,
     }
     return report

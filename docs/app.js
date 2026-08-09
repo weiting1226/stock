@@ -191,6 +191,52 @@ function renderTrack2(report) {
     (t2.reliability_note || "") + `　觸發項數：${t2.triggered_count ?? "—"}　建議熔斷：${t2.circuit_breaker_suggested ? "是" : "否"}`;
 }
 
+/**
+ * NDX 市場廣度明細。③ 只採計「站上200日線比例」計分，但單看那一個數字
+ * 分不出「短線鬆動」與「中期轉弱」——20／50 日線廣度、漲跌家數與 RSI 分布
+ * 出自同一次抓取，一起看才有判讀價值。
+ */
+function renderBreadth(report) {
+  const card = document.getElementById("breadth-card");
+  const d = report.ndx_breadth_detail;
+  if (!d || d.pct_above_200dma === null || d.pct_above_200dma === undefined) {
+    card.hidden = true;
+    return;
+  }
+  card.hidden = false;
+
+  const pct = (v) => (v === null || v === undefined ? "—" : `${Number(v).toFixed(1)}%`);
+  const num = (v) => (v === null || v === undefined ? "—" : String(v));
+  const tiles = [
+    { label: "站上 200 日線", value: pct(d.pct_above_200dma), signed: (d.pct_above_200dma ?? 50) - 50 },
+    { label: "站上 50 日線", value: pct(d.pct_above_50dma), signed: (d.pct_above_50dma ?? 50) - 50 },
+    { label: "站上 20 日線", value: pct(d.pct_above_20dma), signed: (d.pct_above_20dma ?? 50) - 50 },
+    { label: "漲/跌家數", value: `${num(d.advancers)} / ${num(d.decliners)}`, plain: true },
+    { label: "RSI 中位數", value: d.median_rsi === null || d.median_rsi === undefined ? "—" : d.median_rsi.toFixed(1), plain: true },
+    { label: "接近52週高/低", value: `${num(d.near_52w_high)} / ${num(d.near_52w_low)}`, plain: true },
+    { label: "前十大市值占比", value: pct(d.top10_market_cap_pct), plain: true },
+  ];
+
+  document.getElementById("breadth-stats").innerHTML = tiles
+    .map((t) => {
+      const cls = t.plain ? "" : t.signed > 0 ? "pos" : t.signed < 0 ? "neg" : "";
+      return `<div class="stat-tile">
+        <div class="stat-value ${cls}">${escapeHtml(t.value)}</div>
+        <div class="stat-label">${escapeHtml(t.label)}</div>
+      </div>`;
+    })
+    .join("");
+
+  // 分母要講清楚：有幾檔缺均線資料時，百分比就不是除以成分股總數
+  const sample = d.pct_above_200dma_sample;
+  const denom = sample && sample !== d.constituents
+    ? `（200日線比例以 ${sample} 檔計算，其餘缺均線資料）` : "";
+  document.getElementById("breadth-note").textContent =
+    `成分股 ${num(d.constituents)} 檔，來源：${d.source === "tradingview" ? "TradingView" : "備援來源"}${denom}。`
+    + "計分只採用站上200日線比例；其餘為同一次抓取的附帶指標，供判讀廣度變化的層次。"
+    + "成分股以目前清單回推，非時點正確。";
+}
+
 let categoryChart, historyChart;
 
 function renderCategoryChart(report) {
@@ -298,6 +344,7 @@ async function loadReport(asOf) {
     renderWarnings(report);
     renderCategoryTable(report);
     renderItemsTable(report);
+    renderBreadth(report);
     renderTrack2(report);
     renderCategoryChart(report);
   } catch (e) {
