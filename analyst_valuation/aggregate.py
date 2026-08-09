@@ -11,6 +11,7 @@ from typing import Optional
 
 from .config import (
     IMPLAUSIBLE_DOWNSIDE_PCT,
+    IMPLAUSIBLE_PB_FLOOR,
     IMPLAUSIBLE_UPSIDE_PCT,
     MIN_ANALYSTS_FOR_HIGH_CONFIDENCE,
     MIN_ANALYSTS_TO_INCLUDE,
@@ -51,8 +52,12 @@ class ValuationRow:
     # 怎麼看」，淨值是帳上實際有多少股東權益。
     book_value: Optional[float] = None
     price_to_book: Optional[float] = None
-    # 股東權益為負：股價淨值比在數學上算得出來但沒有意義，須明確標示而不是留白
-    negative_book_value: bool = False
+    # 有淨值卻算不出可用比值時的原因，None 表示比值可用。
+    # 用原因字串而不是一堆布林旗標：這類「算得出來但不能用」的情況會持續增加，
+    # 而畫面要說的是「為什麼沒有」，留白會跟「查無資料」混在一起。
+    #   "negative"            股東權益為負
+    #   "share_class_mismatch" 價格與淨值不是同一種股別
+    book_value_issue: Optional[str] = None
 
     upside_pct: Optional[float] = None
     # 目標價相對現價偏離到不合理的程度（多為雞蛋水餃股搭配單一分析師）。
@@ -108,12 +113,24 @@ def apply_book_value(row: ValuationRow, book_value: Optional[float]) -> None:
     row.book_value = book_value
     if book_value is None or not row.close:
         return
-    if book_value > 0:
-        row.price_to_book = round(row.close / book_value, 3)
-    else:
+    if book_value <= 0:
         # 負淨值算得出比值卻毫無意義（負除以負還會看起來很便宜），必須擋掉
-        row.negative_book_value = True
+        row.book_value_issue = "negative"
         row.notes.append(f"每股淨值為負（{book_value:.2f}），股價淨值比不適用")
+        return
+
+    ratio = row.close / book_value
+    if ratio < IMPLAUSIBLE_PB_FLOOR:
+        # 比值低到這種程度不是便宜，是價格與淨值不同股別（BRK-B 對到 A 股淨值）。
+        # 不猜換算比例：猜錯會產生一個看起來很合理、實際上錯誤的數字。
+        row.book_value_issue = "share_class_mismatch"
+        row.notes.append(
+            f"每股淨值 {book_value:,.2f} 與收盤價 {row.close:,.2f} 落差過大，"
+            "研判為不同股別的數值，股價淨值比不採用"
+        )
+        return
+
+    row.price_to_book = round(ratio, 3)
 
 
 def build_row(

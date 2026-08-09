@@ -377,24 +377,49 @@ def test_price_below_book_is_representable():
     from analyst_valuation.aggregate import build_row
     row = build_row({"ticker": "AAA"}, _bv_price(8.0), [_bv_quote(book_value=10.0)])
     assert row.price_to_book == 0.8
-    assert row.negative_book_value is False
+    assert row.book_value_issue is None
 
 
 def test_negative_book_value_does_not_produce_a_cheap_looking_ratio():
     """負淨值除下去會得到正的小數字，看起來像「跌破淨值」——那是假訊號。"""
     from analyst_valuation.aggregate import build_row
     row = build_row({"ticker": "AAA"}, _bv_price(12.0), [_bv_quote(book_value=-4.0)])
-    assert row.negative_book_value is True
+    assert row.book_value_issue == "negative"
     assert row.price_to_book is None
     assert any("負" in n for n in row.notes)
     assert row.book_value == -4.0            # 負淨值本身是真實資訊，要保留
+
+
+def test_share_class_mismatch_is_not_reported_as_the_cheapest_stock():
+    """實測案例 BRK-B：收盤 521.80，但資料源給的每股淨值 505,559 是 A 股的
+    數字（B 股為 A 股的 1/1500）。算出來 P/B = 0.001，會登上「最便宜」榜首。"""
+    from analyst_valuation.aggregate import build_row
+    row = build_row({"ticker": "BRK-B"}, _bv_price(521.80), [_bv_quote(book_value=505559.44)])
+    assert row.book_value_issue == "share_class_mismatch"
+    assert row.price_to_book is None
+    assert any("股別" in n for n in row.notes)
+
+
+def test_genuinely_cheap_stock_is_not_mistaken_for_a_mismatch():
+    """真正陷入困境的公司大約落在 0.2 上下，不該被門檻誤擋。"""
+    from analyst_valuation.aggregate import build_row
+    row = build_row({"ticker": "AAA"}, _bv_price(2.0), [_bv_quote(book_value=10.0)])
+    assert row.price_to_book == 0.2 and row.book_value_issue is None
+
+
+def test_very_high_ratio_is_kept_because_it_is_real():
+    """大量庫藏股買回會讓帳上權益逼近於零，比值極高是實打實的，不是資料錯誤
+    （實測：GDDY 1718、CL 315）。只在低端設防，高端不設限。"""
+    from analyst_valuation.aggregate import build_row
+    row = build_row({"ticker": "GDDY"}, _bv_price(91.07), [_bv_quote(book_value=0.053)])
+    assert row.price_to_book > 1000 and row.book_value_issue is None
 
 
 def test_missing_book_value_leaves_ratio_empty():
     from analyst_valuation.aggregate import build_row
     row = build_row({"ticker": "AAA"}, _bv_price(10.0), [_bv_quote(book_value=None)])
     assert row.book_value is None and row.price_to_book is None
-    assert row.negative_book_value is False  # 「查無資料」不是「負淨值」
+    assert row.book_value_issue is None      # 「查無資料」不是「負淨值」
 
 
 def test_book_value_survives_a_missing_close_price():

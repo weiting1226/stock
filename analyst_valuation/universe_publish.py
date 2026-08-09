@@ -135,14 +135,13 @@ _UI_FIELDS = (
     "ticker", "name", "sector", "close", "change_1w_pct", "change_1m_pct",
     "consensus_target", "target_low", "target_high", "target_dispersion_pct",
     "range_source", "analyst_count", "basis", "firm_targets", "duplicates_removed",
-    "book_value", "price_to_book", "negative_book_value",
+    "book_value", "price_to_book", "book_value_issue",
     "upside_pct", "implausible", "sources_used", "confidence", "notes",
 )
 
 # 絕大多數列都是這些值，逐列重複等於把同一個字抄幾千遍。前端已用 `?? / ||`
 # 處理缺鍵，因此「省略」與「等於預設值」在畫面上完全等價。
 _ROW_DEFAULTS = {"basis": "consensus", "duplicates_removed": 0, "implausible": False,
-                 "negative_book_value": False,
                  "range_source": "yahoo", "sources_used": ["yahoo"]}
 
 # 即使是空值也要保留：前端拿它們做篩選與排序，缺鍵會讓「未知」與「不符合條件」
