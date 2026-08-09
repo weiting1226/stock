@@ -20,7 +20,7 @@ Actions 穩定取用的來源。
 from __future__ import annotations
 
 import logging
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date
 from typing import Optional
 
@@ -44,6 +44,29 @@ IMPLAUSIBLE_SHARE_CHANGE_RATIO = 0.30
 # 觀測間隔超過這麼多天就不採計：中間可能跨了長假或排程中斷，
 # 把多日累積的申贖當成單日訊號會嚴重高估強度。
 MAX_OBSERVATION_GAP_DAYS = 7
+
+# 股數可信度檢查：對 ETF 而言「流通股數 × 價格」依定義就等於淨資產，
+# 兩者對不起來就代表其中一個數字是錯的。
+#
+# 2026-08 實測 16 檔，只有 4 檔通過（DIA 0.97、IWD 0.96、IWM 1.05、SPY 0.89），
+# 其餘偏差高達 16 倍（VUG 0.06、VTI 0.12、IJH 0.16），另有 2 檔根本沒有股數。
+# Yahoo 對 ETF 的 sharesOutstanding 顯然不可靠。少了這道檢查，程式會照樣拿
+# 這些數字去算差額——算出來的「資金流」看起來完全正常，實際上毫無意義。
+SHARES_CONSISTENCY_MIN = 0.80
+SHARES_CONSISTENCY_MAX = 1.25
+# 通過檢查的檔數不到可用檔數的這個比例，就整批改用淨資產法，不混用兩種基礎。
+# 用比例而非絕對數：樣本清單日後增減時，門檻才會跟著調整。
+SHARES_BASIS_MIN_FRACTION = 0.5
+SHARES_BASIS_MIN_COUNT = 3
+
+
+def shares_are_consistent(shares, close, total_assets) -> bool:
+    """股數 × 價格是否對得上淨資產。對不上就代表這檔的股數不可信。"""
+    shares, close, total_assets = _as_float(shares), _as_float(close), _as_float(total_assets)
+    if not (shares and close and total_assets):
+        return False
+    ratio = shares * close / total_assets
+    return SHARES_CONSISTENCY_MIN <= ratio <= SHARES_CONSISTENCY_MAX
 
 
 @dataclass
@@ -72,6 +95,10 @@ class FlowResult:
     etfs_used: int
     etfs_skipped: list                  # [(ticker, 原因)]
     days_spanned: int
+    # 佔樣本淨資產的比例（%）。樣本組成有增減時，絕對金額會跳動而比例不會，
+    # 因此計分用這個而不是金額——計分完全依賴跟自己的歷史比。
+    flow_pct_of_aum: Optional[float] = None
+    tickers_used: list = field(default_factory=list)
 
 
 def _as_float(value) -> Optional[float]:
@@ -125,7 +152,7 @@ def compute_flow(
     stamp = next((s.as_of for s in today), date.today().isoformat())
     skipped: list = []
 
-    share_pairs, aum_pairs, spans = [], [], []
+    share_pairs, aum_pairs, spans, sample_aum = {}, {}, [], 0.0
     for snap in today:
         prev = previous.get(snap.ticker)
         if not snap.ok:
@@ -143,23 +170,31 @@ def compute_flow(
             skipped.append((snap.ticker, f"距前次觀測 {gap} 天，過久不採計"))
             continue
         spans.append(gap)
+        if snap.total_assets:
+            sample_aum += snap.total_assets
 
         prev_shares = _as_float(prev.get("shares_outstanding"))
-        if prev_shares and snap.shares_outstanding:
+        # 股數要先通過可信度檢查——今昨兩天都要通過，否則差額沒有意義
+        if (prev_shares and snap.shares_outstanding
+                and shares_are_consistent(snap.shares_outstanding, snap.close, snap.total_assets)
+                and shares_are_consistent(prev_shares, prev.get("close"), prev.get("total_assets"))):
             change = (snap.shares_outstanding - prev_shares) / prev_shares
             if abs(change) > IMPLAUSIBLE_SHARE_CHANGE_RATIO:
                 # 分割會讓股數瞬間倍增／減半，那不是申贖
                 skipped.append((snap.ticker, f"股數單日變動 {change:+.0%}，研判為分割或資料異常"))
-                continue
-            share_pairs.append((snap.shares_outstanding - prev_shares) * snap.close)
+            else:
+                share_pairs[snap.ticker] = (snap.shares_outstanding - prev_shares) * snap.close
 
         prev_aum, prev_close = _as_float(prev.get("total_assets")), _as_float(prev.get("close"))
         if prev_aum and prev_close and snap.total_assets:
             # 把市值變動中「漲跌造成的部分」扣掉，剩下的才是資金進出
             market_return = snap.close / prev_close
-            aum_pairs.append(snap.total_assets - prev_aum * market_return)
+            aum_pairs[snap.ticker] = snap.total_assets - prev_aum * market_return
 
-    use_shares = len(share_pairs) >= max(1, len(today) // 2)
+    usable = set(share_pairs) | set(aum_pairs)
+    use_shares = bool(share_pairs) and len(share_pairs) >= max(
+        SHARES_BASIS_MIN_COUNT, SHARES_BASIS_MIN_FRACTION * len(usable)
+    )
     pairs = share_pairs if use_shares else aum_pairs
     basis = "shares" if use_shares else "aum"
 
@@ -171,12 +206,16 @@ def compute_flow(
 
     # 跨越多天時攤平成每日，否則長假後那一筆會被當成暴量單日訊號
     span = max(1, round(sum(spans) / len(spans))) if spans else 1
-    total_usd = sum(pairs) / span
+    total_usd = sum(pairs.values()) / span
     return FlowResult(
         as_of=stamp,
         net_flow_musd=round(total_usd / 1e6, 2),
+        # 佔樣本淨資產的比例：這才是跨日可比的量。樣本組成若有增減，
+        # 絕對金額會跟著跳動，比例則不會——而計分完全依賴跟自己的歷史比。
+        flow_pct_of_aum=round(100 * total_usd / sample_aum, 5) if sample_aum else None,
         basis=basis,
         etfs_used=len(pairs),
+        tickers_used=sorted(pairs),
         etfs_skipped=skipped,
         days_spanned=span,
     )

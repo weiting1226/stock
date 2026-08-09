@@ -164,8 +164,10 @@ def _flow_observation(result) -> "etf_flows.FlowObservation":
     """把計算結果轉成歷史檔用的觀測記錄（沿用既有的累積格式）。"""
     return etf_flows.FlowObservation(
         as_of=result.as_of,
-        net_flow_musd=result.net_flow_musd,
-        scope=f"主要股票型ETF×{result.etfs_used}",
+        # 歷史檔存的是計分用的量（佔樣本淨資產比例），否則歷史與當日不同單位
+        net_flow_musd=(result.flow_pct_of_aum if result.flow_pct_of_aum is not None
+                       else result.net_flow_musd),
+        scope=f"主要股票型ETF×{result.etfs_used}（{result.basis}）",
         period=f"{result.days_spanned}日",
         source_url=f"computed:{result.basis}",
     )
@@ -204,13 +206,19 @@ def _build_etf_flow_item(as_of: str, manual: dict) -> "Item":
     # 歷史要排除今天自己那筆，否則等於部分拿自己當比較基準
     history = storage.load_etf_flow_history(before=as_of)
     storage.append_etf_flow(_flow_observation(result))
-    score = scoring.score_etf_fund_flow(result.net_flow_musd, history)
+    # 計分用「佔樣本淨資產的比例」而不是絕對金額：樣本組成有增減時金額會跳動，
+    # 比例不會——而計分完全依賴跟自己的歷史比
+    scored_value = (result.flow_pct_of_aum if result.flow_pct_of_aum is not None
+                    else result.net_flow_musd)
+    score = scoring.score_etf_fund_flow(scored_value, history)
 
     enough = len(history) >= scoring.MIN_FLOW_HISTORY_FOR_MAGNITUDE
     basis_label = "流通股數變化" if result.basis == "shares" else "淨資產變動扣除市場漲跌（估計）"
     note = (f"{result.etfs_used} 檔主要股票型 ETF 以{basis_label}計算："
             f"淨{'流入' if result.net_flow_musd >= 0 else '流出'} "
             f"{abs(result.net_flow_musd):,.0f} 百萬美元")
+    if result.flow_pct_of_aum is not None:
+        note += f"（佔樣本淨資產 {result.flow_pct_of_aum:+.3f}%，計分以此為準）"
     if result.days_spanned > 1:
         note += f"（跨 {result.days_spanned} 天，已攤平為每日）"
     if enough:
