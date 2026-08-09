@@ -2,7 +2,7 @@
   "etf_fund_flow": {
     "score": null,
     "as_of": null,
-    "note": "股票型ETF資金流：-2(大幅淨流出)/-1/0(持平)/+1/+2(大幅淨流入)。請人工查證 ICI/State Street/Fidelity 資料後填入 score。"
+    "note": "股票型ETF資金流：-2(大幅淨流出)/-1/0(持平)/+1/+2(大幅淨流入)。**備援用**——正常情況由 ETF.com 自動抓取，只有抓取失敗時才會採用這裡的值。"
   },
   "fedwatch_path": {
     "score": null,
