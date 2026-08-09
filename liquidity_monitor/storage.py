@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Optional
 
 import pandas as pd
 
@@ -77,6 +78,42 @@ def save_report(report: dict, data_root: str = "docs/data") -> None:
     _upsert_csv(root / "raw_indicators.csv", raw_row)
 
 
+ETF_FLOW_HISTORY = "docs/data/etf_flows.csv"
+
+
+def append_etf_flow(observation, path: str = ETF_FLOW_HISTORY) -> None:
+    """把每日觀測到的 ETF 資金流累積下來。
+
+    來源只給「當前值」，但要判斷這個數字算不算「大幅」，必須有它自己的
+    歷史分布可以比。因此逐日累積成序列——這份檔案就是那個分布的來源。
+    以 as_of 為鍵覆寫，同一天重跑不會產生重複列。
+    """
+    _upsert_csv(Path(path), {
+        "as_of": observation.as_of,
+        "net_flow_musd": observation.net_flow_musd,
+        "scope": observation.scope,
+        "period": observation.period,
+        "source_url": observation.source_url,
+    })
+
+
+def load_etf_flow_history(path: str = ETF_FLOW_HISTORY, before: Optional[str] = None) -> list[float]:
+    """讀出歷史淨流金額。
+
+    `before` 用來排除當日自己那筆：拿今天的值去跟「含今天的分布」比，
+    等於部分拿自己當基準，極端值會被自己稀釋掉。
+    """
+    p = Path(path)
+    if not p.exists():
+        return []
+    df = pd.read_csv(p)
+    if "net_flow_musd" not in df.columns:
+        return []
+    if before is not None and "as_of" in df.columns:
+        df = df[df["as_of"].astype(str) < str(before)]
+    return [float(v) for v in df["net_flow_musd"].dropna()]
+
+
 def ensure_manual_overrides_template(path: str = "docs/data/manual_overrides.json") -> None:
     p = Path(path)
     if p.exists():
@@ -85,7 +122,7 @@ def ensure_manual_overrides_template(path: str = "docs/data/manual_overrides.jso
         "etf_fund_flow": {
             "score": None,
             "as_of": None,
-            "note": "股票型ETF資金流：-2(大幅淨流出)/-1/0(持平)/+1/+2(大幅淨流入)。請人工查證 ICI/State Street/Fidelity 資料後填入 score。",
+            "note": "股票型ETF資金流：-2(大幅淨流出)/-1/0(持平)/+1/+2(大幅淨流入)。**備援用**——正常情況由 ETF.com 自動抓取，只有抓取失敗時才會採用這裡的值。",
         },
         "fedwatch_path": {
             "score": None,

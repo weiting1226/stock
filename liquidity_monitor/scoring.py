@@ -25,6 +25,15 @@ from .config import (
 Number = Optional[float]
 
 
+def _median(sorted_values: list) -> float:
+    """已排序序列的中位數；空序列回 0（呼叫端據此判定「沒有規模基準」）。"""
+    n = len(sorted_values)
+    if n == 0:
+        return 0.0
+    mid = n // 2
+    return sorted_values[mid] if n % 2 else (sorted_values[mid - 1] + sorted_values[mid]) / 2
+
+
 def _na(x: Number) -> bool:
     return x is None
 
@@ -253,7 +262,49 @@ def score_yield30y_60d_momentum(chg_bp: Number, is_multiyear_high: bool = False)
     return -2
 
 
-# fomc_decision、fedwatch_path、etf_fund_flow 已由來源端（fomc.py 計算 /
+# --- ④ 股票型 ETF 資金流 ---------------------------------------------------
+#
+# 規格第124行只給五個等級（大幅淨流出 −2 ／淨流出 −1 ／持平 0 ／淨流入 +1 ／
+# 大幅淨流入 +2），沒有給金額門檻。方向由淨流的正負決定，「大幅」則以**這個
+# 數列自己的歷史分布**判定——不自行發明「超過 X 億美元算大幅」這種數字。
+# 同 Gate B 用滾動百分位而非寫死絕對值的原則。
+MIN_FLOW_HISTORY_FOR_MAGNITUDE = 20   # 少於這麼多筆觀測就只判方向，不判大小
+# 以「常態規模」（歷史淨流絕對值的中位數）為單位來衡量今天這一筆。
+# 刻意不用百分位當「持平」的門檻：規格的持平指的是**進出接近打平**，
+# 不是「跟平常差不多」。若資金流長期都很大，它的後 20% 依然是很大的金額，
+# 把那叫做持平就錯了。改用相對常態規模的比例，語意才對得上。
+FLAT_FLOW_RATIO = 0.3                 # 不到常態規模的三成 -> 持平
+LARGE_FLOW_RATIO = 2.0                # 超過常態規模兩倍   -> 大幅
+
+
+def score_etf_fund_flow(flow_musd: Number, history: Optional[list] = None) -> Optional[int]:
+    """由淨流金額與其歷史規模計分。
+
+    `history` 為過去各期的淨流（含正負，內部取絕對值當規模）。
+    歷史不足時只回 ±1／0：方向是確定的，但「大幅與否」無從判斷——
+    與其硬給 ±2，不如少說一級。
+    """
+    if _na(flow_musd):
+        return None
+    flow = float(flow_musd)
+
+    # 取絕對值：流出期間的規模同樣是規模，只看正值會讓熊市完全沒有比較基準
+    magnitudes = sorted(abs(float(v)) for v in (history or []) if not _na(v))
+    scale = _median(magnitudes)
+    if len(magnitudes) < MIN_FLOW_HISTORY_FOR_MAGNITUDE or not scale:
+        if flow == 0:
+            return 0
+        return 1 if flow > 0 else -1
+
+    ratio = abs(flow) / scale
+    if ratio < FLAT_FLOW_RATIO:
+        return 0
+    if flow > 0:
+        return 2 if ratio > LARGE_FLOW_RATIO else 1
+    return -2 if ratio > LARGE_FLOW_RATIO else -1
+
+
+# fomc_decision、fedwatch_path 已由來源端（fomc.py 計算 /
 # 使用者手動填入 manual_overrides.json）直接給出 -2..+2 的最終分數，
 # 此處僅需原樣傳遞（None 表示暫缺）。
 def score_passthrough(score: Number) -> Optional[int]:

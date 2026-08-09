@@ -1,9 +1,10 @@
 """每日執行的主流程：抓資料 -> 建立每日對齊面板 -> 算特徵 -> 計分 -> 套用閘門 -> 組裝報告。
 
 對應文件「一、資料抓取規範」到「五、部位配置階梯」的機械化實作。
-⑥ 的 FOMC 判定與 Gate B 百分位使用抓取到的歷史資料；CME FedWatch、
-ETF資金流、NDX前瞻本益比三項因無可靠免費歷史資料源，一律讀取
-`manual_overrides.json`，沒有填寫就標記「暫缺」，绝不臆測（文件第287行）。
+⑥ 的 FOMC 判定與 Gate B 百分位使用抓取到的歷史資料；④ 股票型ETF資金流由
+ETF.com 自動抓取（失敗才退回人工值）；CME FedWatch 與 NDX前瞻本益比因無可靠
+免費資料源，讀取 `manual_overrides.json`，沒有填寫就標記「暫缺」，
+绝不臆測（文件第287行）。
 """
 from __future__ import annotations
 
@@ -13,7 +14,7 @@ from typing import Optional
 
 import pandas as pd
 
-from . import gates, scoring
+from . import gates, scoring, storage
 from .config import (
     CATEGORY_ITEMS,
     CATEGORY_LABELS,
@@ -28,7 +29,7 @@ from .config import (
     POSITION_LADDER,
     YAHOO_TICKERS,
 )
-from .sources import finra_margin, fomc, fred, ndx_breadth, tradingview_ndx, yahoo
+from .sources import etf_flows, finra_margin, fomc, fred, ndx_breadth, tradingview_ndx, yahoo
 from .timeseries import (
     apply_publish_lag,
     is_trailing_max,
@@ -148,6 +149,44 @@ def _fetch_ndx_breadth(as_of: str, cache_path: str) -> tuple[Optional[float], Op
     except Exception as e:  # noqa: BLE001
         log.warning("NDX 廣度計算失敗: %s", e)
         return None, f"{primary_error}｜備援 {type(e).__name__}: {e}", {}
+
+
+def _build_etf_flow_item(as_of: str, manual: dict) -> "Item":
+    """④ 股票型 ETF 資金流：ETF.com 為主，人工填寫值為備援。
+
+    自動抓到就用自動的——它是當日實際數字，比人工填的分數新且可追溯。
+    抓不到才退回 manual_overrides.json，並在 note 裡把失敗原因講清楚，
+    否則使用者只會看到「暫缺」而不知道要去修什麼。
+    """
+    try:
+        obs = etf_flows.fetch_equity_etf_flow(as_of=as_of)
+    except Exception as e:  # noqa: BLE001 — 抓不到要能退回人工值
+        log.warning("ETF.com 資金流抓取失敗: %s", e)
+        fallback = manual.get("etf_fund_flow")
+        if fallback is not None and fallback.score is not None:
+            fallback.note = (f"（自動抓取失敗，採用人工填寫值）{fallback.note}"
+                             f"｜失敗原因：{_short_error(e, 300)}")
+            return fallback
+        return Item("etf_fund_flow", None, None, None, "ETF.com（抓取失敗）", "暫缺",
+                    note=f"自動抓取失敗：{_short_error(e, 400)}"
+                         "｜可於 docs/data/manual_overrides.json 手動填入 -2..2 分")
+
+    # 歷史要排除今天自己那筆，否則等於部分拿自己當比較基準
+    history = storage.load_etf_flow_history(before=obs.as_of)
+    storage.append_etf_flow(obs)
+    score = scoring.score_etf_fund_flow(obs.net_flow_musd, history)
+
+    enough = len(history) >= scoring.MIN_FLOW_HISTORY_FOR_MAGNITUDE
+    note = (f"{obs.scope}：淨{'流入' if obs.net_flow_musd >= 0 else '流出'} "
+            f"{abs(obs.net_flow_musd):,.0f} 百萬美元")
+    if enough:
+        note += f"；以自身 {len(history)} 筆歷史分布判定強度"
+    else:
+        # 少說一級也不要硬給 ±2：方向是確定的，「大幅與否」還沒有依據
+        note += (f"；歷史僅 {len(history)} 筆（需 {scoring.MIN_FLOW_HISTORY_FOR_MAGNITUDE} 筆），"
+                 "目前只判方向不判強度")
+    return Item("etf_fund_flow", obs.net_flow_musd, score, obs.as_of,
+                "ETF.com 資金流工具", "高" if enough else "中", note=note)
 
 
 def _fetch_fomc(as_of: str, dfedtaru_daily: pd.Series) -> tuple[Optional[int], dict]:
@@ -348,12 +387,7 @@ def run(as_of: Optional[str] = None, margin_override_csv: Optional[str] = None,
     items["usdjpy_20d_chg"] = Item("usdjpy_20d_chg", usdjpy_20d_chg, scoring.score_usdjpy_20d_chg(usdjpy_20d_chg),
                                     as_of, "Yahoo Finance JPY=X", "高" if usdjpy_20d_chg is not None else "暫缺")
 
-    if "etf_fund_flow" in manual:
-        items["etf_fund_flow"] = manual["etf_fund_flow"]
-    else:
-        items["etf_fund_flow"] = Item("etf_fund_flow", None, None, None,
-                                       "無公開免費每日資金流資料源", "暫缺",
-                                       note="可於 docs/data/manual_overrides.json 手動填入 -2..2 分")
+    items["etf_fund_flow"] = _build_etf_flow_item(as_of, manual)
 
     # ⑥ 政策方向 --------------------------------------------------------------
     dfedtaru_daily = fred_daily("DFEDTARU")
