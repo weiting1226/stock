@@ -14,7 +14,6 @@ S&P 500 儀表板會慢慢算出不一樣的數字，而且沒人會發現。
 from __future__ import annotations
 
 import collections
-import csv
 import logging
 from datetime import date, datetime, timezone
 from pathlib import Path
@@ -22,6 +21,7 @@ from typing import Iterable, Optional
 
 from .aggregate import ValuationRow, build_row, sector_summary
 from .firms import TargetRecord
+from . import universe_file
 from .ledger import Ledger
 from .result_store import ResultStore
 from .sources.prices import PriceSnapshot
@@ -30,25 +30,28 @@ from .sources.yahoo_targets import TargetQuote
 log = logging.getLogger(__name__)
 
 
-def load_universe_meta(path: str) -> dict[str, dict]:
-    """讀公司清單，作為名稱與交易所的後備來源。
+def load_universe_meta(path: str, include_all: bool = False) -> tuple[dict[str, dict], dict]:
+    """讀公司清單，作為名稱與交易所的後備來源，並套用與抓取端相同的過濾。
 
     類股優先用抓取時記下的（來自 Yahoo），清單本身沒有類股欄位。
+
+    過濾條件必須與抓取端一致：兩邊各寫一份的話，儀表板會出現「有結果但不在
+    清單裡」的列，而且沒人會發現是兩份定義不一致造成的。因此共用
+    `universe_file.load_universe`。
     """
-    p = Path(path)
-    if not p.exists():
-        return {}
-    out: dict[str, dict] = {}
-    with p.open(newline="", encoding="utf-8") as fh:
-        for row in csv.DictReader(fh):
-            ticker = (row.get("ticker") or "").strip()
-            if ticker:
-                out[ticker] = {
-                    "name": (row.get("name") or "").strip(),
-                    "exchange": (row.get("exchange") or "").strip(),
-                    "is_etf": (row.get("is_etf") or "").strip().lower() == "true",
-                }
-    return out
+    try:
+        rows, stats = universe_file.load_universe(path, include_all=include_all)
+    except FileNotFoundError:
+        return {}, {}
+    return {
+        r["ticker"]: {
+            "name": (r.get("name") or "").strip(),
+            "exchange": (r.get("exchange") or "").strip(),
+            "is_etf": (r.get("is_etf") or "").strip().lower() == "true",
+            "security_type": r.get("security_type") or "",
+        }
+        for r in rows
+    }, stats
 
 
 def _quotes_from(record: dict) -> list[TargetQuote]:
@@ -166,8 +169,9 @@ def build_report(
     universe_path: str = "data/universe.csv",
     ledger_path: str = "data/ledger.csv",
     as_of: Optional[str] = None,
+    include_all: bool = False,
 ) -> dict:
-    meta_map = load_universe_meta(universe_path)
+    meta_map, universe_stats = load_universe_meta(universe_path, include_all=include_all)
     store = ResultStore(results_root)
 
     rows: list[ValuationRow] = []
@@ -178,6 +182,10 @@ def build_report(
     for record in store.iter_all():
         ticker = record.get("ticker")
         if not ticker:
+            continue
+        # 過濾掉的證券可能還有上一輪留下的結果，不能讓它們繼續出現在儀表板上，
+        # 否則畫面與「本次抓取範圍」對不起來
+        if meta_map and ticker not in meta_map:
             continue
         if err := record.get("firm_source_error"):
             source_errors[err] = source_errors.get(err, 0) + 1
@@ -197,7 +205,8 @@ def build_report(
     # 收盤日全部相同，逐列存等於重複幾千次同一個日期
     close_dates = collections.Counter(r.close_date for r in rows if r.close_date)
     progress = Ledger(ledger_path).load().summary() if Path(ledger_path).exists() else {}
-    universe_total = progress.get("total") or len(meta_map) or len(rows)
+    universe_total = len(meta_map) or progress.get("total") or len(rows)
+    excluded = (universe_stats or {}).get("excluded", 0)
 
     return {
         "as_of": as_of or date.today().isoformat(),
@@ -214,11 +223,15 @@ def build_report(
         },
         # 爬取跨多次執行完成，沒有這段就無法分辨「沒人覆蓋」與「還沒輪到」
         "crawl_progress": progress,
+        # 說明抓取範圍，而不是讓使用者去比對兩個數字才推得出來
+        "universe_filter": universe_stats or {},
         "coverage_note": (
-            f"全市場 {universe_total} 檔逐檔查詢，已取得 {len(rows)} 檔；"
+            f"全美股普通股 {universe_total} 檔逐檔查詢，已取得 {len(rows)} 檔；"
             f"其中 {covered} 檔有分析師目標價可比較，"
-            f"{uncovered} 檔查得到但無分析師覆蓋（多為 SPAC 單位、認股權證等）；"
+            f"{uncovered} 檔查得到但無分析師覆蓋；"
             f"另有 {implausible} 檔的目標價相對現價偏離過大，已標記為疑似異常並排到最後。"
+            + (f"（清單另有 {excluded} 檔認股權證／特別股／SPAC單位／債券未納入："
+               "實測其分析師覆蓋率僅 2.2%，認股權證更是一檔都沒有。）" if excluded else "")
         ),
         "source_errors": [
             {"error": e, "affected_tickers": n}

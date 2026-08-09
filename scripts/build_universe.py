@@ -11,16 +11,15 @@
 from __future__ import annotations
 
 import argparse
-import csv
+import collections
 import logging
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from analyst_valuation import universe_file  # noqa: E402
 from analyst_valuation.sources import us_listings  # noqa: E402
-
-FIELDS = ["ticker", "name", "exchange", "is_etf", "source"]
 
 
 def main() -> int:
@@ -37,20 +36,17 @@ def main() -> int:
 
     listings = us_listings.fetch_us_listings(include_etf=args.include_etf)
 
-    out = Path(args.out)
-    out.parent.mkdir(parents=True, exist_ok=True)
-    with out.open("w", newline="", encoding="utf-8") as fh:
-        writer = csv.DictWriter(fh, fieldnames=FIELDS)
-        writer.writeheader()
-        for item in listings:
-            writer.writerow(item.as_dict())
+    # 清單保留全部證券與其分類；要不要抓由讀取端決定（見 universe_file）
+    universe_file.save_universe([x.as_dict() for x in listings], args.out)
 
-    by_exchange: dict[str, int] = {}
-    for x in listings:
-        by_exchange[x.exchange] = by_exchange.get(x.exchange, 0) + 1
-    print(f"公司清單已寫出：{out}（共 {len(listings)} 檔）")
-    for ex, n in sorted(by_exchange.items(), key=lambda kv: -kv[1]):
-        print(f"  {ex}: {n}")
+    by_exchange = collections.Counter(x.exchange for x in listings)
+    by_type = collections.Counter(x.security_type for x in listings)
+    print(f"公司清單已寫出：{args.out}（共 {len(listings)} 檔）")
+    for ex, n in by_exchange.most_common():
+        print(f"  交易所 {ex}: {n}")
+    print("證券種類：")
+    for t, n in by_type.most_common():
+        print(f"  {t}: {n}")
     return 0
 
 

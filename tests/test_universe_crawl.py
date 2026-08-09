@@ -430,18 +430,21 @@ def _crawl_output(tmp_path):
             "price": {"close": 0.20, "close_date": "2026-08-07"},
         },
         {
-            "ticker": "SPACU", "covered": False, "note": "查詢成功但無分析師目標價覆蓋",
+            # 普通股也有三成沒有分析師追蹤，這才是過濾之後「無覆蓋」的典型樣貌
+            "ticker": "NOCOV", "covered": False, "note": "查詢成功但無分析師目標價覆蓋",
             "price": {"close": 10.01, "close_date": "2026-08-07"},
         },
     ])
 
     universe = tmp_path / "u.csv"
     universe.write_text(
-        "ticker,name,exchange,is_etf,source\n"
-        "AAA,Alpha Inc. Common Stock,Q,False,nasdaqtrader\n"
-        "PENNY,Penny Corp Common Stock,Q,False,nasdaqtrader\n"
-        "SPACU,SPAC Unit,Q,False,nasdaqtrader\n"
-        "LATER,Not Yet Fetched Inc,Q,False,nasdaqtrader\n",
+        "ticker,name,exchange,is_etf,security_type,source\n"
+        "AAA,Alpha Inc. Common Stock,Q,False,common,nasdaqtrader\n"
+        "PENNY,Penny Corp Common Stock,Q,False,common,nasdaqtrader\n"
+        "NOCOV,No Coverage Inc. Common Stock,Q,False,common,nasdaqtrader\n"
+        "LATER,Not Yet Fetched Inc. Common Stock,Q,False,common,nasdaqtrader\n"
+        # 非普通股：預設不納入抓取，因此不該計入 universe
+        "SPACU,Example Acquisition Corp. - Units,Q,False,unit,nasdaqtrader\n",
         encoding="utf-8",
     )
     return {"results": str(results), "universe": str(universe),
@@ -462,7 +465,7 @@ def test_report_counts_distinguish_uncovered_from_not_yet_fetched(_crawl_output)
     assert c["fetched"] == 3           # 已抓 3 檔
     assert c["not_yet_fetched"] == 1   # LATER 還沒輪到
     assert c["with_target_and_price"] == 2
-    assert c["missing"] == 1           # SPACU 查得到但沒覆蓋
+    assert c["missing"] == 1           # NOCOV 查得到但沒覆蓋
 
 
 def test_implausible_rows_sink_and_are_excluded_from_sector_medians(_crawl_output):

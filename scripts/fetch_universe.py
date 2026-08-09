@@ -16,7 +16,6 @@
 from __future__ import annotations
 
 import argparse
-import csv
 import json
 import logging
 import sys
@@ -24,21 +23,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from analyst_valuation import universe_runner  # noqa: E402
-
-
-def _load_universe(path: str) -> list[str]:
-    p = Path(path)
-    if not p.exists():
-        raise SystemExit(
-            f"找不到公司清單 {path}；請先執行 scripts/build_universe.py 建立。"
-        )
-    with p.open(newline="", encoding="utf-8") as fh:
-        return [
-            (row.get("ticker") or "").strip()
-            for row in csv.DictReader(fh)
-            if (row.get("ticker") or "").strip()
-        ]
+from analyst_valuation import universe_file, universe_runner  # noqa: E402
 
 
 def main() -> int:
@@ -54,6 +39,9 @@ def main() -> int:
                         help="搭配 --new-cycle：只重跑失敗的，保留已成功的")
     parser.add_argument("--reset-dead", action="store_true",
                         help="把已達重試上限的項目放回佇列")
+    parser.add_argument("--include-all", action="store_true",
+                        help="連認股權證／特別股／SPAC單位／債券也一併抓取"
+                             "（預設只抓普通股，其餘實測覆蓋率僅 2.2%）")
     parser.add_argument("-v", "--verbose", action="store_true")
     args = parser.parse_args()
 
@@ -62,7 +50,14 @@ def main() -> int:
         format="%(asctime)s %(levelname)s %(name)s: %(message)s",
     )
 
-    tickers = _load_universe(args.universe)
+    try:
+        tickers, universe_stats = universe_file.load_tickers(
+            args.universe, include_all=args.include_all)
+    except FileNotFoundError as e:
+        raise SystemExit(str(e))
+    if universe_stats["excluded"]:
+        print(f"清單 {universe_stats['total']} 檔，本次抓取 {universe_stats['kept']} 檔"
+              f"（排除 {universe_stats['excluded']} 檔非普通股；--include-all 可一併納入）")
     result = universe_runner.run(
         universe_tickers=tickers,
         ledger_path=args.ledger,
