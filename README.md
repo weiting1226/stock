@@ -314,6 +314,8 @@ Finnhub 把金鑰放在 query string，`requests` 的 `HTTPError` 訊息包含�
 data/universe.csv     公司清單（ticker, name, exchange, is_etf, source）
 data/ledger.csv       抓取帳本（status, attempts, last_attempt_at, last_ok_at, last_error）
 data/results/A.jsonl  逐檔結果，依代碼首字分片，一行一檔
+
+docs/data/valuation/universe_latest.json   儀表板讀的彙整結果
 ```
 
 ### 使用方式
@@ -322,8 +324,27 @@ data/results/A.jsonl  逐檔結果，依代碼首字分片，一行一檔
 python3 scripts/build_universe.py -v                                  # 1. 建立公司清單
 python3 scripts/fetch_universe.py --new-cycle --keep-ok -v            # 2. 開新一輪
 python3 scripts/fetch_universe.py --max-tickers 1500 -v               # 3. 續跑（可重複執行）
+python3 scripts/publish_universe.py -v                                # 4. 產生儀表板資料
 python3 scripts/fetch_universe.py --reset-dead -v                     #    排除問題後重試已放棄的
 ```
+
+「抓取」與「產生報告」刻意分開：抓取跨多次執行、要跑好幾小時，重出報告只要幾秒。
+每批抓完就重出一次，儀表板便能隨掃描進度更新，不必等整輪跑完。
+
+### 儀表板怎麼看這份資料
+
+模組二頁面上方有「S&P 500／全美股」切換鈕，兩者共用同一套渲染與篩選程式碼
+（上漲空間、離散度、信心度的定義只能有一個實作，否則兩邊會慢慢算出不一樣的數字）。
+
+全美股是跨班次累積的，因此頁面會顯示**本輪掃描進度**——沒有這段，讀者無法分辨
+「這檔沒有分析師覆蓋」與「這檔今天還沒輪到」。另外兩個為了全市場規模而做的處理：
+
+- **疑似異常預設隱藏**：目標價相對現價偏離超過 300%（或低於 −90%）者，多是單一
+  分析師覆蓋的極低價股。不濾掉的話，「上漲空間」榜首會清一色是「現價 0.27 美元、
+  目標價 4.8 美元」這種列，真正被低估的中大型股會被埋在幾百列之後。這些列會標記、
+  排到最後、且不列入類股中位數，但**不刪除**，取消勾選即可看到。
+- **表格最多列出 300 列**：篩選與排序仍在全部資料上進行，只是渲染截斷——7,498 列
+  一次全塞進 DOM 會讓瀏覽器卡住好幾秒，而且沒有人會捲到第 500 列。
 
 ### 公司清單來源
 

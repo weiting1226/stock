@@ -405,3 +405,124 @@ def test_all_sources_unavailable_is_a_real_failure(_patched_runner, monkeypatch,
     res = universe_runner.run(["AAA"], str(tmp_path / "l.csv"), str(tmp_path / "r"), max_workers=1)
     assert res["failed"] == 1
     assert Ledger(str(tmp_path / "l.csv")).load().entries["AAA"].status == STATUS_FAILED
+
+
+# --- 把爬取結果彙整成儀表板報告 --------------------------------------------
+
+@pytest.fixture
+def _crawl_output(tmp_path):
+    """做出一份小型的結果庫：一檔正常、一檔異常、一檔沒有分析師覆蓋。"""
+    from analyst_valuation.result_store import ResultStore
+
+    results = tmp_path / "r"
+    ResultStore(str(results)).write_many([
+        {
+            "ticker": "AAA", "covered": True, "sector": "Technology",
+            "quotes": [{"source": "yahoo", "mean": 120.0, "median": 118.0,
+                        "high": 150.0, "low": 90.0, "analyst_count": 12}],
+            "price": {"close": 100.0, "close_date": "2026-08-07",
+                      "change_1w_pct": 1.5, "change_1m_pct": -2.0},
+        },
+        {
+            # 現價 0.20、目標價 5.00 -> 上漲 2400%，全市場掃描裡滿地都是這種
+            "ticker": "PENNY", "covered": True, "sector": "Healthcare",
+            "quotes": [{"source": "yahoo", "mean": 5.0, "analyst_count": 1}],
+            "price": {"close": 0.20, "close_date": "2026-08-07"},
+        },
+        {
+            "ticker": "SPACU", "covered": False, "note": "查詢成功但無分析師目標價覆蓋",
+            "price": {"close": 10.01, "close_date": "2026-08-07"},
+        },
+    ])
+
+    universe = tmp_path / "u.csv"
+    universe.write_text(
+        "ticker,name,exchange,is_etf,source\n"
+        "AAA,Alpha Inc. Common Stock,Q,False,nasdaqtrader\n"
+        "PENNY,Penny Corp Common Stock,Q,False,nasdaqtrader\n"
+        "SPACU,SPAC Unit,Q,False,nasdaqtrader\n"
+        "LATER,Not Yet Fetched Inc,Q,False,nasdaqtrader\n",
+        encoding="utf-8",
+    )
+    return {"results": str(results), "universe": str(universe),
+            "ledger": str(tmp_path / "nonexistent.csv")}
+
+
+def test_report_counts_distinguish_uncovered_from_not_yet_fetched(_crawl_output):
+    """全市場掃描跨多班次完成，讀者必須能分辨「沒人追蹤」與「今天還沒輪到」。"""
+    from analyst_valuation import universe_publish
+
+    rep = universe_publish.build_report(
+        results_root=_crawl_output["results"],
+        universe_path=_crawl_output["universe"],
+        ledger_path=_crawl_output["ledger"],
+    )
+    c = rep["counts"]
+    assert c["universe"] == 4          # 清單 4 檔
+    assert c["fetched"] == 3           # 已抓 3 檔
+    assert c["not_yet_fetched"] == 1   # LATER 還沒輪到
+    assert c["with_target_and_price"] == 2
+    assert c["missing"] == 1           # SPACU 查得到但沒覆蓋
+
+
+def test_implausible_rows_sink_and_are_excluded_from_sector_medians(_crawl_output):
+    """雞蛋水餃股的上千 % 上漲空間若排在最前面，儀表板等於失去用途。"""
+    from analyst_valuation import universe_publish
+
+    rep = universe_publish.build_report(
+        results_root=_crawl_output["results"],
+        universe_path=_crawl_output["universe"],
+        ledger_path=_crawl_output["ledger"],
+    )
+    order = [r["ticker"] for r in rep["rows"]]
+    assert order[0] == "AAA"                      # 上漲 20%，合理
+    assert order.index("PENNY") > order.index("AAA")
+    assert rep["counts"]["implausible"] == 1
+    assert next(r for r in rep["rows"] if r["ticker"] == "PENNY")["implausible"] is True
+    # Healthcare 只有那檔異常列，因此不該出現在類股中位數裡
+    assert "Healthcare" not in {s["sector"] for s in rep["sector_summary"]}
+
+
+def test_report_hoists_repeated_source_errors_out_of_every_row(tmp_path):
+    """來源層級的錯誤逐列存等於把同一句話抄 7,498 遍，佔掉整份 JSON 兩成。"""
+    from analyst_valuation import universe_publish
+    from analyst_valuation.result_store import ResultStore
+
+    results = tmp_path / "r"
+    err = "FMP 回應 402：免費方案不支援逐機構目標價端點"
+    ResultStore(str(results)).write_many([
+        {"ticker": t, "covered": True, "firm_source_error": err,
+         "quotes": [{"source": "yahoo", "mean": 120.0, "analyst_count": 5}],
+         "price": {"close": 100.0, "close_date": "2026-08-07"}}
+        for t in ("AAA", "BBB", "CCC")
+    ])
+
+    rep = universe_publish.build_report(
+        results_root=str(results),
+        universe_path=str(tmp_path / "missing.csv"),
+        ledger_path=str(tmp_path / "missing.csv"),
+    )
+    assert rep["source_errors"] == [{"error": err, "affected_tickers": 3}]
+    for row in rep["rows"]:
+        assert err not in "".join(row.get("notes", []))
+
+
+def test_compact_row_keeps_fields_the_dashboard_filters_on():
+    """省略欄位是為了縮小檔案，但篩選與排序用得到的欄位缺鍵會讓
+    「未知」與「不符合條件」變得無法區分。"""
+    from analyst_valuation.universe_publish import compact_row
+
+    out = compact_row({
+        "ticker": "AAA", "name": "Alpha", "sector": "Unknown",
+        "close": None, "consensus_target": None, "upside_pct": None,
+        "confidence": "暫缺", "analyst_count": None,
+        "basis": "consensus", "duplicates_removed": 0, "implausible": False,
+        "sources_used": ["yahoo"], "firm_targets": [], "notes": [],
+    })
+    for key in ("ticker", "name", "sector", "close", "consensus_target",
+                "upside_pct", "confidence", "analyst_count"):
+        assert key in out
+    # 預設值與空值不必逐列重複
+    for key in ("basis", "duplicates_removed", "implausible",
+                "sources_used", "firm_targets", "notes"):
+        assert key not in out

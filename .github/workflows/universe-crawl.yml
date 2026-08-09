@@ -79,11 +79,15 @@ jobs:
           esac
           python3 scripts/fetch_universe.py $ARGS
 
+      # 每批跑完就重出報告，儀表板才會隨掃描進度持續更新，而不是等整輪跑完
+      - name: Publish dashboard data
+        run: python3 scripts/publish_universe.py -v
+
       - name: Commit progress
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data
+          git add data docs/data/valuation/universe_latest.json
           if git diff --cached --quiet; then
             echo "no changes"
           else
