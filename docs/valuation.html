@@ -70,6 +70,15 @@
           <option value="20">≥ 20 家</option>
         </select>
       </label>
+      <label title="股價淨值比 = 收盤價 ÷ 每股淨值。低於 1 代表市價低於帳上股東權益">股價淨值比
+        <select id="pb-filter">
+          <option value="">不限</option>
+          <option value="1">&lt; 1（跌破淨值）</option>
+          <option value="1.5">&lt; 1.5</option>
+          <option value="2">&lt; 2</option>
+          <option value="3">&lt; 3</option>
+        </select>
+      </label>
       <label>最高離散度
         <select id="dispersion-filter">
           <option value="">不限</option>
@@ -101,6 +110,7 @@
             <th class="num" data-sort="analyst_count">機構數</th>
             <th data-sort="target_low">目標價區間（低－高）</th>
             <th class="num" data-sort="target_dispersion_pct">離散度</th>
+            <th class="num" data-sort="price_to_book">股價淨值比</th>
             <th class="num" data-sort="change_1w_pct">近一週</th>
             <th class="num" data-sort="change_1m_pct">近一月</th>
             <th data-sort="confidence">信心</th>

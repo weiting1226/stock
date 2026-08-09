@@ -19,7 +19,7 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Iterable, Optional
 
-from .aggregate import ValuationRow, build_row, sector_summary
+from .aggregate import ValuationRow, apply_book_value, build_row, sector_summary
 from .firms import TargetRecord
 from . import universe_file
 from .ledger import Ledger
@@ -65,6 +65,8 @@ def _quotes_from(record: dict) -> list[TargetQuote]:
             low=q.get("low"),
             analyst_count=q.get("analyst_count"),
             recommendation_key=q.get("recommendation_key"),
+            # 每股淨值記在標的層而非報價層（它是基本面資料，不隨報價來源而異）
+            book_value=record.get("book_value"),
             responded=True,
         )
         for q in record.get("quotes") or []
@@ -117,6 +119,10 @@ def row_from_record(record: dict, meta: dict) -> ValuationRow:
         quotes=_quotes_from(record),
         firm_records=_firms_from(record),
     )
+    # 沒有分析師覆蓋的標的沒有 quotes，淨值要另外補上——「沒人追蹤但跌破淨值」
+    # 正是這個篩選最有意義的情境，不能因為沒人追蹤就少了這個欄位
+    if row.book_value is None:
+        apply_book_value(row, record.get("book_value"))
     if record.get("covered") is False:
         row.notes.append(record.get("note") or "無分析師目標價覆蓋")
     return row
@@ -129,12 +135,14 @@ _UI_FIELDS = (
     "ticker", "name", "sector", "close", "change_1w_pct", "change_1m_pct",
     "consensus_target", "target_low", "target_high", "target_dispersion_pct",
     "range_source", "analyst_count", "basis", "firm_targets", "duplicates_removed",
+    "book_value", "price_to_book", "negative_book_value",
     "upside_pct", "implausible", "sources_used", "confidence", "notes",
 )
 
 # 絕大多數列都是這些值，逐列重複等於把同一個字抄幾千遍。前端已用 `?? / ||`
 # 處理缺鍵，因此「省略」與「等於預設值」在畫面上完全等價。
 _ROW_DEFAULTS = {"basis": "consensus", "duplicates_removed": 0, "implausible": False,
+                 "negative_book_value": False,
                  "range_source": "yahoo", "sources_used": ["yahoo"]}
 
 # 即使是空值也要保留：前端拿它們做篩選與排序，缺鍵會讓「未知」與「不符合條件」

@@ -47,6 +47,13 @@ class ValuationRow:
     recommendation_mean: Optional[float] = None
     recommendation_key: Optional[str] = None
 
+    # 淨值面：每股淨值與股價淨值比。與分析師目標價互為對照——目標價是「別人
+    # 怎麼看」，淨值是帳上實際有多少股東權益。
+    book_value: Optional[float] = None
+    price_to_book: Optional[float] = None
+    # 股東權益為負：股價淨值比在數學上算得出來但沒有意義，須明確標示而不是留白
+    negative_book_value: bool = False
+
     upside_pct: Optional[float] = None
     # 目標價相對現價偏離到不合理的程度（多為雞蛋水餃股搭配單一分析師）。
     # 做成結構化欄位而不是只寫進 notes：排序與篩選要靠它，比對說明文字太脆弱。
@@ -86,6 +93,27 @@ def _confidence_for(analyst_count: Optional[int], n_sources: int, basis: str = "
     if basis == "per_firm" or n_sources >= 2:
         return "高"
     return "中"
+
+
+def apply_book_value(row: ValuationRow, book_value: Optional[float]) -> None:
+    """填入每股淨值並計算股價淨值比。
+
+    股價淨值比刻意用**本專案自己的收盤價**去除，而不是沿用資料源的現成比值：
+    否則分子（畫面上顯示的收盤價）與分母（資料源當時的價格快照）來自不同時點，
+    使用者拿收盤價除以淨值會得到跟欄位不一樣的數字（比照離散度的處理原則）。
+
+    另外抽成獨立函式是因為「沒有分析師覆蓋」的標的也要有這個欄位——
+    「沒人追蹤但跌破淨值」正是這個篩選最有意義的情境。
+    """
+    row.book_value = book_value
+    if book_value is None or not row.close:
+        return
+    if book_value > 0:
+        row.price_to_book = round(row.close / book_value, 3)
+    else:
+        # 負淨值算得出比值卻毫無意義（負除以負還會看起來很便宜），必須擋掉
+        row.negative_book_value = True
+        row.notes.append(f"每股淨值為負（{book_value:.2f}），股價淨值比不適用")
 
 
 def build_row(
@@ -171,6 +199,10 @@ def build_row(
     if row.analyst_count is not None and row.analyst_count < MIN_ANALYSTS_TO_INCLUDE:
         row.consensus_target = None
         row.notes.append("分析師家數不足，不採用共識目標價")
+
+    apply_book_value(
+        row, next((q.book_value for q in quotes if q.book_value is not None), None)
+    )
 
     if row.consensus_target and row.close:
         upside = (row.consensus_target / row.close - 1) * 100

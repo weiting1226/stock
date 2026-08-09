@@ -350,10 +350,12 @@ docs/data/valuation/universe_latest.json   儀表板讀的彙整結果
 
 ```bash
 python3 scripts/build_universe.py -v                                  # 1. 建立公司清單
-python3 scripts/fetch_universe.py --new-cycle --keep-ok -v            # 2. 開新一輪
+python3 scripts/fetch_universe.py --new-cycle -v                      # 2. 開新一輪（全部重抓）
 python3 scripts/fetch_universe.py --max-tickers 1500 -v               # 3. 續跑（可重複執行）
 python3 scripts/publish_universe.py -v                                # 4. 產生儀表板資料
+python3 scripts/fetch_universe.py --new-cycle --keep-ok -v            #    只補跑沒成功的
 python3 scripts/fetch_universe.py --reset-dead -v                     #    排除問題後重試已放棄的
+python3 scripts/fetch_universe.py --include-all -v                    #    連非普通股也一併抓
 ```
 
 「抓取」與「產生報告」刻意分開：抓取跨多次執行、要跑好幾小時，重出報告只要幾秒。
@@ -373,6 +375,19 @@ python3 scripts/fetch_universe.py --reset-dead -v                     #    排�
   排到最後、且不列入類股中位數，但**不刪除**，取消勾選即可看到。
 - **表格最多列出 300 列**：篩選與排序仍在全部資料上進行，只是渲染截斷——7,498 列
   一次全塞進 DOM 會讓瀏覽器卡住好幾秒，而且沒有人會捲到第 500 列。
+
+### 淨值篩選
+
+每股淨值取自同一份 `info` 回應（與類股同批取得，不需額外請求），
+股價淨值比則**用本專案自己的收盤價計算**而不是沿用資料源的現成比值——
+否則分子（畫面顯示的收盤價）與分母（資料源當時的價格快照）來自不同時點，
+使用者拿收盤價除以淨值會得到跟欄位不一樣的數字（同離散度的處理原則）。
+
+儀表板可依「股價淨值比 < 1／1.5／2／3」篩選，`< 1` 代表市價低於帳上股東權益。
+
+**負淨值單獨標示，不併入篩選結果**：股東權益為負時，比值在數學上算得出來
+（負除以負得正），會讓一檔財務狀況惡劣的公司看起來「很便宜」。這種列顯示
+「負淨值」而不是留白——留白會與「查無資料」混在一起，但兩者在篩選時的意義完全相反。
 
 ### 抓取範圍：只抓普通股
 
@@ -462,6 +477,16 @@ repo 會迅速膨脹。分片 JSONL 同樣是「一筆結果一筆記錄」、�
 `.github/workflows/universe-crawl.yml`：每日 01:10 UTC 重建清單並開新一輪，
 之後每 3 小時續跑一批。單次上限 1500 檔、job 上限 330 分鐘（低於 GitHub 的 360 分）。
 `concurrency` 群組確保兩次執行不會同時寫帳本。
+
+### 為什麼每日開新一輪不能用 `--keep-ok`
+
+`--keep-ok` 會保留已成功的項目不重抓。用在「一輪中途補跑失敗的」是對的，
+但當成**每日開新一輪**的預設就錯了：一檔成功之後永遠不會再被取用，
+收盤價、目標價、每股淨值全部凍結在第一次抓到的那天——掃完一輪之後，
+資料就再也不會更新了。
+
+節流後全量約需 100 分鐘的請求時間，分散在每天多個班次裡綽綽有餘，
+沒有理由為了省時間而讓資料停在過去。
 
 ### 為什麼 checkout 一定要指定 `ref: main`
 

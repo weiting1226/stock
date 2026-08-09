@@ -48,9 +48,10 @@ def _profile(quotes) -> dict:
     沒有分析師覆蓋的標的也要有這些欄位，否則儀表板的類股篩選會漏掉它們。
     """
     for q in quotes:
-        if q.sector or q.name:
-            return {"name": q.name, "sector": q.sector, "industry": q.industry}
-    return {"name": None, "sector": None, "industry": None}
+        if q.sector or q.name or q.book_value is not None:
+            return {"name": q.name, "sector": q.sector, "industry": q.industry,
+                    "book_value": q.book_value}
+    return {"name": None, "sector": None, "industry": None, "book_value": None}
 
 
 def _fetch_one(ticker: str, use_finnhub: bool, use_fmp: bool) -> dict:
