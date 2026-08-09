@@ -1,8 +1,8 @@
 """每日執行的主流程：抓資料 -> 建立每日對齊面板 -> 算特徵 -> 計分 -> 套用閘門 -> 組裝報告。
 
 對應文件「一、資料抓取規範」到「五、部位配置階梯」的機械化實作。
-⑥ 的 FOMC 判定與 Gate B 百分位使用抓取到的歷史資料；④ 股票型ETF資金流由
-ETF.com 自動抓取（失敗才退回人工值）；CME FedWatch 與 NDX前瞻本益比因無可靠
+⑥ 的 FOMC 判定與 Gate B 百分位使用抓取到的歷史資料；⑤ 股票型ETF資金流由
+ETF 流通股數變化自行計算（失敗才退回人工值）；CME FedWatch 與 NDX前瞻本益比因無可靠
 免費資料源，讀取 `manual_overrides.json`，沒有填寫就標記「暫缺」，
 绝不臆測（文件第287行）。
 """
@@ -29,7 +29,16 @@ from .config import (
     POSITION_LADDER,
     YAHOO_TICKERS,
 )
-from .sources import etf_flows, finra_margin, fomc, fred, ndx_breadth, tradingview_ndx, yahoo
+from .sources import (
+    etf_creation_flows,
+    etf_flows,
+    finra_margin,
+    fomc,
+    fred,
+    ndx_breadth,
+    tradingview_ndx,
+    yahoo,
+)
 from .timeseries import (
     apply_publish_lag,
     is_trailing_max,
@@ -151,42 +160,71 @@ def _fetch_ndx_breadth(as_of: str, cache_path: str) -> tuple[Optional[float], Op
         return None, f"{primary_error}｜備援 {type(e).__name__}: {e}", {}
 
 
-def _build_etf_flow_item(as_of: str, manual: dict) -> "Item":
-    """④ 股票型 ETF 資金流：ETF.com 為主，人工填寫值為備援。
+def _flow_observation(result) -> "etf_flows.FlowObservation":
+    """把計算結果轉成歷史檔用的觀測記錄（沿用既有的累積格式）。"""
+    return etf_flows.FlowObservation(
+        as_of=result.as_of,
+        net_flow_musd=result.net_flow_musd,
+        scope=f"主要股票型ETF×{result.etfs_used}",
+        period=f"{result.days_spanned}日",
+        source_url=f"computed:{result.basis}",
+    )
 
-    自動抓到就用自動的——它是當日實際數字，比人工填的分數新且可追溯。
-    抓不到才退回 manual_overrides.json，並在 note 裡把失敗原因講清楚，
+
+def _build_etf_flow_item(as_of: str, manual: dict) -> "Item":
+    """⑤ 股票型 ETF 資金流：由 ETF 流通股數變化自行計算，人工填寫值為備援。
+
+    ETF 的流通股數只會因申購／贖回而變動，因此「Δ股數 × 價格」就是資金流的
+    定義本身，不是代理指標。原本規劃的 ETF.com 從 Actions 存取時三個位址
+    全部回 403（Cloudflare 擋資料中心 IP），故改為自行計算。
+
+    算不出來才退回 manual_overrides.json，並在 note 裡把原因講清楚，
     否則使用者只會看到「暫缺」而不知道要去修什麼。
     """
+    snapshots: list = []
     try:
-        obs = etf_flows.fetch_equity_etf_flow(as_of=as_of)
-    except Exception as e:  # noqa: BLE001 — 抓不到要能退回人工值
-        log.warning("ETF.com 資金流抓取失敗: %s", e)
+        snapshots = etf_creation_flows.fetch_snapshots(as_of=as_of)
+        previous = storage.load_previous_etf_snapshots(before=as_of)
+        result = etf_creation_flows.compute_flow(snapshots, previous)
+    except Exception as e:  # noqa: BLE001 — 算不出來要能退回人工值
+        log.warning("ETF 資金流計算失敗: %s", e)
+        # 就算算不出流量，抓到的快照仍要存下來——第一次執行必然沒有前一次觀測，
+        # 這時若不落地，明天一樣沒得比，會永遠卡在「無前一次觀測」
+        storage.save_etf_snapshots(snapshots)
         fallback = manual.get("etf_fund_flow")
         if fallback is not None and fallback.score is not None:
-            fallback.note = (f"（自動抓取失敗，採用人工填寫值）{fallback.note}"
+            fallback.note = (f"（自動計算失敗，採用人工填寫值）{fallback.note}"
                              f"｜失敗原因：{_short_error(e, 300)}")
             return fallback
-        return Item("etf_fund_flow", None, None, None, "ETF.com（抓取失敗）", "暫缺",
-                    note=f"自動抓取失敗：{_short_error(e, 400)}"
+        return Item("etf_fund_flow", None, None, None, "ETF 申贖流量（計算失敗）", "暫缺",
+                    note=f"自動計算失敗：{_short_error(e, 400)}"
                          "｜可於 docs/data/manual_overrides.json 手動填入 -2..2 分")
 
+    storage.save_etf_snapshots(snapshots)
     # 歷史要排除今天自己那筆，否則等於部分拿自己當比較基準
-    history = storage.load_etf_flow_history(before=obs.as_of)
-    storage.append_etf_flow(obs)
-    score = scoring.score_etf_fund_flow(obs.net_flow_musd, history)
+    history = storage.load_etf_flow_history(before=as_of)
+    storage.append_etf_flow(_flow_observation(result))
+    score = scoring.score_etf_fund_flow(result.net_flow_musd, history)
 
     enough = len(history) >= scoring.MIN_FLOW_HISTORY_FOR_MAGNITUDE
-    note = (f"{obs.scope}：淨{'流入' if obs.net_flow_musd >= 0 else '流出'} "
-            f"{abs(obs.net_flow_musd):,.0f} 百萬美元")
+    basis_label = "流通股數變化" if result.basis == "shares" else "淨資產變動扣除市場漲跌（估計）"
+    note = (f"{result.etfs_used} 檔主要股票型 ETF 以{basis_label}計算："
+            f"淨{'流入' if result.net_flow_musd >= 0 else '流出'} "
+            f"{abs(result.net_flow_musd):,.0f} 百萬美元")
+    if result.days_spanned > 1:
+        note += f"（跨 {result.days_spanned} 天，已攤平為每日）"
     if enough:
-        note += f"；以自身 {len(history)} 筆歷史分布判定強度"
+        note += f"；以自身 {len(history)} 筆歷史規模判定強度"
     else:
         # 少說一級也不要硬給 ±2：方向是確定的，「大幅與否」還沒有依據
         note += (f"；歷史僅 {len(history)} 筆（需 {scoring.MIN_FLOW_HISTORY_FOR_MAGNITUDE} 筆），"
                  "目前只判方向不判強度")
-    return Item("etf_fund_flow", obs.net_flow_musd, score, obs.as_of,
-                "ETF.com 資金流工具", "高" if enough else "中", note=note)
+    if result.etfs_skipped:
+        note += f"｜略過 {len(result.etfs_skipped)} 檔：{result.etfs_skipped[:3]}"
+
+    return Item("etf_fund_flow", result.net_flow_musd, score, result.as_of,
+                "ETF 申贖流量（Yahoo 流通股數／淨資產自行計算）",
+                "高" if enough and result.basis == "shares" else "中", note=note)
 
 
 def _fetch_fomc(as_of: str, dfedtaru_daily: pd.Series) -> tuple[Optional[int], dict]:
