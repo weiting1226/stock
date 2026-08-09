@@ -114,6 +114,65 @@ def load_etf_flow_history(path: str = ETF_FLOW_HISTORY, before: Optional[str] = 
     return [float(v) for v in df["net_flow_musd"].dropna()]
 
 
+ETF_SNAPSHOT_HISTORY = "docs/data/etf_snapshots.csv"
+
+_SNAPSHOT_FIELDS = ["as_of", "ticker", "shares_outstanding", "total_assets", "close"]
+
+
+def save_etf_snapshots(snapshots, path: str = ETF_SNAPSHOT_HISTORY, keep_days: int = 400) -> None:
+    """保存各 ETF 的規模快照，供下次執行計算差額。
+
+    以 (as_of, ticker) 為鍵覆寫，同一天重跑不會產生重複列。只保留近期若干天：
+    計算差額只需要前一次觀測，留著幾年份的逐檔快照只會讓 repo 一直長大。
+    """
+    rows = [
+        {
+            "as_of": s.as_of, "ticker": s.ticker,
+            "shares_outstanding": s.shares_outstanding,
+            "total_assets": s.total_assets, "close": s.close,
+        }
+        for s in snapshots if s.ok
+    ]
+    if not rows:
+        return
+
+    p = Path(path)
+    new = pd.DataFrame(rows, columns=_SNAPSHOT_FIELDS)
+    if p.exists():
+        existing = pd.read_csv(p)
+        stamps = {(r["as_of"], r["ticker"]) for r in rows}
+        mask = existing.apply(lambda r: (str(r["as_of"]), str(r["ticker"])) in stamps, axis=1)
+        existing = existing[~mask]
+        new = pd.concat([existing, new], ignore_index=True)
+
+    new = new.sort_values(["as_of", "ticker"])
+    kept_dates = sorted(new["as_of"].astype(str).unique())[-keep_days:]
+    new = new[new["as_of"].astype(str).isin(kept_dates)]
+    p.parent.mkdir(parents=True, exist_ok=True)
+    new.to_csv(p, index=False)
+
+
+def load_previous_etf_snapshots(path: str = ETF_SNAPSHOT_HISTORY,
+                                before: Optional[str] = None) -> dict[str, dict]:
+    """取出每檔 ETF「最近一次、且早於 before」的快照。
+
+    必須排除當日自己那筆，否則差額會變成零——同一天重跑時尤其明顯。
+    """
+    p = Path(path)
+    if not p.exists():
+        return {}
+    df = pd.read_csv(p)
+    if df.empty or "ticker" not in df.columns:
+        return {}
+    if before is not None:
+        df = df[df["as_of"].astype(str) < str(before)]
+    if df.empty:
+        return {}
+    df = df.sort_values("as_of")
+    latest = df.groupby("ticker").tail(1)
+    return {str(r["ticker"]): r.to_dict() for _, r in latest.iterrows()}
+
+
 def ensure_manual_overrides_template(path: str = "docs/data/manual_overrides.json") -> None:
     p = Path(path)
     if p.exists():
