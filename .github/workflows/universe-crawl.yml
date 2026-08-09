@@ -37,6 +37,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # 一定要取 main 的最新狀態，不能用觸發當下的 commit。
+          # concurrency 群組會讓後到的執行排隊，等輪到它時 main 早就前進了；
+          # 用觸發時的 SHA 等於拿一份過期帳本開始跑，跑完必然 rebase 衝突
+          # ——2026-08 就這樣丟掉一整批 1500 檔的進度。
+          ref: main
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -83,6 +89,8 @@ jobs:
       - name: Publish dashboard data
         run: python3 scripts/publish_universe.py -v
 
+      # 爬一批要跑十幾分鐘到數小時。這一步失敗就等於整批白做，因此它必須
+      # 有能力自己把衝突解掉，而不是把成果丟掉——2026-08 已經因此損失過一批。
       - name: Commit progress
         run: |
           git config user.name "github-actions[bot]"
@@ -90,9 +98,46 @@ jobs:
           git add data docs/data/valuation/universe_latest.json
           if git diff --cached --quiet; then
             echo "no changes"
-          else
-            git commit -m "chore: US universe crawl progress"
-            # 其他排程也會寫入 repo，先 rebase 再推
-            git pull --rebase origin main
-            git push
+            exit 0
           fi
+          git commit -m "chore: US universe crawl progress"
+
+          for attempt in 1 2 3 4 5; do
+            if git pull --rebase origin main; then
+              if git push; then
+                echo "已推送（第 $attempt 次嘗試）"
+                exit 0
+              fi
+              echo "推送被拒（main 又前進了），重試"
+              continue
+            fi
+
+            # 進度檔都是以 ticker 為鍵的記錄集合，衝突有唯一正確解：取聯集。
+            echo "rebase 衝突，改以記錄層級合併"
+            python3 scripts/resolve_crawl_conflict.py || true
+
+            # 衍生檔沒有「合併」的意義：先隨便收下一方讓 rebase 走完，
+            # 之後再從合併好的資料重算，確保它與資料一致。
+            if git diff --name-only --diff-filter=U | grep -q universe_latest.json; then
+              git checkout --theirs docs/data/valuation/universe_latest.json 2>/dev/null \
+                || git checkout --ours docs/data/valuation/universe_latest.json
+              git add docs/data/valuation/universe_latest.json
+            fi
+
+            if git diff --name-only --diff-filter=U | grep -q .; then
+              echo "仍有無法自動合併的檔案，停止並保留現場（不會丟掉已抓到的資料）"
+              git diff --name-only --diff-filter=U
+              git rebase --abort
+              exit 1
+            fi
+
+            GIT_EDITOR=true git rebase --continue || git rebase --skip || exit 1
+
+            # 資料經過合併，衍生檔必須依合併後的結果重算，否則儀表板與帳本對不上
+            python3 scripts/publish_universe.py
+            git add docs/data/valuation/universe_latest.json
+            git diff --cached --quiet || git commit --amend --no-edit
+          done
+
+          echo "重試 5 次仍無法推送"
+          exit 1
