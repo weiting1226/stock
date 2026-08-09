@@ -183,11 +183,16 @@ from liquidity_monitor.sources import etf_creation_flows as ecf
 
 
 def _snap(ticker, shares=None, aum=None, close=100.0, as_of="2026-08-09"):
+    # 股數法有可信度檢查（股數×價格須對得上淨資產），因此預設補上一致的淨資產
+    if aum is None and shares is not None:
+        aum = shares * close
     return ecf.EtfSnapshot(as_of=as_of, ticker=ticker, shares_outstanding=shares,
                            total_assets=aum, close=close)
 
 
 def _prev(ticker, shares=None, aum=None, close=100.0, as_of="2026-08-08"):
+    if aum is None and shares is not None:
+        aum = shares * close
     return {"as_of": as_of, "ticker": ticker, "shares_outstanding": shares,
             "total_assets": aum, "close": close}
 
@@ -278,3 +283,43 @@ def test_snapshot_same_day_rerun_does_not_duplicate(tmp_path):
         storage.save_etf_snapshots([_snap("SPY", shares=1_000_000)], path=path)
     import pandas as pd
     assert len(pd.read_csv(path)) == 1
+
+
+# --- 股數可信度：實測發現 Yahoo 對 ETF 的 sharesOutstanding 不可靠 ----------
+
+@pytest.mark.parametrize("ticker,shares,close,aum,expected", [
+    # 2026-08-09 從 Actions 實際取得的數字
+    ("DIA", 81_242_896, 538.19, 45_207_846_912, True),
+    ("IWD", 305_400_000, 256.12, 81_900_000_000, True),
+    ("SPY", 917_782_016, 768.56, 795_300_000_000, True),
+    ("VUG", 242_067_008, 88.68, 372_000_000_000, False),   # 差 16 倍
+    ("VTI", 743_262_976, 379.07, 2_290_000_000_000, False),  # 差 8 倍
+    ("IJH", 257_400_000, 76.75, 122_394_140_672, False),   # 差 6 倍
+])
+def test_share_consistency_matches_what_the_real_data_showed(ticker, shares, close, aum, expected):
+    """對 ETF 而言「股數 × 價格」依定義就等於淨資產，對不起來就是其中一個數字錯了。
+    實測 16 檔只有 4 檔通過——少了這道檢查，程式會照樣拿錯的股數去算差額，
+    算出來的「資金流」看起來完全正常。"""
+    assert ecf.shares_are_consistent(shares, close, aum) is expected
+
+
+def test_untrustworthy_shares_force_the_aum_basis():
+    """多數 ETF 的股數不可信時，整批改用淨資產法——不能只挑通過的那幾檔混算。"""
+    today, prev = [], {}
+    for i in range(8):
+        # 股數存在但與淨資產差 10 倍（實測 VUG／VTI 就是這個樣子）
+        today.append(_snap(f"E{i}", shares=1_010_000, aum=1_000_000 * 100 * 10, close=100.0))
+        prev[f"E{i}"] = _prev(f"E{i}", shares=1_000_000, aum=1_000_000 * 100 * 10)
+    r = ecf.compute_flow(today, prev)
+    assert r.basis == "aum"          # 沒有被不可信的股數帶著走
+
+
+def test_flow_is_also_expressed_as_a_share_of_sample_assets():
+    """樣本組成有增減時，絕對金額會跳動而比例不會——計分依賴跟自己的歷史比，
+    因此需要一個跨日可比的量。"""
+    today = [_snap(f"E{i}", shares=1_010_000, close=100.0) for i in range(4)]
+    prev = {f"E{i}": _prev(f"E{i}", shares=1_000_000) for i in range(4)}
+    r = ecf.compute_flow(today, prev)
+    # 流入 4M，樣本淨資產 4 × 1.01M × 100 = 404M
+    assert r.flow_pct_of_aum == pytest.approx(100 * 4_000_000 / 404_000_000, abs=1e-4)
+    assert r.tickers_used == ["E0", "E1", "E2", "E3"]
