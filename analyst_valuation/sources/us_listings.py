@@ -21,6 +21,8 @@ from typing import Optional
 
 import requests
 
+from ..security_type import classify_security
+
 log = logging.getLogger(__name__)
 
 NASDAQ_LISTED_URL = "https://www.nasdaqtrader.com/dynamic/SymDir/nasdaqlisted.txt"
@@ -40,6 +42,9 @@ class Listing:
     exchange: str
     is_etf: bool
     source: str
+    # 證券種類（common／preferred／warrant／unit／right／note）。
+    # 分類保留在清單裡，過濾在使用端做——這樣看得出當初濾掉了什麼、也隨時可改。
+    security_type: str = "common"
 
     def as_dict(self) -> dict:
         return asdict(self)
@@ -72,6 +77,10 @@ def _parse_symbol_directory(text: str, symbol_col: str, exchange_label: str,
             exchange=_clean(row.get("Exchange")) or exchange_label,
             is_etf=_clean(row.get("ETF")).upper() == "Y",
             source=source,
+            security_type=classify_security(
+                symbol.replace(".", "-").replace("$", "-P"),
+                _clean(row.get("Security Name")),
+            ),
         ))
     return listings
 

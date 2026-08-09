@@ -29,6 +29,8 @@ def main() -> int:
     parser.add_argument("--ledger", default="data/ledger.csv")
     parser.add_argument("--out", default="docs/data/valuation/universe_latest.json")
     parser.add_argument("--as-of", default=None)
+    parser.add_argument("--include-all", action="store_true",
+                        help="連非普通股也一併納入報告（需與抓取端設定一致）")
     parser.add_argument("-v", "--verbose", action="store_true")
     args = parser.parse_args()
 
@@ -42,6 +44,7 @@ def main() -> int:
         universe_path=args.universe,
         ledger_path=args.ledger,
         as_of=args.as_of,
+        include_all=args.include_all,
     )
 
     out = Path(args.out)
