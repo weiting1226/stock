@@ -46,6 +46,10 @@ class TargetQuote:
     name: Optional[str] = None
     sector: Optional[str] = None
     industry: Optional[str] = None
+    # 每股淨值（最近一季）。股價淨值比刻意不取資料源的現成值，而是用本專案
+    # 自己的收盤價去除——否則分子（我們顯示的收盤價）與分母（資料源當時的
+    # 價格快照）來自不同時點，算出來的比值跟畫面上的收盤價對不起來。
+    book_value: Optional[float] = None
     error: Optional[str] = None
     # 這次失敗是「來源整個不能用」（限流／熔斷），不是這一檔的問題。
     # 用來決定該不該把這一檔記成失敗並消耗重試次數。
@@ -67,6 +71,20 @@ def _as_float(value) -> Optional[float]:
     if f != f or f <= 0:  # NaN 或非正值一律視為無效
         return None
     return f
+
+
+def _as_signed_float(value) -> Optional[float]:
+    """允許負值的數值轉換。
+
+    每股淨值可以是負的（股東權益為負，多見於長期虧損或大額買回的公司），
+    那是真實資訊而不是缺值。用 `_as_float` 會把負淨值直接吃掉，變成
+    「查無資料」——兩者在篩選時的意義完全相反。
+    """
+    try:
+        f = float(value)
+    except (TypeError, ValueError):
+        return None
+    return None if f != f else f      # 只擋 NaN
 
 
 def _as_text(value) -> Optional[str]:
@@ -112,6 +130,7 @@ def fetch_yahoo_target(ticker: str) -> TargetQuote:
         quote.name = _as_text(info.get("shortName") or info.get("longName"))
         quote.sector = _as_text(info.get("sector"))
         quote.industry = _as_text(info.get("industry"))
+        quote.book_value = _as_signed_float(info.get("bookValue"))
         quote.responded = True
         circuit.record_success()
     except Exception as e:  # noqa: BLE001 — 單一標的失敗不能中斷整批

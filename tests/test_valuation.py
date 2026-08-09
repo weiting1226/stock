@@ -349,3 +349,63 @@ def test_storage_redacts_before_writing(tmp_path):
     written = (tmp_path / "latest.json").read_text()
     assert "LEAKEDKEY123" not in written
     assert "***REDACTED***" in written
+
+
+# --- 淨值篩選 ---------------------------------------------------------------
+
+def _bv_quote(**kw):
+    from analyst_valuation.sources.yahoo_targets import TargetQuote
+    base = dict(ticker="AAA", source="yahoo", mean=120.0, analyst_count=8, responded=True)
+    base.update(kw)
+    return TargetQuote(**base)
+
+
+def _bv_price(close):
+    from analyst_valuation.sources.prices import PriceSnapshot
+    return PriceSnapshot(ticker="AAA", close=close, close_date="2026-08-07")
+
+
+def test_price_to_book_uses_our_own_close_not_the_sources_ratio():
+    """分子分母必須同一時點。用資料源現成的比值，會與畫面上的收盤價對不起來。"""
+    from analyst_valuation.aggregate import build_row
+    row = build_row({"ticker": "AAA"}, _bv_price(50.0), [_bv_quote(book_value=25.0)])
+    assert row.book_value == 25.0
+    assert row.price_to_book == 2.0          # 50 / 25，用的是我們自己的收盤價
+
+
+def test_price_below_book_is_representable():
+    from analyst_valuation.aggregate import build_row
+    row = build_row({"ticker": "AAA"}, _bv_price(8.0), [_bv_quote(book_value=10.0)])
+    assert row.price_to_book == 0.8
+    assert row.negative_book_value is False
+
+
+def test_negative_book_value_does_not_produce_a_cheap_looking_ratio():
+    """負淨值除下去會得到正的小數字，看起來像「跌破淨值」——那是假訊號。"""
+    from analyst_valuation.aggregate import build_row
+    row = build_row({"ticker": "AAA"}, _bv_price(12.0), [_bv_quote(book_value=-4.0)])
+    assert row.negative_book_value is True
+    assert row.price_to_book is None
+    assert any("負" in n for n in row.notes)
+    assert row.book_value == -4.0            # 負淨值本身是真實資訊，要保留
+
+
+def test_missing_book_value_leaves_ratio_empty():
+    from analyst_valuation.aggregate import build_row
+    row = build_row({"ticker": "AAA"}, _bv_price(10.0), [_bv_quote(book_value=None)])
+    assert row.book_value is None and row.price_to_book is None
+    assert row.negative_book_value is False  # 「查無資料」不是「負淨值」
+
+
+def test_book_value_survives_a_missing_close_price():
+    from analyst_valuation.aggregate import build_row
+    row = build_row({"ticker": "AAA"}, None, [_bv_quote(book_value=10.0)])
+    assert row.book_value == 10.0 and row.price_to_book is None
+
+
+def test_negative_book_value_is_not_swallowed_by_the_float_parser():
+    """一般的數值轉換會把非正值當成無效值丟掉；淨值不能這樣處理。"""
+    from analyst_valuation.sources.yahoo_targets import _as_float, _as_signed_float
+    assert _as_float(-4.0) is None           # 目標價為負確實無效
+    assert _as_signed_float(-4.0) == -4.0    # 淨值為負是真實資訊
+    assert _as_signed_float(float("nan")) is None

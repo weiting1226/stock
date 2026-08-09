@@ -66,6 +66,23 @@ function rangeCell(r) {
   </td>`;
 }
 
+/**
+ * 股價淨值比。< 1 代表市價低於帳上股東權益，特別標示。
+ * 淨值為負時比值沒有意義（負除以負會看起來很便宜），顯示「負淨值」而非留白——
+ * 留白會讓它跟「查無資料」混在一起，但兩者在篩選時的意義完全相反。
+ */
+function pbCell(r) {
+  if (r.negative_book_value) {
+    return '<td class="num pb-negative" title="每股淨值為負，股價淨值比不適用">負淨值</td>';
+  }
+  const v = r.price_to_book;
+  if (v === null || v === undefined) return '<td class="num">—</td>';
+  const cls = v < 1 ? "pb-cheap" : "";
+  const tip = r.book_value !== null && r.book_value !== undefined
+    ? `每股淨值 ${Number(r.book_value).toFixed(2)}` : "";
+  return `<td class="num ${cls}"${tip ? ` title="${escapeHtml(tip)}"` : ""}>${v.toFixed(2)}</td>`;
+}
+
 /** 離散度分級：區間寬度相對共識價越大，分歧越嚴重。 */
 function dispersionCell(v) {
   if (v === null || v === undefined) return '<td class="num">—</td>';
@@ -206,6 +223,7 @@ function currentFilters() {
     minUpside: document.getElementById("upside-filter").value,
     minAnalysts: document.getElementById("analyst-filter").value,
     maxDispersion: document.getElementById("dispersion-filter").value,
+    maxPb: document.getElementById("pb-filter").value,
     query: document.getElementById("search-box").value.trim().toLowerCase(),
     hideMissing: document.getElementById("hide-missing").checked,
     hideImplausible: document.getElementById("hide-implausible").checked,
@@ -233,6 +251,14 @@ function applyFilters() {
     rows = rows.filter(
       (r) => r.target_dispersion_pct !== null && r.target_dispersion_pct !== undefined
         && r.target_dispersion_pct <= max
+    );
+  }
+  if (f.maxPb !== "") {
+    const max = Number(f.maxPb);
+    // 負淨值一併排除：它算得出比值但沒有意義，不該混進「便宜」的結果裡
+    rows = rows.filter(
+      (r) => !r.negative_book_value && r.price_to_book !== null
+        && r.price_to_book !== undefined && r.price_to_book < max
     );
   }
   if (f.query) {
@@ -294,6 +320,7 @@ function renderTable() {
         <td class="num">${r.analyst_count ?? "—"}</td>
         ${rangeCell(r)}
         ${dispersionCell(r.target_dispersion_pct)}
+        ${pbCell(r)}
         ${pctCell(r.change_1w_pct)}
         ${pctCell(r.change_1m_pct)}
         <td class="${confClass}">${escapeHtml(r.confidence || "—")}</td>
@@ -337,7 +364,7 @@ function wireSorting() {
 
 function wireFilters() {
   ["sector-filter", "confidence-filter", "upside-filter", "analyst-filter",
-   "dispersion-filter", "hide-missing", "hide-implausible"].forEach((id) =>
+   "dispersion-filter", "pb-filter", "hide-missing", "hide-implausible"].forEach((id) =>
     document.getElementById(id).addEventListener("change", applyFilters)
   );
   document.getElementById("search-box").addEventListener("input", applyFilters);

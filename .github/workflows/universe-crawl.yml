@@ -17,7 +17,7 @@ on:
         required: true
         default: "continue"
         type: choice
-        options: [continue, new_cycle, new_cycle_full, reset_dead, rebuild_universe]
+        options: [continue, new_cycle, new_cycle_keep_ok, reset_dead, rebuild_universe]
       max_tickers:
         description: "本次最多處理幾檔"
         required: false
@@ -79,8 +79,12 @@ jobs:
         run: |
           ARGS="-v --max-tickers ${{ github.event.inputs.max_tickers || '1500' }}"
           case "${{ steps.mode.outputs.mode }}" in
-            new_cycle)      ARGS="$ARGS --new-cycle --keep-ok" ;;
-            new_cycle_full) ARGS="$ARGS --new-cycle" ;;
+            # 每日開新一輪要「全部重抓」。用 --keep-ok 的話，一檔成功之後就
+            # 永遠不會再被取用，收盤價、目標價、每股淨值全部凍結在第一次抓到
+            # 的那天——掃完一輪之後資料就再也不會更新了。
+            new_cycle)          ARGS="$ARGS --new-cycle" ;;
+            # 只補跑沒成功的：用於一輪中途想把失敗的補齊，不重抓已完成的
+            new_cycle_keep_ok)  ARGS="$ARGS --new-cycle --keep-ok" ;;
             reset_dead)     ARGS="$ARGS --reset-dead" ;;
           esac
           python3 scripts/fetch_universe.py $ARGS
