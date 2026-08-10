@@ -19,7 +19,17 @@ import requests
 
 from ..config import FED_PRESSRELEASE_INDEX
 
-_HEADERS = {"User-Agent": "Mozilla/5.0 (liquidity-monitor-v3 scraper)"}
+# 送出一般瀏覽器會送的標頭。原本的 UA 字串裡帶著 "scraper" 字樣，很多網站
+# 會直接以此拒絕；這裡只是用常規的 UA 取一份公開的政府新聞稿，
+# 與繞過驗證機制（例如 Cloudflare 的挑戰）不是同一回事。
+_HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/124.0 Safari/537.36"
+    ),
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+}
 # 聯準會的聲明連結歷史上是 monetary20260729a.htm，但也出現過 a1/b 等後綴，
 # 且可能是絕對網址，所以放寬比對而不是只認單一形式。
 _LINK_RE = re.compile(
@@ -56,10 +66,16 @@ def latest_meeting_on_or_before(as_of: str) -> Optional[FomcMeeting]:
     seen_any: list[str] = []
     fetched_years: list[int] = []
 
-    for year in {as_of_ts.year, as_of_ts.year - 1}:
+    fetch_errors: list[str] = []
+    for year in sorted({as_of_ts.year, as_of_ts.year - 1}, reverse=True):
         try:
             html = _fetch_index(year)
-        except requests.RequestException:
+        except requests.RequestException as e:
+            # 一定要留下實際原因。原本只是 continue，於是 403、逾時、DNS 失敗
+            # 在畫面上全都變成同一句「網路或網站問題」，完全無從判斷該修什麼。
+            status = getattr(getattr(e, "response", None), "status_code", None)
+            detail = f"HTTP {status}" if status else f"{type(e).__name__}: {e}"
+            fetch_errors.append(f"{year}年 {detail}")
             continue
         fetched_years.append(year)
         seen_any.extend(m.group(1) for m in _ANY_MONETARY_RE.finditer(html))
@@ -77,7 +93,10 @@ def latest_meeting_on_or_before(as_of: str) -> Optional[FomcMeeting]:
 
     if not candidates:
         if not fetched_years:
-            raise ValueError("聯準會新聞稿索引頁全部抓取失敗（網路或網站問題）")
+            raise ValueError(
+                "聯準會新聞稿索引頁全部抓取失敗；各年度實際錯誤："
+                + "｜".join(fetch_errors or ["無"])
+            )
         raise ValueError(
             f"已取得 {fetched_years} 年索引頁，但找不到符合格式的 FOMC 聲明連結；"
             f"頁面上含 'monetary' 的連結範例：{seen_any[:3] or '無'}"
