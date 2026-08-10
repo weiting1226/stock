@@ -39,6 +39,19 @@
 
   --radius: 3px;          /* 北歐風格偏好近乎直角 */
   --space: 8px;
+
+  /* 字級：八階固定音階，全站字級只能取用這幾個值。
+     原本散落 18 種 rem 值（0.6/0.66/0.68/0.7/0.72/0.74/0.75/0.78/0.8/0.82/
+     0.84/0.85/1/1.15/1.6/1.75/2.8/3.6），相鄰級距小到肉眼分不出是刻意分層
+     還是隨手寫的——那不是階層，是雜訊。改為明確的八階，同一種角色永遠同一級。 */
+  --fs-1: 0.6875rem;  /* 11px — 全大寫標籤、表頭、徽章 */
+  --fs-2: 0.75rem;    /* 12px — 圖例、頁尾、次要註解 */
+  --fs-3: 0.8125rem;  /* 13px — 表格內容、副標、表單控制項 */
+  --fs-4: 0.9375rem;  /* 15px — 內文 */
+  --fs-5: 1.125rem;   /* 18px — 燈號、小標題 */
+  --fs-6: 1.5rem;     /* 24px — 頁面標題 */
+  --fs-7: 1.75rem;    /* 28px — 統計數值 */
+  --fs-8: 3.5rem;     /* 56px — 主分數 */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -79,7 +92,7 @@ body {
   background: var(--page);
   color: var(--text-primary);
   font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  font-size: 15px;
+  font-size: var(--fs-4);
   font-weight: 400;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -104,7 +117,7 @@ body {
   padding: 0 0 14px;
   color: var(--text-muted);
   text-decoration: none;
-  font-size: 0.8rem;
+  font-size: var(--fs-3);
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -136,7 +149,7 @@ body {
   background: transparent;
   padding: 9px 20px;
   font: inherit;
-  font-size: 0.78rem;
+  font-size: var(--fs-3);
   letter-spacing: 0.04em;
   color: var(--text-muted);
   cursor: pointer;
@@ -170,7 +183,7 @@ header.top {
 }
 
 header.top h1 {
-  font-size: 1.6rem;
+  font-size: var(--fs-6);
   font-weight: 500;
   letter-spacing: -0.015em;
   margin: 0 0 6px;
@@ -179,7 +192,7 @@ header.top h1 {
 header.top .subtitle,
 .subtitle {
   color: var(--text-muted);
-  font-size: 0.82rem;
+  font-size: var(--fs-3);
   font-weight: 400;
 }
 
@@ -196,7 +209,7 @@ header.top .subtitle,
 .card:first-of-type { border-top: 0; padding-top: 0; }
 
 .card h2 {
-  font-size: 0.72rem;
+  font-size: var(--fs-1);
   font-weight: 600;
   letter-spacing: 0.11em;
   text-transform: uppercase;
@@ -213,7 +226,7 @@ header.top .subtitle,
 }
 
 .hero .score {
-  font-size: 3.6rem;
+  font-size: var(--fs-8);
   font-weight: 300;
   letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
@@ -221,18 +234,18 @@ header.top .subtitle,
 }
 
 .hero .light-badge {
-  font-size: 1.15rem;
+  font-size: var(--fs-5);
   font-weight: 500;
 }
 
-.hero .meta { color: var(--text-secondary); font-size: 0.85rem; }
+.hero .meta { color: var(--text-secondary); font-size: var(--fs-3); }
 
 .position-banner {
   margin-top: 32px;
   padding: 18px 22px;
   border-radius: var(--radius);
   background: var(--surface-2);
-  font-size: 1rem;
+  font-size: var(--fs-4);
   font-weight: 500;
   letter-spacing: 0.01em;
 }
@@ -253,9 +266,14 @@ header.top .subtitle,
   background: var(--surface-1);
 }
 
+.gate-detail {
+  margin-top: 6px;
+  font-size: var(--fs-3);
+}
+
 .gate-card h3 {
   margin: 0 0 10px;
-  font-size: 0.85rem;
+  font-size: var(--fs-3);
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -268,7 +286,7 @@ header.top .subtitle,
   display: inline-block;
   padding: 2px 9px;
   border-radius: 2px;
-  font-size: 0.68rem;
+  font-size: var(--fs-1);
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -285,7 +303,7 @@ header.top .subtitle,
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.84rem;
+  font-size: var(--fs-3);
 }
 
 th, td {
@@ -298,7 +316,7 @@ th, td {
 th {
   color: var(--text-muted);
   font-weight: 600;
-  font-size: 0.68rem;
+  font-size: var(--fs-1);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   border-bottom: 1px solid var(--hairline-strong);
@@ -310,7 +328,7 @@ td.num, th.num { font-variant-numeric: tabular-nums; text-align: right; padding-
 
 tr.category-row td {
   font-weight: 600;
-  font-size: 0.72rem;
+  font-size: var(--fs-1);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-muted);
@@ -320,6 +338,59 @@ tr.category-row td {
 }
 
 .table-scroll { overflow-x: auto; }
+
+/* ---- 18項查證表：欄寬要由角色決定，不能交給瀏覽器按字數分配 ----
+   自動配寬會把最寬的欄給「備註」（實測 616px／53%），而識別用的「子項」
+   只剩 89px——每個指標名稱都斷成四行，日期斷成「2026-」「08-10」兩行。
+   欄位重要性與字數多寡無關，因此改為固定版面並明確指定比例。 */
+#items-table { table-layout: fixed; }
+
+#items-table col.c-item   { width: 17%; }
+#items-table col.c-raw    { width: 18%; }   /* FOMC 的 AI 摘要落在這欄，展開時要讀得下去 */
+#items-table col.c-score  { width: 5%; }
+#items-table col.c-conf   { width: 7%; }
+#items-table col.c-date   { width: 9%; }
+#items-table col.c-source { width: 16%; }
+#items-table col.c-note   { width: 28%; }
+
+/* 固定版面下長字串不會自動撐開，必須允許斷行才不會溢出欄外 */
+#items-table td { overflow-wrap: anywhere; }
+
+/* 日期不該斷行——「2026-08-10」拆成兩行只是版面沒給夠寬 */
+td.date, th.date { white-space: nowrap; overflow-wrap: normal; }
+
+/* 表格內的長文字：預設收合成兩行，點開看全文。
+   原本是硬截斷到 200 字加「…」，資訊直接消失（FedWatch 的失敗原因就被切掉了）；
+   而不截斷時 FOMC 的 AI 摘要會在 145px 寬的欄位裡拉成 20 行、把整列撐到 333px 高。
+   收合可以兩者兼顧：版面穩定，全文仍在頁面上。 */
+.longtext > summary { cursor: pointer; list-style: none; }
+.longtext > summary::-webkit-details-marker { display: none; }
+
+.longtext .clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.longtext[open] .clamp { -webkit-line-clamp: unset; }
+
+/* 放在 summary 而非 .clamp 上：裁切會連偽元素一起切掉 */
+.longtext > summary::after {
+  content: "展開";
+  display: inline-block;
+  margin-top: 2px;
+  color: var(--text-muted);
+  font-size: var(--fs-2);
+  white-space: nowrap;
+  border-bottom: 1px solid var(--hairline-strong);
+}
+
+.longtext[open] > summary::after { content: "收合"; }
+.longtext > summary:hover::after { color: var(--text-secondary); }
+
+/* 文字型原始值不走數字欄的右對齊：整段文字靠右會排成鋸齒狀的窄柱 */
+#items-table td.raw-text { text-align: left; font-variant-numeric: normal; }
 
 /* ---- 信心等級 ---- */
 .confidence-高 { color: var(--good-deep); }
@@ -334,7 +405,7 @@ tr.category-row td {
   padding: 4px 0 4px 18px;
   border-radius: 0;
   margin-bottom: 16px;
-  font-size: 0.85rem;
+  font-size: var(--fs-3);
   color: var(--text-secondary);
 }
 
@@ -345,7 +416,7 @@ tr.category-row td {
   padding: 4px 0 4px 18px;
   border-radius: 0;
   margin-bottom: 24px;
-  font-size: 0.85rem;
+  font-size: var(--fs-3);
 }
 
 /* ---- 圖表 ---- */
@@ -356,7 +427,7 @@ tr.category-row td {
   flex-wrap: wrap;
   gap: 20px;
   margin-top: 16px;
-  font-size: 0.75rem;
+  font-size: var(--fs-2);
   color: var(--text-muted);
 }
 
@@ -381,11 +452,14 @@ tr.category-row td {
   border: 0;
   border-right: 1px solid var(--hairline);
   border-radius: 0;
-  padding: 4px 24px 4px 20px;
+  /* 七個方塊並排時每格僅約 165px，左右各留 20px 以上就會讓「500 / 503」
+     這種較長的值溢出格線。分隔已由右側細線負責，內距不需要再撐場面。 */
+  padding: 4px 16px 4px 14px;
+  min-width: 0;
 }
 
 .stat-value {
-  font-size: 1.75rem;
+  font-size: var(--fs-7);
   font-weight: 300;
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
@@ -394,11 +468,11 @@ tr.category-row td {
 }
 
 /* 日期類數值字元較多，縮一級避免在窄欄位換行 */
-.stat-value.is-text { font-size: 1.15rem; font-weight: 400; letter-spacing: 0; }
+.stat-value.is-text { font-size: var(--fs-5); font-weight: 400; letter-spacing: 0; }
 
 .stat-label {
   color: var(--text-muted);
-  font-size: 0.68rem;
+  font-size: var(--fs-1);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-top: 4px;
@@ -424,7 +498,7 @@ td.num.pos, td.num.neg { font-weight: 500; }
   display: flex;
   flex-direction: column;
   gap: 6px;
-  font-size: 0.66rem;
+  font-size: var(--fs-1);
   color: var(--text-muted);
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -435,7 +509,7 @@ td.num.pos, td.num.neg { font-weight: 500; }
   flex-direction: row;
   align-items: center;
   gap: 8px;
-  font-size: 0.78rem;
+  font-size: var(--fs-3);
   text-transform: none;
   letter-spacing: 0;
   font-weight: 400;
@@ -445,7 +519,7 @@ td.num.pos, td.num.neg { font-weight: 500; }
 
 select, input[type="search"], input[type="date"] {
   font-family: inherit;
-  font-size: 0.82rem;
+  font-size: var(--fs-3);
   padding: 7px 10px;
   border-radius: var(--radius);
   border: 1px solid var(--hairline-strong);
@@ -475,7 +549,7 @@ select:focus, input:focus {
   border-radius: 2px;
   border: 1px solid var(--hairline-strong);
   color: var(--text-muted);
-  font-size: 0.6rem;
+  font-size: var(--fs-1);
   font-weight: 500;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -489,7 +563,7 @@ select:focus, input:focus {
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  font-size: 0.7rem;
+  font-size: var(--fs-2);
   font-variant-numeric: tabular-nums;
   color: var(--text-muted);
   margin-bottom: 5px;
@@ -539,10 +613,10 @@ select:focus, input:focus {
 /* 股價淨值比 < 1：市價低於帳上股東權益 */
 .pb-cheap { color: var(--good-deep); font-weight: 500; }
 /* 比值算得出來但不可用（負淨值、股別不符）：用弱化的字樣與「查無資料」區分開 */
-.pb-issue { color: var(--text-muted); font-size: 0.78rem; }
+.pb-issue { color: var(--text-muted); font-size: var(--fs-3); }
 
 /* ---- 檢查清單 ---- */
-.checklist { list-style: none; padding: 0; margin: 0; font-size: 0.85rem; }
+.checklist { list-style: none; padding: 0; margin: 0; font-size: var(--fs-3); }
 .checklist li {
   padding: 9px 0;
   display: flex;
@@ -556,7 +630,7 @@ select:focus, input:focus {
 /* ---- 頁尾 ---- */
 footer.disclaimer {
   color: var(--text-muted);
-  font-size: 0.74rem;
+  font-size: var(--fs-2);
   line-height: 1.75;
   border-top: 1px solid var(--hairline);
   padding-top: 26px;
@@ -569,7 +643,12 @@ footer.disclaimer a { color: var(--text-secondary); }
 @media (max-width: 720px) {
   .wrap { padding: 32px 20px 64px; }
   .hero { gap: 32px; }
-  .hero .score { font-size: 2.8rem; }
+  .hero .score { font-size: var(--fs-8); }
   .stat-row { border-left: 0; }
   .stat-tile { border-right: 0; border-bottom: 1px solid var(--hairline); padding-left: 0; }
+
+  /* 手機寬度下七欄各分到約 40px，日期會被擠到溢出鄰欄。
+     欄位比例是為了可讀性而定的，不該為了塞進畫面而失效——
+     給一個最小寬度，讓外層 .table-scroll 橫向捲動即可。 */
+  #items-table { min-width: 860px; }
 }
