@@ -1,6 +1,6 @@
 {
   "as_of": "2026-08-10",
-  "generated_at": "2026-08-10T00:59:16.792628Z",
+  "generated_at": "2026-08-10T01:04:46.223084Z",
   "items": {
     "fed_bs_3m_chg": {
       "key": "fed_bs_3m_chg",
@@ -125,7 +125,7 @@
     "dxy_1m_chg": {
       "key": "dxy_1m_chg",
       "label": "DXY美元指數月變動(%)",
-      "raw_value": -1.3172247350453414,
+      "raw_value": -1.3281206316295369,
       "score": 1,
       "data_date": "2026-08-10",
       "source": "Yahoo Finance DX-Y.NYB",
@@ -155,12 +155,12 @@
     "fomc_decision": {
       "key": "fomc_decision",
       "label": "FOMC決議偏向",
-      "raw_value": "抓取失敗: 聯準會新聞稿索引頁全部抓取失敗；各年度實際錯誤：2026年 HTTP 404｜2025年 HTTP 404",
-      "score": null,
-      "data_date": null,
-      "source": "federalreserve.gov 新聞稿 + FRED DFEDTARU",
-      "confidence": "暫缺",
-      "note": "抓取失敗: 抓取失敗: 聯準會新聞稿索引頁全部抓取失敗；各年度實際錯誤：2026年 HTTP 404｜2025年 HTTP 404。可於 docs/data/manual_overrides.json 手動填入 -2..2 分"
+      "raw_value": "3 票異議（hawkish）；目標區間上緣 3.75%→3.75%｜AI摘要：聯準會決議維持聯邦基金利率目標區間於3.5%至3.75%不變，並持續維持銀行體系充足準備金的政策。聲明指出經濟活動仍以穩健步調擴張，但通膨仍高於2%目標，部分反映能源等供給面衝擊。有三位委員（Hammack、Kashkari、Logan）投下反對票，主張本次應升息1/4個百分點，顯示鷹派分歧。",
+      "score": -1,
+      "data_date": "2026-07-29",
+      "source": "federalreserve.gov 聲明 + AI 分類（claude-sonnet-5）",
+      "confidence": "高",
+      "note": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm"
     },
     "fedwatch_path": {
       "key": "fedwatch_path",
@@ -298,5 +298,5 @@
     "source": "tradingview",
     "as_of": "2026-08-10"
   },
-  "missing_or_low_confidence_count": 2
+  "missing_or_low_confidence_count": 1
 }
