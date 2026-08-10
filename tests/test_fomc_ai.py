@@ -172,3 +172,36 @@ def test_mixed_dissent_on_a_hold_counts_as_hawkish_present():
     """同時有鷹派與鴿派反對票時，鷹派異議確實存在，符合規格那一列的條件。"""
     c = fomc_ai.FomcClassification("hold", 0, 2, "mixed")
     assert fomc_ai.score_from_classification(c) == -1
+
+
+# --- 抓取失敗要說得出是哪一種失敗 -------------------------------------------
+#
+# 實測 GitHub Actions 取不到聯準會新聞稿，但原本的訊息只寫「網路或網站問題」
+# ——403（被擋）、逾時、DNS 失敗全都長一樣，完全無從判斷該修什麼。
+
+def test_http_status_is_surfaced_when_the_index_is_blocked():
+    import requests as rq
+    from liquidity_monitor.sources import fomc
+
+    def blocked(url, **kw):
+        err = rq.HTTPError("403 Forbidden")
+        err.response = mock.Mock(status_code=403)
+        raise err
+
+    with mock.patch.object(fomc.requests, "get", side_effect=blocked):
+        with pytest.raises(ValueError) as exc:
+            fomc.latest_meeting_on_or_before("2026-08-10")
+    assert "HTTP 403" in str(exc.value)
+
+
+def test_network_failure_reads_differently_from_being_blocked():
+    import requests as rq
+    from liquidity_monitor.sources import fomc
+
+    with mock.patch.object(fomc.requests, "get",
+                           side_effect=rq.ConnectTimeout("connection timed out")):
+        with pytest.raises(ValueError) as exc:
+            fomc.latest_meeting_on_or_before("2026-08-10")
+    msg = str(exc.value)
+    assert "ConnectTimeout" in msg
+    assert "HTTP" not in msg          # 兩種失敗不能長得一樣
