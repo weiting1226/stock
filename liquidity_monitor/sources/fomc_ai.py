@@ -125,31 +125,28 @@ def _normalise_quote(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
-def classify_statement(
-    statement_text: str,
+def call_model(
+    prompt: str,
     api_key: Optional[str] = None,
     model: str = DEFAULT_MODEL,
     timeout: int = 60,
     session=None,
-) -> FomcClassification:
-    """讓模型讀聲明並輸出結構化分類。抽取失敗一律拋錯，不回傳半套結果。"""
+) -> dict:
+    """送出提示並取回 JSON 物件。供各個需要 AI 抽取的指標共用。
+
+    抽成共用函式是因為「呼叫 API、檢查狀態碼、從回應裡挖出 JSON」這幾件事
+    每個指標都一樣；各寫一份的話，錯誤處理會逐漸長歪成不同的樣子。
+    """
     key = api_key or os.environ.get(API_KEY_ENV)
     if not key:
         raise ValueError(f"未設定 {API_KEY_ENV}，無法使用 AI 分類")
-    if not (statement_text or "").strip():
-        raise ValueError("聲明全文為空，無從分類")
 
-    body = {
-        "model": model,
-        "max_tokens": 1024,
-        "messages": [{
-            "role": "user",
-            "content": _PROMPT.format(statement=statement_text[:MAX_STATEMENT_CHARS]),
-        }],
-    }
     http = session or requests
     resp = http.post(
-        API_URL, json=body, timeout=timeout,
+        API_URL,
+        json={"model": model, "max_tokens": 1024,
+              "messages": [{"role": "user", "content": prompt}]},
+        timeout=timeout,
         headers={"x-api-key": key, "anthropic-version": API_VERSION,
                  "content-type": "application/json"},
     )
@@ -160,7 +157,24 @@ def classify_statement(
     payload = resp.json()
     blocks = payload.get("content") or []
     text = "".join(b.get("text", "") for b in blocks if b.get("type") == "text")
-    data = _extract_json(text)
+    return _extract_json(text)
+
+
+def classify_statement(
+    statement_text: str,
+    api_key: Optional[str] = None,
+    model: str = DEFAULT_MODEL,
+    timeout: int = 60,
+    session=None,
+) -> FomcClassification:
+    """讓模型讀聲明並輸出結構化分類。抽取失敗一律拋錯，不回傳半套結果。"""
+    if not (statement_text or "").strip():
+        raise ValueError("聲明全文為空，無從分類")
+
+    data = call_model(
+        _PROMPT.format(statement=statement_text[:MAX_STATEMENT_CHARS]),
+        api_key=api_key, model=model, timeout=timeout, session=session,
+    )
 
     decision = str(data.get("decision", "")).strip().lower()
     direction = str(data.get("dissent_direction", "")).strip().lower()
