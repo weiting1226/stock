@@ -255,7 +255,7 @@ def _build_fedwatch_item(as_of: str, target_upper: Optional[float],
         try:
             page = fedwatch.fetch_fedwatch_page()
             path = fedwatch.implied_path_from_page(page, current)
-            score = fedwatch.score_implied_path(path.change_bp)
+            score = fedwatch.score_path(path)
             return Item("fedwatch_path", round(path.change_bp, 1), score, as_of,
                         f"CME FedWatch + AI 判讀（{fomc_ai.DEFAULT_MODEL}）", "高",
                         note=(f"隱含 {path.implied_rate_pct:.2f}% vs 目前 {current:.2f}%"
@@ -270,7 +270,8 @@ def _build_fedwatch_item(as_of: str, target_upper: Optional[float],
 
     if current is not None and dgs1 is not None:
         path = fedwatch.implied_path_from_treasury(dgs1, current)
-        score = fedwatch.score_implied_path(path.change_bp)
+        # 近似法會被限制在 ±1：期限溢酬與「一碼」同量級，分不出 1 碼還是 2 碼
+        score = fedwatch.score_path(path)
         # 信心只給「低」：這是含期限溢酬的近似，不是 FedWatch 的市場隱含機率，
         # 不能在畫面上看起來跟真的一樣
         return Item("fedwatch_path", round(path.change_bp, 1), score, as_of,
