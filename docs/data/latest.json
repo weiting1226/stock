@@ -1,6 +1,6 @@
 {
   "as_of": "2026-08-10",
-  "generated_at": "2026-08-10T01:11:54.274806Z",
+  "generated_at": "2026-08-10T01:15:42.968230Z",
   "items": {
     "fed_bs_3m_chg": {
       "key": "fed_bs_3m_chg",
@@ -125,7 +125,7 @@
     "dxy_1m_chg": {
       "key": "dxy_1m_chg",
       "label": "DXY美元指數月變動(%)",
-      "raw_value": -1.330100329899342,
+      "raw_value": -1.2894938470675577,
       "score": 1,
       "data_date": "2026-08-10",
       "source": "Yahoo Finance DX-Y.NYB",
@@ -155,7 +155,7 @@
     "fomc_decision": {
       "key": "fomc_decision",
       "label": "FOMC決議偏向",
-      "raw_value": "3 票異議（hawkish）；目標區間上緣 3.75%→3.75%｜AI摘要：聯準會決議維持聯邦資金利率目標區間於3.5%至3.75%不變，並持續維持銀行體系充足準備金政策。聲明指出經濟穩健擴張但通膨仍高於2%目標，部分反映能源等部門的供給衝擊；三位委員因主張升息一碼而投下反對票，顯示會內存在鷹派分歧。",
+      "raw_value": "3 票異議（hawkish）；目標區間上緣 3.75%→3.75%｜AI摘要：聯準會決議將聯邦資金利率目標區間維持在3.5%至3.75%不變，並持續維持銀行體系準備金充裕的政策。聲明指出經濟活動穩健擴張，但受中東衝突等因素影響存在高度不確定性，通膨仍高於2%目標。此次以9比3票通過，三位反對委員主張應升息1/4個百分點，顯示內部存在鷹派分歧。",
       "score": -1,
       "data_date": "2026-07-29",
       "source": "federalreserve.gov 聲明 + AI 分類（claude-sonnet-5）",
@@ -166,11 +166,11 @@
       "key": "fedwatch_path",
       "label": "市場隱含12個月路徑(CME FedWatch)",
       "raw_value": 43.5,
-      "score": -2,
+      "score": -1,
       "data_date": "2026-08-10",
       "source": "1年期公債殖利率近似（非 FedWatch）",
       "confidence": "低",
-      "note": "1年期公債 4.06% vs 目前 3.62%（+44bp）｜以一年期公債殖利率近似，含期限溢酬，非 FedWatch 的市場隱含機率｜FedWatch 未採用：CME FedWatch 頁面無法取得；已嘗試 —— cme-fedwatch-tool.html: HTTP 403（可能是 Cloudflare 或需登入）｜countdown-to-fomc.html: HTTP 403（可能是 Cloudflare 或需登入）"
+      "note": "1年期公債 4.06% vs 目前 3.62%（+44bp）｜以一年期公債殖利率近似，含期限溢酬，非 FedWatch 的市場隱含機率；近似法精度不足以區分 1 碼與 2 碼（期限溢酬與一碼同量級），分數由 -2 保守調整為 -1｜FedWatch 未採用：CME FedWatch 頁面無法取得；已嘗試 —— cme-fedwatch-tool.html: HTTP 403（可能是 Cloudflare 或需登入）｜countdown-to-fomc.html: HTTP 403（可能是 Cloudflare 或需登入）"
     },
     "yield30y_60d_momentum": {
       "key": "yield30y_60d_momentum",
@@ -189,7 +189,7 @@
     "③ 市場微觀結構": 0.0,
     "④ 風險偏好情緒": 0.6667,
     "⑤ 跨資產資金流向": 0.3333,
-    "⑥ 政策方向": -1.3333
+    "⑥ 政策方向": -1.0
   },
   "category_weights_effective": {
     "① 總體貨幣流動性": 0.1,
@@ -199,13 +199,13 @@
     "⑤ 跨資產資金流向": 0.15,
     "⑥ 政策方向": 0.3
   },
-  "composite_score": -0.1333,
+  "composite_score": -0.0333,
   "light": "🟡 黃",
   "structural_warnings": {
     "dominance": {
       "category": "policy_direction",
       "label": "⑥ 政策方向",
-      "contribution": -0.4,
+      "contribution": -0.3,
       "share_of_same_sign": 1.0,
       "score_if_excluded": 0.2667
     },
