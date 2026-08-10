@@ -1,6 +1,6 @@
 {
   "as_of": "2026-08-10",
-  "generated_at": "2026-08-10T00:55:05.564484Z",
+  "generated_at": "2026-08-10T00:59:16.792628Z",
   "items": {
     "fed_bs_3m_chg": {
       "key": "fed_bs_3m_chg",
@@ -125,7 +125,7 @@
     "dxy_1m_chg": {
       "key": "dxy_1m_chg",
       "label": "DXY美元指數月變動(%)",
-      "raw_value": -1.3053389893262546,
+      "raw_value": -1.3172247350453414,
       "score": 1,
       "data_date": "2026-08-10",
       "source": "Yahoo Finance DX-Y.NYB",
@@ -155,12 +155,12 @@
     "fomc_decision": {
       "key": "fomc_decision",
       "label": "FOMC決議偏向",
-      "raw_value": "抓取失敗: 聯準會新聞稿索引頁全部抓取失敗（網路或網站問題）",
+      "raw_value": "抓取失敗: 聯準會新聞稿索引頁全部抓取失敗；各年度實際錯誤：2026年 HTTP 404｜2025年 HTTP 404",
       "score": null,
       "data_date": null,
       "source": "federalreserve.gov 新聞稿 + FRED DFEDTARU",
       "confidence": "暫缺",
-      "note": "抓取失敗: 抓取失敗: 聯準會新聞稿索引頁全部抓取失敗（網路或網站問題）。可於 docs/data/manual_overrides.json 手動填入 -2..2 分"
+      "note": "抓取失敗: 抓取失敗: 聯準會新聞稿索引頁全部抓取失敗；各年度實際錯誤：2026年 HTTP 404｜2025年 HTTP 404。可於 docs/data/manual_overrides.json 手動填入 -2..2 分"
     },
     "fedwatch_path": {
       "key": "fedwatch_path",
