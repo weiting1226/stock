@@ -23,6 +23,8 @@ const ITEM_CATEGORY = {
   "fomc_decision": "⑥ 政策方向", "fedwatch_path": "⑥ 政策方向", "yield30y_60d_momentum": "⑥ 政策方向",
 };
 
+const AXIS_FONT = { size: 11 };   // 對齊 --fs-1，圖表刻度與表頭同級
+
 const cssVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
 async function fetchJson(path) {
@@ -72,6 +74,27 @@ function safeCell(value, maxLen = 300) {
   return escapeHtml(clipped);
 }
 
+// 超過這個長度就收合。兩行大約容得下這麼多中文字，門檻設在「剛好塞不進兩行」，
+// 短句才不會平白多出一個沒有作用的展開鈕。
+const LONGTEXT_THRESHOLD = 60;
+
+/**
+ * 長文字收合成可展開的段落，短文字原樣輸出。
+ *
+ * 不再硬截斷：FedWatch 的失敗原因原本被切在「可能是 Cloudfl…」，
+ * 而那正是要查證時最需要看到的那一段。版面穩定與資訊完整不必二選一。
+ */
+function textCell(value, { maxLen = 2000 } = {}) {
+  const str = String(value ?? "");
+  if (str.length <= LONGTEXT_THRESHOLD) return safeCell(str, maxLen);
+  // 全文只放一份，收合與展開的差別純由 CSS 的行數裁切控制。
+  // 若寫成「摘要 + 全文」兩份，展開後開頭那幾十個字會重複出現。
+  //
+  // 內層再包一個 .clamp：行數裁切會連同區塊內的偽元素一起切掉，
+  // 「展開」若放在被裁切的那一層，正好在最需要它的長文字上看不見。
+  return `<details class="longtext"><summary><span class="clamp">${safeCell(str, maxLen)}</span></summary></details>`;
+}
+
 function renderHero(report) {
   document.getElementById("composite-score").textContent = fmtNum(report.composite_score, 3);
   document.getElementById("composite-score").style.color = LIGHT_COLOR[report.light] || "inherit";
@@ -102,7 +125,7 @@ function gateCardHtml(title, gate) {
     <div class="gate-card">
       <h3>${escapeHtml(title)} <span class="badge ${badgeClass}">${escapeHtml(badgeText)}</span></h3>
       <div class="subtitle">${safeCell(status)}</div>
-      <div style="margin-top:6px;font-size:0.85rem;">${safeCell(detail)}</div>
+      <div class="gate-detail">${safeCell(detail)}</div>
     </div>`;
 }
 
@@ -145,6 +168,19 @@ function renderCategoryTable(report) {
   });
 }
 
+/**
+ * 拿掉「展開」後其實沒有東西可展開的收合鈕。
+ *
+ * 字數門檻只是估計，實際會不會被裁到要看欄寬與換行結果——兩行放得下的
+ * 內容仍會掛上展開鈕，點下去卻毫無變化。版面問過真實高度才知道答案。
+ */
+function pruneUselessToggles(root) {
+  root.querySelectorAll("details.longtext").forEach((d) => {
+    const clamp = d.querySelector(".clamp");
+    if (clamp && clamp.scrollHeight <= clamp.clientHeight + 1) d.replaceWith(clamp);
+  });
+}
+
 function renderItemsTable(report) {
   const tbody = document.querySelector("#items-table tbody");
   tbody.innerHTML = "";
@@ -157,18 +193,24 @@ function renderItemsTable(report) {
       if (ITEM_CATEGORY[key] !== cat) return;
       const tr = document.createElement("tr");
       const confClass = `confidence-${(item.confidence || "").replace(/\(.*\)/, "")}`;
-      const rawCell = typeof item.raw_value === "number" ? fmtNum(item.raw_value, 3) : safeCell(item.raw_value ?? "—", 120);
+      // 數值靠右對齊（位數才對得齊），文字靠左——整段文字擠在右對齊的窄欄裡
+      // 會排成鋸齒狀，正是 FOMC 那列原本的樣子
+      const isNum = typeof item.raw_value === "number";
+      const rawCell = isNum
+        ? `<td class="num">${fmtNum(item.raw_value, 3)}</td>`
+        : `<td class="raw-text">${textCell(item.raw_value ?? "—")}</td>`;
       tr.innerHTML = `
         <td>${safeCell(item.label || key)}</td>
-        <td class="num">${rawCell}</td>
+        ${rawCell}
         <td class="num">${item.score ?? "—"}</td>
         <td class="${confClass}">${safeCell(item.confidence || "—")}</td>
-        <td>${safeCell(item.data_date || "—")}</td>
-        <td>${safeCell(item.source || "—")}</td>
-        <td>${safeCell(item.note || "", 200)}</td>`;
+        <td class="date">${safeCell(item.data_date || "—")}</td>
+        <td>${textCell(item.source || "—")}</td>
+        <td>${textCell(item.note || "")}</td>`;
       tbody.appendChild(tr);
     });
   });
+  pruneUselessToggles(tbody);
 }
 
 function renderTrack2(report) {
@@ -255,7 +297,7 @@ function renderCategoryChart(report) {
       plugins: { legend: { display: false } },
       scales: {
         y: { min: -2, max: 2, grid: { color: cssVar("--hairline") }, ticks: { color: cssVar("--text-muted") } },
-        x: { grid: { display: false }, ticks: { color: cssVar("--text-muted"), font: { size: 10 } } },
+        x: { grid: { display: false }, ticks: { color: cssVar("--text-muted"), font: AXIS_FONT } },
       },
     },
   });
@@ -307,7 +349,7 @@ function renderHistoryChart(rows) {
       plugins: { legend: { display: false } },
       scales: {
         y: { min: -2, max: 2, grid: { color: cssVar("--hairline") }, ticks: { color: cssVar("--text-muted") } },
-        x: { grid: { display: false }, ticks: { color: cssVar("--text-muted"), maxTicksLimit: 8, font: { size: 10 } } },
+        x: { grid: { display: false }, ticks: { color: cssVar("--text-muted"), maxTicksLimit: 8, font: AXIS_FONT } },
       },
     },
     plugins: [lightBandPlugin],
