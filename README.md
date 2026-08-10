@@ -309,10 +309,20 @@ TradingView 的 screener 端點一個請求就回傳**成分股清單與每檔�
 
 沒有這個檔案時，③ 的廣度子項會標記「暫缺」，但 ③ 仍由 MOVE 指數正常計分。
 
-**為什麼 FOMC 需要人工填？** GitHub Actions 的執行環境連不到
-`federalreserve.gov`（2026-08 實測，索引頁請求全部失敗）。程式仍會先嘗試自動抓取，
-失敗才退回人工填入的分數，並在備註標明「自動抓取失敗」。若在自己電腦執行、
-網路可通，就會自動解析、不需人工介入。
+**先前「Actions 連不到 federalreserve.gov」的說法是錯的。** 補上逐來源診斷後
+實測，錯誤其實是 **HTTP 404**——網站完全連得到（404 代表 DNS、TCP、TLS、HTTP
+全部成功），只是那個年度索引網址早已不存在。之所以誤判，正是因為原本的錯誤訊息
+把 404、403、逾時全寫成同一句「網路或網站問題」。
+
+現在索引依序嘗試四個來源，**RSS 排最前面**（機器可讀的正式發布管道，比解析
+索引頁 HTML 穩定得多），任一來源取得聲明連結就停止，不再打其餘來源：
+
+1. `feeds/press_monetary.xml`（RSS）
+2. `monetarypolicy/fomccalendars.htm`（FOMC 行事曆頁）
+3. `newsevents/pressreleases/{year}-monetary.htm`（原本的年度索引）
+4. `newsevents/pressreleases/{year}-press.htm`
+
+抓取失敗仍會退回人工填入的分數，並在備註標明實際的失敗原因（含狀態碼）。
 
 ⑥ 佔 30% 權重，**沒填的話 Gate C 會持續觸發禁用槓桿**（部位上限固定在 100% QQQ）。
 

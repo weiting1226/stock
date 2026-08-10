@@ -205,3 +205,70 @@ def test_network_failure_reads_differently_from_being_blocked():
     msg = str(exc.value)
     assert "ConnectTimeout" in msg
     assert "HTTP" not in msg          # 兩種失敗不能長得一樣
+
+
+# --- 索引來源：RSS 為主，HTML 索引為備援 ------------------------------------
+#
+# 實測發現原本唯一的年度索引網址回 **404**——網站是連得到的（404 代表 DNS、
+# TCP、TLS、HTTP 全部成功），只是路徑早就不存在。先前把它誤判成
+# 「GitHub Actions 連不到 federalreserve.gov」，正是因為錯誤訊息把所有失敗
+# 都寫成同一句「網路或網站問題」。
+
+_RSS = ('<?xml version="1.0"?><rss><channel>'
+        '<item><link>https://www.federalreserve.gov/newsevents/pressreleases/'
+        'monetary20260729a.htm</link></item>'
+        '<item><link>https://www.federalreserve.gov/newsevents/pressreleases/'
+        'monetary20260617a.htm</link></item></channel></rss>')
+_STATEMENT_HTML = ("<p>The Committee decided to maintain the target range. "
+                   "Voting against this action was Governor Smith.</p>")
+
+
+def test_rss_feed_is_parsed_even_though_it_has_no_href_attributes():
+    """RSS 用的是 <link>…</link>。原本的正則綁死 href=，會整份漏掉——
+    而 RSS 正是最穩定的來源。"""
+    from liquidity_monitor.sources import fomc
+
+    def get(url, **kw):
+        text = _RSS if "feeds" in url else _STATEMENT_HTML
+        return mock.Mock(text=text, raise_for_status=mock.Mock())
+
+    with mock.patch.object(fomc.requests, "get", side_effect=get) as m:
+        meeting = fomc.latest_meeting_on_or_before("2026-08-10")
+
+    assert str(meeting.date.date()) == "2026-07-29"      # 取最新且不晚於 as_of
+    assert meeting.has_dissent
+    # 第一個來源就成功時不該再打其餘索引：索引 + 聲明本文，共兩次請求
+    assert m.call_count == 2
+
+
+def test_falls_through_to_html_index_when_the_feed_is_gone():
+    import requests as rq
+    from liquidity_monitor.sources import fomc
+
+    def get(url, **kw):
+        if "feeds" in url:
+            err = rq.HTTPError("404")
+            err.response = mock.Mock(status_code=404)
+            raise err
+        if "fomccalendars" in url:
+            return mock.Mock(
+                text='<a href="/newsevents/pressreleases/monetary20260729a.htm">x</a>',
+                raise_for_status=mock.Mock())
+        return mock.Mock(text=_STATEMENT_HTML, raise_for_status=mock.Mock())
+
+    with mock.patch.object(fomc.requests, "get", side_effect=get):
+        meeting = fomc.latest_meeting_on_or_before("2026-08-10")
+    assert str(meeting.date.date()) == "2026-07-29"
+
+
+def test_future_dated_statements_are_not_used():
+    """as_of 之後才發布的聲明不能拿來當今天的訊號（前視偏誤）。"""
+    from liquidity_monitor.sources import fomc
+
+    def get(url, **kw):
+        text = _RSS if "feeds" in url else _STATEMENT_HTML
+        return mock.Mock(text=text, raise_for_status=mock.Mock())
+
+    with mock.patch.object(fomc.requests, "get", side_effect=get):
+        meeting = fomc.latest_meeting_on_or_before("2026-07-01")
+    assert str(meeting.date.date()) == "2026-06-17"      # 7/29 那場尚未發生
