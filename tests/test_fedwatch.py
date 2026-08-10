@@ -143,3 +143,29 @@ def test_treasury_proxy_is_labelled_as_an_approximation():
     assert path.basis == "treasury_proxy"
     assert any("期限溢酬" in w for w in path.warnings)
     assert fedwatch.score_implied_path(path.change_bp) == 2
+
+
+# --- 近似法不得說到 ±2 -------------------------------------------------------
+
+def test_proxy_score_is_capped_because_term_premium_spans_a_whole_step():
+    """實測案例：1年期公債 4.06% vs 目標中點 3.625% = +43.5bp，四捨五入是 2 碼
+    （−2）。但期限溢酬約 10–20bp，與「一碼」的 25bp 同量級——扣掉任何合理的
+    期限溢酬後都只剩 1 碼。近似法分得出方向，分不出 1 碼還是 2 碼。"""
+    path = fedwatch.implied_path_from_treasury(one_year_yield_pct=4.06, current_rate_pct=3.625)
+    assert fedwatch.score_implied_path(path.change_bp) == -2      # 未設限的原始分數
+    assert fedwatch.score_path(path) == -1                        # 保守調整後
+    assert any("保守調整" in w for w in path.warnings)
+
+
+def test_proxy_within_one_step_is_left_alone():
+    path = fedwatch.implied_path_from_treasury(3.40, 3.625)       # −22.5bp -> −1 碼
+    assert fedwatch.score_path(path) == 1
+    assert not any("保守調整" in w for w in path.warnings)
+
+
+def test_fedwatch_reading_is_not_capped():
+    """真的讀到 FedWatch 機率表時精度足夠，±2 該給就給。"""
+    path = fedwatch.implied_path_from_page(PAGE, 3.875, api_key="k",
+                                           session=_model(_reading()))
+    assert path.basis == "fedwatch_ai"
+    assert fedwatch.score_path(path) == 2

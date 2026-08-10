@@ -192,6 +192,28 @@ def score_implied_path(change_bp: Optional[float]) -> Optional[int]:
     return -2
 
 
+# 近似法最多只說到 ±1。期限溢酬約 10–20bp，與「一碼」的 25bp 是同一個數量級
+# ——它的偏差大到足以跨越一個等級。實測遇到：1年期公債 4.06% vs 目標中點
+# 3.625% 得 +43.5bp，四捨五入是 2 碼（−2）；但扣掉任何合理的期限溢酬後都只剩
+# 1 碼（−1）。近似法分得出方向與「有沒有明顯定價」，分不出 1 碼還是 2 碼，
+# 那就不要說到 ±2——與資金流歷史不足時只判方向是同一個原則：少說一級。
+MAX_ABS_SCORE_FOR_PROXY = 1
+
+
+def score_path(path: ImpliedPath) -> Optional[int]:
+    """依路徑的資料基礎給分，近似法會被限制在 ±1。"""
+    score = score_implied_path(path.change_bp)
+    if score is None or path.basis != "treasury_proxy":
+        return score
+    capped = max(-MAX_ABS_SCORE_FOR_PROXY, min(MAX_ABS_SCORE_FOR_PROXY, score))
+    if capped != score:
+        path.warnings.append(
+            f"近似法精度不足以區分 1 碼與 2 碼（期限溢酬與一碼同量級），"
+            f"分數由 {score} 保守調整為 {capped}"
+        )
+    return capped
+
+
 def _normalise(text: str) -> str:
     text = (text or "").lower()
     text = text.replace("’", "'").replace("“", '"').replace("”", '"')
