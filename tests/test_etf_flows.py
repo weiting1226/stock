@@ -336,3 +336,32 @@ def test_flow_is_also_expressed_as_a_share_of_sample_assets():
     # 流入 4M，樣本淨資產 4 × 1.01M × 100 = 404M
     assert r.flow_pct_of_aum == pytest.approx(100 * 4_000_000 / 404_000_000, abs=1e-4)
     assert r.tickers_used == ["E0", "E1", "E2", "E3"]
+
+
+def test_identical_values_across_the_whole_sample_are_stale_data_not_flat_flows():
+    """實測 Yahoo 的 totalAssets 對 ETF 不是每日更新：連兩天 16 檔數值完全相同。
+    回報 0 會被計成「持平」——那是假訊號，而且看起來完全正常。"""
+    today = [_snap(f"E{i}", aum=100_000_000, close=100.0) for i in range(6)]
+    prev = {f"E{i}": _prev(f"E{i}", aum=100_000_000, close=100.0) for i in range(6)}
+    with pytest.raises(ValueError, match="未更新"):
+        ecf.compute_flow(today, prev)
+
+
+def test_frozen_aum_while_the_price_moved_is_impossible_and_rejected():
+    """實測 2026-08-10：DIA 的 totalAssets 兩天都是 45,207,846,912，價格卻在動。
+    持有股票的基金不可能如此——這是欄位沒更新，不是資金剛好打平。
+    差額為零時，成因要靠原始欄位分辨，不是靠差額本身。"""
+    today = [_snap(f"E{i}", aum=45_207_846_912, close=110.0) for i in range(6)]
+    prev = {f"E{i}": _prev(f"E{i}", aum=45_207_846_912, close=100.0) for i in range(6)}
+    with pytest.raises(ValueError, match="未更新"):
+        ecf.compute_flow(today, prev)
+
+
+def test_a_genuinely_small_but_nonzero_flow_is_still_reported():
+    """真的只是流量很小，不能跟「資料沒更新」混為一談。
+    判斷陳舊與否要看原始欄位有沒有動，不是看差額大不大。"""
+    today = [_snap(f"E{i}", aum=100_200_000, close=100.0) for i in range(6)]
+    prev = {f"E{i}": _prev(f"E{i}", aum=100_000_000, close=100.0) for i in range(6)}
+    r = ecf.compute_flow(today, prev)
+    assert r.net_flow_musd == pytest.approx(1.2)          # 每檔 20 萬，共 120 萬
+    assert r.flow_pct_of_aum > 0                          # 計分用的是這個量

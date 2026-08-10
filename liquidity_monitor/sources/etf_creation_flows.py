@@ -143,6 +143,31 @@ def _days_between(a: str, b: str) -> int:
         return 0
 
 
+def _stale_source_reason(pairs: dict, raw: dict, basis: str) -> Optional[str]:
+    """來源資料根本沒更新時，回報原因；正常則回 None。
+
+    差額為零有兩種完全不同的成因：真的申贖打平（0 分「持平」是對的），
+    以及來源那一欄根本沒重新整理（0 分是假訊號，而且看起來完全正常）。
+    分辨的依據不在算出來的差額，而在原始欄位本身。
+    """
+    keys = [t for t in pairs if t in raw]
+    if not keys:
+        return None
+
+    if all(raw[t][0] == raw[t][1] for t in keys):
+        return (f"{len(keys)} 檔的股數、淨資產與收盤價三欄全部與前一次觀測完全相同，"
+                "研判為來源資料未更新，不採計為「持平」")
+
+    # 淨資產法專有的矛盾：持有股票的基金，價格變了而淨資產一分不差是不可能的。
+    # 實測 Yahoo 的 totalAssets 對 ETF 不是每日更新——連兩天 16 檔數值完全相同。
+    if basis == "aum" and all(
+        raw[t][0][1] == raw[t][1][1] and raw[t][0][2] != raw[t][1][2] for t in keys
+    ):
+        return (f"{len(keys)} 檔的淨資產與前一次觀測完全相同、但收盤價已變動——"
+                "持有股票的基金不可能如此，研判為來源的淨資產欄位未更新")
+    return None
+
+
 def compute_flow(
     today: list[EtfSnapshot],
     previous: dict[str, dict],
@@ -159,6 +184,7 @@ def compute_flow(
     skipped: list = []
 
     share_pairs, aum_pairs, spans, sample_aum = {}, {}, [], 0.0
+    raw: dict[str, tuple] = {}      # ticker -> (今日三欄, 前次三欄)，供陳舊資料判定
     for snap in today:
         prev = previous.get(snap.ticker)
         if not snap.ok:
@@ -192,6 +218,10 @@ def compute_flow(
                 share_pairs[snap.ticker] = (snap.shares_outstanding - prev_shares) * snap.close
 
         prev_aum, prev_close = _as_float(prev.get("total_assets")), _as_float(prev.get("close"))
+        raw[snap.ticker] = (
+            (snap.shares_outstanding, snap.total_assets, snap.close),
+            (prev_shares, prev_aum, prev_close),
+        )
         if prev_aum and prev_close and snap.total_assets:
             # 把市值變動中「漲跌造成的部分」扣掉，剩下的才是資金進出
             market_return = snap.close / prev_close
@@ -203,6 +233,10 @@ def compute_flow(
     )
     pairs = share_pairs if use_shares else aum_pairs
     basis = "shares" if use_shares else "aum"
+
+    stale = _stale_source_reason(pairs, raw, basis)
+    if stale:
+        raise ValueError(stale)
 
     if not pairs:
         if not previous:
