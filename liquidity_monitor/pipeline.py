@@ -33,6 +33,7 @@ from .sources import (
     etf_creation_flows,
     etf_flows,
     finra_margin,
+    fedwatch,
     fomc,
     fomc_ai,
     fred,
@@ -234,6 +235,56 @@ def _build_etf_flow_item(as_of: str, manual: dict) -> "Item":
     return Item("etf_fund_flow", result.net_flow_musd, score, result.as_of,
                 "ETF 申贖流量（Yahoo 流通股數／淨資產自行計算）",
                 "高" if enough and result.basis == "shares" else "中", note=note)
+
+
+def _build_fedwatch_item(as_of: str, target_upper: Optional[float],
+                         target_lower: Optional[float], dgs1: Optional[float],
+                         manual: dict) -> "Item":
+    """⑥ 市場隱含 12 個月路徑：FedWatch + AI 判讀為主，公債近似為備援。
+
+    模型只負責讀頁面上的數字，不負責回憶市場預期——頁面抓不到就不呼叫它。
+    讓模型憑記憶說「市場預期降兩碼」是編造，不是解讀。
+    """
+    # 目前政策利率取目標區間中點；只有上緣時就用上緣
+    current = None
+    if target_upper is not None:
+        current = (target_upper + target_lower) / 2 if target_lower is not None else target_upper
+
+    errors: list[str] = []
+    if current is not None and fomc_ai.is_enabled():
+        try:
+            page = fedwatch.fetch_fedwatch_page()
+            path = fedwatch.implied_path_from_page(page, current)
+            score = fedwatch.score_implied_path(path.change_bp)
+            return Item("fedwatch_path", round(path.change_bp, 1), score, as_of,
+                        f"CME FedWatch + AI 判讀（{fomc_ai.DEFAULT_MODEL}）", "高",
+                        note=(f"隱含 {path.implied_rate_pct:.2f}% vs 目前 {current:.2f}%"
+                              f"（{path.change_bp:+.0f}bp）｜{path.detail}"))
+        except Exception as e:  # noqa: BLE001 — 抓不到／讀不出就退到近似法
+            log.warning("FedWatch 判讀失敗: %s", e)
+            errors.append(_short_error(e, 220))
+    elif current is None:
+        errors.append("缺聯邦資金目標區間資料")
+    else:
+        errors.append(f"未設定 {fomc_ai.API_KEY_ENV}")
+
+    if current is not None and dgs1 is not None:
+        path = fedwatch.implied_path_from_treasury(dgs1, current)
+        score = fedwatch.score_implied_path(path.change_bp)
+        # 信心只給「低」：這是含期限溢酬的近似，不是 FedWatch 的市場隱含機率，
+        # 不能在畫面上看起來跟真的一樣
+        return Item("fedwatch_path", round(path.change_bp, 1), score, as_of,
+                    "1年期公債殖利率近似（非 FedWatch）", "低",
+                    note=f"{path.detail}（{path.change_bp:+.0f}bp）｜"
+                         f"{'；'.join(path.warnings)}｜FedWatch 未採用：{errors[0] if errors else '未知'}")
+
+    fallback = manual.get("fedwatch_path")
+    if fallback is not None and fallback.score is not None:
+        fallback.note = f"（自動判讀失敗，採用人工填寫值）{fallback.note}｜{errors[0] if errors else ''}"
+        return fallback
+    return Item("fedwatch_path", None, None, None, "CME FedWatch（判讀失敗）", "暫缺",
+                note=f"自動判讀失敗：{'｜'.join(errors) or '未知原因'}"
+                     "｜可於 docs/data/manual_overrides.json 手動填入 -2..2 分")
 
 
 def _fetch_fomc(as_of: str, dfedtaru_daily: pd.Series) -> tuple[Optional[int], dict]:
@@ -490,12 +541,15 @@ def run(as_of: Optional[str] = None, margin_override_csv: Optional[str] = None,
                                        note=f"抓取失敗: {_short_error(fomc_meta.get('note') or '未知原因')}"
                                             "。可於 docs/data/manual_overrides.json 手動填入 -2..2 分")
 
-    if "fedwatch_path" in manual:
-        items["fedwatch_path"] = manual["fedwatch_path"]
-    else:
-        items["fedwatch_path"] = Item("fedwatch_path", None, None, None,
-                                       "CME FedWatch (無穩定可程式化擷取來源)", "暫缺",
-                                       note="請至 CME FedWatch 網站人工查證後填入 docs/data/manual_overrides.json")
+    _dgs1 = fred_daily("DGS1").dropna()
+    _tgt_lo = fred_daily("DFEDTARL").dropna()
+    items["fedwatch_path"] = _build_fedwatch_item(
+        as_of,
+        float(dfedtaru_daily.dropna().iloc[-1]) if not dfedtaru_daily.dropna().empty else None,
+        float(_tgt_lo.iloc[-1]) if not _tgt_lo.empty else None,
+        float(_dgs1.iloc[-1]) if not _dgs1.empty else None,
+        manual,
+    )
 
     yield30y_chg_bp = n_trading_day_change(dgs30, 60)
     yield30y_chg_bp = yield30y_chg_bp * 100 if yield30y_chg_bp is not None else None

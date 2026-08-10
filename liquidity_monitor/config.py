@@ -20,6 +20,7 @@ FRED_SERIES = {
     "M2SL": 28,           # M2 月增率，約 4 週落後
     "BAMLH0A0HYM2": 2,    # ICE BofA HY OAS，每日（含假日緩衝）
     "DGS2": 2,            # 2 年期公債殖利率
+    "DGS1": 2,            # 1 年期公債殖利率（FedWatch 抓不到時的隱含路徑近似）
     "DGS10": 2,           # 10 年期公債殖利率
     "DGS30": 2,           # 30 年期公債殖利率
     "SOFR": 2,            # SOFR
