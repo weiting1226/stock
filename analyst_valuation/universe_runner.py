@@ -48,10 +48,15 @@ def _profile(quotes) -> dict:
     沒有分析師覆蓋的標的也要有這些欄位，否則儀表板的類股篩選會漏掉它們。
     """
     for q in quotes:
-        if q.sector or q.name or q.book_value is not None:
+        if q.sector or q.name or q.book_value is not None or q.market_cap is not None:
             return {"name": q.name, "sector": q.sector, "industry": q.industry,
-                    "book_value": q.book_value}
-    return {"name": None, "sector": None, "industry": None, "book_value": None}
+                    "book_value": q.book_value, "market_cap": q.market_cap,
+                    # 幣別必須來自「提供這個市值的那一筆報價」，另存一個鍵。
+                    # 紀錄裡已有的 currency 取自主要報價來源，兩者未必同一筆——
+                    # 拿甲來源的幣別去驗乙來源的市值，這道防線就形同虛設。
+                    "market_cap_currency": q.currency}
+    return {"name": None, "sector": None, "industry": None, "book_value": None,
+            "market_cap": None, "market_cap_currency": None}
 
 
 def _fetch_one(ticker: str, use_finnhub: bool, use_fmp: bool) -> dict:

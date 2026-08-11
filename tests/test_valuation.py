@@ -434,3 +434,80 @@ def test_negative_book_value_is_not_swallowed_by_the_float_parser():
     assert _as_float(-4.0) is None           # 目標價為負確實無效
     assert _as_signed_float(-4.0) == -4.0    # 淨值為負是真實資訊
     assert _as_signed_float(float("nan")) is None
+
+
+# --- 市值篩選 ---------------------------------------------------------------
+#
+# 市值篩選是拿數字比大小，因此單位必須一致。這裡守的是「算得出來但不能用」
+# 的那一類：不會拋錯，只會靜靜給出一個看起來完全正常的排名。
+
+def test_market_cap_flows_from_the_quote_to_the_row():
+    from analyst_valuation.aggregate import build_row
+    row = build_row({"ticker": "AAA"}, _bv_price(50.0),
+                    [_bv_quote(market_cap=1.5e10, currency="USD")])
+    assert row.market_cap == 1.5e10
+    assert row.market_cap_issue is None
+
+
+def test_market_cap_in_another_currency_is_rejected_not_compared():
+    """一檔日圓計價的中型企業，市值數字會是美元的一百多倍——不擋掉的話，
+    它會被算成「巨型股」排在名單最上面，而且看起來完全正常。"""
+    from analyst_valuation.aggregate import build_row
+    row = build_row({"ticker": "JPX"}, _bv_price(50.0),
+                    [_bv_quote(market_cap=8.0e11, currency="JPY")])
+    assert row.market_cap is None                 # 不可比就不採用
+    assert row.market_cap_issue == "non_usd"      # 但要說得出為什麼
+    assert any("JPY" in n for n in row.notes)
+
+
+def test_unknown_currency_is_accepted_because_the_universe_is_us_listed():
+    """幣別欄位缺值時不該一律丟棄：這份股票池全是美國掛牌，預設就是美元。
+    把「沒寫幣別」當成「可疑」，會讓大量正常標的平白消失。"""
+    from analyst_valuation.aggregate import build_row
+    row = build_row({"ticker": "AAA"}, _bv_price(50.0),
+                    [_bv_quote(market_cap=3.0e9, currency=None)])
+    assert row.market_cap == 3.0e9
+
+
+@pytest.mark.parametrize("bad", [0, -1.0, None])
+def test_non_positive_market_cap_is_missing_not_zero(bad):
+    """市值 0 不是「這家公司不值錢」，是資料缺值。留成 0 會排進「最小」那一端。"""
+    from analyst_valuation.aggregate import build_row
+    row = build_row({"ticker": "AAA"}, _bv_price(50.0), [_bv_quote(market_cap=bad)])
+    assert row.market_cap is None
+    assert row.market_cap_issue is None           # 缺值不是「不可用」，別混為一談
+
+
+def test_uncovered_ticker_still_gets_a_market_cap():
+    """沒有分析師覆蓋的標的沒有 quotes。「沒人追蹤的小型股」正是這個篩選
+    最有意義的情境，不能因為沒人追蹤就少了這個欄位。"""
+    from analyst_valuation.universe_publish import row_from_record
+    row = row_from_record(
+        {"ticker": "TINY", "covered": False, "market_cap": 4.2e7,
+         "market_cap_currency": "USD", "price": {"close": 1.5}},
+        {"name": "Tiny Corp"},
+    )
+    assert row.market_cap == 4.2e7
+    assert row.upside_pct is None                 # 確實沒有分析師覆蓋
+
+
+def test_market_cap_currency_is_paired_with_the_cap_it_describes():
+    """紀錄裡另有一個 currency 欄位取自主要報價來源，未必與市值同一筆。
+    拿甲來源的幣別去驗乙來源的市值，這道防線就形同虛設。"""
+    from analyst_valuation.universe_publish import row_from_record
+    row = row_from_record(
+        {"ticker": "ADR", "covered": False,
+         "currency": "USD",                    # 報價幣別
+         "market_cap": 9.9e12, "market_cap_currency": "KRW"},   # 市值幣別才是關鍵
+        {},
+    )
+    assert row.market_cap is None
+    assert row.market_cap_issue == "non_usd"
+
+
+def test_market_cap_reaches_the_dashboard_payload():
+    """欄位沒進 _UI_FIELDS 的話，前端拿到的就是空的——而畫面只會顯示「—」，
+    看起來像「查無資料」，不像「這個欄位根本沒送出來」。"""
+    from analyst_valuation.universe_publish import compact_row
+    out = compact_row({"ticker": "AAA", "market_cap": 1.2e10, "market_cap_issue": None})
+    assert out["market_cap"] == 1.2e10

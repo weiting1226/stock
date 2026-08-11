@@ -70,6 +70,25 @@
           <option value="20">≥ 20 家</option>
         </select>
       </label>
+      <label title="市值分級採美股慣用分界。同一個篩選條件在巨型股與奈米股身上的意義完全不同">市值
+        <select id="cap-filter">
+          <option value="">不限</option>
+          <optgroup label="最低門檻">
+            <option value="min:200000000000">≥ $200B</option>
+            <option value="min:10000000000">≥ $10B</option>
+            <option value="min:2000000000">≥ $2B（排除小型股雜訊）</option>
+            <option value="min:300000000">≥ $300M</option>
+          </optgroup>
+          <optgroup label="單一級距">
+            <option value="tier:mega">巨型股（≥ $200B）</option>
+            <option value="tier:large">大型股（$10B–200B）</option>
+            <option value="tier:mid">中型股（$2B–10B）</option>
+            <option value="tier:small">小型股（$300M–2B）</option>
+            <option value="tier:micro">微型股（$50M–300M）</option>
+            <option value="tier:nano">奈米股（&lt; $50M）</option>
+          </optgroup>
+        </select>
+      </label>
       <label title="股價淨值比 = 收盤價 ÷ 每股淨值。低於 1 代表市價低於帳上股東權益">股價淨值比
         <select id="pb-filter">
           <option value="">不限</option>
@@ -104,6 +123,7 @@
             <th data-sort="ticker">代號</th>
             <th data-sort="name">公司</th>
             <th data-sort="sector">類股</th>
+            <th class="num" data-sort="market_cap">市值</th>
             <th class="num" data-sort="close">收盤價</th>
             <th class="num" data-sort="consensus_target">共識目標價</th>
             <th class="num" data-sort="upside_pct">上漲空間 ▼</th>

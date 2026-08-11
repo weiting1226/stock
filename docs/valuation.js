@@ -21,6 +21,50 @@ function fmtNum(v, digits = 2, suffix = "") {
   return Number(v).toFixed(digits) + suffix;
 }
 
+// 市值分級：採美股慣用的分界（巨型 $200B、大型 $10B、中型 $2B、小型 $300M、
+// 微型 $50M），不是自訂的數字。門檻只定義在這裡一處——後端只負責送出市值原始
+// 值與「這個數字能不能用」，分級留在畫面層，兩邊各存一份遲早會不一致。
+const CAP_TIERS = [
+  { key: "mega",  label: "巨型股（≥ $200B）",   min: 200e9, max: Infinity },
+  { key: "large", label: "大型股（$10B–200B）", min: 10e9,  max: 200e9 },
+  { key: "mid",   label: "中型股（$2B–10B）",   min: 2e9,   max: 10e9 },
+  { key: "small", label: "小型股（$300M–2B）",  min: 300e6, max: 2e9 },
+  { key: "micro", label: "微型股（$50M–300M）", min: 50e6,  max: 300e6 },
+  { key: "nano",  label: "奈米股（< $50M）",    min: 0,     max: 50e6 },
+];
+
+const capTier = (v) =>
+  v === null || v === undefined ? null : CAP_TIERS.find((t) => v >= t.min && v < t.max);
+
+/**
+ * 市值以 $1.23T／$45.60B／$789.00M 呈現：7,500 列的表格裡沒有人讀得動 12 位數字。
+ *
+ * 小數位固定兩位，不因數字變大而縮減：$199.9B 與 $200.0B 分屬大型股與巨型股，
+ * 若四捨五入成同樣的「$200B」，畫面上就看不出它們為什麼被分到不同級距。
+ */
+function fmtCap(v) {
+  if (v === null || v === undefined || Number.isNaN(Number(v))) return "—";
+  const n = Number(v);
+  for (const [unit, scale] of [["T", 1e12], ["B", 1e9], ["M", 1e6]]) {
+    if (n >= scale) return `$${(n / scale).toFixed(2)}${unit}`;
+  }
+  return `$${(n / 1e6).toFixed(2)}M`;
+}
+
+/**
+ * 市值欄。非美元計價的市值不顯示數字——它跟其他列不同單位，並排比較毫無意義，
+ * 而一個看起來正常的數字會讓人以為可以比。留白則會跟「查無資料」混在一起。
+ */
+function capCell(r) {
+  if (r.market_cap_issue === "non_usd") {
+    return '<td class="num pb-issue" title="市值以非美元計價，與其他標的不可比">非美元</td>';
+  }
+  const v = r.market_cap;
+  if (v === null || v === undefined) return '<td class="num">—</td>';
+  const tier = capTier(v);
+  return `<td class="num"${tier ? ` title="${escapeHtml(tier.label)}"` : ""}>${fmtCap(v)}</td>`;
+}
+
 function pctCell(v) {
   if (v === null || v === undefined || Number.isNaN(Number(v))) return '<td class="num">—</td>';
   const n = Number(v);
@@ -230,6 +274,7 @@ function currentFilters() {
     minAnalysts: document.getElementById("analyst-filter").value,
     maxDispersion: document.getElementById("dispersion-filter").value,
     maxPb: document.getElementById("pb-filter").value,
+    cap: document.getElementById("cap-filter").value,
     query: document.getElementById("search-box").value.trim().toLowerCase(),
     hideMissing: document.getElementById("hide-missing").checked,
     hideImplausible: document.getElementById("hide-implausible").checked,
@@ -266,6 +311,19 @@ function applyFilters() {
       (r) => !r.book_value_issue && r.price_to_book !== null
         && r.price_to_book !== undefined && r.price_to_book < max
     );
+  }
+  if (f.cap) {
+    // 兩種語意共用一個下拉：min:N 是「至少多大」，tier:X 是「就看這一級」。
+    // 不論哪一種，沒有可用市值的列都不能留下——篩選條件是「市值如何」，
+    // 而市值不明的標的無法判定符不符合，混進來等於讓條件失效。
+    const [mode, arg] = f.cap.split(":");
+    const usable = (r) => !r.market_cap_issue && r.market_cap !== null && r.market_cap !== undefined;
+    if (mode === "min") {
+      const min = Number(arg);
+      rows = rows.filter((r) => usable(r) && r.market_cap >= min);
+    } else {
+      rows = rows.filter((r) => usable(r) && (capTier(r.market_cap) || {}).key === arg);
+    }
   }
   if (f.query) {
     rows = rows.filter(
@@ -320,6 +378,7 @@ function renderTable() {
         <td class="ticker-cell">${escapeHtml(r.ticker)}${sourceBadges}</td>
         <td>${escapeHtml(r.name)}</td>
         <td>${escapeHtml(r.sector)}</td>
+        ${capCell(r)}
         <td class="num">${fmtNum(r.close)}</td>
         <td class="num">${fmtNum(r.consensus_target)}</td>
         ${upsideCell}
@@ -370,7 +429,7 @@ function wireSorting() {
 
 function wireFilters() {
   ["sector-filter", "confidence-filter", "upside-filter", "analyst-filter",
-   "dispersion-filter", "pb-filter", "hide-missing", "hide-implausible"].forEach((id) =>
+   "dispersion-filter", "pb-filter", "cap-filter", "hide-missing", "hide-implausible"].forEach((id) =>
     document.getElementById(id).addEventListener("change", applyFilters)
   );
   document.getElementById("search-box").addEventListener("input", applyFilters);
