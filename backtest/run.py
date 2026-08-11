@@ -10,7 +10,7 @@ import pandas as pd
 from liquidity_monitor.config import CATEGORY_ITEMS, CATEGORY_LABELS, ITEM_LABELS
 from liquidity_monitor.timeseries import nyse_trading_days
 
-from . import data, engine, metrics, panel, strategy
+from . import allin, data, engine, metrics, panel, strategy
 from .config import (
     BACKTEST_YEARS,
     COST_BPS_PER_SIDE,
@@ -50,6 +50,14 @@ def _clean(v):
     if isinstance(v, (np.bool_,)):
         return bool(v)
     return v
+
+
+def _count_recovery_jumps(w: pd.DataFrame) -> int:
+    """「從 SGOV 直接跳到 TQQQ」發生了幾次——加速條款到底有沒有被用到。"""
+    if "state" not in w.columns:
+        return 0
+    prev = w["state"].shift()
+    return int(((prev == "SGOV") & (w["state"] == "TQQQ")).sum())
 
 
 def _series_for_chart(s: pd.Series, digits: int = 3) -> list:
@@ -92,7 +100,15 @@ def run_backtest(
 
     gate_a = strategy.gate_a_panel(raw["ndx_close"])
     gate_b = strategy.gate_b_panel(raw)
-    weights = strategy.target_weights(comp, gate_a, gate_b, use_gates=use_gates)
+
+    # 兩種部位規則並列回測。使用者要的是全押式變體，但只給一條曲線的話，
+    # 「調整之後比較好」這句話沒有比較基準——原本的階梯必須一起跑。
+    rules = allin.AllInRules()
+    variants = {
+        "allin": allin.allin_weights(comp, gate_a, gate_b, rules, use_gates=use_gates),
+        "ladder": strategy.target_weights(comp, gate_a, gate_b, use_gates=use_gates),
+    }
+    weights = variants["allin"]
 
     # --- 模擬 ---------------------------------------------------------------
     # 三個標的都要有價格才能開始（TQQQ 2010-02 成立）
@@ -102,8 +118,12 @@ def run_backtest(
     if px.empty:
         raise ValueError(f"回測區間 {start}~{as_of} 沒有三個標的都有價格的交易日")
 
-    result = engine.simulate(weights, px, cost_bps_per_side=cost_bps,
-                             rebalance_on_change_only=REBALANCE_ON_CHANGE_ONLY)
+    sims = {
+        name: engine.simulate(w, px, cost_bps_per_side=cost_bps,
+                              rebalance_on_change_only=REBALANCE_ON_CHANGE_ONLY)
+        for name, w in variants.items()
+    }
+    result = sims["allin"]
     if result.empty:
         raise ValueError("模擬結果為空：訊號與價格沒有重疊的交易日")
 
@@ -120,6 +140,10 @@ def run_backtest(
             "label": "模組一策略（不計成本）",
             **metrics.summarize(result["gross_return"], result["equity_gross"], rf),
         },
+        "ladder": {
+            "label": "原階梯（混合持有，對照組）",
+            **metrics.summarize(sims["ladder"]["net_return"], sims["ladder"]["equity"], rf),
+        },
         "qqq": {"label": "QQQ 買進持有", **metrics.summarize(qqq_bh["net_return"], qqq_bh["equity"], rf)},
         "tqqq": {"label": "TQQQ 買進持有", **metrics.summarize(tqqq_bh["net_return"], tqqq_bh["equity"], rf)},
     }
@@ -131,6 +155,7 @@ def run_backtest(
         "dates": [str(d.date()) for d in sample],
         "equity": {
             "strategy": _series_for_chart(result["equity"].reindex(sample), 4),
+            "ladder": _series_for_chart(sims["ladder"]["equity"].reindex(sample), 4),
             "qqq": _series_for_chart(qqq_bh["equity"].reindex(sample), 4),
             "tqqq": _series_for_chart(tqqq_bh["equity"].reindex(sample), 4),
         },
@@ -216,6 +241,17 @@ def run_backtest(
             "cost_bps_per_side": cost_bps,
             "rebalance_on_change_only": REBALANCE_ON_CHANGE_ONLY,
             "gates_applied": use_gates,
+            "position_rule": {
+                "mode": "全押單一標的（TQQQ／QQQ／SGOV 三選一）",
+                "tqqq_enter": rules.tqqq_enter,
+                "tqqq_exit": rules.tqqq_exit,
+                "sgov_enter": rules.sgov_enter,
+                "qqq_enter": rules.qqq_enter,
+                "recovery_enter": rules.recovery_enter,
+                "buffer": rules.buffer,
+                "note": ("進出場門檻不同（緩衝區），分數在門檻附近來回時不換檔；"
+                         "上一個部位是 SGOV 時以較低門檻直接進 TQQQ（加速）"),
+            },
             "cash_splice": {k: _clean(v) for k, v in cash_info.items()},
         },
         "coverage": coverage,
@@ -227,6 +263,9 @@ def run_backtest(
                             for a in (QQQ, TQQQ, SGOV) if f"w_{a}" in result.columns},
             "total_turnover": round(float(result["turnover"].sum()), 2),
             "rebalances": int((result["turnover"] > 0).sum()),
+            # 緩衝區的作用就是少換手，不並列對照組的換手次數就看不出有沒有效
+            "rebalances_ladder": int((sims["ladder"]["turnover"] > 0).sum()),
+            "recovery_jumps": int(_count_recovery_jumps(variants["allin"])),
         },
         "chart": chart,
     }

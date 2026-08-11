@@ -67,6 +67,19 @@ function renderCaveats(report) {
       + `重疊 ${splice.overlap_days} 個交易日的年化報酬差異 ${splice.annual_diff_pct}%，已驗證可互換）`
     : `現金部位：${escapeHtml(splice.basis || "—")}${splice.note ? "（" + escapeHtml(splice.note) + "）" : ""}`;
 
+  const pr = a.position_rule;
+  if (pr) {
+    document.getElementById("rule-note").innerHTML =
+      `<strong>${escapeHtml(pr.mode)}。</strong>`
+      + `進 TQQQ 需 ≥ ${pr.tqqq_enter}、退出於 &lt; ${pr.tqqq_exit}；`
+      + `轉現金於 &lt; ${pr.sgov_enter}、離開現金於 ≥ ${pr.qqq_enter}；`
+      + `<strong>從現金回升時 ≥ ${pr.recovery_enter} 即直接進 TQQQ</strong>（跳過 QQQ）。`
+      + `進出場門檻相差 ${(pr.buffer * 2).toFixed(2)}，中間那段是緩衝區：`
+      + `分數在裡面來回時不換檔。`
+      + `<br />緩衝區的代價是出場慢半拍——分數真的轉壞時，多抱的那幾天在 TQQQ 上會被放大。`
+      + `這是「少換手」與「慢出場」之間的取捨，不是純粹的改進。`;
+  }
+
   document.getElementById("assumption-note").innerHTML =
     `<strong>交易假設：</strong>訊號以當日收盤資料算出、<strong>次一交易日</strong>成交`
     + `（用當日收盤價成交等於用當天才知道的資訊，回測會漂亮但無法複製）；`
@@ -107,6 +120,7 @@ function renderStats(report) {
     { label: "QQQ 最大回撤", value: fmt(q.max_drawdown_pct, 1, "%"), signed: q.max_drawdown_pct },
     { label: "策略 Sharpe", value: fmt(s.sharpe, 2), plain: true },
     { label: "換倉次數", value: String(report.exposure.rebalances), plain: true },
+    { label: "原階梯換倉次數", value: String(report.exposure.rebalances_ladder ?? "—"), plain: true },
   ];
   document.getElementById("stat-row").innerHTML = tiles.map((t) => {
     const cls = [
@@ -123,7 +137,7 @@ function renderStats(report) {
 }
 
 function renderMetricsTable(report) {
-  const order = ["strategy", "strategy_gross", "qqq", "tqqq"];
+  const order = ["strategy", "strategy_gross", "ladder", "qqq", "tqqq"];
   document.querySelector("#metrics-table tbody").innerHTML = order.map((k) => {
     const m = report.metrics[k];
     if (!m) return "";
@@ -164,10 +178,11 @@ function draw(id, config) {
 function renderEquityChart(report) {
   const c = report.chart;
   const series = [
-    ["strategy", "模組一策略", cssVar("--series-1")],
+    ["strategy", "全押式（TQQQ／QQQ／SGOV）", cssVar("--series-1")],
+    ["ladder", "原階梯（混合持有）", cssVar("--series-3")],
     ["qqq", "QQQ 買進持有", cssVar("--series-4")],
     ["tqqq", "TQQQ 買進持有", cssVar("--series-2")],
-  ];
+  ].filter(([k]) => c.equity[k]);
   draw("equity-chart", {
     type: "line",
     data: {

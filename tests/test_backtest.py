@@ -425,3 +425,113 @@ def test_report_states_how_much_of_the_period_each_indicator_actually_covers(mon
     assert "hy_oas_level" in {i["key"] for i in c["low_coverage_items"]}
     # 起始日要留下來，才分得清「來源只有這麼多」與「我們算錯了」
     assert "BAMLH0A0HYM2" in c["source_series_start"]
+
+
+# --- 全押式部位規則（使用者指定的變體）-------------------------------------
+
+def _comp(scores, start="2015-01-02"):
+    idx = pd.bdate_range(start, periods=len(scores))
+    return pd.DataFrame({"composite_score": scores}, index=idx)
+
+
+def _no_gates(idx):
+    return (pd.DataFrame({"cap": [np.nan] * len(idx), "status": ["clear"] * len(idx)}, index=idx),
+            pd.Series([None] * len(idx), index=idx, dtype=object))
+
+
+def _run_allin(scores, rules=None, **kw):
+    from backtest import allin
+    c = _comp(scores)
+    ga, gb = _no_gates(c.index)
+    return allin.allin_weights(c, ga, gb, rules or allin.AllInRules(), **kw)
+
+
+def test_positions_are_always_all_in_one_instrument():
+    """使用者指定：只持有 TQQQ／QQQ／SGOV 三者之一，不做混合。"""
+    w = _run_allin([1.0, 0.0, -1.0, 0.5, -0.9])
+    held = w[["QQQ", "TQQQ", "SGOV"]].dropna()
+    assert (held.sum(axis=1) == 1.0).all()
+    assert held.isin([0.0, 1.0]).all().all()
+
+
+def test_buffer_prevents_flip_flopping_around_a_threshold():
+    """分數在門檻附近來回時不該跟著來回換檔——這就是緩衝區的目的。"""
+    from backtest import allin
+    r = allin.AllInRules()          # TQQQ 進場 0.55、出場 0.25
+    # 先站上 0.6 進 TQQQ，之後在 0.3~0.5 之間游走（都在緩衝區內）
+    w = _run_allin([0.6, 0.3, 0.5, 0.3, 0.45, 0.35], r)
+    assert (w["state"] == "TQQQ").all(), "在緩衝區內游走不該換檔"
+
+
+def test_leaving_a_state_still_happens_once_the_score_clears_the_buffer():
+    """緩衝區是遲滯，不是鎖死。跌破出場線就要走。"""
+    w = _run_allin([0.6, 0.6, 0.20])
+    assert w["state"].tolist() == ["TQQQ", "TQQQ", "QQQ"]
+
+
+def test_recovery_from_cash_goes_straight_to_tqqq():
+    """使用者指定：從衰退（SGOV）回升時加速，跳過 QQQ 直接進 TQQQ。"""
+    w = _run_allin([-1.0, -1.0, 0.30])
+    assert w["state"].tolist() == ["SGOV", "SGOV", "TQQQ"]
+
+
+def test_the_same_score_from_qqq_does_not_jump_to_tqqq():
+    """加速只適用於「從現金回升」。從 QQQ 出發時 0.30 還不足以進 TQQQ，
+    否則就不叫加速，而是把門檻整個調低。"""
+    w = _run_allin([0.0, 0.30])
+    assert w["state"].tolist() == ["QQQ", "QQQ"]
+
+
+def test_a_weak_recovery_still_goes_to_qqq_first():
+    """回升力道不足時走一般路徑，不硬上槓桿。"""
+    w = _run_allin([-1.0, -0.10])
+    assert w["state"].tolist() == ["SGOV", "QQQ"]
+
+
+def test_recovery_threshold_below_the_exit_line_is_rejected():
+    """加速門檻若低於 TQQQ 出場線，會剛進場就被判定該出場，來回空轉。"""
+    from backtest import allin
+    with pytest.raises(ValueError, match="來回空轉"):
+        allin.AllInRules(buffer=0.15, recovery_enter=0.10)
+
+
+def test_gate_forced_cash_counts_as_being_in_sgov_for_the_recovery_rule():
+    """使用者看到的是實際部位。被閘門壓成現金之後解除，同樣算「從 SGOV 回升」。"""
+    from backtest import allin
+    c = _comp([1.0, 1.0, 0.30])
+    ga = pd.DataFrame({"cap": ["SGOV", "SGOV", np.nan], "status": ["capped"] * 3}, index=c.index)
+    gb = pd.Series([None] * 3, index=c.index, dtype=object)
+    w = allin.allin_weights(c, ga, gb)
+    assert w["state"].tolist() == ["SGOV", "SGOV", "TQQQ"]
+
+
+def test_gate_caps_downgrade_leverage_but_not_below_qqq():
+    from backtest import allin
+    c = _comp([1.0, 1.0])
+    ga = pd.DataFrame({"cap": ["QQQ", np.nan], "status": ["capped", "clear"]}, index=c.index)
+    gb = pd.Series([None, None], index=c.index, dtype=object)
+    w = allin.allin_weights(c, ga, gb)
+    assert w["state"].iloc[0] == "QQQ"
+
+
+def test_days_without_a_score_hold_the_current_position():
+    """沒有分數不是「歸零」也不是「進場」，是維持現狀。"""
+    w = _run_allin([0.6, np.nan, np.nan])
+    assert w["state"].tolist() == ["TQQQ", "TQQQ", "TQQQ"]
+
+
+def test_before_the_first_score_there_is_no_position_at_all():
+    """訊號還沒出現時三個標的都不該是 0——那會被當成一個決定。"""
+    w = _run_allin([np.nan, np.nan, 0.6])
+    assert w[["QQQ", "TQQQ", "SGOV"]].iloc[0].isna().all()
+
+
+def test_buffer_actually_reduces_switching_versus_no_buffer():
+    """緩衝區必須真的少換手，否則這個參數沒有存在的理由。"""
+    from backtest import allin
+    rng = np.random.default_rng(3)
+    scores = np.clip(rng.normal(0.4, 0.25, 400), -2, 2)      # 刻意在門檻附近震盪
+    with_buf = _run_allin(scores, allin.AllInRules(buffer=0.15))
+    without = _run_allin(scores, allin.AllInRules(buffer=0.0))
+    switches = lambda w: (w["state"] != w["state"].shift()).sum()
+    assert switches(with_buf) < switches(without)

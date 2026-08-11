@@ -31,10 +31,16 @@
   <div id="caveat-slot"></div>
 
   <section class="card">
+    <h2>部位規則</h2>
+    <p class="subtitle" id="rule-note"></p>
+  </section>
+
+  <section class="card">
     <h2>淨值曲線（起始 = 1.0，對數刻度）</h2>
     <div class="chart-wrap"><canvas id="equity-chart"></canvas></div>
     <div class="legend" id="equity-legend"></div>
-    <p class="subtitle">對數刻度：十五年跨越兩個數量級，線性刻度會讓前十年壓成一條平線而看不出任何東西。</p>
+    <p class="subtitle">對數刻度：十五年跨越兩個數量級，線性刻度會讓前十年壓成一條平線而看不出任何東西。
+    「原階梯」是模組一文件裡的混合持有規則，一併回測作為對照——沒有對照組，就無從判斷調整之後到底有沒有比較好。</p>
   </section>
 
   <section class="card">
