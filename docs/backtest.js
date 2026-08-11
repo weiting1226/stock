@@ -35,6 +35,18 @@ function renderCaveats(report) {
   const a = report.assumptions;
   const list = (arr) => arr.map((i) => `${escapeHtml(i.label)}`).join("、");
 
+  // 覆蓋率偏低的指標要單獨講：名列「已採用」但多數時間沒有值的指標，
+  // 對結果的影響遠小於它在名單上看起來的樣子。
+  const low = c.low_coverage_items || [];
+  const lowHtml = low.length ? `<div class="warning-box">
+    <strong>${low.length} 項指標在回測期間多數時候沒有資料。</strong>
+    它們列在「已採用」裡，但實際只在部分期間參與計分——
+    名單長度與實際運作的指標數不是同一回事。
+    <div style="margin-top:8px">${low.map((i) =>
+      `<div>· ${escapeHtml(i.label)}：僅涵蓋 <strong>${i.coverage_pct}%</strong> 的交易日</div>`
+    ).join("")}</div>
+  </div>` : "";
+
   const html = `<div class="warning-box">
     <strong>這個回測不是模組一線上分數的重現。</strong>
     綜合分數由 ${c.categories_used.length} 個類別、${c.items_used.length} 項指標算出，
@@ -47,7 +59,7 @@ function renderCaveats(report) {
       }</div>
     </div>
   </div>`;
-  document.getElementById("caveat-slot").innerHTML = html;
+  document.getElementById("caveat-slot").innerHTML = html + lowHtml + coverageTable(c);
 
   const splice = a.cash_splice || {};
   const spliceText = splice.annual_diff_pct !== undefined && splice.annual_diff_pct !== null
@@ -60,6 +72,28 @@ function renderCaveats(report) {
     + `（用當日收盤價成交等於用當天才知道的資訊，回測會漂亮但無法複製）；`
     + `單邊換手成本 ${a.cost_bps_per_side} 基點；僅在階梯分級改變時換倉；`
     + `${a.gates_applied ? "已" : "未"}套用價格與脆弱度閘門。${spliceText}。`;
+}
+
+/** 逐項覆蓋率表：讓「採用 13 項」與「這 13 項各自涵蓋多少期間」擺在一起看。 */
+function coverageTable(c) {
+  const rows = (c.items_used || [])
+    .slice()
+    .sort((a, b) => (a.coverage_pct ?? 0) - (b.coverage_pct ?? 0))
+    .map((i) => {
+      const v = i.coverage_pct;
+      const cls = v === null || v === undefined ? "" : v < 50 ? "neg" : v >= 99 ? "pos" : "";
+      return `<tr><td>${escapeHtml(i.label)}</td>
+        <td class="num ${cls}">${v === null || v === undefined ? "—" : v.toFixed(1) + "%"}</td></tr>`;
+    }).join("");
+  return `<section class="card"><h2>各指標實際涵蓋期間</h2>
+    <div class="table-scroll"><table>
+      <colgroup><col style="width:70%" /><col style="width:30%" /></colgroup>
+      <thead><tr><th>指標</th><th class="num">涵蓋交易日比例</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>
+    <p class="subtitle">來源給得出多少歷史就是多少，不足的期間該指標不參與計分
+    （類別平均只對有值的項目取平均）。比例低的指標對回測結果的影響，遠小於它在名單上看起來的樣子。</p>
+  </section>`;
 }
 
 function renderStats(report) {

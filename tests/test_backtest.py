@@ -342,3 +342,86 @@ def test_report_is_json_serialisable(monkeypatch):
     report = bt_run.run_backtest(as_of="2026-06-30", years=5)
     text = json.dumps(report, ensure_ascii=False)
     assert "NaN" not in text and "Infinity" not in text
+
+
+# --- 迴歸：NaN 的真假值 -----------------------------------------------------
+
+def test_a_day_with_no_gate_trigger_can_still_hold_leverage():
+    """實測抓到的錯：pandas 把「沒有上限」存成 NaN，而 bool(nan) 是 True。
+
+    用 `if cap` 篩選的話，每一個未觸發的日子都會被當成有上限而降級成
+    100% QQQ——TQQQ 從頭到尾一股都不會持有，槓桿階梯等於完全沒被測到。
+    而且不會拋錯：跑出來是一條看起來非常合理的防禦型曲線
+    （15 年 3769 個交易日全部被降級，平均 TQQQ 權重 0.0）。
+    """
+    idx = pd.bdate_range("2015-01-02", periods=3)
+    comp = pd.DataFrame({"composite_score": [1.5, 1.5, 1.5]}, index=idx)
+    # 「未觸發」在 pandas 裡就是 NaN，不是 None
+    ga = pd.DataFrame({"cap": [np.nan] * 3, "status": ["clear"] * 3}, index=idx)
+    gb = pd.Series([None] * 3, index=idx, dtype=object)
+
+    w = strategy.target_weights(comp, ga, gb, use_gates=True)
+    assert w["TQQQ"].iloc[0] == pytest.approx(0.5), "未觸發閘門時不該被降級"
+    assert w["cap"].isna().all()
+
+
+def test_gate_caps_still_apply_when_they_really_trigger():
+    """修掉上面那個錯之後，真的觸發時仍要生效——不能矯枉過正。"""
+    idx = pd.bdate_range("2015-01-02", periods=3)
+    comp = pd.DataFrame({"composite_score": [1.5, 1.5, 1.5]}, index=idx)
+    ga = pd.DataFrame({"cap": ["QQQ", "SGOV", np.nan], "status": ["capped"] * 3}, index=idx)
+    gb = pd.Series([None, None, "QQQ"], index=idx, dtype=object)
+
+    w = strategy.target_weights(comp, ga, gb, use_gates=True)
+    assert w["TQQQ"].iloc[0] == 0.0 and w["QQQ"].iloc[0] == 1.0   # Gate A 禁用槓桿
+    assert w["SGOV"].iloc[1] == 1.0                                # Gate A 強制清倉
+    assert w["TQQQ"].iloc[2] == 0.0 and w["QQQ"].iloc[2] == 1.0   # Gate B 禁用槓桿
+
+
+def test_the_backtest_actually_exercises_the_leverage_rungs(monkeypatch):
+    """端對端的守門：若某個階梯分級佔了不少天數，對應的標的就該真的被持有過。
+
+    這條測試存在的理由就是上面那個 NaN 錯誤——當時報告顯示
+    「25% TQQQ + 75% QQQ」有 2311 天，而 TQQQ 平均權重是 0.0，
+    兩個數字擺在一起明明白白互相矛盾，但沒有任何東西會去比對它們。
+    """
+    from backtest import data as bt_data, run as bt_run
+    prices, market, fred_panel, margin = _synthetic_sources()
+    monkeypatch.setattr(bt_data, "fetch_prices", lambda *a, **k: prices)
+    monkeypatch.setattr(bt_data, "fetch_market_panel", lambda *a, **k: market)
+    monkeypatch.setattr(bt_data, "fetch_fred_panel", lambda *a, **k: fred_panel)
+    monkeypatch.setattr(bt_data, "fetch_margin_debt", lambda *a, **k: margin)
+
+    report = bt_run.run_backtest(as_of="2026-06-30", years=5)
+    ladder_days = report["exposure"]["ladder_days"]
+    avg = report["exposure"]["avg_weights"]
+    tqqq_rungs = sum(v for k, v in ladder_days.items() if "TQQQ" in k)
+    if tqqq_rungs > 0.05 * report["period"]["trading_days"]:
+        assert avg["TQQQ"] > 0, (
+            f"階梯有 {tqqq_rungs} 天配置 TQQQ，實際平均權重卻是 {avg['TQQQ']}"
+            "——兩者矛盾，代表權重在某處被吃掉了"
+        )
+
+
+def test_report_states_how_much_of_the_period_each_indicator_actually_covers(monkeypatch):
+    """一個指標可以整條流程都接得上、名列「已採用」，實際卻只在最後三年有資料。
+
+    實測兩例：FINRA 融資餘額只發布近 13 個月（涵蓋 0.1%）、FRED 的 HY OAS
+    只回傳近三年（19.9%）。少了覆蓋率，畫面顯示「採用 13 項指標」，讀者
+    自然以為十五年間都有 13 項在運作，而多數時間其實只有 8 項。
+    """
+    from backtest import data as bt_data, run as bt_run
+    prices, market, fred_panel, margin = _synthetic_sources()
+    # 讓其中一條序列只剩最後一小段，模擬「來源只給得出近期資料」
+    fred_panel["BAMLH0A0HYM2"] = fred_panel["BAMLH0A0HYM2"].tail(200)
+    monkeypatch.setattr(bt_data, "fetch_prices", lambda *a, **k: prices)
+    monkeypatch.setattr(bt_data, "fetch_market_panel", lambda *a, **k: market)
+    monkeypatch.setattr(bt_data, "fetch_fred_panel", lambda *a, **k: fred_panel)
+    monkeypatch.setattr(bt_data, "fetch_margin_debt", lambda *a, **k: margin)
+
+    c = bt_run.run_backtest(as_of="2026-06-30", years=5)["coverage"]
+    assert all("coverage_pct" in i for i in c["items_used"])
+    assert c["item_coverage_pct"]["hy_oas_level"] < 50
+    assert "hy_oas_level" in {i["key"] for i in c["low_coverage_items"]}
+    # 起始日要留下來，才分得清「來源只有這麼多」與「我們算錯了」
+    assert "BAMLH0A0HYM2" in c["source_series_start"]
