@@ -205,6 +205,11 @@ def run_backtest(
         ],
         "item_coverage_pct": item_coverage,
         "source_series_start": series_start,
+        # 只對「歷史明顯偏短」的序列附上端點明細：其餘的沒有疑點，附上只是噪音
+        "source_fetch_diagnostics": {
+            sid: d for sid, d in data.FRED_DIAGNOSTICS.items()
+            if d.get("attempts") and len(d["attempts"]) > 1
+        },
         "low_coverage_items": [
             {"key": k, "label": ITEM_LABELS.get(k, k), "coverage_pct": v}
             for k, v in sorted(item_coverage.items(), key=lambda kv: kv[1])

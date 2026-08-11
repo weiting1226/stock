@@ -84,11 +84,29 @@ def fetch_market_panel(start: str, end: str, use_cache: bool = True) -> dict[str
     return out
 
 
+# 每條 FRED 序列各端點的抓取結果。實測 BAMLH0A0HYM2 只回傳近三年，
+# 而看報告無從分辨那是「來源只給得出這麼多」還是「我們的 fallback 沒生效」。
+FRED_DIAGNOSTICS: dict[str, dict] = {}
+
+
 def fetch_fred_panel(start: str, end: str, use_cache: bool = True) -> dict[str, pd.Series]:
-    return {
-        sid: fetch_series(f"fred_{sid}", lambda s=sid: fred.fetch_fred_series(s, start, end), use_cache)
-        for sid in BACKTEST_FRED_SERIES
-    }
+    out = {}
+    for sid in BACKTEST_FRED_SERIES:
+        diag = fred.FetchDiagnostics(sid, start)
+
+        def _fetch(s=sid, d=diag):
+            return fred.fetch_fred_series(s, start, end, diagnostics=d)
+
+        series = fetch_series(f"fred_{sid}", _fetch, use_cache)
+        out[sid] = series
+        # 用了快取就不會有 attempts，那本身也是要記下來的資訊
+        FRED_DIAGNOSTICS[sid] = {
+            "attempts": diag.attempts,
+            "chosen": diag.chosen,
+            "from_cache": not diag.attempts,
+            "result_start": None if series is None or series.empty else str(series.index.min().date()),
+        }
+    return out
 
 
 def fetch_margin_debt(start: str, end: str, use_cache: bool = True) -> pd.Series:
