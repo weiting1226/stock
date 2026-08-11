@@ -1,0 +1,74 @@
+name: Strategy backtest
+
+# 回測結果只有在「策略邏輯改變」或「多了一段新的歷史」時才會變，
+# 不需要每天跑。每週一次，加上手動觸發足矣。
+on:
+  schedule:
+    - cron: "30 3 * * 1"      # 每週一 03:30 UTC
+  workflow_dispatch:
+    inputs:
+      years:
+        description: "回測年數"
+        required: false
+        default: "15"
+      cost_bps:
+        description: "單邊換手成本（基點）"
+        required: false
+        default: "5"
+      no_cache:
+        description: "忽略快取重新抓資料"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: backtest
+  cancel-in-progress: false
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        # 取 main 最新狀態：排隊等候期間 main 可能已經前進，
+        # 用觸發當下的 SHA 會在 commit 階段撞上 rebase 衝突
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run backtest
+        run: |
+          ARGS="-v --years ${{ github.event.inputs.years || '15' }}"
+          ARGS="$ARGS --cost-bps ${{ github.event.inputs.cost_bps || '5' }}"
+          if [ "${{ github.event.inputs.no_cache }}" = "true" ]; then
+            ARGS="$ARGS --no-cache"
+          fi
+          python3 scripts/run_backtest.py $ARGS
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data/backtest data/backtest
+          if git diff --cached --quiet; then
+            echo "no changes"
+            exit 0
+          fi
+          git commit -m "chore: strategy backtest update"
+          for attempt in 1 2 3 4; do
+            git pull --rebase origin main && git push && exit 0
+            echo "推送失敗，重試 $attempt"
+            sleep $((attempt * 3))
+          done
+          exit 1

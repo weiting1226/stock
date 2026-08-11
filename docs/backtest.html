@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>模組三：策略回測 — 儀表板</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="wrap">
+  <nav class="module-nav">
+    <a href="index.html">模組一：市場流動性監控</a>
+    <a href="valuation.html">模組二：分析師估值比較</a>
+    <a href="backtest.html" class="active">模組三：策略回測</a>
+  </nav>
+
+  <header class="top">
+    <div>
+      <h1>模組一策略回測</h1>
+      <div class="subtitle" id="header-subtitle">以近十五年 QQQ／TQQQ／SGOV 實際價格模擬；本頁為歷史模擬結果，非投資建議</div>
+    </div>
+  </header>
+
+  <div id="error-slot"></div>
+
+  <section class="card">
+    <div class="stat-row" id="stat-row"></div>
+    <p class="subtitle" id="period-note" style="margin-bottom:0"></p>
+  </section>
+
+  <div id="caveat-slot"></div>
+
+  <section class="card">
+    <h2>淨值曲線（起始 = 1.0，對數刻度）</h2>
+    <div class="chart-wrap"><canvas id="equity-chart"></canvas></div>
+    <div class="legend" id="equity-legend"></div>
+    <p class="subtitle">對數刻度：十五年跨越兩個數量級，線性刻度會讓前十年壓成一條平線而看不出任何東西。</p>
+  </section>
+
+  <section class="card">
+    <h2>績效比較</h2>
+    <div class="table-scroll">
+      <table id="metrics-table">
+        <thead>
+          <tr>
+            <th>策略</th><th class="num">總報酬</th><th class="num">年化報酬</th>
+            <th class="num">年化波動</th><th class="num">Sharpe</th>
+            <th class="num">最大回撤</th><th class="num">上漲日比例</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="subtitle">Sharpe 以實際現金部位報酬為無風險利率——回測期間橫跨零利率與 5% 兩種環境，用固定值會嚴重誤導。</p>
+  </section>
+
+  <section class="card">
+    <h2>綜合分數與 QQQ 走勢</h2>
+    <div class="chart-wrap"><canvas id="score-chart"></canvas></div>
+    <p class="subtitle">上方為 QQQ 價格（對數），下方為綜合分數與其對應的燈號區間。分數落入紅區時策略轉為 100% SGOV。</p>
+  </section>
+
+  <section class="card">
+    <h2>各類別分數與 QQQ 的關係</h2>
+    <div class="filter-bar">
+      <label>類別
+        <select id="category-picker"></select>
+      </label>
+      <label>個別指標
+        <select id="indicator-picker"><option value="">（不顯示）</option></select>
+      </label>
+    </div>
+    <div class="chart-wrap"><canvas id="category-chart"></canvas></div>
+    <p class="subtitle" id="relation-note"></p>
+  </section>
+
+  <section class="card">
+    <h2>部位分布</h2>
+    <div class="chart-wrap"><canvas id="weights-chart"></canvas></div>
+    <div class="table-scroll">
+      <table id="exposure-table">
+        <thead><tr><th>階梯分級</th><th class="num">天數</th><th class="num">占比</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer class="disclaimer">
+    <p><strong>非投資建議。</strong>本頁是把模組一的計分規則套用在歷史價格上的機械化模擬，<strong>不是實際交易紀錄</strong>，提供者非持牌投資顧問。</p>
+    <p><strong>回測的先天限制：</strong>規則本身是在已知這段歷史之後訂出來的，因此結果必然帶有事後之明；過去表現不代表未來。槓桿 ETF (TQQQ) 具每日重設特性，長期持有於震盪盤中會產生顯著損耗，回測已用其實際價格反映此效果。</p>
+    <p id="assumption-note"></p>
+    <p>資料來源與程式碼：<a href="https://github.com/weiting1226/stock">GitHub repository</a></p>
+  </footer>
+</div>
+
+<script src="vendor/chart.umd.js"></script>
+<script src="backtest.js"></script>
+</body>
+</html>
