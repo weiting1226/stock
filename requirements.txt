@@ -7,3 +7,4 @@ lxml>=5.0
 html5lib>=1.1
 beautifulsoup4>=4.12
 python-dateutil>=2.8
+openpyxl>=3.1        # FINRA 融資餘額歷史檔為 xlsx

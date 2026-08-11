@@ -9,13 +9,25 @@ https://www.finra.org/investors/learn-to-invest/advanced-investing/margin-statis
 from __future__ import annotations
 
 import io
+import logging
 import re
 from typing import Optional
+from urllib.parse import urljoin
 
 import pandas as pd
 import requests
 
+log = logging.getLogger(__name__)
+
 FINRA_URL = "https://www.finra.org/investors/learn-to-invest/advanced-investing/margin-statistics"
+
+# 頁面上的表格只列近十來個月（實測 2026-08 只有 13 筆，2025-06 起）。
+# 回測需要十五年，因此另外掃頁面上的下載連結（FINRA 會附歷史檔）。
+# 用「掃頁面找連結」而不是寫死網址：檔名每個月都在變，寫死的網址遲早 404，
+# 而 404 之後回頭用只有 13 筆的表格，畫面上完全看不出少了什麼。
+_FILE_LINK_RE = re.compile(
+    r'href=["\']([^"\']+\.(?:xlsx|xls|csv))["\']', re.IGNORECASE)
+_MARGIN_HINT = re.compile(r"margin|debit|statistic", re.IGNORECASE)
 
 _HEADERS = {"User-Agent": "Mozilla/5.0 (liquidity-monitor-v3 scraper)"}
 
@@ -83,6 +95,62 @@ def _find_margin_table(tables: list[pd.DataFrame]) -> pd.DataFrame:
     )
 
 
+def _parse_margin_frame(df: pd.DataFrame) -> Optional[pd.Series]:
+    """從一份表格裡挑出「參考月份 + 借方餘額」兩欄並轉成序列。"""
+    cols = {str(c).strip().lower(): c for c in df.columns}
+    debit = next((c for k, c in cols.items() if "debit" in k), None)
+    period = next((c for k, c in cols.items()
+                   if any(t in k for t in ("month", "year", "date", "period"))), None)
+    if debit is None or period is None:
+        return None
+    out = df[[period, debit]].copy()
+    out.columns = ["date", "value"]
+    out["date"] = out["date"].map(_parse_period)
+    out["value"] = (out["value"].astype(str)
+                    .str.replace(",", "", regex=False).str.replace("$", "", regex=False))
+    out["value"] = pd.to_numeric(out["value"], errors="coerce") * 1_000_000
+    out = out.dropna().set_index("date").sort_index()["value"]
+    return out if not out.empty else None
+
+
+def _fetch_history_files(page_html: str, timeout: int) -> tuple[Optional[pd.Series], list]:
+    """掃頁面上的試算表／CSV 連結，抓回來解析成融資餘額序列。
+
+    回傳 (合併後的序列或 None, 每個檔案的處理結果說明)。
+    失敗不拋出——頁內表格仍然可用，只是歷史短；但原因要留下來，
+    否則「FINRA 改版了」與「這個月剛好沒附檔」在畫面上長得一樣。
+    """
+    notes, frames = [], []
+    seen = set()
+    for href in _FILE_LINK_RE.findall(page_html):
+        url = urljoin(FINRA_URL, href)
+        if url in seen or not _MARGIN_HINT.search(url):
+            continue
+        seen.add(url)
+        try:
+            r = requests.get(url, headers=_HEADERS, timeout=timeout)
+            r.raise_for_status()
+            if url.lower().endswith(".csv"):
+                sheets = [pd.read_csv(io.BytesIO(r.content))]
+            else:
+                book = pd.read_excel(io.BytesIO(r.content), sheet_name=None)
+                sheets = list(book.values())
+            got = [s for s in (_parse_margin_frame(df) for df in sheets) if s is not None]
+            if got:
+                frames.extend(got)
+                notes.append(f"{url.rsplit('/', 1)[-1]}: {sum(len(g) for g in got)} 筆")
+            else:
+                notes.append(f"{url.rsplit('/', 1)[-1]}: 無法辨識欄位")
+        except Exception as e:  # noqa: BLE001 — 單一檔案失敗不能中斷
+            notes.append(f"{url.rsplit('/', 1)[-1]}: {type(e).__name__}")
+
+    if not frames:
+        return None, notes
+    merged = pd.concat(frames)
+    merged = merged[~merged.index.duplicated(keep="first")].sort_index()
+    return merged, notes
+
+
 def fetch_margin_debt(
     start: str,
     end: str,
@@ -103,6 +171,11 @@ def fetch_margin_debt(
 
     resp = requests.get(FINRA_URL, headers=_HEADERS, timeout=timeout)
     resp.raise_for_status()
+
+    # 先取頁面上的下載檔（歷史較長），再取頁內表格（只有近十來個月），
+    # 兩邊合併。表格是最新的、檔案是最長的，缺一不可。
+    from_files, file_notes = _fetch_history_files(resp.text, timeout)
+
     tables = pd.read_html(io.StringIO(resp.text))  # pandas>=2.1 不再接受純字串
     table = _find_margin_table(tables)
 
@@ -124,6 +197,17 @@ def fetch_margin_debt(
             "FINRA 表格解析後沒有任何有效資料列；參考月份欄位樣本："
             f"{raw_periods[:3]}。請更新 finra_margin._parse_period。"
         )
+
+    if from_files is not None and not from_files.empty:
+        before = len(out)
+        # 重疊月份以頁內表格為準：它是官方頁面當下顯示的數字，
+        # 歷史檔可能是較舊的版本（FINRA 會事後修訂）
+        out = out.combine_first(from_files).sort_index()
+        log.info("FINRA：頁內表格 %d 筆 + 歷史檔 %d 筆 -> 合併後 %d 筆（%s 起）",
+                 before, len(from_files), len(out), out.index.min().date())
+    elif file_notes:
+        log.warning("FINRA 歷史檔未取得（%s）；僅有頁內表格 %d 筆，%s 起",
+                    "；".join(file_notes), len(out), out.index.min().date())
 
     sliced = out.loc[start:end]
     if sliced.empty:
