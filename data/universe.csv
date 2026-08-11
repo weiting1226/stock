@@ -2476,7 +2476,6 @@ FCPT,"Four Corners Property Trust, Inc. Common Stock",N,False,common,nasdaqtrade
 FCRS,FutureCrest Acquisition Corp. Class A Ordinary Shares,N,False,common,nasdaqtrader
 FCRS-U,"FutureCrest Acquisition Corp. Units, each consisting of one Class A ordinary share and one-quarter of one redeemable warrant",N,False,warrant,nasdaqtrader
 FCRS-W,"FutureCrest Acquisition Corp. Redeemable warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50",N,False,warrant,nasdaqtrader
-FCT,First Trust Senior Floating Rate Income Fund II Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 FCUV,Focus Universal Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 FCX,"Freeport-McMoRan, Inc. Common Stock",N,False,common,nasdaqtrader
 FDBC,"Fidelity D & D Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -3667,7 +3666,6 @@ JMSB,"John Marshall Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrad
 JNJ,Johnson & Johnson Common Stock,N,False,common,nasdaqtrader
 JOB,GEE Group Inc. Common Stock,A,False,common,nasdaqtrader
 JOBY,"Joby Aviation, Inc. Common Stock",N,False,common,nasdaqtrader
-JOBY-W,"Joby Aviation, Inc. Warrants",N,False,warrant,nasdaqtrader
 JOE,St. Joe Company (The) Common Stock,N,False,common,nasdaqtrader
 JOF,Japan Smaller Capitalization Fund Inc Common Stock,N,False,common,nasdaqtrader
 JONEU,Jones Ventures INTL Acquisition1 Corp - Units,NASDAQ,False,unit,nasdaqtrader
@@ -4459,7 +4457,7 @@ MSFT,Microsoft Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 MSGE,Madison Square Garden Entertainment Corp. Class A Common Stock,N,False,common,nasdaqtrader
 MSGM,Motorsport Games Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 MSGS,Madison Square Garden Sports Corp. Class A Common Stock (New),N,False,common,nasdaqtrader
-MSGY,Masonglory Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+MSGY,Masonglory Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 MSI,"Motorola Solutions, Inc. Common Stock",N,False,common,nasdaqtrader
 MSIF,"MSC Income Fund, Inc. Common Stock",N,False,common,nasdaqtrader
 MSLE,Satellos Bioscience Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -5308,6 +5306,7 @@ PHIO,Phio Pharmaceuticals Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 PHK,Pimco High Income Fund,N,False,common,nasdaqtrader
 PHM,"PulteGroup, Inc. Common Stock",N,False,common,nasdaqtrader
 PHOE,Phoenix Asia Holdings Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+PHOS,First Phosphate Corp. - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 PHR,"Phreesia, Inc. Common Stock",N,False,common,nasdaqtrader
 PHUN,"Phunware, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PHVS,Pharvaris N.V. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -5611,7 +5610,7 @@ QUMS,Quantumsphere Acquisition Corp. - Ordinary Shares,NASDAQ,False,common,nasda
 QUMSR,Quantumsphere Acquisition Corp. - Rights,NASDAQ,False,right,nasdaqtrader
 QUMSU,Quantumsphere Acquisition Corp. - Units,NASDAQ,False,unit,nasdaqtrader
 QURE,uniQure N.V. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-QVC,"QVC Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+QVCG,"QVC Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 QXL,Quantum X Labs Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 QXO,"QXO, Inc. Common Stock",N,False,common,nasdaqtrader
 QXO-PB,"QXO, Inc.  Depositary Shares, each representing a 1/20th interest in a share of 5.50% Series B Mandatory Convertible Preferred Stock",N,False,preferred,nasdaqtrader
@@ -6355,7 +6354,6 @@ SRTS,"Sensus Healthcare, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SRV,NXG Cushing Midstream Energy Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 SRXH,SRX Global Inc. Common Stock,A,False,common,nasdaqtrader
 SRZN,"Surrozen, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-SRZNW,"Surrozen, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
 SSAC,SPACSphere Acquisition Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 SSACR,SPACSphere Acquisition Corp. - Rights,NASDAQ,False,right,nasdaqtrader
 SSACU,SPACSphere Acquisition Corp. - Unit,NASDAQ,False,unit,nasdaqtrader
@@ -6417,7 +6415,6 @@ STRL,"Sterling Infrastructure, Inc. - Common Stock",NASDAQ,False,common,nasdaqtr
 STRO,"Sutro Biopharma, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 STRR,"Star Equity Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 STRRP,"Star Equity Holdings, Inc. - 10% Series A Cumulative Perpetual Preferred Stock",NASDAQ,False,preferred,nasdaqtrader
-STRS,Stratus Properties Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 STRT,STRATTEC SECURITY CORPORATION - Common Stock,NASDAQ,False,common,nasdaqtrader
 STRW,"Strawberry Fields REIT, Inc. Common Stock",A,False,common,nasdaqtrader
 STRZ,Starz Entertainment Corp. - Common Shares,NASDAQ,False,common,nasdaqtrader
@@ -7246,7 +7243,9 @@ WKC,World Kinect Corporation Common Stock,N,False,common,nasdaqtrader
 WKEY,WISeKey International Holding Ltd - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 WKHS,"Workhorse Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 WKSP,"Worksport, Ltd. - Common Stock",NASDAQ,False,common,nasdaqtrader
+WLCO,Wilco 63 Corporation - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 WLCOU,Wilco 63 Corporation - Units,NASDAQ,False,unit,nasdaqtrader
+WLCOW,Wilco 63 Corporation - Warrant,NASDAQ,False,warrant,nasdaqtrader
 WLDN,"Willdan Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 WLDS,Wearable Devices Ltd. - Ordinary Share,NASDAQ,False,common,nasdaqtrader
 WLDSW,Wearable Devices Ltd. - Warrant,NASDAQ,False,warrant,nasdaqtrader
@@ -7321,7 +7320,7 @@ WTTR,"Select Water Solutions, Inc. Class A common stock",N,False,common,nasdaqtr
 WTW,Willis Towers Watson Public Limited Company - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 WU,Western Union Company (The) Common Stock,N,False,common,nasdaqtrader
 WULF,TeraWulf Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
-WVE,Wave Life Sciences Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+WVE,"Wave Life Sciences, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 WVVI,"Willamette Valley Vineyards, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 WVVIP,"Willamette Valley Vineyards, Inc. - Series A Redeemable Preferred Stock",NASDAQ,False,preferred,nasdaqtrader
 WW,"WW International, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
