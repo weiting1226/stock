@@ -1,0 +1,428 @@
+{
+ "as_of": "2026-08-11",
+ "generated_at": "2026-08-11T23:56:34Z",
+ "benchmark": {
+  "ticker": "SPY",
+  "returns": {
+   "1d": -0.32,
+   "1w": -0.1,
+   "1m": 2.855,
+   "3m": 4.228
+  }
+ },
+ "window_labels": {
+  "1d": "當日",
+  "1w": "近一週",
+  "1m": "近一月",
+  "3m": "近三月"
+ },
+ "rows": [
+  {
+   "ticker": "XLK",
+   "sector": "Information Technology",
+   "sector_zh": "資訊科技",
+   "close": 186.09,
+   "as_of": "2026-08-11",
+   "returns": {
+    "1d": -0.123,
+    "1w": -0.433,
+    "1m": 2.653,
+    "3m": 4.615
+   },
+   "excess": {
+    "1d": 0.196,
+    "1w": -0.334,
+    "1m": -0.202,
+    "3m": 0.387
+   },
+   "rs_ratio": 117.6,
+   "rs_momentum": 4.575,
+   "quadrant": "領漲",
+   "history_days": 277,
+   "rank": {
+    "1d": 6,
+    "1w": 7,
+    "1m": 7,
+    "3m": 5
+   },
+   "flow": null,
+   "flow_pct_of_aum": null,
+   "flow_rank": null
+  },
+  {
+   "ticker": "XLF",
+   "sector": "Financials",
+   "sector_zh": "金融",
+   "close": 57.8,
+   "as_of": "2026-08-11",
+   "returns": {
+    "1d": -0.017,
+    "1w": -0.138,
+    "1m": 3.085,
+    "3m": 12.935
+   },
+   "excess": {
+    "1d": 0.302,
+    "1w": -0.038,
+    "1m": 0.23,
+    "3m": 8.706
+   },
+   "rs_ratio": 88.38,
+   "rs_momentum": -3.521,
+   "quadrant": "落後",
+   "history_days": 277,
+   "rank": {
+    "1d": 5,
+    "1w": 5,
+    "1m": 4,
+    "3m": 2
+   },
+   "flow": null,
+   "flow_pct_of_aum": null,
+   "flow_rank": null
+  },
+  {
+   "ticker": "XLV",
+   "sector": "Health Care",
+   "sector_zh": "醫療保健",
+   "close": 168.01,
+   "as_of": "2026-08-11",
+   "returns": {
+    "1d": -0.255,
+    "1w": 3.646,
+    "1m": 4.089,
+    "3m": 17.457
+   },
+   "excess": {
+    "1d": 0.064,
+    "1w": 3.746,
+    "1m": 1.234,
+    "3m": 13.228
+   },
+   "rs_ratio": 100.72,
+   "rs_momentum": -3.423,
+   "quadrant": "轉弱",
+   "history_days": 277,
+   "rank": {
+    "1d": 7,
+    "1w": 2,
+    "1m": 3,
+    "3m": 1
+   },
+   "flow": null,
+   "flow_pct_of_aum": null,
+   "flow_rank": null
+  },
+  {
+   "ticker": "XLY",
+   "sector": "Consumer Discretionary",
+   "sector_zh": "非必需消費",
+   "close": 119.24,
+   "as_of": "2026-08-11",
+   "returns": {
+    "1d": -0.359,
+    "1w": 0.803,
+    "1m": 2.758,
+    "3m": -0.109
+   },
+   "excess": {
+    "1d": -0.04,
+    "1w": 0.903,
+    "1m": -0.097,
+    "3m": -4.337
+   },
+   "rs_ratio": 87.96,
+   "rs_momentum": 1.924,
+   "quadrant": "改善",
+   "history_days": 277,
+   "rank": {
+    "1d": 9,
+    "1w": 4,
+    "1m": 6,
+    "3m": 8
+   },
+   "flow": null,
+   "flow_pct_of_aum": null,
+   "flow_rank": null
+  },
+  {
+   "ticker": "XLC",
+   "sector": "Communication Services",
+   "sector_zh": "通訊服務",
+   "close": 111.27,
+   "as_of": "2026-08-11",
+   "returns": {
+    "1d": -0.501,
+    "1w": -0.687,
+    "1m": -0.287,
+    "3m": -3.729
+   },
+   "excess": {
+    "1d": -0.181,
+    "1w": -0.587,
+    "1m": -3.142,
+    "3m": -7.957
+   },
+   "rs_ratio": 83.76,
+   "rs_momentum": -2.452,
+   "quadrant": "落後",
+   "history_days": 277,
+   "rank": {
+    "1d": 10,
+    "1w": 8,
+    "1m": 9,
+    "3m": 11
+   },
+   "flow": null,
+   "flow_pct_of_aum": null,
+   "flow_rank": null
+  },
+  {
+   "ticker": "XLI",
+   "sector": "Industrials",
+   "sector_zh": "工業",
+   "close": 185.7,
+   "as_of": "2026-08-11",
+   "returns": {
+    "1d": 0.596,
+    "1w": -0.376,
+    "1m": 2.955,
+    "3m": 6.09
+   },
+   "excess": {
+    "1d": 0.915,
+    "1w": -0.276,
+    "1m": 0.1,
+    "3m": 1.862
+   },
+   "rs_ratio": 100.46,
+   "rs_momentum": -2.163,
+   "quadrant": "轉弱",
+   "history_days": 277,
+   "rank": {
+    "1d": 3,
+    "1w": 6,
+    "1m": 5,
+    "3m": 4
+   },
+   "flow": null,
+   "flow_pct_of_aum": null,
+   "flow_rank": null
+  },
+  {
+   "ticker": "XLP",
+   "sector": "Consumer Staples",
+   "sector_zh": "必需消費",
+   "close": 84.69,
+   "as_of": "2026-08-11",
+   "returns": {
+    "1d": -0.306,
+    "1w": -0.797,
+    "1m": 0.118,
+    "3m": 1.583
+   },
+   "excess": {
+    "1d": 0.013,
+    "1w": -0.697,
+    "1m": -2.737,
+    "3m": -2.645
+   },
+   "rs_ratio": 83.08,
+   "rs_momentum": -6.472,
+   "quadrant": "落後",
+   "history_days": 277,
+   "rank": {
+    "1d": 8,
+    "1w": 9,
+    "1m": 8,
+    "3m": 7
+   },
+   "flow": null,
+   "flow_pct_of_aum": null,
+   "flow_rank": null
+  },
+  {
+   "ticker": "XLE",
+   "sector": "Energy",
+   "sector_zh": "能源",
+   "close": 60.93,
+   "as_of": "2026-08-11",
+   "returns": {
+    "1d": 1.246,
+    "1w": 4.118,
+    "1m": 7.385,
+    "3m": 6.577
+   },
+   "excess": {
+    "1d": 1.566,
+    "1w": 4.218,
+    "1m": 4.529,
+    "3m": 2.349
+   },
+   "rs_ratio": 113.88,
+   "rs_momentum": 1.757,
+   "quadrant": "領漲",
+   "history_days": 277,
+   "rank": {
+    "1d": 1,
+    "1w": 1,
+    "1m": 1,
+    "3m": 3
+   },
+   "flow": null,
+   "flow_pct_of_aum": null,
+   "flow_rank": null
+  },
+  {
+   "ticker": "XLU",
+   "sector": "Utilities",
+   "sector_zh": "公用事業",
+   "close": 43.63,
+   "as_of": "2026-08-11",
+   "returns": {
+    "1d": 1.159,
+    "1w": -1.088,
+    "1m": -4.571,
+    "3m": -3.345
+   },
+   "excess": {
+    "1d": 1.479,
+    "1w": -0.988,
+    "1m": -7.426,
+    "3m": -7.573
+   },
+   "rs_ratio": 85.71,
+   "rs_momentum": -7.846,
+   "quadrant": "落後",
+   "history_days": 277,
+   "rank": {
+    "1d": 2,
+    "1w": 10,
+    "1m": 11,
+    "3m": 10
+   },
+   "flow": null,
+   "flow_pct_of_aum": null,
+   "flow_rank": null
+  },
+  {
+   "ticker": "XLRE",
+   "sector": "Real Estate",
+   "sector_zh": "房地產",
+   "close": 44.08,
+   "as_of": "2026-08-11",
+   "returns": {
+    "1d": -0.721,
+    "1w": -2.413,
+    "1m": -1.387,
+    "3m": -1.099
+   },
+   "excess": {
+    "1d": -0.401,
+    "1w": -2.313,
+    "1m": -4.242,
+    "3m": -5.328
+   },
+   "rs_ratio": 85.6,
+   "rs_momentum": -7.887,
+   "quadrant": "落後",
+   "history_days": 277,
+   "rank": {
+    "1d": 11,
+    "1w": 11,
+    "1m": 10,
+    "3m": 9
+   },
+   "flow": null,
+   "flow_pct_of_aum": null,
+   "flow_rank": null
+  },
+  {
+   "ticker": "XLB",
+   "sector": "Materials",
+   "sector_zh": "原物料",
+   "close": 53.24,
+   "as_of": "2026-08-11",
+   "returns": {
+    "1d": 0.113,
+    "1w": 2.385,
+    "1m": 5.259,
+    "3m": 1.875
+   },
+   "excess": {
+    "1d": 0.432,
+    "1w": 2.484,
+    "1m": 2.404,
+    "3m": -2.353
+   },
+   "rs_ratio": 94.78,
+   "rs_momentum": -2.201,
+   "quadrant": "落後",
+   "history_days": 277,
+   "rank": {
+    "1d": 4,
+    "1w": 3,
+    "1m": 2,
+    "3m": 6
+   },
+   "flow": null,
+   "flow_pct_of_aum": null,
+   "flow_rank": null
+  }
+ ],
+ "breadth": {
+  "1d": {
+   "up": 4,
+   "down": 7,
+   "total": 11,
+   "median_pct": -0.123
+  },
+  "1w": {
+   "up": 4,
+   "down": 7,
+   "total": 11,
+   "median_pct": -0.376
+  },
+  "1m": {
+   "up": 8,
+   "down": 3,
+   "total": 11,
+   "median_pct": 2.758
+  },
+  "3m": {
+   "up": 7,
+   "down": 4,
+   "total": 11,
+   "median_pct": 1.875
+  }
+ },
+ "quadrants": {
+  "領漲": [
+   "資訊科技",
+   "能源"
+  ],
+  "落後": [
+   "金融",
+   "通訊服務",
+   "必需消費",
+   "公用事業",
+   "房地產",
+   "原物料"
+  ],
+  "轉弱": [
+   "醫療保健",
+   "工業"
+  ],
+  "改善": [
+   "非必需消費"
+  ]
+ },
+ "rank_changes": [],
+ "flow_note": "尚無可比較的前一次觀測（本日已取得 11 檔快照並存檔）；資金流需要相隔一天的兩次觀測，明日起即可計算",
+ "flow_available": false,
+ "notes": [
+  "視窗一律以交易日計（近一週＝5 個交易日、近一月＝21 個），不用日曆天——連假前後的日曆週會是不同長度的區間，跨日期無法比較。",
+  "資金流由 ETF 流通股數變化計算（Δ股數 × 價格＝申贖金額本身），股數不可信時退回淨資產分解（估計），每一筆都標明用的是哪一種。",
+  "資金流以「佔自身淨資產的比例」呈現：XLK 的規模是 XLRE 的十幾倍，比絕對金額等於在比誰規模大，不是在比誰的資金動能強。"
+ ]
+}
