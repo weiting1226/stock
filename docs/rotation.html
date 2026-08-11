@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>模組四：類股資金輪動 — 儀表板</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="wrap">
+  <nav class="module-nav">
+    <a href="index.html">模組一：市場流動性監控</a>
+    <a href="valuation.html">模組二：分析師估值比較</a>
+    <a href="backtest.html">模組三：策略回測</a>
+    <a href="rotation.html" class="active">模組四：類股資金輪動</a>
+  </nav>
+
+  <header class="top">
+    <div>
+      <h1>類股資金輪動觀察</h1>
+      <div class="subtitle">十一個 GICS 類股的漲跌、相對強弱與資金流；本頁純資料呈現，非投資建議</div>
+    </div>
+  </header>
+
+  <div id="error-slot"></div>
+
+  <section class="card">
+    <div class="stat-row" id="stat-row"></div>
+    <p class="subtitle" id="asof-note" style="margin-bottom:0"></p>
+  </section>
+
+  <section class="card">
+    <h2>輪動四象限（相對強弱 × 動能）</h2>
+    <div class="chart-wrap"><canvas id="quadrant-chart"></canvas></div>
+    <p class="subtitle">橫軸為相對強弱（RS＝類股 ÷ 大盤，100 為與大盤同步），縱軸為 RS 的 10 日動能。
+    右上「領漲」、右下「轉弱」、左上「改善」、左下「落後」。
+    <strong>輪動發生在「轉弱」與「改善」兩格</strong>——漲幅排行只告訴你過去誰強，象限告訴你資金正在往哪走。</p>
+  </section>
+
+  <section class="card">
+    <h2>各期間漲跌</h2>
+    <div class="filter-bar">
+      <label>排序依據
+        <select id="sort-window"></select>
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" id="show-excess" /> 顯示相對大盤的超額報酬
+      </label>
+    </div>
+    <div class="chart-wrap"><canvas id="returns-chart"></canvas></div>
+  </section>
+
+  <section class="card">
+    <h2>類股明細</h2>
+    <div class="table-scroll">
+      <table id="sector-table">
+        <thead>
+          <tr>
+            <th>類股</th><th>代號</th>
+            <th class="num">當日</th><th class="num">近一週</th>
+            <th class="num">近一月</th><th class="num">近三月</th>
+            <th class="num">相對強弱</th><th class="num">動能</th>
+            <th>輪動位置</th><th class="num">資金流(佔淨資產)</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="subtitle" id="flow-note"></p>
+  </section>
+
+  <section class="card" id="changes-card" hidden>
+    <h2>名次變動（近一週報酬排名）</h2>
+    <div class="table-scroll">
+      <table id="changes-table">
+        <thead><tr><th>類股</th><th class="num">前次名次</th><th class="num">目前名次</th><th class="num">變動</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="subtitle">與前一次執行相比。名次上升代表這個類股的相對表現正在改善——這是輪動的直接證據。</p>
+  </section>
+
+  <footer class="disclaimer">
+    <p><strong>非投資建議。</strong>本頁為類股 ETF 價格與申贖流量的機械化呈現，提供者非持牌投資顧問。</p>
+    <p><strong>資金流的定義：</strong>ETF 的流通股數只會因授權參與者的申購／贖回而變動，因此「Δ股數 × 價格」就是流入／流出該類股的金額本身，不是代理指標。股數不可信時退回「淨資產變動扣除市場漲跌」的估計，每一筆都標明用的是哪一種——兩種基礎的數字不可直接相比。</p>
+    <p><strong>視窗一律以交易日計</strong>（近一週＝5 個交易日、近一月＝21 個），不用日曆天：連假前後的日曆週會是不同長度的區間，跨日期無法比較。</p>
+    <p id="method-note"></p>
+    <p>資料來源與程式碼：<a href="https://github.com/weiting1226/stock">GitHub repository</a></p>
+  </footer>
+</div>
+
+<script src="vendor/chart.umd.js"></script>
+<script src="rotation.js"></script>
+</body>
+</html>

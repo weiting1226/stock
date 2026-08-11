@@ -1,0 +1,204 @@
+"""模組四（類股資金輪動）測試。
+
+輪動指標最容易出的錯，是那些**算得出數字但意義不對**的：缺值變成 0 後
+排進中間名次、用日曆天當視窗讓連假前後長度不同、拿不同區間的基準算超額
+報酬、以及來源沒更新卻被讀成「資金持平」。
+"""
+from __future__ import annotations
+
+import numpy as np
+import pandas as pd
+import pytest
+
+from liquidity_monitor.sources.etf_creation_flows import EtfSnapshot
+from sector_rotation import flows, metrics, storage
+
+
+def _px(n=100, start="2025-01-02", **series):
+    idx = pd.bdate_range(start, periods=n)
+    return pd.DataFrame({k: v(n) if callable(v) else v for k, v in series.items()}, index=idx)
+
+
+META = {"XLK": ("Information Technology", "資訊科技"), "XLE": ("Energy", "能源")}
+
+
+# --- 視窗與缺值 -------------------------------------------------------------
+
+def test_window_is_measured_in_trading_days_not_calendar_days():
+    """連假前後的日曆週會是不同長度的區間，跨日期比較就沒有意義。"""
+    idx = pd.bdate_range("2025-01-02", periods=30)
+    s = pd.Series(np.arange(100, 130, dtype=float), index=idx)
+    # 5 個交易日前的值是 iloc[-6]，與日曆七天前無關
+    assert metrics.window_return(s, 5) == pytest.approx((s.iloc[-1] / s.iloc[-6] - 1) * 100)
+
+
+def test_insufficient_history_is_missing_not_zero():
+    """XLC 2018 才成立、XLRE 2015 才成立。把缺值當成 0% 報酬，
+    排名時會直接排到中間，看起來完全正常。"""
+    s = pd.Series([100.0, 101.0], index=pd.bdate_range("2025-01-02", periods=2))
+    assert metrics.window_return(s, 21) is None
+
+
+def test_missing_values_do_not_take_a_rank():
+    ranks = metrics.rank_series({"A": 5.0, "B": None, "C": 1.0})
+    assert ranks == {"A": 1, "B": None, "C": 2}
+
+
+def test_a_missing_sector_is_not_ranked_last():
+    """把缺值當成最差，會讓「還沒成立的類股」看起來像「表現最爛的類股」。"""
+    ranks = metrics.rank_series({"A": -9.0, "B": None})
+    assert ranks["A"] == 1 and ranks["B"] is None
+
+
+# --- 相對強弱 ---------------------------------------------------------------
+
+def test_excess_return_uses_the_same_window_for_the_benchmark():
+    """拿類股的近一月去比基準的近三月，算出來的只是兩段不同區間的差。"""
+    px = _px(100, SPY=lambda n: np.linspace(100, 110, n), XLK=lambda n: np.linspace(100, 120, n),
+             XLE=lambda n: np.linspace(100, 100, n))
+    rows, bench = metrics.build_sector_rows(px, "SPY", META)
+    xlk = next(r for r in rows if r["ticker"] == "XLK")
+    for key in ("1d", "1w", "1m", "3m"):
+        assert xlk["excess"][key] == pytest.approx(xlk["returns"][key] - bench[key], abs=1e-6)
+
+
+def test_relative_strength_only_uses_days_where_both_series_exist():
+    """用前向填補補其中一邊的缺口，會造出「類股不動而基準在動」的假訊號。"""
+    idx = pd.bdate_range("2025-01-02", periods=10)
+    sector = pd.Series([np.nan] * 5 + [100.0, 101, 102, 103, 104], index=idx)
+    bench = pd.Series(np.linspace(100, 110, 10), index=idx)
+    rs = metrics.relative_strength(sector, bench)
+    assert len(rs) == 5
+    assert rs.iloc[0] == pytest.approx(100.0)
+
+
+def test_relative_strength_survives_a_flat_market():
+    """大盤不動時 RS 仍要算得出來，不能除到零。"""
+    idx = pd.bdate_range("2025-01-02", periods=10)
+    rs = metrics.relative_strength(pd.Series(np.linspace(100, 110, 10), index=idx),
+                                   pd.Series([100.0] * 10, index=idx))
+    assert rs.iloc[-1] > 100
+
+
+# --- 輪動象限 ---------------------------------------------------------------
+
+@pytest.mark.parametrize("rs,mom,expected", [
+    (105, 2, "領漲"),
+    (105, -2, "轉弱"),
+    (95, 2, "改善"),
+    (95, -2, "落後"),
+    (None, 1, "暫缺"),
+    (105, None, "暫缺"),
+])
+def test_quadrants_describe_where_money_is_going_not_just_past_returns(rs, mom, expected):
+    """漲幅排行只告訴你過去誰強；象限告訴你資金正在往哪走。
+    「轉弱」與「改善」正是輪動實際發生的地方。"""
+    assert metrics.rotation_signal(rs, mom) == expected
+
+
+def test_breadth_shows_whether_a_rally_is_broad_or_narrow():
+    """單一指數漲跌看不出是全面上漲還是少數幾檔撐著。"""
+    rows = [{"returns": {"1d": v}} for v in (1.0, 0.5, -0.2, -1.0, None)]
+    b = metrics.breadth(rows, "1d")
+    assert (b["up"], b["down"], b["total"]) == (2, 2, 4)
+
+
+def test_rank_changes_are_empty_without_a_previous_observation():
+    """沒有前一次紀錄時不能假裝有變動。"""
+    rows = [{"ticker": "XLK", "sector_zh": "資訊科技", "rank": {"1w": 1}}]
+    assert metrics.rotation_changes(rows, {}, "1w") == []
+
+
+def test_rank_change_sign_means_moving_up():
+    rows = [{"ticker": "XLK", "sector_zh": "資訊科技", "rank": {"1w": 1}}]
+    out = metrics.rotation_changes(rows, {"XLK": 5}, "1w")
+    assert out[0]["change"] == 4          # 從第 5 名爬到第 1 名
+
+
+# --- 資金流 -----------------------------------------------------------------
+
+def _snap(t, shares=None, aum=None, close=100.0, as_of="2026-08-11"):
+    return EtfSnapshot(as_of=as_of, ticker=t, shares_outstanding=shares,
+                       total_assets=aum, close=close)
+
+
+def _prev(shares=None, aum=None, close=100.0, as_of="2026-08-10"):
+    return {"as_of": as_of, "shares_outstanding": shares, "total_assets": aum, "close": close}
+
+
+def test_flow_is_reported_per_sector_not_aggregated():
+    """輪動要看的正是「錢從哪個類股出來、進到哪個類股」。"""
+    today = [_snap("XLK", shares=1_010_000, aum=101_000_000),
+             _snap("XLE", shares=990_000, aum=99_000_000)]
+    prev = {"XLK": _prev(shares=1_000_000, aum=100_000_000),
+            "XLE": _prev(shares=1_000_000, aum=100_000_000)}
+    out, _ = flows.compute_sector_flows(today, prev)
+    assert out["XLK"]["flow_musd"] > 0 and out["XLE"]["flow_musd"] < 0
+
+
+def test_flow_is_expressed_as_a_share_of_the_funds_own_assets():
+    """XLK 的規模是 XLRE 的十幾倍。比絕對金額等於在比誰規模大，
+    不是在比誰的資金動能強。"""
+    today = [_snap("BIG", shares=10_100_000, aum=1_010_000_000),
+             _snap("SMALL", shares=1_010_000, aum=101_000_000)]
+    prev = {"BIG": _prev(shares=10_000_000, aum=1_000_000_000),
+            "SMALL": _prev(shares=1_000_000, aum=100_000_000)}
+    out, _ = flows.compute_sector_flows(today, prev)
+    assert out["BIG"]["flow_musd"] > out["SMALL"]["flow_musd"]         # 金額差十倍
+    assert out["BIG"]["flow_pct_of_aum"] == pytest.approx(out["SMALL"]["flow_pct_of_aum"], abs=1e-6)
+
+
+def test_identical_source_values_are_stale_data_not_flat_flows():
+    """實測 Yahoo 的 totalAssets 對 ETF 不是每日更新。回報 0 會被讀成
+    「資金持平」——那是假訊號，而且看起來完全正常。"""
+    today = [_snap(t, aum=100_000_000, close=100.0) for t in ("XLK", "XLF", "XLV")]
+    prev = {t: _prev(aum=100_000_000, close=100.0) for t in ("XLK", "XLF", "XLV")}
+    out, _ = flows.compute_sector_flows(today, prev)
+    assert "未更新" in flows.stale_reason(out)
+
+
+def test_frozen_assets_while_prices_moved_is_impossible():
+    today = [_snap(t, aum=100_000_000, close=110.0) for t in ("XLK", "XLF")]
+    prev = {t: _prev(aum=100_000_000, close=100.0) for t in ("XLK", "XLF")}
+    out, _ = flows.compute_sector_flows(today, prev)
+    assert "未更新" in flows.stale_reason(out)
+
+
+def test_a_genuinely_small_flow_is_not_mistaken_for_stale_data():
+    today = [_snap(t, aum=100_200_000, close=100.0) for t in ("XLK", "XLF")]
+    prev = {t: _prev(aum=100_000_000, close=100.0) for t in ("XLK", "XLF")}
+    out, _ = flows.compute_sector_flows(today, prev)
+    assert flows.stale_reason(out) is None
+    assert out["XLK"]["flow_musd"] > 0
+
+
+def test_stale_observations_are_skipped_rather_than_averaged_in():
+    """跨越太多天的觀測若照樣採計，會把多日累積的申贖當成單日訊號。"""
+    today = [_snap("XLK", shares=1_010_000, aum=101_000_000)]
+    prev = {"XLK": _prev(shares=1_000_000, aum=100_000_000, as_of="2026-06-01")}
+    out, skipped = flows.compute_sector_flows(today, prev)
+    assert out == {}
+    assert "過久不採計" in skipped[0][1]
+
+
+def test_internal_fields_do_not_leak_into_the_report():
+    today = [_snap("XLK", shares=1_010_000, aum=101_000_000)]
+    prev = {"XLK": _prev(shares=1_000_000, aum=100_000_000)}
+    out, _ = flows.compute_sector_flows(today, prev)
+    assert all(not k.startswith("_") for k in flows.strip_internals(out)["XLK"])
+
+
+# --- 歷史累積 ---------------------------------------------------------------
+
+def test_rank_history_roundtrip_and_same_day_rerun_does_not_duplicate(tmp_path):
+    p = str(tmp_path / "h.csv")
+    storage.append_ranks("2026-08-10", {"XLK": 1, "XLE": 2}, path=p)
+    storage.append_ranks("2026-08-10", {"XLK": 3, "XLE": 1}, path=p)   # 同日重跑
+    assert len(pd.read_csv(p)) == 1
+    storage.append_ranks("2026-08-11", {"XLK": 2, "XLE": 1}, path=p)
+    assert storage.load_previous_ranks(p, before="2026-08-11") == {"XLK": 3, "XLE": 1}
+
+
+def test_missing_history_file_is_empty_not_an_error(tmp_path):
+    assert storage.load_previous_ranks(str(tmp_path / "nope.csv")) == {}
+    assert storage.load_previous_snapshots(str(tmp_path / "nope.csv")) == {}
