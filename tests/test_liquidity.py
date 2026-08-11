@@ -1,3 +1,14 @@
+"""資料來源的歷史長度與失敗診斷。
+
+這一檔守的不是「抓不抓得到」，而是「抓得到最新值不代表抓得到歷史」——
+實測 FRED 對 BAMLH0A0HYM2 只回傳近三年，最新值正確、計分照常運作，
+只有回測缺了 80% 的期間，而畫面上完全看不出來。
+"""
+from __future__ import annotations
+
+import pytest
+
+
 
 
 # --- 資料歷史長度：抓得到最新值不代表抓得到歷史 -----------------------------
@@ -116,3 +127,18 @@ def test_finra_still_works_when_the_history_file_is_missing():
     with mock.patch.object(fm.requests, "get", side_effect=get):
         s = fm.fetch_margin_debt("2010-01-01", "2026-12-31")
     assert len(s) == 1
+
+
+def test_fred_text_endpoint_reports_html_responses_instead_of_a_blank_failure():
+    """實測第一版只回報「沒有解析出任何資料列」，三條序列全都這樣——
+    完全看不出是格式跟我想的不一樣，還是根本拿到一頁 HTML。
+    診斷訊息說不出原因，就等於沒有診斷。"""
+    from liquidity_monitor.sources import fred
+    with pytest.raises(ValueError, match="回傳 HTML"):
+        fred._parse_txt("<!DOCTYPE html><html><body>Page not found</body></html>", "X")
+
+
+def test_fred_text_parse_failure_includes_a_sample_of_the_response():
+    from liquidity_monitor.sources import fred
+    with pytest.raises(ValueError, match="回應開頭"):
+        fred._parse_txt("something entirely unexpected\nno dates here\n", "X")

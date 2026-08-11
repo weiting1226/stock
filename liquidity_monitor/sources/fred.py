@@ -70,7 +70,15 @@ def _parse_txt(text: str, series_id: str) -> pd.Series:
 
     格式是一段中繼資料、一行 `DATE  VALUE` 標頭，然後是空白分隔的資料列。
     只收「開頭看起來像日期」的行，其餘（標題、說明、來源註記）一律略過。
+
+    解析失敗時，錯誤訊息一定要帶回應的開頭片段。實測第一版只回報「沒有解析
+    出任何資料列」，三條序列全都這樣——完全看不出是格式跟我想的不一樣、
+    還是根本拿到一頁 HTML。診斷訊息說不出原因，就等於沒有診斷。
     """
+    head = text.lstrip()[:200].replace("\n", " ")
+    if head.lower().startswith(("<!doctype", "<html", "<?xml")):
+        raise ValueError(f"FRED 純文字端點回傳 HTML 而非資料（{series_id}）：{head[:120]}")
+
     rows = []
     for line in text.splitlines():
         parts = line.split()
@@ -84,7 +92,10 @@ def _parse_txt(text: str, series_id: str) -> pd.Series:
             continue                      # FRED 用 "." 表示缺值
         rows.append((date, float(value)))
     if not rows:
-        raise ValueError(f"FRED 純文字端點沒有解析出任何資料列（{series_id}）")
+        raise ValueError(
+            f"FRED 純文字端點沒有解析出任何資料列（{series_id}）；"
+            f"回應開頭：{head[:160]!r}"
+        )
     s = pd.Series(dict(rows)).sort_index()
     s.name = series_id
     return s
