@@ -4,3 +4,8 @@ __pycache__/
 .venv/
 venv/
 *.egg-info/
+
+# fumee_booking：登入狀態與執行截圖屬本機/CI暫存產物，不進repo
+fumee_booking/storage_state.json
+fumee_booking/storage_state.b64.txt
+fumee_booking/artifacts/

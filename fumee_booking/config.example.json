@@ -1,0 +1,16 @@
+{
+  "_說明": "複製這個檔案為 config.json 後填入資料，或直接用 docs/fumee-booking.html 網頁表單編輯（表單會透過GitHub API直接把改動送進repo）。這個檔案『不含』姓名/電話/Email——那些屬於個資，改用GitHub Secrets存放，不會進git歷史紀錄（見 fumee_booking/README.md）。",
+
+  "booking_url": "https://inline.app/booking/-NdcVTihF03AzdgpS38Q:inline-live-3/-NdcVTuhlCqT4WfSAaUm?language=zh-tw",
+
+  "_attempts說明": "依優先順序列出要嘗試的（日期、時段、人數）組合，程式會由上而下依序嘗試，第一個成功就停止。fumée吧檯座1-4人只開17:30與20:30；5人以上包廂只開19:00。每月1號00:00開放次月整月，所以date要填『下個月』的日期，每次搶位前記得更新這份清單。",
+  "attempts": [
+    { "label": "示例：9/6(五) 17:30 兩位", "date": "2026-09-06", "time": "17:30", "party_size": 2 },
+    { "label": "示例：9/6(五) 20:30 兩位", "date": "2026-09-06", "time": "20:30", "party_size": 2 },
+    { "label": "示例：9/13(五) 17:30 兩位", "date": "2026-09-13", "time": "17:30", "party_size": 2 }
+  ],
+
+  "_timing說明": "max_attempt_seconds：從00:00:00起最多嘗試搶位幾秒（超過就放棄，寄失敗通知）。retry_interval_ms：同一組合失敗後，隔多久再試下一個，避免對伺服器連續灌爆請求。",
+  "max_attempt_seconds": 90,
+  "retry_interval_ms": 500
+}

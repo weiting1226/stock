@@ -1,0 +1,98 @@
+name: fumée 搶位排程
+
+# fumée（inline訂位）每月1號 00:00（台北時間）開放次月整月訂位，熱門到成功率<1%。
+# 排程刻意訂在「每天」23:50台北時間觸發，而不是直接卡在1號00:00：
+# GitHub Actions 的 cron 本身不保證準時（尖峰時段可能延遲數分鐘），
+# 對這種搶零點的場景不能信任「觸發時間」本身要準，只能信任「觸發後、由程式
+# 自己用系統時間忙等到精確時刻」。所以每天都跑一次，book.py 內部會先判斷
+# 「明天是不是1號」，不是的話立刻結束（成本很低），是的話才真的等到00:00搶位。
+on:
+  schedule:
+    - cron: "50 15 * * *" # 23:50 UTC+8 = 15:50 UTC
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "normal=正式(等到明天1號00:00才搶) / force=忽略日期直接搶(測試用) / dry_run=跑完整流程但不按送出 / inspect=只存截圖HTML核對頁面結構"
+        required: true
+        default: "inspect"
+        type: choice
+        options: [normal, force, dry_run, inspect]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fumee-booking
+  cancel-in-progress: false
+
+jobs:
+  book:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r fumee_booking/requirements-booking.txt
+          playwright install --with-deps chromium
+
+      # 只印長度、不印內容：用來分辨「secret 沒設到」與「設了但值是空的」
+      - name: Check required secrets are reaching the runner
+        env:
+          INLINE_STORAGE_STATE_B64: ${{ secrets.INLINE_STORAGE_STATE_B64 }}
+          BOOKING_NAME: ${{ secrets.BOOKING_NAME }}
+          BOOKING_PHONE: ${{ secrets.BOOKING_PHONE }}
+          BOOKING_EMAIL: ${{ secrets.BOOKING_EMAIL }}
+        run: |
+          echo "INLINE_STORAGE_STATE_B64 長度 = ${#INLINE_STORAGE_STATE_B64}  (0 表示未設定)"
+          echo "BOOKING_NAME 長度             = ${#BOOKING_NAME}"
+          echo "BOOKING_PHONE 長度            = ${#BOOKING_PHONE}"
+          echo "BOOKING_EMAIL 長度            = ${#BOOKING_EMAIL}"
+
+      - name: Decode inline login session
+        env:
+          INLINE_STORAGE_STATE_B64: ${{ secrets.INLINE_STORAGE_STATE_B64 }}
+        run: |
+          if [ -n "$INLINE_STORAGE_STATE_B64" ]; then
+            echo "$INLINE_STORAGE_STATE_B64" | base64 -d > "$RUNNER_TEMP/storage_state.json"
+            echo "STORAGE_STATE_PATH=$RUNNER_TEMP/storage_state.json" >> "$GITHUB_ENV"
+          else
+            echo "未設定 INLINE_STORAGE_STATE_B64，將以未登入狀態開啟頁面（inspect模式可用，正式搶位會失敗）"
+          fi
+
+      - name: Run booking script
+        env:
+          BOOKING_NAME: ${{ secrets.BOOKING_NAME }}
+          BOOKING_PHONE: ${{ secrets.BOOKING_PHONE }}
+          BOOKING_EMAIL: ${{ secrets.BOOKING_EMAIL }}
+          NOTIFY_EMAIL_TO: ${{ secrets.NOTIFY_EMAIL_TO }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+        run: |
+          MODE="${{ github.event.inputs.mode || 'normal' }}"
+          ARGS=""
+          case "$MODE" in
+            force)    ARGS="--force" ;;
+            dry_run)  ARGS="--dry-run" ;;
+            inspect)  ARGS="--inspect" ;;
+            normal)   ARGS="" ;;
+          esac
+          python3 -m fumee_booking.book $ARGS
+
+      - name: Upload screenshots / HTML for inspection
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fumee-booking-artifacts-${{ github.run_id }}
+          path: fumee_booking/artifacts/
+          if-no-files-found: ignore
+          retention-days: 14

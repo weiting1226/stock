@@ -1,0 +1,83 @@
+/* fumée 搶位設定頁 — 補充 style.css 沒有的表單/按鈕/清單樣式 */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px 24px;
+  margin-bottom: 20px;
+}
+
+.form-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: var(--fs-2);
+  color: var(--text-muted);
+}
+
+.form-grid label.span-2 { grid-column: span 2; }
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="time"] {
+  font: inherit;
+  font-size: var(--fs-3);
+  color: var(--text-primary);
+  background: var(--surface-1);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+}
+
+input:focus { outline: 2px solid var(--series-1); outline-offset: 1px; }
+
+.btn {
+  appearance: none;
+  border: 1px solid var(--hairline-strong);
+  background: var(--surface-1);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: var(--fs-3);
+  padding: 9px 18px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn:hover { background: var(--surface-2); }
+
+.btn.primary {
+  background: var(--text-primary);
+  color: var(--page);
+  border-color: var(--text-primary);
+}
+
+.btn.primary:hover { opacity: 0.88; }
+
+.btn.danger { color: var(--critical); border-color: var(--critical); }
+
+.btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
+
+#attempts-table input { width: 100%; }
+#attempts-table td { vertical-align: middle; }
+#attempts-table td.rownum { color: var(--text-muted); font-variant-numeric: tabular-nums; }
+
+.notice-list {
+  margin: 0;
+  padding-left: 20px;
+  font-size: var(--fs-3);
+  color: var(--text-secondary);
+}
+.notice-list li { margin-bottom: 10px; }
+.notice-list li:last-child { margin-bottom: 0; }
+
+.success-banner {
+  border-left: 2px solid var(--good);
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 4px 0 4px 18px;
+  margin-bottom: 24px;
+  font-size: var(--fs-3);
+}

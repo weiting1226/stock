@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>fumée 搶位設定</title>
+<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="fumee-booking.css" />
+</head>
+<body>
+<div class="wrap">
+  <nav class="module-nav">
+    <a href="index.html">模組一：市場流動性監控</a>
+    <a href="valuation.html">模組二：分析師估值比較</a>
+    <a href="fumee-booking.html" class="active">模組三：fumée 搶位設定</a>
+  </nav>
+
+  <header class="top">
+    <div>
+      <h1>fumée 搶位設定</h1>
+      <div class="subtitle">
+        每月1號 00:00（台北時間）開放次月訂位。在這裡先填好想搶的日期/時段/人數優先順序，
+        排程會在開放的瞬間依序自動嘗試。
+      </div>
+    </div>
+  </header>
+
+  <div id="status-slot"></div>
+
+  <section class="card">
+    <h2>1 · 連線設定</h2>
+    <p class="subtitle">
+      直接用你的瀏覽器呼叫 GitHub API 把設定寫回這個 repo，
+      <strong>不會經過任何第三方伺服器</strong>。建議到
+      <a id="pat-link" href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub → Settings → Developer settings → Fine-grained tokens</a>
+      建立一組「只限這個repo、只給 Contents 讀寫」的token，效期設短一點（例如7天）。
+      Token 只會存在這台瀏覽器的 localStorage，隨時可以按「忘記token」清掉。
+    </p>
+    <div class="form-grid">
+      <label>Repo owner
+        <input id="f-owner" type="text" placeholder="weiting1226" />
+      </label>
+      <label>Repo name
+        <input id="f-repo" type="text" placeholder="stock" />
+      </label>
+      <label>分支
+        <input id="f-branch" type="text" value="main" />
+      </label>
+      <label>GitHub token
+        <input id="f-token" type="password" placeholder="github_pat_..." autocomplete="off" />
+      </label>
+    </div>
+    <div class="btn-row">
+      <button id="btn-load" class="btn primary">載入目前設定</button>
+      <button id="btn-forget" class="btn">忘記token</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>2 · 訂位頁面與逾時設定</h2>
+    <div class="form-grid">
+      <label class="span-2">inline 訂位頁面網址
+        <input id="f-url" type="text" placeholder="https://inline.app/booking/..." />
+      </label>
+      <label>開放後最多嘗試幾秒（max_attempt_seconds）
+        <input id="f-maxsec" type="number" min="10" max="600" value="90" />
+      </label>
+      <label>同組失敗後間隔毫秒（retry_interval_ms）
+        <input id="f-interval" type="number" min="100" max="5000" value="500" />
+      </label>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>3 · 搶位優先順序（由上而下依序嘗試，第一個成功就停止）</h2>
+    <p class="subtitle">
+      fumée吧檯座（1–4人）只開 17:30 與 20:30；5人以上包廂只開 19:00。
+      日期請填「下個月」的日期——每次搶位前記得回來更新這份清單。
+    </p>
+    <table id="attempts-table">
+      <thead>
+        <tr>
+          <th style="width:28px">#</th>
+          <th>標籤（給自己看的備註）</th>
+          <th style="width:150px">日期</th>
+          <th style="width:110px">時段</th>
+          <th style="width:90px">人數</th>
+          <th style="width:110px"></th>
+        </tr>
+      </thead>
+      <tbody id="attempts-body"></tbody>
+    </table>
+    <div class="btn-row">
+      <button id="btn-add-row" class="btn">+ 新增一組</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>4 · 儲存</h2>
+    <p class="subtitle">
+      這裡存的<strong>不含姓名/電話/Email</strong>——那些是個資，改用 GitHub Secrets
+      單獨設定一次即可（<code>BOOKING_NAME</code> / <code>BOOKING_PHONE</code> /
+      <code>BOOKING_EMAIL</code> / <code>NOTIFY_EMAIL_TO</code>），還有登入用的
+      <code>INLINE_STORAGE_STATE_B64</code> 與寄信用的 <code>SMTP_*</code>。
+      完整步驟見 repo 內
+      <code>fumee_booking/README.md</code>，或直接開
+      <a id="secrets-link" href="#" target="_blank" rel="noopener">Settings → Secrets and variables → Actions</a>。
+    </p>
+    <div class="btn-row">
+      <button id="btn-save" class="btn primary">儲存到 GitHub（commit config.json）</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>重要提醒</h2>
+    <ul class="notice-list">
+      <li>這類自動化工具通常會落在訂位平台使用條款的灰色地帶（多數平台明文禁止自動化/機器人訂位）；本工具刻意只用<strong>單一帳號、正常速度</strong>嘗試，不做繞過驗證碼、偽造多帳號、灌爆伺服器等行為，但仍建議自行評估風險，帳號有被平台限制的可能。</li>
+      <li>GitHub Actions 的排程時間不保證絕對準時，且執行環境的IP是GitHub共用IP，有被平台判定為異常流量的風險；這不是能完全消除的限制。</li>
+      <li>inline 頁面的實際畫面結構未經驗證（開發時網路連不到 inline.app），正式使用前務必先用 workflow 的 <code>inspect</code> 模式跑一次，核對 <code>fumee_booking/locators.py</code> 的選擇器是否正確。</li>
+    </ul>
+  </section>
+</div>
+
+<script src="fumee-booking.js"></script>
+</body>
+</html>
