@@ -19,7 +19,9 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Iterable, Optional
 
-from .aggregate import ValuationRow, apply_book_value, build_row, sector_summary
+from .aggregate import (
+    ValuationRow, apply_book_value, apply_market_cap, build_row, sector_summary,
+)
 from .firms import TargetRecord
 from . import universe_file
 from .ledger import Ledger
@@ -65,8 +67,10 @@ def _quotes_from(record: dict) -> list[TargetQuote]:
             low=q.get("low"),
             analyst_count=q.get("analyst_count"),
             recommendation_key=q.get("recommendation_key"),
-            # 每股淨值記在標的層而非報價層（它是基本面資料，不隨報價來源而異）
+            # 每股淨值與市值記在標的層而非報價層（基本面資料，不隨報價來源而異）
             book_value=record.get("book_value"),
+            market_cap=record.get("market_cap"),
+            currency=record.get("market_cap_currency"),
             responded=True,
         )
         for q in record.get("quotes") or []
@@ -123,6 +127,8 @@ def row_from_record(record: dict, meta: dict) -> ValuationRow:
     # 正是這個篩選最有意義的情境，不能因為沒人追蹤就少了這個欄位
     if row.book_value is None:
         apply_book_value(row, record.get("book_value"))
+    if row.market_cap is None and not row.market_cap_issue:
+        apply_market_cap(row, record.get("market_cap"), record.get("market_cap_currency"))
     if record.get("covered") is False:
         row.notes.append(record.get("note") or "無分析師目標價覆蓋")
     return row
@@ -136,6 +142,9 @@ _UI_FIELDS = (
     "consensus_target", "target_low", "target_high", "target_dispersion_pct",
     "range_source", "analyst_count", "basis", "firm_targets", "duplicates_removed",
     "book_value", "price_to_book", "book_value_issue",
+    # 只送市值原始數字，不送分級：分級門檻若兩邊各存一份，日後改了一邊就會
+    # 悄悄不一致。門檻只定義在前端，這裡負責的是「這個數字能不能用」。
+    "market_cap", "market_cap_issue",
     "upside_pct", "implausible", "sources_used", "confidence", "notes",
 )
 

@@ -59,6 +59,14 @@ class ValuationRow:
     #   "share_class_mismatch" 價格與淨值不是同一種股別
     book_value_issue: Optional[str] = None
 
+    # 市值（美元）。用來把「跌破淨值」「上漲空間很大」這類結果按規模分層看：
+    # 同一個篩選條件，在巨型股與奈米股身上的意義完全不同。
+    market_cap: Optional[float] = None
+    # 有市值數字卻不能採用時的原因，None 表示可用。理由同 book_value_issue：
+    # 「查無資料」與「查得到但不可比」在篩選時的意義相反，不能都留白。
+    #   "non_usd"  以非美元計價，與其他標的不可比
+    market_cap_issue: Optional[str] = None
+
     upside_pct: Optional[float] = None
     # 目標價相對現價偏離到不合理的程度（多為雞蛋水餃股搭配單一分析師）。
     # 做成結構化欄位而不是只寫進 notes：排序與篩選要靠它，比對說明文字太脆弱。
@@ -131,6 +139,30 @@ def apply_book_value(row: ValuationRow, book_value: Optional[float]) -> None:
         return
 
     row.price_to_book = round(ratio, 3)
+
+
+def apply_market_cap(
+    row: ValuationRow,
+    market_cap: Optional[float],
+    currency: Optional[str] = None,
+) -> None:
+    """填入市值，並擋掉不是以美元計價的數字。
+
+    市值篩選是拿一個標的的數字去跟門檻比大小，因此**單位必須一致**。
+    資料源給的市值以該檔的計價幣別為準，若混進非美元的數字，一檔日圓計價的
+    中型企業會被算成「巨型股」——那不會報錯，只會靜靜地排在名單最上面。
+    幣別不是美元就不採用，並記下原因（留白會跟「查無市值」混在一起）。
+
+    與 apply_book_value 一樣抽成獨立函式：沒有分析師覆蓋的標的也要有市值，
+    「沒人追蹤的小型股」正是這個篩選最有意義的情境。
+    """
+    if market_cap is None or market_cap <= 0:
+        return
+    if currency and str(currency).upper() != "USD":
+        row.market_cap_issue = "non_usd"
+        row.notes.append(f"市值以 {currency} 計價，與其他標的不可比，未採用")
+        return
+    row.market_cap = market_cap
 
 
 def build_row(
@@ -220,6 +252,9 @@ def build_row(
     apply_book_value(
         row, next((q.book_value for q in quotes if q.book_value is not None), None)
     )
+    cap_quote = next((q for q in quotes if q.market_cap is not None), None)
+    if cap_quote is not None:
+        apply_market_cap(row, cap_quote.market_cap, cap_quote.currency)
 
     if row.consensus_target and row.close:
         upside = (row.consensus_target / row.close - 1) * 100

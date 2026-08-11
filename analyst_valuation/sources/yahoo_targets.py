@@ -50,6 +50,8 @@ class TargetQuote:
     # 自己的收盤價去除——否則分子（我們顯示的收盤價）與分母（資料源當時的
     # 價格快照）來自不同時點，算出來的比值跟畫面上的收盤價對不起來。
     book_value: Optional[float] = None
+    # 市值。與每股淨值同屬基本面欄位，就在同一份 info 裡，一併帶出。
+    market_cap: Optional[float] = None
     error: Optional[str] = None
     # 這次失敗是「來源整個不能用」（限流／熔斷），不是這一檔的問題。
     # 用來決定該不該把這一檔記成失敗並消耗重試次數。
@@ -131,6 +133,7 @@ def fetch_yahoo_target(ticker: str) -> TargetQuote:
         quote.sector = _as_text(info.get("sector"))
         quote.industry = _as_text(info.get("industry"))
         quote.book_value = _as_signed_float(info.get("bookValue"))
+        quote.market_cap = _as_float(info.get("marketCap"))
         quote.responded = True
         circuit.record_success()
     except Exception as e:  # noqa: BLE001 — 單一標的失敗不能中斷整批
