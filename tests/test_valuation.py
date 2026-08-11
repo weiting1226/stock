@@ -511,3 +511,62 @@ def test_market_cap_reaches_the_dashboard_payload():
     from analyst_valuation.universe_publish import compact_row
     out = compact_row({"ticker": "AAA", "market_cap": 1.2e10, "market_cap_issue": None})
     assert out["market_cap"] == 1.2e10
+
+
+# --- 類股名稱統一 -----------------------------------------------------------
+#
+# 兩份資料源用不同的分類體系：S&P 500 清單是 GICS，全市場掃描取自 Yahoo。
+# 同一個「類股」下拉，切換資料源後選項整批換一套名字，使用者會以為是兩種東西。
+
+@pytest.mark.parametrize("yahoo,gics", [
+    ("Technology", "Information Technology"),
+    ("Healthcare", "Health Care"),
+    ("Consumer Cyclical", "Consumer Discretionary"),
+    ("Consumer Defensive", "Consumer Staples"),
+    ("Financial Services", "Financials"),
+    ("Basic Materials", "Materials"),
+])
+def test_yahoo_sector_names_are_mapped_to_gics(yahoo, gics):
+    from analyst_valuation.aggregate import normalize_sector
+    assert normalize_sector(yahoo) == gics
+
+
+@pytest.mark.parametrize("same", [
+    "Communication Services", "Industrials", "Energy", "Utilities", "Real Estate",
+])
+def test_sectors_that_already_agree_are_left_alone(same):
+    from analyst_valuation.aggregate import normalize_sector
+    assert normalize_sector(same) == same
+
+
+@pytest.mark.parametrize("gics", [
+    "Information Technology", "Health Care", "Consumer Discretionary",
+    "Consumer Staples", "Financials", "Materials",
+])
+def test_mapping_is_idempotent_so_the_sp500_path_is_unaffected(gics):
+    """S&P 500 清單帶的已經是 GICS 名稱，再過一次轉換必須原封不動。"""
+    from analyst_valuation.aggregate import normalize_sector
+    assert normalize_sector(gics) == gics
+
+
+def test_unknown_sector_names_pass_through_untouched():
+    """日後資料源多出新類別時，照原樣顯示比硬塞進既有類別好——
+    後者會讓一整群標的無聲地被歸錯類。"""
+    from analyst_valuation.aggregate import normalize_sector
+    assert normalize_sector("Quantum Widgets") == "Quantum Widgets"
+
+
+@pytest.mark.parametrize("blank", [None, "", "   "])
+def test_missing_sector_becomes_unknown(blank):
+    from analyst_valuation.aggregate import normalize_sector
+    assert normalize_sector(blank) == "Unknown"
+
+
+def test_both_data_paths_end_up_with_the_same_vocabulary():
+    """S&P 走 build_row、全市場走 row_from_record，兩條路徑都要正規化，
+    否則下拉選單仍會出現兩套名字。"""
+    from analyst_valuation.aggregate import build_row
+    from analyst_valuation.universe_publish import row_from_record
+    sp = build_row({"ticker": "AAA", "sector": "Information Technology"}, None, [])
+    uni = row_from_record({"ticker": "BBB", "covered": False, "sector": "Technology"}, {})
+    assert sp.sector == uni.sector == "Information Technology"

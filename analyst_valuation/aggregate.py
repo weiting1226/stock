@@ -80,6 +80,41 @@ class ValuationRow:
         return asdict(self)
 
 
+# Yahoo 類股名稱 -> GICS 名稱。
+#
+# 兩份資料源用的是不同的分類體系：S&P 500 清單帶的是 GICS 官方名稱，
+# 全市場掃描則取自 Yahoo。同一個畫面、同一個「類股」下拉，切換資料源後
+# 選項卻整批換一套名字（Technology/Information Technology、
+# Healthcare/Health Care、Consumer Cyclical/Consumer Discretionary…），
+# 使用者會以為是兩種不同的東西。名稱統一到 GICS 這一套。
+#
+# **這只統一「名稱」，不統一「分類判斷」**：兩家供應商對個別公司的歸類本來
+# 就可能不同，某檔在 Yahoo 是 Technology、在 GICS 官方可能被分到別處。
+# 這裡做的是讓詞彙一致，不是宣稱兩邊的分類結果相同。
+_YAHOO_TO_GICS_SECTOR = {
+    "Technology": "Information Technology",
+    "Healthcare": "Health Care",
+    "Consumer Cyclical": "Consumer Discretionary",
+    "Consumer Defensive": "Consumer Staples",
+    "Financial Services": "Financials",
+    "Basic Materials": "Materials",
+    # Communication Services／Industrials／Energy／Utilities／Real Estate
+    # 兩邊同名，不需轉換
+}
+
+
+def normalize_sector(sector: Optional[str]) -> str:
+    """把類股名稱統一到 GICS 那一套。已是 GICS 名稱或未知名稱則原樣保留。
+
+    刻意不對未知名稱做任何猜測：日後資料源多出一個新類別時，讓它照原樣顯示，
+    比硬塞進某個既有類別要好——後者會讓一整群標的無聲地被歸錯類。
+    """
+    name = (sector or "").strip()
+    if not name:
+        return "Unknown"
+    return _YAHOO_TO_GICS_SECTOR.get(name, name)
+
+
 def _pick_primary(usable: list[TargetQuote]) -> TargetQuote:
     """挑出提供高低價區間的主來源。
 
@@ -180,7 +215,7 @@ def build_row(
     row = ValuationRow(
         ticker=meta.get("ticker", ""),
         name=meta.get("name", ""),
-        sector=meta.get("sector") or "Unknown",
+        sector=normalize_sector(meta.get("sector")),
         sub_industry=meta.get("sub_industry", ""),
     )
 

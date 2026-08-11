@@ -552,6 +552,30 @@ python3 scripts/fetch_universe.py --include-all -v                    #    連�
 - **表格最多列出 300 列**：篩選與排序仍在全部資料上進行，只是渲染截斷——7,498 列
   一次全塞進 DOM 會讓瀏覽器卡住好幾秒，而且沒有人會捲到第 500 列。
 
+#### 類股名稱統一到 GICS
+
+兩份資料源用的是不同的分類體系：S&P 500 清單帶的是 **GICS** 官方名稱，全市場掃描
+則取自 **Yahoo**。同一個畫面、同一個「類股」下拉，切換資料源後選項卻整批換一套名字：
+
+| Yahoo | GICS |
+|---|---|
+| Technology | Information Technology |
+| Healthcare | Health Care |
+| Consumer Cyclical | Consumer Discretionary |
+| Consumer Defensive | Consumer Staples |
+| Financial Services | Financials |
+| Basic Materials | Materials |
+
+（Communication Services／Industrials／Energy／Utilities／Real Estate 兩邊同名。）
+
+因此在 `aggregate.normalize_sector()` 統一到 GICS 這一套，兩條資料路徑都會經過它。
+未知名稱一律**原樣保留**——日後資料源多出新類別時，照原樣顯示比硬塞進某個既有類別
+要好，後者會讓一整群標的無聲地被歸錯類。
+
+> ⚠️ 這只統一**名稱**，不統一**分類判斷**。兩家供應商對個別公司的歸類本來就可能
+> 不同：某檔在 Yahoo 是 Technology，在 GICS 官方未必被分到 Information Technology。
+> 這裡做的是讓詞彙一致，不是宣稱兩邊的分類結果相同。
+
 ### 市值篩選
 
 市值取自同一份 `info` 回應（與類股、每股淨值同批取得，不需額外請求）。
