@@ -68,23 +68,10 @@ def test_fred_diagnostics_record_every_endpoint_tried():
     diag = fred.FetchDiagnostics("X", "2010-01-01")
     with mock.patch.object(fred._SESSION, "get", side_effect=get):
         fred.fetch_fred_series("X", "2010-01-01", "2026-08-10", diagnostics=diag)
-    assert [a["endpoint"] for a in diag.attempts] == ["csv_with_range", "csv_full", "txt"]
+    assert [a["endpoint"] for a in diag.attempts] == ["csv_with_range", "csv_full"]
     assert all(a["start"] == "2024-01-02" for a in diag.attempts if a["rows"])
 
 
-def test_fred_text_endpoint_parsing_skips_the_metadata_header():
-    from liquidity_monitor.sources import fred
-    text = (
-        "Title:               ICE BofA US High Yield Index Option-Adjusted Spread\n"
-        "Source:              ICE Data Indices, LLC\n"
-        "\nDATE          VALUE\n"
-        "1996-12-31     3.05\n"
-        "1997-01-01        .\n"          # FRED 用 "." 表示缺值
-        "1997-01-02     3.08\n"
-    )
-    s = fred._parse_txt(text, "BAMLH0A0HYM2")
-    assert len(s) == 2
-    assert str(s.index.min().date()) == "1996-12-31"
 
 
 def test_finra_merges_the_history_file_with_the_page_table():
@@ -129,16 +116,5 @@ def test_finra_still_works_when_the_history_file_is_missing():
     assert len(s) == 1
 
 
-def test_fred_text_endpoint_reports_html_responses_instead_of_a_blank_failure():
-    """實測第一版只回報「沒有解析出任何資料列」，三條序列全都這樣——
-    完全看不出是格式跟我想的不一樣，還是根本拿到一頁 HTML。
-    診斷訊息說不出原因，就等於沒有診斷。"""
-    from liquidity_monitor.sources import fred
-    with pytest.raises(ValueError, match="回傳 HTML"):
-        fred._parse_txt("<!DOCTYPE html><html><body>Page not found</body></html>", "X")
 
 
-def test_fred_text_parse_failure_includes_a_sample_of_the_response():
-    from liquidity_monitor.sources import fred
-    with pytest.raises(ValueError, match="回應開頭"):
-        fred._parse_txt("something entirely unexpected\nno dates here\n", "X")

@@ -52,6 +52,44 @@ def _clean(v):
     return v
 
 
+def _hy_oas_proxy_check(raw: pd.DataFrame, fred_panel: dict, trading_days) -> dict:
+    """量 BAA10Y（投資等級利差，1986 年起）能不能代表 HY OAS（只有近三年）。
+
+    只在兩者都有值的重疊期間比較，回報相關係數與線性關係。**不改動任何計分**
+    ——這裡產出的是決策所需的證據，不是決策本身。相關係數高不代表可以直接替換：
+    兩者的水準完全不同（HY OAS 約 3~8%、BAA10Y 約 1.5~3.5%），現行門檻是照
+    HY OAS 的水準訂的，換序列就必須重訂門檻，而重訂門檻這件事本身已經證實
+    無法從歷史穩健地學到。
+    """
+    from liquidity_monitor.timeseries import to_daily_panel
+    hy = raw.get("hy_oas_level")
+    baa_raw = fred_panel.get("BAA10Y")
+    if hy is None or baa_raw is None or baa_raw.empty:
+        return {"available": False, "reason": "BAA10Y 未取得"}
+    baa = to_daily_panel(baa_raw, trading_days)
+    both = pd.concat([hy.rename("hy"), baa.rename("baa")], axis=1).dropna()
+    if len(both) < 250:
+        return {"available": False, "reason": f"重疊期間僅 {len(both)} 個交易日，不足以判斷"}
+
+    corr_level = float(both["hy"].corr(both["baa"]))
+    d = both.diff().dropna()
+    corr_change = float(d["hy"].corr(d["baa"])) if len(d) > 60 else None
+    slope, intercept = np.polyfit(both["baa"], both["hy"], 1)
+    return {
+        "available": True,
+        "overlap_days": int(len(both)),
+        "overlap_start": str(both.index.min().date()),
+        "baa_history_start": str(pd.Timestamp(baa_raw.index.min()).date()),
+        "corr_level": round(corr_level, 3),
+        "corr_daily_change": round(corr_change, 3) if corr_change is not None else None,
+        "hy_range": [round(float(both["hy"].min()), 2), round(float(both["hy"].max()), 2)],
+        "baa_range": [round(float(both["baa"].min()), 2), round(float(both["baa"].max()), 2)],
+        "linear_fit": {"slope": round(float(slope), 3), "intercept": round(float(intercept), 3)},
+        "note": ("水準相關高不代表可以直接替換：現行門檻是照 HY OAS 的水準訂的，"
+                 "換序列就要重訂門檻，而門檻搜尋已證實無法從歷史穩健地學到"),
+    }
+
+
 def _count_recovery_jumps(w: pd.DataFrame) -> int:
     """「從 SGOV 直接跳到 TQQQ」發生了幾次——加速條款到底有沒有被用到。"""
     if "state" not in w.columns:
@@ -198,6 +236,11 @@ def run_backtest(
         if s is not None and not s.empty:
             series_start[k] = str(pd.Timestamp(s.index.min()).date())
 
+    # HY OAS 被 FRED 限制在近三年（已由端點診斷確認是來源限制，不是抓法問題）。
+    # 與其臆測「換成 BAA10Y 應該也可以」，不如在兩者都有資料的重疊期間實際量
+    # 它們的關係，把數字擺出來讓人決定要不要換。沒有這個量測，換源就只是換一種猜。
+    hy_proxy = _hy_oas_proxy_check(raw, fred_panel, trading_days)
+
     coverage = {
         "items_used": [
             {"key": k, "label": ITEM_LABELS.get(k, k), "coverage_pct": item_coverage.get(k)}
@@ -205,6 +248,7 @@ def run_backtest(
         ],
         "item_coverage_pct": item_coverage,
         "source_series_start": series_start,
+        "hy_oas_proxy_check": hy_proxy,
         # 只對「歷史明顯偏短」的序列附上端點明細：其餘的沒有疑點，附上只是噪音
         "source_fetch_diagnostics": {
             sid: d for sid, d in data.FRED_DIAGNOSTICS.items()
