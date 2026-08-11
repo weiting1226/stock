@@ -56,6 +56,10 @@ jobs:
           fi
           python3 scripts/run_backtest.py $ARGS
 
+      # 門檻搜尋比回測慢得多（142 組 × 逐年前進），排程時一併更新即可
+      - name: Search buy/sell thresholds
+        run: python3 scripts/optimize_thresholds.py -v --as-of "$(date -u +%F)"
+
       - name: Commit results
         run: |
           git config user.name "github-actions[bot]"

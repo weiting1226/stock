@@ -1,5 +1,6 @@
 // 模組三：回測結果。資料由 scripts/run_backtest.py 產生。
 const DATA_PATH = "data/backtest/latest.json";
+const THRESHOLD_PATH = "data/backtest/thresholds.json";
 
 const cssVar = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const HTML_ESCAPES = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
@@ -349,6 +350,60 @@ function renderWeights(report) {
       <td class="num">${((100 * v) / total).toFixed(1)}%</td></tr>`).join("");
 }
 
+/**
+ * 門檻搜尋的結果。這一段的重點不是「找到了更好的門檻」，而是把兩件事
+ * 攤開：樣本內最佳值必然偏樂觀（試越多組越樂觀），以及樣本外到底行不行。
+ */
+async function renderThresholds() {
+  let t;
+  try {
+    const res = await fetch(THRESHOLD_PATH, { cache: "no-store" });
+    if (!res.ok) return;                 // 還沒跑過搜尋就不顯示這一段
+    t = await res.json();
+  } catch (e) { return; }
+
+  const card = document.getElementById("threshold-card");
+  const m = (x) => (x && x.metrics ? x.metrics : null);
+  const row = (label, mm, note) => {
+    if (!mm) return "";
+    return `<tr><td>${escapeHtml(label)}</td>
+      <td class="num">${fmt(mm.cagr_pct, 2, "%")}</td>
+      <td class="num">${fmt(mm.sharpe, 2)}</td>
+      <td class="num neg">${fmt(mm.max_drawdown_pct, 1, "%")}</td>
+      <td class="subtitle">${escapeHtml(note || "")}</td></tr>`;
+  };
+  const pl = t.plateau || {};
+  const wfStart = (t.comparison_window || {}).walk_forward_start || "";
+
+  card.hidden = false;
+  document.getElementById("threshold-body").innerHTML = `
+    <p class="subtitle">在 ${t.candidates} 組買賣門檻上搜尋，目標函式為 ${escapeHtml(t.objective)}。
+    下表的後三列為<strong>同一段期間</strong>（${escapeHtml(wfStart)} 起），才可直接比較。</p>
+    <div class="table-scroll"><table>
+      <thead><tr><th>方法</th><th class="num">年化報酬</th><th class="num">Sharpe</th>
+        <th class="num">最大回撤</th><th>說明</th></tr></thead>
+      <tbody>
+        ${row("樣本內最佳", m(t.in_sample_best), "在同一段歷史上挑出來的，必然偏樂觀——不是預期績效")}
+        ${row("樣本外（逐年前進）", m(t.walk_forward), "每年的門檻只用該年之前的資料選出")}
+        ${row("現行預設門檻（同期）",
+              (t.current_default || {}).metrics_same_window_as_walk_forward, "未經最佳化，由燈號分界直接沿用")}
+        ${row("QQQ 買進持有（同期）",
+              (t.qqq_buy_and_hold || {}).metrics_same_window_as_walk_forward, "")}
+      </tbody>
+    </table></div>
+    <div class="warning-box" style="margin-top:16px">
+      <strong>結論：這份資料上找不到更有效的門檻。</strong>
+      <div style="margin-top:8px">
+        · 樣本外的最佳化結果<strong>輸給未經最佳化的現行門檻</strong>——挑門檻挑到的是雜訊，不是訊號。
+        <br />· ${t.candidates} 組門檻的 Sharpe 分布：最佳 ${pl.best_score}、中位數 ${pl.median_score}、標準差 ${pl.score_sd}。
+        最佳值只高出中位數 <strong>${pl.z_vs_all}</strong> 個標準差，
+        而純雜訊下試 ${t.candidates} 組本來就會產生約 <strong>${pl.expected_z_from_noise_alone}</strong> 個標準差的最大值
+        ——${pl.best_is_within_noise ? "<strong>最佳值完全落在雜訊能解釋的範圍內</strong>，沒有證據說哪一組門檻真的比較好。" : "最佳值超出雜訊可解釋的範圍。"}
+      </div>
+      <div style="margin-top:8px">真正的限制不在門檻，而在訊號本身：13 項指標中有 4 項涵蓋不到一半的期間（見上方覆蓋率表）。</div>
+    </div>`;
+}
+
 async function main() {
   try {
     const res = await fetch(DATA_PATH, { cache: "no-store" });
@@ -369,6 +424,7 @@ async function main() {
   populatePickers(r);
   renderCategoryChart(r);
   renderWeights(r);
+  await renderThresholds();
 }
 
 main();
