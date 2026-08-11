@@ -1,6 +1,6 @@
 {
  "as_of": "2026-08-11",
- "generated_at": "2026-08-11T12:40:18Z",
+ "generated_at": "2026-08-11T12:50:52Z",
  "period": {
   "start": "2011-08-12",
   "end": "2026-08-10",
@@ -149,7 +149,7 @@
       "endpoint": "txt",
       "rows": 0,
       "start": null,
-      "error": "FRED 純文字端點沒有解析出任何資料列（BAMLH0A0HYM2）"
+      "error": "FRED 純文字端點回傳 HTML 而非資料（BAMLH0A0HYM2）：<!DOCTYPE html> <html lang=\"en\"> <head>     <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">     <meta charset=\"utf"
      }
     ],
     "chosen": "csv_with_range",
@@ -174,7 +174,7 @@
       "endpoint": "txt",
       "rows": 0,
       "start": null,
-      "error": "FRED 純文字端點沒有解析出任何資料列（SOFR）"
+      "error": "FRED 純文字端點回傳 HTML 而非資料（SOFR）：<!DOCTYPE html> <html lang=\"en\"> <head>     <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">     <meta charset=\"utf"
      }
     ],
     "chosen": "csv_with_range",
@@ -199,7 +199,7 @@
       "endpoint": "txt",
       "rows": 0,
       "start": null,
-      "error": "FRED 純文字端點沒有解析出任何資料列（IORB）"
+      "error": "FRED 純文字端點回傳 HTML 而非資料（IORB）：<!DOCTYPE html> <html lang=\"en\"> <head>     <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">     <meta charset=\"utf"
      }
     ],
     "chosen": "csv_with_range",
