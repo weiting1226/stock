@@ -605,3 +605,31 @@ def test_plateau_reports_whether_the_best_is_within_noise():
     p = optimize.plateau(ranked)
     assert p["best_is_within_noise"] is True
     assert p["expected_z_from_noise_alone"] > 2
+
+
+# --- 替代序列的採用判定 -----------------------------------------------------
+
+def test_a_proxy_series_is_rejected_when_its_changes_do_not_track(monkeypatch):
+    """實測 BAA10Y：水準相關 0.56、日變化相關 0.12。
+
+    兩項 HY OAS 指標中有一項是「20 日變化」，水準相關再高、變化不同步的話，
+    換上去只是換了一個同名的不同訊號——比缺資料更糟，因為看不出來。
+    """
+    from backtest import data as bt_data, run as bt_run
+    prices, market, fred_panel, margin = _synthetic_sources()
+    rng = np.random.default_rng(11)
+    idx = fred_panel["BAMLH0A0HYM2"].index
+    # 造一條「水準走勢像、但日變化各走各的」的序列
+    base = fred_panel["BAMLH0A0HYM2"]
+    fred_panel["BAA10Y"] = pd.Series(
+        base.values * 0.4 + rng.normal(0, 0.35, len(base)), index=idx)
+
+    monkeypatch.setattr(bt_data, "fetch_prices", lambda *a, **k: prices)
+    monkeypatch.setattr(bt_data, "fetch_market_panel", lambda *a, **k: market)
+    monkeypatch.setattr(bt_data, "fetch_fred_panel", lambda *a, **k: fred_panel)
+    monkeypatch.setattr(bt_data, "fetch_margin_debt", lambda *a, **k: margin)
+
+    check = bt_run.run_backtest(as_of="2026-06-30", years=5)["coverage"]["hy_oas_proxy_check"]
+    assert check["available"] is True
+    assert check["usable_as_substitute"] is False
+    assert "不可替換" in check["verdict"]

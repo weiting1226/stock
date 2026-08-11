@@ -29,6 +29,12 @@ log = logging.getLogger(__name__)
 # 對回測結果的影響遠小於它在名單上看起來的樣子。
 LOW_COVERAGE_PCT = 50.0
 
+# 替代序列的採用門檻。日變化相關看得比水準相關重：兩項 HY OAS 指標中有一項
+# 是「20 日變化」，水準相關再高、變化不同步的話，換上去只是換了一個同名的
+# 不同訊號。0.7／0.8 不是實測出來的數字，是「要能當替身」的常識下限。
+MIN_PROXY_CHANGE_CORR = 0.7
+MIN_PROXY_LEVEL_CORR = 0.8
+
 # 圖表要呈現「指標與 QQQ 的關係」，逐日 3800 點 × 十幾條線太重。
 # 取樣到每週一點，形狀完全保留，檔案小一個數量級。
 CHART_SAMPLE_DAYS = 5
@@ -75,8 +81,20 @@ def _hy_oas_proxy_check(raw: pd.DataFrame, fred_panel: dict, trading_days) -> di
     d = both.diff().dropna()
     corr_change = float(d["hy"].corr(d["baa"])) if len(d) > 60 else None
     slope, intercept = np.polyfit(both["baa"], both["hy"], 1)
+    # 判定門檻：兩項指標中有一項是「20 日變化」，因此**變化量**的相關性
+    # 才是能不能替換的關鍵。水準相關高但變化不同步的序列，換上去之後
+    # 名字一樣、訊號完全是另一回事。
+    usable = (corr_change is not None and corr_change >= MIN_PROXY_CHANGE_CORR
+              and corr_level >= MIN_PROXY_LEVEL_CORR)
     return {
         "available": True,
+        "usable_as_substitute": bool(usable),
+        "verdict": (
+            "可考慮替換（仍需以百分位對映重訂門檻）" if usable else
+            f"不可替換：日變化相關僅 {corr_change:.2f}"
+            f"（需 ≥{MIN_PROXY_CHANGE_CORR}），水準相關 {corr_level:.2f}"
+            f"（需 ≥{MIN_PROXY_LEVEL_CORR}）"
+        ),
         "overlap_days": int(len(both)),
         "overlap_start": str(both.index.min().date()),
         "baa_history_start": str(pd.Timestamp(baa_raw.index.min()).date()),
