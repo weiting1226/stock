@@ -1,6 +1,6 @@
 {
  "as_of": "2026-08-11",
- "generated_at": "2026-08-11T12:32:52Z",
+ "generated_at": "2026-08-11T12:40:18Z",
  "period": {
   "start": "2011-08-12",
   "end": "2026-08-10",
@@ -129,6 +129,83 @@
    "DFEDTARL": "2008-12-16",
    "GDP": "2008-10-01",
    "finra_margin_debt": "2008-08-31"
+  },
+  "source_fetch_diagnostics": {
+   "BAMLH0A0HYM2": {
+    "attempts": [
+     {
+      "endpoint": "csv_with_range",
+      "rows": 785,
+      "start": "2023-08-11",
+      "error": null
+     },
+     {
+      "endpoint": "csv_full",
+      "rows": 785,
+      "start": "2023-08-11",
+      "error": null
+     },
+     {
+      "endpoint": "txt",
+      "rows": 0,
+      "start": null,
+      "error": "FRED 純文字端點沒有解析出任何資料列（BAMLH0A0HYM2）"
+     }
+    ],
+    "chosen": "csv_with_range",
+    "from_cache": false,
+    "result_start": "2023-08-11"
+   },
+   "SOFR": {
+    "attempts": [
+     {
+      "endpoint": "csv_with_range",
+      "rows": 2086,
+      "start": "2018-04-03",
+      "error": null
+     },
+     {
+      "endpoint": "csv_full",
+      "rows": 2086,
+      "start": "2018-04-03",
+      "error": null
+     },
+     {
+      "endpoint": "txt",
+      "rows": 0,
+      "start": null,
+      "error": "FRED 純文字端點沒有解析出任何資料列（SOFR）"
+     }
+    ],
+    "chosen": "csv_with_range",
+    "from_cache": false,
+    "result_start": "2018-04-03"
+   },
+   "IORB": {
+    "attempts": [
+     {
+      "endpoint": "csv_with_range",
+      "rows": 1840,
+      "start": "2021-07-29",
+      "error": null
+     },
+     {
+      "endpoint": "csv_full",
+      "rows": 1840,
+      "start": "2021-07-29",
+      "error": null
+     },
+     {
+      "endpoint": "txt",
+      "rows": 0,
+      "start": null,
+      "error": "FRED 純文字端點沒有解析出任何資料列（IORB）"
+     }
+    ],
+    "chosen": "csv_with_range",
+    "from_cache": false,
+    "result_start": "2021-07-29"
+   }
   },
   "low_coverage_items": [
    {
