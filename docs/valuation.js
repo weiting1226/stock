@@ -168,7 +168,14 @@ function renderStats(report) {
   const perFirm = report.counts.per_firm_basis || 0;
   const tiles = [
     { label: "資料基準日", value: report.as_of, plain: true, text: true },
-    { label: "已涵蓋標的", value: `${report.counts.with_target_and_price} / ${report.counts.universe}`, plain: true },
+    // 分母放進標籤而不是數值：全美股的「4197 / 5958」在 28px 字級下需要 164px，
+    // 而七格並排時每格只有 135px——會直接壓到隔壁格的數字上（實測畫面顯示成
+    // 「4197 / 595823.4%」）。分母本來就是脈絡而非主角，移到標籤才是它該在的位置。
+    {
+      label: `已涵蓋標的（共 ${report.counts.universe.toLocaleString()} 檔）`,
+      value: report.counts.with_target_and_price.toLocaleString(),
+      plain: true,
+    },
     { label: "中位數上漲空間", value: median === null ? "—" : `${median.toFixed(1)}%`, signed: median },
     { label: "共識價高於現價", value: n ? `${((100 * undervalued) / n).toFixed(0)}%` : "—", plain: true },
     { label: "中位數機構數", value: medianCount === null ? "—" : `${medianCount}`, plain: true },

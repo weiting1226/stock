@@ -464,7 +464,10 @@ td.date, th.date { white-space: nowrap; overflow-wrap: normal; }
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
   line-height: 1.25;
-  white-space: nowrap;
+  /* 刻意不用 nowrap：真的塞不下時，換行只是變醜，壓在隔壁格的數字上卻會讓
+     兩個數字黏成一個看不出來的錯誤（實測「4197 / 5958」+「23.4%」顯示成
+     「4197 / 595823.4%」）。寧可醜，不可騙。 */
+  overflow-wrap: anywhere;
 }
 
 /* 日期類數值字元較多，縮一級避免在窄欄位換行 */
