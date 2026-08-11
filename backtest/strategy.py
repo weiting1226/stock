@@ -187,8 +187,14 @@ def target_weights(
         w = ladder_weights(float(score))
         cap = None
         if use_gates:
-            # 兩道閘門都可能給上限，取較嚴格的那個（SGOV 比 QQQ 嚴格）
-            caps = [c for c in (gate_a.at[ts, "cap"], gate_b.at[ts]) if c]
+            # 兩道閘門都可能給上限，取較嚴格的那個（SGOV 比 QQQ 嚴格）。
+            #
+            # 判斷「有沒有上限」必須檢查型別，不能用真假值：pandas 會把 None
+            # 存成 NaN，而 **bool(nan) 是 True**。用 `if c` 篩選的話，每一個
+            # 「未觸發」的日子都會被當成有上限而降級成 100% QQQ——TQQQ 從頭到尾
+            # 一股都不會持有，槓桿階梯等於沒被測到。這不會拋錯，只會跑出一條
+            # 看起來非常合理的防禦型績效曲線（實測：15 年 3769 天全部被降級）。
+            caps = [c for c in (gate_a.at[ts, "cap"], gate_b.at[ts]) if isinstance(c, str) and c]
             if caps:
                 cap = "SGOV" if "SGOV" in caps else "QQQ"
             w = apply_cap(w, cap)

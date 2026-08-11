@@ -25,6 +25,10 @@ from .config import (
 
 log = logging.getLogger(__name__)
 
+# 覆蓋率低於這個比例就特別標示：名列「已採用」但多數時間沒有值的指標，
+# 對回測結果的影響遠小於它在名單上看起來的樣子。
+LOW_COVERAGE_PCT = 50.0
+
 # 圖表要呈現「指標與 QQQ 的關係」，逐日 3800 點 × 十幾條線太重。
 # 取樣到每週一點，形狀完全保留，檔案小一個數量級。
 CHART_SAMPLE_DAYS = 5
@@ -149,8 +153,38 @@ def run_backtest(
     # --- 誠實交代這個回測「不是」什麼 ---------------------------------------
     used = list(scores.columns)
     excluded_by_request = [i for c in EXCLUDED_CATEGORIES for i in CATEGORY_ITEMS[c]]
+
+    # 每一項在回測期間**實際有值的比例**。
+    #
+    # 這一段是必要的：一個指標可能整條流程都接得上、名列「已採用」，實際上
+    # 卻只在最後三年有資料。實測就有兩個這種案例——FINRA 融資餘額只發布近
+    # 13 個月（覆蓋 0.1%）、FRED 的 HY OAS 只回傳近三年（覆蓋 19.9%）。
+    # 少了這張表，畫面會顯示「採用 13 項指標」，讀者自然以為十五年間都有
+    # 13 項在運作，而實際上多數時間只有 8 項。名單與覆蓋率必須一起看。
+    scores_in_window = scores.reindex(result.index)
+    n_days = len(scores_in_window)
+    item_coverage = {
+        k: round(100.0 * scores_in_window[k].notna().sum() / n_days, 1)
+        for k in used
+    } if n_days else {}
+    # 原始序列的起始日：拿來分辨「來源只給得出這麼多」與「我們算錯了」
+    series_start = {}
+    for k, s in list(fred_panel.items()) + [("finra_margin_debt", margin)]:
+        if s is not None and not s.empty:
+            series_start[k] = str(pd.Timestamp(s.index.min()).date())
+
     coverage = {
-        "items_used": [{"key": k, "label": ITEM_LABELS.get(k, k)} for k in used],
+        "items_used": [
+            {"key": k, "label": ITEM_LABELS.get(k, k), "coverage_pct": item_coverage.get(k)}
+            for k in used
+        ],
+        "item_coverage_pct": item_coverage,
+        "source_series_start": series_start,
+        "low_coverage_items": [
+            {"key": k, "label": ITEM_LABELS.get(k, k), "coverage_pct": v}
+            for k, v in sorted(item_coverage.items(), key=lambda kv: kv[1])
+            if v < LOW_COVERAGE_PCT
+        ],
         "items_excluded_by_request": [
             {"key": k, "label": ITEM_LABELS.get(k, k), "reason": "使用者指定：回測不考慮政策指標"}
             for k in excluded_by_request
