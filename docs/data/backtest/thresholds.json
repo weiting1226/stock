@@ -1,0 +1,298 @@
+{
+ "as_of": "2026-08-10",
+ "objective": "sharpe",
+ "period": {
+  "start": "2011-08-10",
+  "end": "2026-08-10"
+ },
+ "candidates": 142,
+ "in_sample_best": {
+  "label": "T+0.6/S-0.4/B0.15",
+  "tqqq_center": 0.6,
+  "sgov_center": -0.4,
+  "buffer": 0.15,
+  "metrics": {
+   "total_return_pct": 6324.68,
+   "cagr_pct": 31.99,
+   "volatility_pct": 31.64,
+   "sharpe": 1.039,
+   "max_drawdown_pct": -41.8,
+   "win_rate_pct": 55.09,
+   "years": 15.0,
+   "days": 3770,
+   "rebalances": 105
+  },
+  "warning": "在同一段歷史上挑出來的最佳值，必然偏樂觀，不可當成預期績效"
+ },
+ "walk_forward": {
+  "metrics": {
+   "total_return_pct": 720.48,
+   "cagr_pct": 19.9,
+   "volatility_pct": 28.91,
+   "sharpe": 0.777,
+   "max_drawdown_pct": -36.5,
+   "win_rate_pct": 55.46,
+   "years": 11.59,
+   "days": 2905
+  },
+  "picks": [
+   {
+    "year": 2015,
+    "label": "T+0.6/S+0.0/B0.00",
+    "tqqq_center": 0.6,
+    "sgov_center": 0.0,
+    "buffer": 0.0,
+    "train_score": 1.22,
+    "train_cagr_pct": 43.43,
+    "test_return_pct": 14.22
+   },
+   {
+    "year": 2016,
+    "label": "T+0.6/S+0.0/B0.00",
+    "tqqq_center": 0.6,
+    "sgov_center": 0.0,
+    "buffer": 0.0,
+    "train_score": 1.066,
+    "train_cagr_pct": 36.09,
+    "test_return_pct": -17.66
+   },
+   {
+    "year": 2017,
+    "label": "T+0.2/S+0.0/B0.00",
+    "tqqq_center": 0.2,
+    "sgov_center": 0.0,
+    "buffer": 0.0,
+    "train_score": 0.784,
+    "train_cagr_pct": 25.73,
+    "test_return_pct": 112.8
+   },
+   {
+    "year": 2018,
+    "label": "T+0.8/S-1.0/B0.10",
+    "tqqq_center": 0.8,
+    "sgov_center": -1.0,
+    "buffer": 0.1,
+    "train_score": 1.068,
+    "train_cagr_pct": 27.75,
+    "test_return_pct": 24.58
+   },
+   {
+    "year": 2019,
+    "label": "T+0.8/S+0.0/B0.10",
+    "tqqq_center": 0.8,
+    "sgov_center": 0.0,
+    "buffer": 0.1,
+    "train_score": 1.109,
+    "train_cagr_pct": 28.44,
+    "test_return_pct": 5.39
+   },
+   {
+    "year": 2020,
+    "label": "T+0.8/S-1.0/B0.10",
+    "tqqq_center": 0.8,
+    "sgov_center": -1.0,
+    "buffer": 0.1,
+    "train_score": 1.103,
+    "train_cagr_pct": 27.2,
+    "test_return_pct": 75.33
+   },
+   {
+    "year": 2021,
+    "label": "T+0.8/S-0.4/B0.10",
+    "tqqq_center": 0.8,
+    "sgov_center": -0.4,
+    "buffer": 0.1,
+    "train_score": 1.224,
+    "train_cagr_pct": 33.74,
+    "test_return_pct": 11.81
+   },
+   {
+    "year": 2022,
+    "label": "T+0.6/S-0.2/B0.00",
+    "tqqq_center": 0.6,
+    "sgov_center": -0.2,
+    "buffer": 0.0,
+    "train_score": 1.188,
+    "train_cagr_pct": 42.48,
+    "test_return_pct": -25.12
+   },
+   {
+    "year": 2023,
+    "label": "T+0.6/S-0.2/B0.00",
+    "tqqq_center": 0.6,
+    "sgov_center": -0.2,
+    "buffer": 0.0,
+    "train_score": 1.054,
+    "train_cagr_pct": 34.79,
+    "test_return_pct": 17.2
+   },
+   {
+    "year": 2024,
+    "label": "T+0.6/S-0.4/B0.00",
+    "tqqq_center": 0.6,
+    "sgov_center": -0.4,
+    "buffer": 0.0,
+    "train_score": 1.051,
+    "train_cagr_pct": 33.74,
+    "test_return_pct": 27.02
+   },
+   {
+    "year": 2025,
+    "label": "T+0.4/S-0.4/B0.20",
+    "tqqq_center": 0.4,
+    "sgov_center": -0.4,
+    "buffer": 0.2,
+    "train_score": 1.064,
+    "train_cagr_pct": 38.58,
+    "test_return_pct": 20.12
+   },
+   {
+    "year": 2026,
+    "label": "T+0.4/S-0.4/B0.20",
+    "tqqq_center": 0.4,
+    "sgov_center": -0.4,
+    "buffer": 0.2,
+    "train_score": 1.046,
+    "train_cagr_pct": 37.2,
+    "test_return_pct": 18.95
+   }
+  ],
+  "note": "每一年的門檻只用該年之前的資料選出；這才是這套方法真正的成績"
+ },
+ "current_default": {
+  "tqqq_center": 0.4,
+  "sgov_center": -0.4,
+  "buffer": 0.15,
+  "metrics": {
+   "total_return_pct": 7554.39,
+   "cagr_pct": 33.54,
+   "volatility_pct": 36.82,
+   "sharpe": 0.973,
+   "max_drawdown_pct": -47.04,
+   "win_rate_pct": 55.09,
+   "years": 15.0,
+   "days": 3770,
+   "rebalances": 113
+  },
+  "metrics_same_window_as_walk_forward": {
+   "total_return_pct": 2179.13,
+   "cagr_pct": 30.96,
+   "volatility_pct": 36.16,
+   "sharpe": 0.933,
+   "max_drawdown_pct": -47.04,
+   "win_rate_pct": 55.72,
+   "years": 11.59,
+   "days": 2904,
+   "rebalances": 87
+  }
+ },
+ "qqq_buy_and_hold": {
+  "metrics": {
+   "total_return_pct": 1317.36,
+   "cagr_pct": 19.33,
+   "volatility_pct": 20.8,
+   "sharpe": 0.955,
+   "max_drawdown_pct": -35.62,
+   "win_rate_pct": 55.69,
+   "years": 15.0,
+   "days": 3771
+  },
+  "metrics_same_window_as_walk_forward": {
+   "total_return_pct": 610.71,
+   "cagr_pct": 18.43,
+   "volatility_pct": 22.01,
+   "sharpe": 0.881,
+   "max_drawdown_pct": -35.62,
+   "win_rate_pct": 55.87,
+   "years": 11.59,
+   "days": 2905
+  }
+ },
+ "comparison_window": {
+  "walk_forward_start": "2015-01-05",
+  "note": "逐年前進需留訓練期，樣本外從第 5 年才開始；同期欄位才可直接比較"
+ },
+ "plateau": {
+  "best_score": 1.039,
+  "median_score": 0.94,
+  "z_vs_all": 1.71,
+  "expected_z_from_noise_alone": 3.15,
+  "best_is_within_noise": true,
+  "score_spread": 0.318,
+  "score_sd": 0.0578,
+  "top_n": 10,
+  "top_score_spread": 0.019,
+  "top_params": [
+   {
+    "label": "T+0.6/S-0.4/B0.15",
+    "score": 1.039,
+    "tqqq_center": 0.6,
+    "sgov_center": -0.4,
+    "buffer": 0.15
+   },
+   {
+    "label": "T+0.6/S-1.0/B0.00",
+    "score": 1.035,
+    "tqqq_center": 0.6,
+    "sgov_center": -1.0,
+    "buffer": 0.0
+   },
+   {
+    "label": "T+0.6/S-0.8/B0.00",
+    "score": 1.035,
+    "tqqq_center": 0.6,
+    "sgov_center": -0.8,
+    "buffer": 0.0
+   },
+   {
+    "label": "T+0.4/S-0.4/B0.20",
+    "score": 1.034,
+    "tqqq_center": 0.4,
+    "sgov_center": -0.4,
+    "buffer": 0.2
+   },
+   {
+    "label": "T+0.6/S-1.0/B0.15",
+    "score": 1.026,
+    "tqqq_center": 0.6,
+    "sgov_center": -1.0,
+    "buffer": 0.15
+   },
+   {
+    "label": "T+0.4/S-1.0/B0.20",
+    "score": 1.025,
+    "tqqq_center": 0.4,
+    "sgov_center": -1.0,
+    "buffer": 0.2
+   },
+   {
+    "label": "T+0.6/S-0.4/B0.00",
+    "score": 1.023,
+    "tqqq_center": 0.6,
+    "sgov_center": -0.4,
+    "buffer": 0.0
+   },
+   {
+    "label": "T+0.6/S+0.0/B0.00",
+    "score": 1.022,
+    "tqqq_center": 0.6,
+    "sgov_center": 0.0,
+    "buffer": 0.0
+   },
+   {
+    "label": "T+0.6/S-0.8/B0.15",
+    "score": 1.021,
+    "tqqq_center": 0.6,
+    "sgov_center": -0.8,
+    "buffer": 0.15
+   },
+   {
+    "label": "T+0.6/S-0.4/B0.10",
+    "score": 1.02,
+    "tqqq_center": 0.6,
+    "sgov_center": -0.4,
+    "buffer": 0.1
+   }
+  ]
+ }
+}

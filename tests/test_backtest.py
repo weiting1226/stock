@@ -535,3 +535,73 @@ def test_buffer_actually_reduces_switching_versus_no_buffer():
     without = _run_allin(scores, allin.AllInRules(buffer=0.0))
     switches = lambda w: (w["state"] != w["state"].shift()).sum()
     assert switches(with_buf) < switches(without)
+
+
+# --- 門檻搜尋：防止自欺 -----------------------------------------------------
+
+def test_candidate_grid_rejects_overlapping_or_inverted_thresholds():
+    """現金線必須低於槓桿線，而且緩衝區不能重疊到沒有中間帶。"""
+    from backtest import optimize
+    for c in optimize.candidate_rules():
+        r = c.rules
+        assert r.sgov_center < r.tqqq_center
+        assert r.qqq_enter < r.tqqq_exit          # 中間仍有 QQQ 的空間
+        assert r.recovery_enter >= r.tqqq_exit    # 不會剛進場就出場
+
+
+def test_walk_forward_never_picks_parameters_using_the_test_year(monkeypatch):
+    """逐年前進的全部意義就在這裡：選參數時不能看到測試年度。
+
+    做法上是把 search 攔下來，檢查它拿到的訓練期是否真的都早於測試年度。
+    """
+    from backtest import optimize
+    seen = []
+    real_search = optimize.search
+
+    def spy(weights_by_label, prices, rf, window, *a, **kw):
+        seen.append(window)
+        return real_search(weights_by_label, prices, rf, window, *a, **kw)
+
+    monkeypatch.setattr(optimize, "search", spy)
+
+    idx = pd.bdate_range("2015-01-02", periods=252 * 8)
+    comp = pd.DataFrame({"composite_score": np.linspace(-1, 1, len(idx))}, index=idx)
+    ga, gb = _no_gates(idx)
+    px = pd.DataFrame({
+        "QQQ": np.linspace(100, 300, len(idx)),
+        "TQQQ": np.linspace(100, 900, len(idx)),
+        "SGOV": np.linspace(100, 110, len(idx)),
+    }, index=idx)
+    rf = px["SGOV"].pct_change().fillna(0.0)
+    # 候選縮到兩組，測的是流程不是效能
+    monkeypatch.setattr(optimize, "candidate_rules", lambda: [
+        optimize.Candidate(allin_rules, label)
+        for allin_rules, label in [
+            (__import__("backtest.allin", fromlist=["x"]).AllInRules(), "A"),
+            (__import__("backtest.allin", fromlist=["x"]).AllInRules(buffer=0.3), "B"),
+        ]
+    ])
+    out = optimize.walk_forward(comp, ga, gb, px, rf, min_train_years=4)
+
+    years = [p["year"] for p in out["picks"]]
+    assert years, "應該至少有一個測試年度"
+    for window, y in zip(seen, years):
+        assert window.max().year < y, f"{y} 年的參數用到了當年或更晚的資料"
+
+
+def test_plateau_reports_whether_the_best_is_within_noise():
+    """試 n 組參數，就算完全沒差別，最好的也一定比中位數高一截。
+    不跟雜訊基準比，就會把純粹的多重比較效應當成發現。"""
+    from backtest import optimize
+
+    class _C:
+        def __init__(self, label):
+            self.label = label
+            self.rules = type("R", (), {"tqqq_center": 0.4, "sgov_center": -0.4, "buffer": 0.15})()
+
+    rng = np.random.default_rng(0)
+    noise = sorted(rng.normal(0, 1, 150), reverse=True)     # 純雜訊，沒有真訊號
+    ranked = [(_C(f"c{i}"), {"sharpe": v}, v) for i, v in enumerate(noise)]
+    p = optimize.plateau(ranked)
+    assert p["best_is_within_noise"] is True
+    assert p["expected_z_from_noise_alone"] > 2
