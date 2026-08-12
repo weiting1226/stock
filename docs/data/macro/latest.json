@@ -1,6 +1,6 @@
 {
  "as_of": "2026-08-12",
- "generated_at": "2026-08-12T13:38:06Z",
+ "generated_at": "2026-08-12T13:44:51Z",
  "categories": {
   "growth": "① 成長動能",
   "labor": "② 就業市場",
@@ -741,6 +741,18 @@
     "min_lag_days": 11,
     "max_lag_days": 619,
     "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   },
+   "news": {
+    "summary_zh": "2026年6月消費者物價指數季調後較上月下降0.4%，是自2020年4月以來最大單月跌幔；未經季調之12個月漲幅為3.5%。能源指數大跌5.7%為主要拉低因素，其中汽油下跌9.7%；食品指數則上漲0.2%。核心物價（不含食品與能源）當月持平，住宅指數僅上漲0.1%。",
+    "drivers": [
+     "能源指數下降5.7%（汽油下跌9.7%）",
+     "食品指數上漲0.2%",
+     "住宅指數上漲0.1%",
+     "汽車保險、通訊、成衣、醫療保健等指數下降"
+    ],
+    "evidence": "The Consumer Price Index for All Urban Consumers (CPI-U) decreased 0.4 percent on a seasonally adjusted basis in June after rising 0.5 percent in May",
+    "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/cpi.nr0.htm",
+    "model": "claude-sonnet-5"
    }
   },
   {
@@ -1583,6 +1595,18 @@
     "min_lag_days": 11,
     "max_lag_days": 619,
     "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   },
+   "news": {
+    "summary_zh": "文件顯示密大消費者信心指數在2026年6月為49.5，低於去年同期水準，反映消費者對經濈瀰於通膨居高不下與物價持續上漲的悲觀情緒。隨後7月數據回升至55.2，較6月上升近12%，但整體信心仍較去年同期低約11%。",
+    "drivers": [
+     "五年來持續居高的通膨",
+     "持續的高物價",
+     "消費者關注購買力等民生議題",
+     "政治或軍事發展相對次要"
+    ],
+    "evidence": "Despite recent gains, sentiment is 11% below a year ago, reflecting a generally somber view of the economy amid five years of elevated inflation and persistent high prices.",
+    "source_url": "http://www.sca.isr.umich.edu/",
+    "model": "claude-sonnet-5"
    }
   },
   {
@@ -5100,12 +5124,11 @@
  },
  "updated_today": [],
  "news": {
-  "attached": 11,
+  "attached": 13,
   "notes": [
-   "GDPC1：模型回應中找不到 JSON；前 200 字：''",
+   "GDPC1：模型回應在 max_tokens=2048 處被截斷，JSON 不完整——這不是模型出錯，是額度不夠（已輸出 0 字）",
    "ICSA：無對應的官方統計發布（市場價格類指標）",
-   "SAHMREALTIME：Anthropic API 回應 529：{\"type\":\"error\",\"error\":{\"type\":\"overloaded_error\",\"message\":\"Overloaded\"},\"request_id\":\"req_011CdxwjLwQLrHHyCUqP33gL\"}",
-   "CPIAUCSL：模型回應中找不到 JSON；前 200 字：'{\\n  \"found\": true,\\n  \"summary_zh\": \"2026年6月美國CPI季調後較上月下降0.4%，為2020年4月以來最大單月跌幅，主因能源指數大幅下滑抵銷了住房與食品價格的上漲。未經季調的整體指數較去年同期'",
+   "SAHMREALTIME：模型判定文件內容不足以摘要這一期的數字",
    "PCEPILFE：文件未提到這一期（參考期 2026-06-01，預期出現「June」「2026」），研判為舊一期的發布或過期快照，不送模型",
    "T5YIFR：無對應的官方統計發布（市場價格類指標）",
    "T10YIE：無對應的官方統計發布（市場價格類指標）",
@@ -5115,13 +5138,12 @@
    "T10Y3M：無對應的官方統計發布（市場價格類指標）",
    "NFCI：無對應的官方統計發布（市場價格類指標）",
    "BAMLH0A0HYM2：無對應的官方統計發布（市場價格類指標）",
-   "UMCSENT：模型回應中找不到 JSON；前 200 字：''",
    "CSUSHPINSA：無對應的官方統計發布（市場價格類指標）"
   ],
   "failure_kinds": {
-   "model": 4,
+   "model": 1,
    "no_source": 10,
-   "content": 1
+   "content": 2
   },
   "method": "摘要取自各指標的**官方統計發布原文**（BLS／BEA／Census／Fed 等），不是二手新聞。抓不到文件就不呼叫模型——讓模型憑記憶說明「上個月 CPI 為什麼上漲」，會得到一段完全通順而且是編造的解釋。模型提供的原文佐證必須逐字出現在文件中，否則整份摘要作廢。"
  },

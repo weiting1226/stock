@@ -138,5 +138,33 @@
   "model": "claude-sonnet-5",
   "reference_date": "2026-07-01",
   "fred_id": "FEDFUNDS"
+ },
+ "CPIAUCSL@2026-06-01": {
+  "summary_zh": "2026年6月消費者物價指數季調後較上月下降0.4%，是自2020年4月以來最大單月跌幔；未經季調之12個月漲幅為3.5%。能源指數大跌5.7%為主要拉低因素，其中汽油下跌9.7%；食品指數則上漲0.2%。核心物價（不含食品與能源）當月持平，住宅指數僅上漲0.1%。",
+  "drivers": [
+   "能源指數下降5.7%（汽油下跌9.7%）",
+   "食品指數上漲0.2%",
+   "住宅指數上漲0.1%",
+   "汽車保險、通訊、成衣、醫療保健等指數下降"
+  ],
+  "evidence": "The Consumer Price Index for All Urban Consumers (CPI-U) decreased 0.4 percent on a seasonally adjusted basis in June after rising 0.5 percent in May",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/cpi.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-06-01",
+  "fred_id": "CPIAUCSL"
+ },
+ "UMCSENT@2026-06-01": {
+  "summary_zh": "文件顯示密大消費者信心指數在2026年6月為49.5，低於去年同期水準，反映消費者對經濈瀰於通膨居高不下與物價持續上漲的悲觀情緒。隨後7月數據回升至55.2，較6月上升近12%，但整體信心仍較去年同期低約11%。",
+  "drivers": [
+   "五年來持續居高的通膨",
+   "持續的高物價",
+   "消費者關注購買力等民生議題",
+   "政治或軍事發展相對次要"
+  ],
+  "evidence": "Despite recent gains, sentiment is 11% below a year ago, reflecting a generally somber view of the economy amid five years of elevated inflation and persistent high prices.",
+  "source_url": "http://www.sca.isr.umich.edu/",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-06-01",
+  "fred_id": "UMCSENT"
  }
 }
