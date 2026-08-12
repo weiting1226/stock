@@ -62,21 +62,45 @@ def test_excess_return_uses_the_same_window_for_the_benchmark():
         assert xlk["excess"][key] == pytest.approx(xlk["returns"][key] - bench[key], abs=1e-6)
 
 
+def test_relative_strength_does_not_depend_on_how_much_history_was_fetched():
+    """第一版把比值標準化成「起點 = 100」，而起點就是 HISTORY_DAYS 決定的那一天。
+    改一個設定常數，所有類股的 RS 就整批位移、四象限歸類跟著變。
+
+    實測 2026-08-11 的第一版結果：11 檔裡 9 檔 RS < 100，象限嚴重偏向左側，
+    純粹因為那段期間大盤贏過多數類股——那不是輪動訊息，是錨點造成的假象。
+    """
+    idx = pd.bdate_range("2024-01-01", periods=300)
+    sector = pd.Series(np.r_[np.linspace(100, 95, 150), np.linspace(95, 120, 150)], index=idx)
+    bench = pd.Series(np.linspace(100, 115, 300), index=idx)
+
+    full = metrics.relative_strength(sector, bench)
+    short = metrics.relative_strength(sector.iloc[-200:], bench.iloc[-200:])
+    assert full.iloc[-1] == pytest.approx(short.iloc[-1], abs=1e-9)
+
+
+def test_relative_strength_is_100_when_a_sector_tracks_its_own_recent_trend():
+    """RS = 100 的意思是「與自己近期的相對強弱持平」，不是「與大盤持平」。"""
+    idx = pd.bdate_range("2024-01-01", periods=200)
+    # 類股與大盤等比例同步 -> 比值恆定 -> 恆等於自己的移動平均
+    sector = pd.Series(np.linspace(100, 150, 200), index=idx)
+    bench = pd.Series(np.linspace(50, 75, 200), index=idx)
+    assert metrics.relative_strength(sector, bench).iloc[-1] == pytest.approx(100.0, abs=1e-6)
+
+
 def test_relative_strength_only_uses_days_where_both_series_exist():
     """用前向填補補其中一邊的缺口，會造出「類股不動而基準在動」的假訊號。"""
     idx = pd.bdate_range("2025-01-02", periods=10)
     sector = pd.Series([np.nan] * 5 + [100.0, 101, 102, 103, 104], index=idx)
     bench = pd.Series(np.linspace(100, 110, 10), index=idx)
-    rs = metrics.relative_strength(sector, bench)
-    assert len(rs) == 5
-    assert rs.iloc[0] == pytest.approx(100.0)
+    # 移動平均需要足夠樣本，缺口那幾天不該被填補進來
+    assert len(metrics.price_ratio(sector, bench)) == 5
 
 
 def test_relative_strength_survives_a_flat_market():
-    """大盤不動時 RS 仍要算得出來，不能除到零。"""
-    idx = pd.bdate_range("2025-01-02", periods=10)
-    rs = metrics.relative_strength(pd.Series(np.linspace(100, 110, 10), index=idx),
-                                   pd.Series([100.0] * 10, index=idx))
+    """大盤不動而類股在漲時，RS 要高於 100，且不能除到零。"""
+    idx = pd.bdate_range("2025-01-02", periods=60)
+    rs = metrics.relative_strength(pd.Series(np.linspace(100, 130, 60), index=idx),
+                                   pd.Series([100.0] * 60, index=idx))
     assert rs.iloc[-1] > 100
 
 

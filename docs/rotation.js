@@ -91,7 +91,7 @@ function renderQuadrant(r) {
         },
       },
       scales: {
-        x: { title: { display: true, text: "相對強弱 RS（100 = 與大盤同步）", color: cssVar("--text-muted") },
+        x: { title: { display: true, text: "相對強弱 RS（100 = 與自身 63 日均值持平）", color: cssVar("--text-muted") },
              grid: { color: cssVar("--hairline") },
              ticks: { color: cssVar("--text-muted"), font: { size: 11 } } },
         y: { title: { display: true, text: "RS 10 日動能 (%)", color: cssVar("--text-muted") },
