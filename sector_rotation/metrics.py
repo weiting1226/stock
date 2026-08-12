@@ -16,7 +16,7 @@ from typing import Optional
 import numpy as np
 import pandas as pd
 
-from .config import RS_MOMENTUM_WINDOW, WINDOWS
+from .config import RS_MOMENTUM_WINDOW, RS_TREND_WINDOW, WINDOWS
 
 
 def window_return(prices: pd.Series, days: int) -> Optional[float]:
@@ -30,8 +30,8 @@ def window_return(prices: pd.Series, days: int) -> Optional[float]:
     return float((s.iloc[-1] / prior - 1) * 100)
 
 
-def relative_strength(sector: pd.Series, benchmark: pd.Series) -> pd.Series:
-    """相對強弱比率＝類股價格 ÷ 基準價格，並標準化為起點 100。
+def price_ratio(sector: pd.Series, benchmark: pd.Series) -> pd.Series:
+    """類股價格 ÷ 基準價格的原始比值。
 
     只在兩者**都有值**的交易日上計算。用前向填補去補其中一邊的缺口，
     會在那幾天造出「類股不動而基準在動」的假訊號。
@@ -39,8 +39,29 @@ def relative_strength(sector: pd.Series, benchmark: pd.Series) -> pd.Series:
     both = pd.concat([sector.rename("s"), benchmark.rename("b")], axis=1).dropna()
     if both.empty or (both["b"] == 0).any():
         return pd.Series(dtype=float)
-    ratio = both["s"] / both["b"]
-    return ratio / ratio.iloc[0] * 100
+    return both["s"] / both["b"]
+
+
+def relative_strength(sector: pd.Series, benchmark: pd.Series,
+                      window: int = RS_TREND_WINDOW) -> pd.Series:
+    """相對強弱指標：比值相對它**自己的移動平均**，100 為持平。
+
+    第一版是把比值標準化成「起點 = 100」，那有一個嚴重的問題：起點就是抓取
+    視窗的第一天，而那個日期是設定檔裡的一個常數。改了 HISTORY_DAYS，
+    每一檔的 RS 數值就整批位移，四象限的歸類也跟著變——「RS ≥ 100」實際上
+    只是在說「自從我碰巧開始抓資料的那天以來贏過大盤」。
+
+    實測 2026-08-11 的第一版結果：11 檔裡有 9 檔 RS < 100，象限嚴重偏向左側，
+    純粹因為那段期間大盤贏過多數類股。那不是輪動訊息，是錨點造成的假象。
+
+    改成跟自己的移動平均比之後，數值不再依賴視窗起點，
+    「RS ≥ 100」的意思變成「這個類股的相對強弱高於它自己近期的水準」。
+    """
+    ratio = price_ratio(sector, benchmark)
+    if ratio.empty:
+        return pd.Series(dtype=float)
+    ma = ratio.rolling(window, min_periods=max(10, window // 3)).mean()
+    return (ratio / ma * 100).dropna()
 
 
 def rs_momentum(rs: pd.Series, days: int = RS_MOMENTUM_WINDOW) -> Optional[float]:
