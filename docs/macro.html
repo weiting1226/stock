@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>模組五：總體經濟觀察 — 儀表板</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="wrap">
+  <nav class="module-nav">
+    <a href="index.html">模組一：市場流動性監控</a>
+    <a href="valuation.html">模組二：分析師估值比較</a>
+    <a href="backtest.html">模組三：策略回測</a>
+    <a href="rotation.html">模組四：類股資金輪動</a>
+    <a href="macro.html" class="active">模組五：總體經濟觀察</a>
+  </nav>
+
+  <header class="top">
+    <div>
+      <h1>美股總體經濟指標觀察</h1>
+      <div class="subtitle">成長／就業／通膨／利率／金融條件／消費房市；本頁純資料呈現，非投資建議</div>
+    </div>
+  </header>
+
+  <div id="error-slot"></div>
+
+  <section class="card">
+    <div class="stat-row" id="stat-row"></div>
+    <p class="subtitle" id="asof-note" style="margin-bottom:0"></p>
+  </section>
+
+  <div id="warning-slot"></div>
+
+  <section class="card">
+    <h2>各類別的三個月方向</h2>
+    <div class="chart-wrap"><canvas id="summary-chart"></canvas></div>
+    <p class="subtitle">每一類有幾項在改善、幾項在惡化（以三個月變化判定）。
+    通膨與殖利率這類沒有單一方向好壞的指標不計入——硬套「改善／惡化」會誤導。</p>
+  </section>
+
+  <section class="card">
+    <h2>指標明細</h2>
+    <div class="filter-bar">
+      <label>類別
+        <select id="category-filter"><option value="">全部類別</option></select>
+      </label>
+      <label>排序
+        <select id="sort-by">
+          <option value="category">依類別</option>
+          <option value="lag">依資料落後天數</option>
+          <option value="percentile">依歷史百分位</option>
+        </select>
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" id="only-stale" /> 只看過期的
+      </label>
+    </div>
+    <div class="table-scroll">
+      <table id="macro-table">
+        <thead>
+          <tr>
+            <th>指標</th><th class="num">最新值</th><th>參考期</th>
+            <th class="num">落後</th><th class="num">3個月變化</th>
+            <th class="num">12個月變化</th><th class="num">20年百分位</th>
+            <th>方向</th><th>走勢</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="subtitle" id="table-note"></p>
+  </section>
+
+  <section class="card">
+    <h2>單一指標走勢</h2>
+    <div class="filter-bar">
+      <label>選擇指標
+        <select id="series-picker"></select>
+      </label>
+    </div>
+    <div class="chart-wrap"><canvas id="series-chart"></canvas></div>
+    <p class="subtitle" id="series-note"></p>
+  </section>
+
+  <footer class="disclaimer">
+    <p><strong>非投資建議。</strong>本頁為 FRED 公開總體經濟數據的機械化呈現，提供者非持牌投資顧問。</p>
+    <p><strong>「最新值」永遠是過去某一期的數字。</strong>CPI 的 7 月數字要到 8 月中才公布、Case-Shiller 房價落後約兩個月。
+    每一列都標明參考期與落後天數，把它當成「今天的狀況」是最常見的誤讀。</p>
+    <p><strong>總體數據會被事後修正</strong>（GDP 首次估計之後還有兩次修正，非農就業每月都會回頭調整前兩個月）。
+    本頁顯示的一律是目前最新的修正版本，因此與當時公布的原始數字不同。</p>
+    <p id="method-note"></p>
+    <p>資料來源：FRED（Federal Reserve Economic Data）。程式碼：<a href="https://github.com/weiting1226/stock">GitHub repository</a></p>
+  </footer>
+</div>
+
+<script src="vendor/chart.umd.js"></script>
+<script src="macro.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+name: Macro monitor
+
+# 每日執行。多數序列是月頻或週頻，但日頻的殖利率與通膨預期每天都會更新，
+# 而且「這一期還沒公布」本身就是要呈現的資訊（畫面會標出落後天數）。
+on:
+  schedule:
+    - cron: "0 12 * * 1-5"      # 週一至週五 12:00 UTC（美東早上，多數數據於此前公布）
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: macro-monitor
+  cancel-in-progress: false
+
+jobs:
+  macro:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run macro monitor
+        run: python3 scripts/run_macro.py -v
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data/macro
+          if git diff --cached --quiet; then
+            echo "no changes"
+            exit 0
+          fi
+          git commit -m "chore: macro monitor update"
+          for attempt in 1 2 3 4; do
+            git pull --rebase origin main && git push && exit 0
+            echo "推送失敗，重試 $attempt"
+            sleep $((attempt * 3))
+          done
+          exit 1
