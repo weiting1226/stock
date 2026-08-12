@@ -983,7 +983,6 @@ BKKT-W,"Bakkt, Inc. Warrants to purchase Class A Common Stock, each Warrant enti
 BKNG,Booking Holdings Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 BKR,Baker Hughes Company - Common Stock,NASDAQ,False,common,nasdaqtrader
 BKSY,BlackSky Technology Inc. Class A Common Stock,N,False,common,nasdaqtrader
-BKSY-W,"BlackSky Technology Inc. Redeemable Warrants, each whole Warrant exercisable for one share of Class A Common Stock",N,False,warrant,nasdaqtrader
 BKT,BlackRock Income Trust Inc. (The),N,False,common,nasdaqtrader
 BKTI,BK Technologies Corporation Common Stock,A,False,common,nasdaqtrader
 BKU,"BankUnited, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -1594,7 +1593,7 @@ CNF,"CNFinance Holdings Limited American Depositary Shares, each representing tw
 CNH,CNH Industrial N.V. Common Shares,N,False,common,nasdaqtrader
 CNI,Canadian National Railway Company Common Stock,N,False,common,nasdaqtrader
 CNK,"Cinemark Holdings Inc Cinemark Holdings, Inc. Common Stock",N,False,common,nasdaqtrader
-CNL,Collective Mining Ltd. Common Shares,A,False,common,nasdaqtrader
+CNL,Collective Mining Ltd. - Common Stock,NASDAQ,False,common,nasdaqtrader
 CNM,"Core & Main, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 CNMD,CONMED Corporation Common Stock,N,False,common,nasdaqtrader
 CNNE,"Cannae Holdings, Inc. Common Stock",N,False,common,nasdaqtrader
