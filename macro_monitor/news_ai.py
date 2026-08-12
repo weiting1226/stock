@@ -36,19 +36,29 @@ log = logging.getLogger(__name__)
 
 # 各指標對應的官方統計發布。用發布機構的原始新聞稿，不用二手媒體。
 # 一個指標可以有多個候選；依序嘗試，取第一個抓得到內容的。
-# ⚠ 實測 2026-08（GitHub Actions）：**bls.gov 全站對資料中心 IP 回 403**。
-# CPI、就業報告、JOLTS 六條指標因此都拿不到官方發布文字。這與 ETF.com、
-# CME 是同一種情況，換路徑沒有用（403 出現在 host 層級，三個不同路徑皆然）。
-# 保留這些設定是為了讓失敗原因能被歸類與呈現，而不是假裝沒有這個來源；
-# 若日後改由可存取的環境執行就會自動生效。
+# 已確認取不到、且決定不再嘗試的來源。
+#
+# 實測 2026-08（GitHub Actions）：**bls.gov 全站對資料中心 IP 回 403**，
+# 三個不同路徑皆然，是 host 層級的封鎖，換路徑沒有用（同 ETF.com、CME）。
+# 經確認後決定接受「這幾條沒有摘要」。
+#
+# 因此把它們列成「已知無法取得」而不是留在 RELEASE_SOURCES 裡：留著的話，
+# 每天會多打六次註定失敗的請求，並且在失敗清單裡佔六個位置——把一個
+# 「已經決定接受的狀態」每天當成新問題報一次。
+#
+# 但也不是靜靜刪掉：畫面仍會說明這幾條為什麼沒有摘要，讓「刻意不做」與
+# 「壞掉了」分得出來。日後若改由可存取的環境執行，把項目移回上面即可。
+UNAVAILABLE_SOURCES = {
+    "CPIAUCSL": "bls.gov 對資料中心 IP 回 403（已確認接受無摘要）",
+    "CPILFESL": "bls.gov 對資料中心 IP 回 403（已確認接受無摘要）",
+    "UNRATE": "bls.gov 對資料中心 IP 回 403（已確認接受無摘要）",
+    "PAYEMS": "bls.gov 對資料中心 IP 回 403（已確認接受無摘要）",
+    "CIVPART": "bls.gov 對資料中心 IP 回 403（已確認接受無摘要）",
+    "SAHMREALTIME": "bls.gov 對資料中心 IP 回 403（已確認接受無摘要）",
+    "JTSJOL": "bls.gov 對資料中心 IP 回 403（已確認接受無摘要）",
+}
+
 RELEASE_SOURCES = {
-    "CPIAUCSL": ["https://www.bls.gov/news.release/cpi.nr0.htm"],
-    "CPILFESL": ["https://www.bls.gov/news.release/cpi.nr0.htm"],
-    "UNRATE": ["https://www.bls.gov/news.release/empsit.nr0.htm"],
-    "PAYEMS": ["https://www.bls.gov/news.release/empsit.nr0.htm"],
-    "CIVPART": ["https://www.bls.gov/news.release/empsit.nr0.htm"],
-    "SAHMREALTIME": ["https://www.bls.gov/news.release/empsit.nr0.htm"],
-    "JTSJOL": ["https://www.bls.gov/news.release/jolts.nr0.htm"],
     "INDPRO": ["https://www.federalreserve.gov/releases/g17/current/default.htm"],
     "HOUST": ["https://www.census.gov/construction/nrc/current/index.html"],
     "RSAFS": ["https://www.census.gov/retail/index.html"],
@@ -77,6 +87,7 @@ RELEASE_SOURCES = {
 # 同一個原因只能有一種說法。實測分類器漏判，正是因為我在兩處把同一件事
 # 寫成「沒有對應的官方統計發布」與「無對應的官方統計發布」。
 NO_SOURCE_REASON = "無對應的官方統計發布（市場價格類指標）"
+UNAVAILABLE_REASON = "來源已確認無法取得，依決定不再嘗試"
 
 MIN_DOCUMENT_CHARS = 800
 MAX_DOCUMENT_CHARS = 14000
@@ -117,6 +128,8 @@ _PROMPT = """你是總體經濟統計發布的摘要器。以下是「{label}」
 #   content        抓到了但內容不符 —— 網址可能指向入口頁而非發布頁，要檢查
 #   model          模型或 API 出錯 —— 下次會自動重試
 def classify_failure(message: str) -> str:
+    if UNAVAILABLE_REASON in message:
+        return "accepted"
     if "HTTP 403" in message or "HTTP 401" in message:
         return "blocked"
     if NO_SOURCE_REASON in message:
@@ -153,6 +166,8 @@ def fetch_release_document(fred_id: str, timeout: int = 30, session=None) -> tup
     錯誤訊息要帶出每個候選網址的結果——抓不到時，「來源改版了」與
     「這個指標本來就沒有對應發布」必須分得出來。
     """
+    if fred_id in UNAVAILABLE_SOURCES:
+        raise ValueError(f"{fred_id}：{UNAVAILABLE_REASON}——{UNAVAILABLE_SOURCES[fred_id]}")
     urls = RELEASE_SOURCES.get(fred_id)
     if not urls:
         raise ValueError(f"{fred_id}：{NO_SOURCE_REASON}")
@@ -235,6 +250,10 @@ def summarise_updated(
     for fred_id in updated_ids:
         row = by_id.get(fred_id)
         if not row or not row.get("available"):
+            continue
+        if fred_id in UNAVAILABLE_SOURCES:
+            # 已決定接受沒有摘要——不發請求、不呼叫模型，只留下說明
+            notes.append(f"{fred_id}：{UNAVAILABLE_REASON}——{UNAVAILABLE_SOURCES[fred_id]}")
             continue
         if fred_id not in RELEASE_SOURCES:
             notes.append(f"{fred_id}：{NO_SOURCE_REASON}")

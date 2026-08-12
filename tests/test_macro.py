@@ -350,6 +350,11 @@ def _answer(**kw):
 _ROW = {"fred_id": "CPIAUCSL", "label": "CPI 消費者物價", "reference_date": "2026-07-01",
         "value": 3.6, "unit": "%", "change_3m": 0.4, "available": True}
 
+# CPI 這一條已被歸為「已確認接受無摘要」，不會發出請求。要測抓取與模型路徑，
+# 必須用一條**真的還會去抓**的指標，否則測到的只是短路那一行。
+_FETCHABLE_ROW = {"fred_id": "RSAFS", "label": "零售銷售", "reference_date": "2026-07-01",
+                  "value": 4.1, "unit": "%", "change_3m": 0.6, "available": True}
+
 
 def test_summary_is_accepted_when_the_quote_exists_in_the_document():
     from macro_monitor import news_ai
@@ -389,7 +394,7 @@ def test_a_javascript_shell_page_is_not_sent_to_the_model():
     from macro_monitor import news_ai
     resp = mock.Mock(status_code=200, text="<html><body><div id='app'></div></body></html>")
     with pytest.raises(ValueError, match="內容過短"):
-        news_ai.fetch_release_document("CPIAUCSL", session=mock.Mock(get=lambda *a, **k: resp))
+        news_ai.fetch_release_document("RSAFS", session=mock.Mock(get=lambda *a, **k: resp))
 
 
 def test_market_price_indicators_have_no_release_source():
@@ -414,8 +419,8 @@ def test_fetch_failure_is_reported_per_url():
     from macro_monitor import news_ai
     resp = mock.Mock(status_code=404, text="")
     with pytest.raises(ValueError) as exc:
-        news_ai.fetch_release_document("CPIAUCSL", session=mock.Mock(get=lambda *a, **k: resp))
-    assert "HTTP 404" in str(exc.value) and "bls.gov" in str(exc.value)
+        news_ai.fetch_release_document("RSAFS", session=mock.Mock(get=lambda *a, **k: resp))
+    assert "HTTP 404" in str(exc.value) and "census.gov" in str(exc.value)
 
 
 # --- 摘要儲存 ---------------------------------------------------------------
@@ -469,15 +474,84 @@ def test_every_summary_failure_names_the_indicator():
     from unittest import mock
     from macro_monitor import news_ai
 
-    doc_resp = mock.Mock(status_code=200, text="<p>" + ("Consumer prices data. " * 100) + "</p>")
+    doc_resp = mock.Mock(status_code=200, text="<p>" + ("Retail sales data. " * 100) + "</p>")
     empty = {"content": [{"type": "text", "text": ""}]}
     api_resp = mock.Mock(status_code=200, text="{}")
     api_resp.json.return_value = empty
     session = mock.Mock(get=mock.Mock(return_value=doc_resp),
                         post=mock.Mock(return_value=api_resp))
 
-    _, notes = news_ai.summarise_updated([_ROW], ["CPIAUCSL"], api_key="k", session=session)
-    assert notes and all("CPIAUCSL" in n for n in notes)
+    _, notes = news_ai.summarise_updated([_FETCHABLE_ROW], ["RSAFS"], api_key="k", session=session)
+    assert notes and all("RSAFS" in n for n in notes)
+
+
+# --- 已確認接受無摘要 -------------------------------------------------------
+#
+# BLS 全站對資料中心 IP 回 403，三個路徑皆然，沒有替代來源。經確認後決定接受
+# 這幾條沒有摘要。這一組測試守的是「決定被真的執行了」：不再發請求、不再
+# 呼叫模型，而且在報告上有自己的類別，不跟真正待修的故障混在一起。
+
+_ACCEPTED = ("CPIAUCSL", "CPILFESL", "UNRATE", "PAYEMS", "CIVPART", "SAHMREALTIME", "JTSJOL")
+
+
+@pytest.mark.parametrize("fred_id", _ACCEPTED)
+def test_accepted_sources_make_no_request_at_all(fred_id):
+    """留在來源表裡的話，每天會多打七次註定失敗的請求。決定接受，就要真的不打。"""
+    from unittest import mock
+    from macro_monitor import news_ai
+    session = mock.Mock()
+    with pytest.raises(ValueError) as exc:
+        news_ai.fetch_release_document(fred_id, session=session)
+    assert session.get.call_count == 0
+    assert news_ai.classify_failure(str(exc.value)) == "accepted"
+
+
+@pytest.mark.parametrize("fred_id", _ACCEPTED)
+def test_accepted_sources_are_not_in_the_active_source_table(fred_id):
+    from macro_monitor import news_ai
+    assert fred_id not in news_ai.RELEASE_SOURCES
+    assert fred_id in news_ai.UNAVAILABLE_SOURCES
+
+
+def test_accepted_indicators_skip_the_model_and_keep_an_explanation():
+    """不是靜靜刪掉：畫面仍要說得出為什麼沒有摘要，讓「刻意不做」與
+    「壞掉了」分得出來。"""
+    from unittest import mock
+    from macro_monitor import news_ai
+    session = mock.Mock()
+    out, notes = news_ai.summarise_updated([_ROW], ["CPIAUCSL"], api_key="k", session=session)
+    assert out == {}
+    assert session.get.call_count == 0 and session.post.call_count == 0
+    assert len(notes) == 1
+    assert "CPIAUCSL" in notes[0] and "403" in notes[0]
+    assert news_ai.classify_failure(notes[0]) == "accepted"
+
+
+def test_accepted_is_not_reported_as_a_blocked_failure():
+    """訊息裡同時有「403」與接受字樣。若順序寫反，它會被歸成 blocked，
+    於是每天照樣在「該換來源」那一列出現一次。"""
+    from macro_monitor import news_ai
+    msg = f"CPIAUCSL：{news_ai.UNAVAILABLE_REASON}——bls.gov 對資料中心 IP 回 403（已確認接受無摘要）"
+    assert news_ai.classify_failure(msg) == "accepted"
+
+
+def test_every_failure_kind_has_a_label_on_the_dashboard():
+    """分類器多一種、畫面沒跟上，那一列就只會顯示代碼本身。"""
+    import re
+    from pathlib import Path
+    from macro_monitor import news_ai
+
+    js = Path(__file__).resolve().parents[1] / "docs" / "macro.js"
+    block = re.search(r"const FAILURE_LABEL = \{(.*?)\n\};", js.read_text(), re.S).group(1)
+    labelled = set(re.findall(r"^\s*(\w+):", block, re.M))
+    kinds = {news_ai.classify_failure(m) for m in (
+        f"X：{news_ai.UNAVAILABLE_REASON}——y",
+        "X 官方發布抓取失敗——https://y: HTTP 403",
+        f"X：{news_ai.NO_SOURCE_REASON}",
+        "X：模型判定文件內容不足以摘要這一期的數字",
+        "X：Anthropic API 回應 500",
+    )}
+    assert kinds <= labelled, f"docs/macro.js 缺少這些失敗類別的說明：{kinds - labelled}"
 
 
 @pytest.mark.parametrize("message,expected", [
