@@ -17,7 +17,7 @@ from typing import Optional
 import numpy as np
 import pandas as pd
 
-from .config import PERCENTILE_YEARS, Series
+from .config import DISCONTINUED_MIN_DAYS, DISCONTINUED_MULTIPLE, PERCENTILE_YEARS, Series
 
 log = logging.getLogger(__name__)
 
@@ -74,6 +74,19 @@ def is_stale(last_date, spec: Series, as_of: str) -> bool:
     return (pd.Timestamp(as_of) - pd.Timestamp(last_date)).days > spec.stale_after_days
 
 
+def is_discontinued(last_date, spec: Series, as_of: str) -> bool:
+    """這條序列是「延遲」還是「已經停止更新」。
+
+    兩者的處置完全不同：延遲等就好，停止更新該從清單移除。
+    用門檻的倍數判定而不是固定天數——季頻的 GDP 與日頻的殖利率，
+    「久到不合理」的絕對天數本來就差很多。
+    """
+    if not spec.stale_after_days or last_date is None:
+        return False
+    lag = (pd.Timestamp(as_of) - pd.Timestamp(last_date)).days
+    return lag > max(DISCONTINUED_MIN_DAYS, spec.stale_after_days * DISCONTINUED_MULTIPLE)
+
+
 def direction_label(delta: Optional[float], higher_is_better: Optional[bool]) -> str:
     """把變化方向翻成「改善／惡化」。
 
@@ -117,11 +130,14 @@ def build_indicator(raw: pd.Series, spec: Series, as_of: str) -> dict:
         "reference_date": str(latest_date.date()),
         "lag_days": int((pd.Timestamp(as_of) - latest_date).days),
         "stale": is_stale(latest_date, spec, as_of),
+        "discontinued": is_discontinued(latest_date, spec, as_of),
         "change_3m": None if d3 is None else round(d3, 3),
         "change_12m": (lambda v: None if v is None else round(v, 3))(change_over(values, twelve_m)),
         "direction_3m": direction_label(d3, spec.higher_is_better),
         "percentile_20y": percentile_of_latest(values, freq=spec.freq),
         "higher_is_better": spec.higher_is_better,
+        # 設定檔裡手填的估計值。與觀測值並列，差距就是估計的誤差
+        "publish_lag_days": spec.publish_lag_days,
         "note": spec.note,
     }
 

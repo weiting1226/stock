@@ -65,6 +65,19 @@ function renderStats(r) {
  */
 function renderWarnings(r) {
   let html = "";
+  if (r.updated_today && r.updated_today.length) {
+    html += `<div class="warning-box"><strong>今日新增 ${r.updated_today.length} 期資料。</strong>
+      <div style="margin-top:8px">${r.updated_today.map((s) =>
+        `<div>· ${escapeHtml(s.label)}：新增參考期 ${escapeHtml(s.reference_date)}</div>`
+      ).join("")}</div></div>`;
+  }
+  if (r.discontinued_series && r.discontinued_series.length) {
+    html += `<div class="warning-box"><strong>${r.discontinued_series.length} 條指標研判已停止發布。</strong>
+      落後超過過期門檻四倍且至少一年——這與「延遲」不同，等下去不會有新資料，應從清單移除。
+      <div style="margin-top:8px">${r.discontinued_series.map((s) =>
+        `<div>· ${escapeHtml(s.label)}：最後一期 ${escapeHtml(s.reference_date)}，落後 <strong>${s.lag_days}</strong> 天</div>`
+      ).join("")}</div></div>`;
+  }
   if (r.stale_series && r.stale_series.length) {
     html += `<div class="warning-box"><strong>${r.stale_series.length} 條指標超過預期的發布間隔仍未更新。</strong>
       每條指標的判定門檻依它自己的發布節奏設定（週頻與季頻不能用同一把尺量）。
@@ -217,6 +230,96 @@ function renderSeriesChart(r) {
     `${row.label}（FRED ${row.fred_id}）——顯示的是${what}，單位 ${row.unit || "指數"}。`
     + `參考期 ${row.reference_date}，落後 ${row.lag_days} 天。`
     + (row.note ? `　${row.note}` : "");
+
+  renderAnalysis(r, row);
+}
+
+const AN = {
+  zscore_full: ["z 分數（全期）", 2],
+  zscore_10y: ["z 分數（10年）", 2],
+  acceleration_3m: ["三個月加速度", 3],
+};
+
+/**
+ * 深入分析面板。全部是可查證的量，不壓成單一分數——
+ * 「總經健康度 72 分」那種數字沒有人查得出它是怎麼來的。
+ */
+function renderAnalysis(r, row) {
+  const a = row.analysis || {};
+  const stats = [];
+  Object.entries(AN).forEach(([k, [label, digits]]) => {
+    if (a[k] === undefined || a[k] === null) return;
+    stats.push({ label, value: Number(a[k]).toFixed(digits), signed: Number(a[k]) });
+  });
+  const ex = a.extremes || {};
+  if (ex.position_in_range_pct !== undefined) {
+    stats.push({ label: "歷史區間位置", value: `${ex.position_in_range_pct.toFixed(0)}%`, plain: true });
+  }
+  const vol = a.volatility || {};
+  if (vol.vol_ratio !== undefined) {
+    stats.push({ label: "近期／長期波動", value: vol.vol_ratio.toFixed(2), plain: true });
+  }
+  if (a.observations) stats.push({ label: "觀測期數", value: String(a.observations), plain: true });
+
+  document.getElementById("analysis-stats").innerHTML = stats.map((t) => {
+    const cls = [t.plain ? "" : t.signed > 0 ? "pos" : t.signed < 0 ? "neg" : "",
+                 t.text ? "is-text" : ""].filter(Boolean).join(" ");
+    return `<div class="stat-tile"><div class="stat-value ${cls}">${escapeHtml(t.value)}</div>
+      <div class="stat-label">${escapeHtml(t.label)}</div></div>`;
+  }).join("");
+
+  const parts = [];
+  if (ex.high !== undefined) {
+    parts.push(`<div><strong>歷史極值</strong>：最高 ${ex.high}（${escapeHtml(ex.high_date)}）、`
+      + `最低 ${ex.low}（${escapeHtml(ex.low_date)}）；目前落在區間的 ${ex.position_in_range_pct.toFixed(0)}%。</div>`);
+  }
+  const tp = a.turning_point || {};
+  if (tp.last_peak_date || tp.last_trough_date) {
+    parts.push(`<div><strong>上一次轉折</strong>：`
+      + (tp.last_peak_date ? `高點 ${escapeHtml(tp.last_peak_date)}（${tp.periods_since_peak} 期前）` : "")
+      + (tp.last_peak_date && tp.last_trough_date ? "、" : "")
+      + (tp.last_trough_date ? `低點 ${escapeHtml(tp.last_trough_date)}（${tp.periods_since_trough} 期前）` : "")
+      + `。<span class="subtitle">最近 ${tp.confirmation_lag_periods} 期無法判定——`
+      + `轉折需要後續資料才確認得了，硬判會產生一堆事後被推翻的假轉折。</span></div>`);
+  }
+  const rc = a.recession_contrast || {};
+  if (rc.toward_recession_pct !== undefined && rc.toward_recession_pct !== null) {
+    parts.push(`<div><strong>衰退期對照</strong>：擴張期平均 ${rc.expansion_mean}、`
+      + `衰退期平均 ${rc.recession_mean}（${rc.recession_months} 個月的衰退期樣本）。`
+      + `目前值位於兩者之間的 <strong>${rc.toward_recession_pct.toFixed(0)}%</strong>。`
+      + `<br /><span class="subtitle">${escapeHtml(rc.note || "")}</span></div>`);
+  }
+  const orl = row.observed_release;
+  if (orl) {
+    parts.push(`<div><strong>觀測發布時滯</strong>：中位數 ${orl.median_lag_days} 天`
+      + `（${orl.min_lag_days}~${orl.max_lag_days} 天，${orl.observations} 期觀測）。`
+      + `<span class="subtitle">${escapeHtml(orl.note)}</span></div>`);
+  }
+  document.getElementById("analysis-detail").innerHTML =
+    parts.length ? `<div class="warning-box" style="margin-top:16px">${parts.join("")}</div>` : "";
+}
+
+function renderReleaseLog(r) {
+  const rows = r.rows.filter((x) => x.observed_release);
+  const card = document.getElementById("release-card");
+  const specLag = {};
+  r.rows.forEach((x) => { if (x.publish_lag_days) specLag[x.fred_id] = x.publish_lag_days; });
+
+  document.getElementById("release-summary").textContent = rows.length
+    ? `已累積 ${rows.length} 條指標的發布觀測。`
+    : "尚未累積足夠的觀測——每條指標需要看到兩期以上的更新才算得出發布節奏，"
+      + "每日掃描會逐步累積。";
+
+  document.querySelector("#release-table tbody").innerHTML = rows.map((x) => {
+    const o = x.observed_release;
+    return `<tr><td>${escapeHtml(x.label)}<span class="subtitle"> ${escapeHtml(x.fred_id)}</span></td>
+      <td class="date">${escapeHtml(x.reference_date)}</td>
+      <td class="num">${o.observations}</td>
+      <td class="num">${o.median_lag_days} 天</td>
+      <td class="num">${o.min_lag_days}~${o.max_lag_days}</td>
+      <td class="num">${x.publish_lag_days ? x.publish_lag_days + " 天" : "—"}</td></tr>`;
+  }).join("");
+  card.hidden = false;
 }
 
 function wire(r) {
@@ -253,6 +356,7 @@ async function main() {
   wire(r);
   renderTable(r);
   renderSeriesChart(r);
+  renderReleaseLog(r);
 }
 
 main();
