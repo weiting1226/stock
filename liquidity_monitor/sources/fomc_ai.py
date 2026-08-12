@@ -166,6 +166,15 @@ def call_model(
     # 實際上模型輸出得好好的，是我們給的額度不夠。實測 CPI 摘要就是這樣失敗的，
     # 錯誤訊息裡還附著一段明明是 JSON 的開頭。
     if payload.get("stop_reason") == "max_tokens":
+        if not text:
+            # 額度用完了卻一個字都沒輸出，代表它被**看不見的區塊**吃掉了
+            # （thinking 之類的非 text 區塊）。這時說「摘要太長」是錯的，
+            # 加大 max_tokens 也未必有用——要先知道額度花到哪裡去了。
+            kinds = sorted({str(b.get("type")) for b in blocks}) or ["（沒有任何區塊）"]
+            raise ValueError(
+                f"模型用完 max_tokens={max_tokens} 卻沒有輸出任何 text 區塊，"
+                f"回應只含：{'、'.join(kinds)}——額度被非文字區塊耗盡"
+            )
         raise ValueError(
             f"模型回應在 max_tokens={max_tokens} 處被截斷，JSON 不完整——"
             f"這不是模型出錯，是額度不夠（已輸出 {len(text)} 字）"
