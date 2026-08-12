@@ -44,11 +44,17 @@ jobs:
 
       # 報告要留下來。探測結果是決策依據，只存在於 log 裡的話，
       # 下次要重新判斷時就得再跑一次。
+      #
+      # 路徑是 docs/data/macro（DATA_ROOT），不是 data/macro——首次執行時寫錯，
+      # upload-artifact 只發了一則 warning 就當成功結束，報告整份掉了。
+      # 因此下面加上 if-no-files-found: error：報告沒存到就該讓這一步失敗，
+      # 而不是留下一個綠勾和一份不存在的產物。
       - name: Upload report
         uses: actions/upload-artifact@v4
         with:
           name: source-probe
           path: |
-            data/macro/source_probe.md
-            data/macro/source_probe.json
+            docs/data/macro/source_probe.md
+            docs/data/macro/source_probe.json
+          if-no-files-found: error
           retention-days: 30

@@ -21,6 +21,7 @@ from __future__ import annotations
 import logging
 import re
 from dataclasses import dataclass, field
+from datetime import datetime
 from typing import Optional
 
 import requests
@@ -34,40 +35,57 @@ from liquidity_monitor.sources.fomc_ai import (
 
 log = logging.getLogger(__name__)
 
-# 各指標對應的官方統計發布。用發布機構的原始新聞稿，不用二手媒體。
-# 一個指標可以有多個候選；依序嘗試，取第一個抓得到內容的。
-# 已確認取不到、且決定不再嘗試的來源。
+# 已查證取不到、且決定不再嘗試的來源。列在這裡的指標不發 HTTP、不呼叫模型，
+# 但畫面仍會說明原因——讓「刻意不做」與「壞掉了」分得出來。
 #
-# 實測 2026-08（GitHub Actions）：**bls.gov 全站對資料中心 IP 回 403**，
-# 三個不同路徑皆然，是 host 層級的封鎖，換路徑沒有用（同 ETF.com、CME）。
-# 經確認後決定接受「這幾條沒有摘要」。
-#
-# 因此把它們列成「已知無法取得」而不是留在 RELEASE_SOURCES 裡：留著的話，
-# 每天會多打六次註定失敗的請求，並且在失敗清單裡佔六個位置——把一個
-# 「已經決定接受的狀態」每天當成新問題報一次。
-#
-# 但也不是靜靜刪掉：畫面仍會說明這幾條為什麼沒有摘要，讓「刻意不做」與
-# 「壞掉了」分得出來。日後若改由可存取的環境執行，把項目移回上面即可。
-UNAVAILABLE_SOURCES = {
-    "CPIAUCSL": "bls.gov 對資料中心 IP 回 403（已確認接受無摘要）",
-    "CPILFESL": "bls.gov 對資料中心 IP 回 403（已確認接受無摘要）",
-    "UNRATE": "bls.gov 對資料中心 IP 回 403（已確認接受無摘要）",
-    "PAYEMS": "bls.gov 對資料中心 IP 回 403（已確認接受無摘要）",
-    "CIVPART": "bls.gov 對資料中心 IP 回 403（已確認接受無摘要）",
-    "SAHMREALTIME": "bls.gov 對資料中心 IP 回 403（已確認接受無摘要）",
-    "JTSJOL": "bls.gov 對資料中心 IP 回 403（已確認接受無摘要）",
+# 進入這個 dict 的門檻是**查證過沒有別的路**，不是「主要來源擋住了」。
+# 這兩件事被我混為一談過一次，代價寫在下面。
+UNAVAILABLE_SOURCES: dict = {
+    # 2026-08-12 探測後清空。原本這裡有七條 BLS 指標，理由是「bls.gov 全站
+    # 403、沒有替代來源可換」——**後半句是錯的，而且我從來沒有查證過**。
+    # 實測 Wayback 存檔拿得到同一份 BLS 原文（CPI 20,741 字、就業報告 11,421 字、
+    # JOLTS 5,453 字，全都提到最近三個月）。
+    #
+    # 當時的推論漏洞：確認了「www.bls.gov 擋我們」，就直接跳到「這幾條拿不到」。
+    # 中間少了一步——去問還有沒有別的路。留著這個註解，是因為
+    # 「已確認接受」這種狀態最容易變成不再有人檢查的死角。
+    #
+    # 這個 dict 保留（不刪）：日後真的遇到查證過、確實無路可走的來源時，
+    # 該有的處置仍然是「明講接受」而不是靜靜刪掉。
 }
 
 RELEASE_SOURCES = {
     "INDPRO": ["https://www.federalreserve.gov/releases/g17/current/default.htm"],
     "HOUST": ["https://www.census.gov/construction/nrc/current/index.html"],
-    "RSAFS": ["https://www.census.gov/retail/index.html"],
-    "NFCI": ["https://www.chicagofed.org/research/data/nfci/current-data"],
     "UMCSENT": ["http://www.sca.isr.umich.edu/"],
     "MORTGAGE30US": ["https://www.freddiemac.com/pmms"],
     "GDPC1": ["https://www.bea.gov/data/gdp/gross-domestic-product"],
-    "PCEPI": ["https://www.bea.gov/data/personal-consumption-expenditures-price-index"],
-    "PCEPILFE": ["https://www.bea.gov/data/personal-consumption-expenditures-price-index"],
+
+    # --- 以下為 2026-08-12 探測實測通過後採用（scripts/probe_sources.py）------
+    #
+    # BLS 系列改走 Wayback 存檔：文字仍是 BLS 原文逐字，代價是快照可能停在
+    # 上一期。這個代價由 assert_document_covers_period() 擋——它比對這一期的
+    # 期別名稱有沒有出現在文件裡，對不上就不送模型。
+    "CPIAUCSL": ["https://web.archive.org/web/2/https://www.bls.gov/news.release/cpi.nr0.htm"],
+    "CPILFESL": ["https://web.archive.org/web/2/https://www.bls.gov/news.release/cpi.nr0.htm"],
+    "UNRATE": ["https://web.archive.org/web/2/https://www.bls.gov/news.release/empsit.nr0.htm"],
+    "PAYEMS": ["https://web.archive.org/web/2/https://www.bls.gov/news.release/empsit.nr0.htm"],
+    "CIVPART": ["https://web.archive.org/web/2/https://www.bls.gov/news.release/empsit.nr0.htm"],
+    "JTSJOL": ["https://web.archive.org/web/2/https://www.bls.gov/news.release/jolts.nr0.htm"],
+    # 薩姆規則由失業率算出，發布原文就是就業報告本身，與 UNRATE 同一份文件。
+    "SAHMREALTIME": [
+        "https://web.archive.org/web/2/https://www.bls.gov/news.release/empsit.nr0.htm"],
+
+    # 原本指向 /retail/index.html（入口頁，實測 404 或無當期數字）。
+    "RSAFS": ["https://www.census.gov/retail/sales.html"],
+    # 原本兩條都指向 bea.gov 的指標說明頁；正確的是新聞稿本身（實測 10,513 字）。
+    "PCEPI": ["https://apps.bea.gov/newsreleases/national/pi/pinewsrelease.htm"],
+    "PCEPILFE": ["https://apps.bea.gov/newsreleases/national/pi/pinewsrelease.htm"],
+
+    # NFCI 兩個候選網址實測都是 stale_page——芝加哥聯準銀行把 NFCI 當**資料**
+    # 發布，沒有隨期別更新的敘述性新聞稿可摘要。這不是網址挑錯，是這條指標
+    # 本來就沒有對應的發布文字，因此不列入（與殖利率那幾條同一類）。
+    #
     # FEDFUNDS 不列靜態網址：正確的文件是「最近一次 FOMC 聲明」，網址每次會議
     # 都不同。改用 RESOLVERS 裡的解析器（見下方）。
     #
@@ -128,6 +146,53 @@ _PROMPT = """你是總體經濟統計發布的摘要器。以下是「{label}」
 """
 
 
+MONTH_NAMES = ["January", "February", "March", "April", "May", "June",
+               "July", "August", "September", "October", "November", "December"]
+QUARTER_WORDS = {1: "first quarter", 2: "second quarter",
+                 3: "third quarter", 4: "fourth quarter"}
+
+
+def period_terms(reference_date: str, freq: str) -> Optional[list]:
+    """這一期在發布原文裡會怎麼被稱呼。無法可靠判斷時回傳 None（就不做這道檢查）。
+
+    週頻與日頻不做：那些發布不會用「某月」指稱期別，硬比只會誤殺。
+    """
+    try:
+        d = datetime.strptime(reference_date, "%Y-%m-%d").date()
+    except (ValueError, TypeError):
+        return None
+    if freq == "M":
+        return [MONTH_NAMES[d.month - 1], str(d.year)]
+    if freq == "Q":
+        return [QUARTER_WORDS[(d.month - 1) // 3 + 1], str(d.year)]
+    return None
+
+
+def assert_document_covers_period(document: str, fred_id: str,
+                                  reference_date: str, freq: str) -> None:
+    """確認這份文件講的就是這一期，不是上一期。
+
+    **採用存檔快照之後，這道檢查就從「保險」變成必要。** Wayback 給的是
+    「最新的快照」，不是「最新的發布」——快照可能停在上一期。那時文件本身完全
+    真實、引句逐字對得上、摘要讀起來毫無破綻，只有一件事是錯的：它講的是六月，
+    而我們把它掛在七月的數字底下。三道反幻覺防線全都擋不住這種錯，
+    因為模型並沒有編造任何東西。
+
+    官方頁面同樣需要這道檢查：入口頁常年掛著上一期的內容，
+    那正是目前那幾條「內容不符」的成因。
+    """
+    terms = period_terms(reference_date, freq)
+    if not terms:
+        return
+    low = document.lower()
+    missing = [t for t in terms if t.lower() not in low]
+    if missing:
+        raise ValueError(
+            f"{fred_id}：文件未提到這一期（參考期 {reference_date}，"
+            f"預期出現「{'」「'.join(terms)}」），研判為舊一期的發布或過期快照，不送模型"
+        )
+
+
 # 失敗原因分類。三種的處置完全不同：
 #   blocked        來源擋住資料中心 IP —— 換來源或放棄，重試沒有用
 #   no_source      本來就沒有對應的統計發布 —— 正常，不是故障
@@ -140,7 +205,7 @@ def classify_failure(message: str) -> str:
         return "blocked"
     if NO_SOURCE_REASON in message:
         return "no_source"
-    if "不足以摘要" in message or "內容過短" in message:
+    if "不足以摘要" in message or "內容過短" in message or "未提到這一期" in message:
         return "content"
     return "model"
 
@@ -292,6 +357,12 @@ def summarise_updated(
             continue
         try:
             document, url = fetch_release_document(fred_id, session=session)
+        except Exception as e:  # noqa: BLE001
+            notes.append(str(e))
+            continue
+        try:
+            assert_document_covers_period(document, fred_id,
+                                          row.get("reference_date", ""), row.get("freq", ""))
         except Exception as e:  # noqa: BLE001
             notes.append(str(e))
             continue

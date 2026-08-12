@@ -86,7 +86,11 @@ TOPIC_TERMS = {
     "UNRATE": ["unemployment rate", "labor force", "jobless", "employment"],
     "PAYEMS": ["nonfarm payroll", "payroll employment", "jobs", "employment"],
     "CIVPART": ["labor force participation", "labor force", "participation rate"],
-    "SAHMREALTIME": ["unemployment rate", "recession", "labor market", "Sahm"],
+    # 薩姆規則由失業率算出，它的發布原文就是就業報告本身——關鍵詞理當與 UNRATE
+    # 相同。原本填的是 recession／labor market／Sahm，那是**這條指標的用途**，
+    # 不是發布原文會出現的字；實測就業報告只命中 1 個，被誤判成 off_topic。
+    # 主題關鍵詞要描述文件寫了什麼，不是我們拿它來做什麼。
+    "SAHMREALTIME": ["unemployment rate", "labor force", "jobless", "employment"],
     "JTSJOL": ["job openings", "JOLTS", "labor turnover", "hires"],
     "RSAFS": ["retail sales", "retail trade", "food services", "advance"],
     "PCEPI": ["personal consumption expenditures", "PCE", "price index", "personal income"],

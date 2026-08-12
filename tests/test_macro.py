@@ -487,44 +487,56 @@ def test_every_summary_failure_names_the_indicator():
 
 # --- 已確認接受無摘要 -------------------------------------------------------
 #
-# BLS 全站對資料中心 IP 回 403，三個路徑皆然，沒有替代來源。經確認後決定接受
-# 這幾條沒有摘要。這一組測試守的是「決定被真的執行了」：不再發請求、不再
-# 呼叫模型，而且在報告上有自己的類別，不跟真正待修的故障混在一起。
+# 這個機制本身是對的：查證過確實無路可走的來源，該明講「接受」而不是每天重報
+# 一次失敗，也不是靜靜刪掉。
+#
+# 但它一度被套用在七條 BLS 指標上，理由是「bls.gov 全站 403、沒有替代來源可
+# 換」——後半句從來沒查證過，而且是錯的（Wayback 拿得到同一份原文）。
+# 因此這一組測試改用一個**合成的**指標來守機制，不再把「哪幾條該被接受」
+# 寫死進測試裡：那個結論屬於探測結果，不屬於測試。
 
-_ACCEPTED = ("CPIAUCSL", "CPILFESL", "UNRATE", "PAYEMS", "CIVPART", "SAHMREALTIME", "JTSJOL")
+_FAKE_ACCEPTED = "ZZTESTONLY"
 
 
-@pytest.mark.parametrize("fred_id", _ACCEPTED)
-def test_accepted_sources_make_no_request_at_all(fred_id):
-    """留在來源表裡的話，每天會多打七次註定失敗的請求。決定接受，就要真的不打。"""
+@pytest.fixture
+def accepted_indicator(monkeypatch):
+    from macro_monitor import news_ai
+    monkeypatch.setitem(news_ai.UNAVAILABLE_SOURCES, _FAKE_ACCEPTED, "查證過三條路都不通")
+    return _FAKE_ACCEPTED
+
+
+def test_accepted_sources_make_no_request_at_all(accepted_indicator):
+    """決定接受，就要真的不打——否則每天照樣多打一次註定失敗的請求。"""
     from unittest import mock
     from macro_monitor import news_ai
     session = mock.Mock()
     with pytest.raises(ValueError) as exc:
-        news_ai.fetch_release_document(fred_id, session=session)
+        news_ai.fetch_release_document(accepted_indicator, session=session)
     assert session.get.call_count == 0
     assert news_ai.classify_failure(str(exc.value)) == "accepted"
 
 
-@pytest.mark.parametrize("fred_id", _ACCEPTED)
-def test_accepted_sources_are_not_in_the_active_source_table(fred_id):
-    from macro_monitor import news_ai
-    assert fred_id not in news_ai.RELEASE_SOURCES
-    assert fred_id in news_ai.UNAVAILABLE_SOURCES
-
-
-def test_accepted_indicators_skip_the_model_and_keep_an_explanation():
+def test_accepted_indicators_skip_the_model_and_keep_an_explanation(accepted_indicator):
     """不是靜靜刪掉：畫面仍要說得出為什麼沒有摘要，讓「刻意不做」與
     「壞掉了」分得出來。"""
     from unittest import mock
     from macro_monitor import news_ai
     session = mock.Mock()
-    out, notes = news_ai.summarise_updated([_ROW], ["CPIAUCSL"], api_key="k", session=session)
+    row = {**_ROW, "fred_id": accepted_indicator}
+    out, notes = news_ai.summarise_updated([row], [accepted_indicator], api_key="k",
+                                           session=session)
     assert out == {}
     assert session.get.call_count == 0 and session.post.call_count == 0
     assert len(notes) == 1
-    assert "CPIAUCSL" in notes[0] and "403" in notes[0]
+    assert accepted_indicator in notes[0] and "查證過" in notes[0]
     assert news_ai.classify_failure(notes[0]) == "accepted"
+
+
+def test_nothing_is_currently_accepted_without_a_probe_result():
+    """空的才是對的。這裡若又冒出項目，應該伴隨一次探測結果——
+    「主要來源擋住了」不等於「沒有別的路」，那一步被跳過過一次。"""
+    from macro_monitor import news_ai
+    assert news_ai.UNAVAILABLE_SOURCES == {}
 
 
 def test_accepted_is_not_reported_as_a_blocked_failure():
@@ -765,3 +777,83 @@ def test_indicators_with_a_resolver_are_not_reported_as_having_no_source():
         _, notes = news_ai.summarise_updated([row], ["FEDFUNDS"], api_key="k",
                                              session=mock.Mock())
     assert notes and news_ai.classify_failure(notes[0]) != "no_source"
+
+
+# --- 期別比對：採用存檔快照之後才變成必要的一道檢查 -------------------------
+#
+# Wayback 給的是「最新的快照」，不是「最新的發布」。快照停在上一期時，文件本身
+# 完全真實、引句逐字對得上、摘要毫無破綻，只有一件事錯了：它講的是六月，而我們
+# 把它掛在七月的數字底下。三道反幻覺防線全都擋不住——模型並沒有編造任何東西。
+
+_JULY_DOC = "Consumer Price Index for July 2026. The index for shelter rose 0.4 percent. " * 8
+_JUNE_DOC = "Consumer Price Index for June 2026. The index for shelter rose 0.2 percent. " * 8
+
+
+def test_the_right_period_passes():
+    from macro_monitor import news_ai
+    news_ai.assert_document_covers_period(_JULY_DOC, "CPIAUCSL", "2026-07-01", "M")
+
+
+def test_a_snapshot_stuck_on_last_month_is_rejected():
+    """這是採用 Wayback 之後最危險的失敗：一份真實、通順、引句對得上的摘要，
+    掛在錯的期別下。"""
+    from macro_monitor import news_ai
+    with pytest.raises(ValueError, match="未提到這一期"):
+        news_ai.assert_document_covers_period(_JUNE_DOC, "CPIAUCSL", "2026-07-01", "M")
+
+
+def test_the_wrong_year_is_rejected_even_when_the_month_matches():
+    """去年七月的存檔一樣有「July」。只比對月份會放它過關。"""
+    from macro_monitor import news_ai
+    doc = _JULY_DOC.replace("2026", "2025")
+    with pytest.raises(ValueError, match="未提到這一期"):
+        news_ai.assert_document_covers_period(doc, "CPIAUCSL", "2026-07-01", "M")
+
+
+def test_quarterly_series_are_matched_by_quarter_wording():
+    """GDP 發布不會寫「April」，它寫「second quarter」。用月份比對會誤殺。"""
+    from macro_monitor import news_ai
+    doc = "Real gross domestic product increased in the second quarter of 2026. " * 8
+    news_ai.assert_document_covers_period(doc, "GDPC1", "2026-04-01", "Q")
+    with pytest.raises(ValueError, match="未提到這一期"):
+        news_ai.assert_document_covers_period(doc, "GDPC1", "2026-07-01", "Q")
+
+
+@pytest.mark.parametrize("freq", ["W", "D"])
+def test_weekly_and_daily_series_skip_the_period_check(freq):
+    """那些發布不用「某月」指稱期別，硬比只會誤殺。無法可靠判斷時就不判斷。"""
+    from macro_monitor import news_ai
+    news_ai.assert_document_covers_period("anything at all", "MORTGAGE30US", "2026-08-07", freq)
+
+
+def test_a_stale_snapshot_never_reaches_the_model():
+    """擋下來的重點不只是省一次呼叫——是那段摘要根本不該存在。"""
+    from unittest import mock
+    from macro_monitor import news_ai
+    doc_resp = mock.Mock(status_code=200, text=f"<p>{_JUNE_DOC}</p>", url=None)
+    session = mock.Mock(get=mock.Mock(return_value=doc_resp), post=mock.Mock())
+    row = {**_ROW, "reference_date": "2026-07-01", "freq": "M"}
+    out, notes = news_ai.summarise_updated([row], ["CPIAUCSL"], api_key="k", session=session)
+    assert out == {}
+    assert session.post.call_count == 0
+    assert news_ai.classify_failure(notes[0]) == "content"
+
+
+def test_the_bls_series_now_have_sources_again():
+    """探測前的結論是「沒有替代來源可換」——那句話沒有查證過，而且是錯的。
+    Wayback 拿得到同一份 BLS 原文。"""
+    from macro_monitor import news_ai
+    for fid in ("CPIAUCSL", "CPILFESL", "UNRATE", "PAYEMS", "CIVPART",
+                "SAHMREALTIME", "JTSJOL"):
+        assert fid in news_ai.RELEASE_SOURCES, fid
+        assert fid not in news_ai.UNAVAILABLE_SOURCES, fid
+
+
+def test_nfci_has_no_release_text_and_that_is_a_finding_not_an_oversight():
+    """兩個候選網址實測都是 stale_page：芝加哥聯準銀行把 NFCI 當資料發布，
+    沒有隨期別更新的敘述可摘要。歸在「本來就沒有來源」才是對的。"""
+    from macro_monitor import news_ai
+    assert "NFCI" not in news_ai.RELEASE_SOURCES and "NFCI" not in news_ai.RESOLVERS
+    with pytest.raises(ValueError) as exc:
+        news_ai.fetch_release_document("NFCI")
+    assert news_ai.classify_failure(str(exc.value)) == "no_source"
