@@ -174,11 +174,15 @@ def test_flow_is_expressed_as_a_share_of_the_funds_own_assets():
 
 def test_identical_source_values_are_stale_data_not_flat_flows():
     """實測 Yahoo 的 totalAssets 對 ETF 不是每日更新。回報 0 會被讀成
-    「資金持平」——那是假訊號，而且看起來完全正常。"""
+    「資金持平」——那是假訊號，而且看起來完全正常。
+
+    三欄全部相同時，最先攔下來的是「同一個交易日」那條（收盤價也相同）；
+    無論訊息是哪一句，重點是**不得回報成資金持平**。
+    """
     today = [_snap(t, aum=100_000_000, close=100.0) for t in ("XLK", "XLF", "XLV")]
     prev = {t: _prev(aum=100_000_000, close=100.0) for t in ("XLK", "XLF", "XLV")}
     out, _ = flows.compute_sector_flows(today, prev)
-    assert "未更新" in flows.stale_reason(out)
+    assert flows.stale_reason(out) is not None
 
 
 def test_frozen_assets_while_prices_moved_is_impossible():
@@ -189,11 +193,16 @@ def test_frozen_assets_while_prices_moved_is_impossible():
 
 
 def test_a_genuinely_small_flow_is_not_mistaken_for_stale_data():
-    today = [_snap(t, aum=100_200_000, close=100.0) for t in ("XLK", "XLF")]
+    """真的只是流量很小，不能跟「資料沒更新」混為一談。
+
+    收盤價要給不同的值：真正的隔一天不可能 11 檔全部收在同一個價位，
+    用相同收盤價當測資等於在測一個不會發生的情境。
+    """
+    today = [_snap(t, aum=100_200_000, close=100.5) for t in ("XLK", "XLF")]
     prev = {t: _prev(aum=100_000_000, close=100.0) for t in ("XLK", "XLF")}
     out, _ = flows.compute_sector_flows(today, prev)
     assert flows.stale_reason(out) is None
-    assert out["XLK"]["flow_musd"] > 0
+    assert out["XLK"]["flow_musd"] != 0
 
 
 def test_stale_observations_are_skipped_rather_than_averaged_in():
@@ -226,3 +235,51 @@ def test_rank_history_roundtrip_and_same_day_rerun_does_not_duplicate(tmp_path):
 def test_missing_history_file_is_empty_not_an_error(tmp_path):
     assert storage.load_previous_ranks(str(tmp_path / "nope.csv")) == {}
     assert storage.load_previous_snapshots(str(tmp_path / "nope.csv")) == {}
+
+
+def test_identical_closes_across_all_etfs_mean_it_is_the_same_trading_day():
+    """實測漏掉的情況：同一個交易日跑第二次。
+
+    淨資產與收盤價全部相同、但股數欄位剛好從空值變成有值，於是
+    「三欄全部相同」不成立、「淨資產不動但價格有動」也不成立——
+    兩道檢查都沒攔住，11 檔全部回報 +0.000%，畫面讀成「資金持平」。
+    收盤價全數相同就是同一筆市場觀測，根本沒有「隔日」可言。
+    """
+    today = [_snap(t, shares=1_000_000, aum=100_000_000, close=100.0)
+             for t in ("XLK", "XLF", "XLV")]
+    # 前一次的股數是空的（Yahoo 該欄位時有時無），其餘完全相同
+    prev = {t: _prev(shares=None, aum=100_000_000, close=100.0)
+            for t in ("XLK", "XLF", "XLV")}
+    out, _ = flows.compute_sector_flows(today, prev)
+    reason = flows.stale_reason(out)
+    assert reason is not None and "同一個交易日" in reason
+
+
+def test_a_real_next_day_observation_is_not_blocked():
+    """價格有動就是新的一天，不能被上面那條誤擋。"""
+    today = [_snap(t, aum=101_000_000, close=101.0) for t in ("XLK", "XLF")]
+    prev = {t: _prev(aum=100_000_000, close=100.0) for t in ("XLK", "XLF")}
+    out, _ = flows.compute_sector_flows(today, prev)
+    assert flows.stale_reason(out) is None
+
+
+def test_snapshots_are_keyed_by_market_close_date_not_run_date(monkeypatch, tmp_path):
+    """同一個交易日重跑要覆蓋，不能製造出一組假的「隔日比較」。"""
+    import pandas as pd
+    from sector_rotation import report as rep
+
+    idx = pd.bdate_range("2026-01-02", periods=120)
+    px = pd.DataFrame({t: np.linspace(100, 120, 120)
+                       for t in ("SPY", "XLK", "XLF", "XLV", "XLY", "XLC",
+                                 "XLI", "XLP", "XLE", "XLU", "XLRE", "XLB")}, index=idx)
+    monkeypatch.setattr(rep.storage, "SNAPSHOT_PATH", str(tmp_path / "s.csv"))
+    monkeypatch.setattr(rep, "fetch_snapshots", lambda *a, **k: [])
+    monkeypatch.setattr(rep.storage, "save_snapshots", lambda *a, **k: None)
+    monkeypatch.setattr(rep.storage, "load_previous_snapshots", lambda **k: {})
+    monkeypatch.setattr(rep.storage, "load_previous_ranks", lambda **k: {})
+    monkeypatch.setattr(rep.storage, "append_ranks", lambda *a, **k: None)
+
+    # 執行日期比最後一個交易日晚（例如週末補跑）
+    out = rep.build_report(as_of="2026-06-20", prices=px)
+    assert out["close_date"] == str(idx[-1].date())
+    assert out["close_date"] != out["as_of"]
