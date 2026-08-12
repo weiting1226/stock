@@ -40,11 +40,19 @@ def build_report(as_of: str = None, prices: pd.DataFrame = None,
 
     rows, bench_returns = metrics.build_sector_rows(prices, BENCHMARK, SECTOR_ETFS)
 
+    # 快照以**市場收盤日**為鍵，不是執行日期。
+    # 用執行日期的話，同一個交易日跑第二次會被當成新的一天，
+    # 於是「今天」與「昨天」其實是同一筆收盤資料——算出來每一檔都是 0，
+    # 而畫面會把它讀成「資金持平」。實測就是這樣發生的。
+    close_date = str(prices.index[-1].date())
+
     # --- 資金流（申贖流量）-------------------------------------------------
     flow_note, flow_data = None, {}
     try:
-        snaps = fetch_snapshots(tuple(SECTOR_ETFS), as_of=as_of) if snapshots is None else snapshots
-        prev = storage.load_previous_snapshots(before=as_of) if previous is None else previous
+        snaps = (fetch_snapshots(tuple(SECTOR_ETFS), as_of=close_date)
+                 if snapshots is None else snapshots)
+        prev = (storage.load_previous_snapshots(before=close_date)
+                if previous is None else previous)
         raw_flows, skipped = flow_mod.compute_sector_flows(snaps, prev)
         stale = flow_mod.stale_reason(raw_flows)
         if stale:
@@ -82,6 +90,7 @@ def build_report(as_of: str = None, prices: pd.DataFrame = None,
 
     return {
         "as_of": as_of,
+        "close_date": close_date,
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
         "benchmark": {"ticker": BENCHMARK, "returns": bench_returns},
         "window_labels": WINDOW_LABELS,
