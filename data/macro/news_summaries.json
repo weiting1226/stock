@@ -47,5 +47,96 @@
   "model": "claude-sonnet-5",
   "reference_date": "2026-08-06",
   "fred_id": "MORTGAGE30US"
+ },
+ "RSAFS@2026-06-01": {
+  "summary_zh": "2026年6月美國零售與餐飲服務銷售額為7,686億美元，較前一月上升0.2%，較2025年6月則上升6.7%。2026年4月至6月期間的總銷售額較去年同期成長6.4%，且4月至5月的變動幅度由原公布的上升0.9%上修至上升1.0%。",
+  "drivers": [],
+  "evidence": "were $768.6 billion, up 0.2 percent (&plusmn;0.4 percent)* from the previous month, and up 6.7 percent (&plusmn;0.5 percent) from June 2025",
+  "source_url": "https://www.census.gov/retail/sales.html",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-06-01",
+  "fred_id": "RSAFS"
+ },
+ "UNRATE@2026-07-01": {
+  "summary_zh": "2026年7月失業率為4.1%，較上月變動不大，失業人數約690萬人，同樣變動不大。青少年與西裔失業率下降，而暫時性解僱人數增加15.3萬人，長期失業人數則略微下降。",
+  "drivers": [
+   "青少年失業率下降至12.1%",
+   "西裔失業率下降至4.6%",
+   "暫時性解僱人數增加153,000人至921,000人",
+   "長期失業人數略微下降至180萬人"
+  ],
+  "evidence": "Both the unemployment rate, at 4.1 percent, and the number of unemployed people, at 6.9 million, changed little in July.",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/empsit.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-07-01",
+  "fred_id": "UNRATE"
+ },
+ "PAYEMS@2026-07-01": {
+  "summary_zh": "2026年7月非農就業人數變動甚小，減少2.3萬人，前12個月平均月增為3.4萬人。地方政府教育業與零售業就業下降，健康照護業則持續呈上升趨勢。此外，5月與6月數據均遭大幅下修，兩月合計比先前公布數字低10.3萬人。",
+  "drivers": [
+   "地方政府教育業就業減少5萬人",
+   "零售業減少1.9萬個工作機會",
+   "金融活動業持續下降(-1.4萬人)",
+   "健康照護業持續上升趨勢(+2.2萬人)"
+  ],
+  "evidence": "Total nonfarm payroll employment changed little in July (-23,000), following an average monthly gain of 34,000 over the prior 12 months. In July, employment declined in local government education and retail trade.",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/empsit.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-07-01",
+  "fred_id": "PAYEMS"
+ },
+ "CIVPART@2026-07-01": {
+  "summary_zh": "2026年7月勞動參與率為61.4%，本月變動不大。文件指出自1月以來，勞動參與率已下降0.7個百分點，同期就業人口比率下降0.5個百分點。",
+  "drivers": [
+   "自1月以來勞動參與率下降0.7個百分點",
+   "就業人口比率同期下降0.5個百分點"
+  ],
+  "evidence": "Both the labor force participation rate, at 61.4 percent, and the employment-population ratio, at 58.9 percent, changed little in July.",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/empsit.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-07-01",
+  "fred_id": "CIVPART"
+ },
+ "JTSJOL@2026-06-01": {
+  "summary_zh": "2026年6月職缺數約為740萬個,較上月變動不大,職缺率維持在4.4%。分產業來看,運輸倉儲及公用事業(+97,000)與聯邦政府(+39,000)職缺增加,而批發貿易(-74,000)、非耐久品製造業(-55,000)及採礦與伐木業(-9,000)職缺則減少。",
+  "drivers": [
+   "運輸倉儲及公用事業 (+97,000)",
+   "聯邦政府 (+39,000)",
+   "批發貿易 (-74,000)",
+   "非耐久品製造業 (-55,000)"
+  ],
+  "evidence": "The number of job openings increased in transportation, warehousing, and utilities (+97,000) and in federal government (+39,000). Job openings decreased in wholesale trade (-74,000), nondurable goods manufacturing (-55,000), and mining and logging (-9,000).",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/jolts.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-06-01",
+  "fred_id": "JTSJOL"
+ },
+ "CPILFESL@2026-06-01": {
+  "summary_zh": "2026年6月核心CPI（不含食物能源）季調後與上月持平，未有變動，較5月0.2%的漲幅趨緩，為連續放緩。過去12個月核心CPI上漲2.6%，低於截至5月的2.9%漲幅。住房、機動車保險、通訊、服飾、醫療照護及二手車價格下跌，而娛樂、家庭用品及個人護理價格上漲，抵銷了部分跌幅。",
+  "drivers": [
+   "住房指數（月增0.1%，為2021年1月以來最小漲幅）",
+   "機動車保險指數下跌2.0%",
+   "通訊指數下跌1.5%",
+   "娛樂指數上漲0.5%"
+  ],
+  "evidence": "The index for all items less food and energy was unchanged in June after rising 0.2 percent in May.",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/cpi.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-06-01",
+  "fred_id": "CPILFESL"
+ },
+ "FEDFUNDS@2026-07-01": {
+  "summary_zh": "聯邦公開市場委員會決議維持聯邦資金利率目標區間於3.50%至3.75%不變，以支持雙重使命。文件指出經濟活動雖面臨中東衝突帶來的不確定性,仍以穩健步伐擴張,通膨相對於2%目標仍偏高，部分反映能源等部門的供給衝擊。三名委員投票反對，主張應升息1/4個百分點。",
+  "drivers": [
+   "維持聯邦資金利率目標區間於3-1/2至3-3/4%",
+   "經濟活動以穩健步伐擴張，但存在中東衝突帶來的不確定性",
+   "通膨相對於2%目標仍偏高，部分反映能源等部門的供給衝擊",
+   "就業增長與勞動力保持同步，失業率變化不大"
+  ],
+  "evidence": "The Committee decided to maintain the target range for the federal funds rate at 3-1/2 to 3-3/4 percent, in support of the Federal Reserve's dual mandate.",
+  "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-07-01",
+  "fred_id": "FEDFUNDS"
  }
 }
