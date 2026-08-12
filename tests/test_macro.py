@@ -930,3 +930,35 @@ def test_two_indicators_on_one_document_cannot_disagree_about_the_period():
         docs.append(d)
     for d in docs:
         news_ai.assert_document_covers_period(d, "PCEPILFE", "2026-06-01", "M")
+
+
+def test_the_period_mismatch_says_which_periods_the_document_does_mention():
+    """「對不上」有三種，處置完全不同：文件更舊（來源過期，該換）、文件更新
+    （發布出來了但 FRED 還沒收錄，是資料落後，下次自己會好）、沒有任何期別
+    （根本不是發布頁）。只寫「研判為舊一期」會把第二種可能整個抹掉。"""
+    from macro_monitor import news_ai
+    doc = "Personal income and outlays, July 2026. The PCE price index rose. " * 8
+    with pytest.raises(ValueError) as exc:
+        news_ai.assert_document_covers_period(doc, "PCEPILFE", "2026-06-01", "M")
+    msg = str(exc.value)
+    assert "July" in msg and "2026" in msg
+    assert news_ai.classify_failure(msg) == "content"
+
+
+def test_a_document_with_no_period_at_all_says_so():
+    from macro_monitor import news_ai
+    with pytest.raises(ValueError, match="找不到任何期別"):
+        news_ai.assert_document_covers_period("no dates here whatsoever", "RSAFS",
+                                              "2026-06-01", "M")
+
+
+def test_budget_eaten_by_invisible_blocks_is_not_reported_as_a_long_summary():
+    """額度用完卻一個字都沒輸出，代表它被非 text 區塊吃掉了。
+    這時說「摘要太長、加大額度」是錯的診斷——加大也未必有用。"""
+    from unittest import mock
+    from liquidity_monitor.sources import fomc_ai
+    payload = {"content": [{"type": "thinking", "thinking": "…"}], "stop_reason": "max_tokens"}
+    resp = mock.Mock(status_code=200)
+    resp.json.return_value = payload
+    with pytest.raises(ValueError, match="非文字區塊耗盡"):
+        fomc_ai.call_model("p", api_key="k", session=mock.Mock(post=lambda *a, **k: resp))

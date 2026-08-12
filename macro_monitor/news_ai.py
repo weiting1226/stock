@@ -190,11 +190,23 @@ def assert_document_covers_period(document: str, fred_id: str,
         return
     low = document.lower()
     missing = [t for t in terms if t.lower() not in low]
-    if missing:
-        raise ValueError(
-            f"{fred_id}：文件未提到這一期（參考期 {reference_date}，"
-            f"預期出現「{'」「'.join(terms)}」），研判為舊一期的發布或過期快照，不送模型"
-        )
+    if not missing:
+        return
+
+    # 光說「對不上」沒有用——要能分辨是哪一種對不上，處置完全不同：
+    #   文件講的是更舊的期別  來源過期或快照沒更新，該換來源
+    #   文件講的是更新的期別  發布已經出來、FRED 還沒收錄，那是資料落後，
+    #                        不是來源壞掉，下次執行就會自己好
+    #   文件沒有任何期別      根本不是發布頁
+    # 先前這裡寫死「研判為舊一期的發布或過期快照」，把第二種可能整個抹掉了。
+    seen_months = [m for m in MONTH_NAMES if m.lower() in low]
+    seen_years = sorted(set(re.findall(r"\b(20\d{2})\b", document)))
+    seen = "、".join(seen_months[:4]) + ("／" + "、".join(seen_years[:4]) if seen_years else "")
+    raise ValueError(
+        f"{fred_id}：文件未提到這一期（參考期 {reference_date}，"
+        f"預期出現「{'」「'.join(terms)}」），不送模型。"
+        f"文件實際提到：{seen or '（找不到任何期別）'}"
+    )
 
 
 # 失敗原因分類。三種的處置完全不同：
