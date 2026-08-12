@@ -1,6 +1,6 @@
 {
- "as_of": "2026-08-11",
- "generated_at": "2026-08-11T23:56:34Z",
+ "as_of": "2026-08-12",
+ "generated_at": "2026-08-12T00:02:56Z",
  "benchmark": {
   "ticker": "SPY",
   "returns": {
@@ -35,19 +35,25 @@
     "1m": -0.202,
     "3m": 0.387
    },
-   "rs_ratio": 117.6,
-   "rs_momentum": 4.575,
-   "quadrant": "領漲",
-   "history_days": 277,
+   "rs_ratio": 98.86,
+   "rs_momentum": 3.917,
+   "quadrant": "改善",
+   "history_days": 276,
    "rank": {
     "1d": 6,
     "1w": 7,
     "1m": 7,
     "3m": 5
    },
-   "flow": null,
-   "flow_pct_of_aum": null,
-   "flow_rank": null
+   "flow": {
+    "flow_musd": 0.0,
+    "flow_pct_of_aum": 0.0,
+    "basis": "aum",
+    "days_spanned": 1,
+    "aum_musd": 115411.0
+   },
+   "flow_pct_of_aum": 0.0,
+   "flow_rank": 1
   },
   {
    "ticker": "XLF",
@@ -67,19 +73,25 @@
     "1m": 0.23,
     "3m": 8.706
    },
-   "rs_ratio": 88.38,
-   "rs_momentum": -3.521,
-   "quadrant": "落後",
-   "history_days": 277,
+   "rs_ratio": 103.2,
+   "rs_momentum": -4.428,
+   "quadrant": "轉弱",
+   "history_days": 276,
    "rank": {
     "1d": 5,
     "1w": 5,
     "1m": 4,
     "3m": 2
    },
-   "flow": null,
-   "flow_pct_of_aum": null,
-   "flow_rank": null
+   "flow": {
+    "flow_musd": 0.0,
+    "flow_pct_of_aum": 0.0,
+    "basis": "shares",
+    "days_spanned": 1,
+    "aum_musd": 57884.0
+   },
+   "flow_pct_of_aum": 0.0,
+   "flow_rank": 2
   },
   {
    "ticker": "XLV",
@@ -99,19 +111,25 @@
     "1m": 1.234,
     "3m": 13.228
    },
-   "rs_ratio": 100.72,
-   "rs_momentum": -3.423,
+   "rs_ratio": 104.21,
+   "rs_momentum": -4.698,
    "quadrant": "轉弱",
-   "history_days": 277,
+   "history_days": 276,
    "rank": {
     "1d": 7,
     "1w": 2,
     "1m": 3,
     "3m": 1
    },
-   "flow": null,
-   "flow_pct_of_aum": null,
-   "flow_rank": null
+   "flow": {
+    "flow_musd": 0.0,
+    "flow_pct_of_aum": 0.0,
+    "basis": "aum",
+    "days_spanned": 1,
+    "aum_musd": 41750.0
+   },
+   "flow_pct_of_aum": 0.0,
+   "flow_rank": 3
   },
   {
    "ticker": "XLY",
@@ -131,19 +149,25 @@
     "1m": -0.097,
     "3m": -4.337
    },
-   "rs_ratio": 87.96,
-   "rs_momentum": 1.924,
+   "rs_ratio": 99.24,
+   "rs_momentum": 2.909,
    "quadrant": "改善",
-   "history_days": 277,
+   "history_days": 276,
    "rank": {
     "1d": 9,
     "1w": 4,
     "1m": 6,
     "3m": 8
    },
-   "flow": null,
-   "flow_pct_of_aum": null,
-   "flow_rank": null
+   "flow": {
+    "flow_musd": 0.0,
+    "flow_pct_of_aum": 0.0,
+    "basis": "aum",
+    "days_spanned": 1,
+    "aum_musd": 22456.0
+   },
+   "flow_pct_of_aum": 0.0,
+   "flow_rank": 4
   },
   {
    "ticker": "XLC",
@@ -163,19 +187,25 @@
     "1m": -3.142,
     "3m": -7.957
    },
-   "rs_ratio": 83.76,
-   "rs_momentum": -2.452,
+   "rs_ratio": 96.83,
+   "rs_momentum": -0.864,
    "quadrant": "落後",
-   "history_days": 277,
+   "history_days": 276,
    "rank": {
     "1d": 10,
     "1w": 8,
     "1m": 9,
     "3m": 11
    },
-   "flow": null,
-   "flow_pct_of_aum": null,
-   "flow_rank": null
+   "flow": {
+    "flow_musd": 0.0,
+    "flow_pct_of_aum": 0.0,
+    "basis": "aum",
+    "days_spanned": 1,
+    "aum_musd": 21723.0
+   },
+   "flow_pct_of_aum": 0.0,
+   "flow_rank": 5
   },
   {
    "ticker": "XLI",
@@ -195,19 +225,25 @@
     "1m": 0.1,
     "3m": 1.862
    },
-   "rs_ratio": 100.46,
-   "rs_momentum": -2.163,
+   "rs_ratio": 100.82,
+   "rs_momentum": -2.292,
    "quadrant": "轉弱",
-   "history_days": 277,
+   "history_days": 276,
    "rank": {
     "1d": 3,
     "1w": 6,
     "1m": 5,
     "3m": 4
    },
-   "flow": null,
-   "flow_pct_of_aum": null,
-   "flow_rank": null
+   "flow": {
+    "flow_musd": 0.0,
+    "flow_pct_of_aum": 0.0,
+    "basis": "aum",
+    "days_spanned": 1,
+    "aum_musd": 32877.0
+   },
+   "flow_pct_of_aum": 0.0,
+   "flow_rank": 6
   },
   {
    "ticker": "XLP",
@@ -227,19 +263,25 @@
     "1m": -2.737,
     "3m": -2.645
    },
-   "rs_ratio": 83.08,
-   "rs_momentum": -6.472,
+   "rs_ratio": 97.25,
+   "rs_momentum": -6.034,
    "quadrant": "落後",
-   "history_days": 277,
+   "history_days": 276,
    "rank": {
     "1d": 8,
     "1w": 9,
     "1m": 8,
     "3m": 7
    },
-   "flow": null,
-   "flow_pct_of_aum": null,
-   "flow_rank": null
+   "flow": {
+    "flow_musd": 0.0,
+    "flow_pct_of_aum": 0.0,
+    "basis": "shares",
+    "days_spanned": 1,
+    "aum_musd": 14550.0
+   },
+   "flow_pct_of_aum": 0.0,
+   "flow_rank": 7
   },
   {
    "ticker": "XLE",
@@ -259,19 +301,25 @@
     "1m": 4.529,
     "3m": 2.349
    },
-   "rs_ratio": 113.88,
-   "rs_momentum": 1.757,
+   "rs_ratio": 103.4,
+   "rs_momentum": 2.308,
    "quadrant": "領漲",
-   "history_days": 277,
+   "history_days": 276,
    "rank": {
     "1d": 1,
     "1w": 1,
     "1m": 1,
     "3m": 3
    },
-   "flow": null,
-   "flow_pct_of_aum": null,
-   "flow_rank": null
+   "flow": {
+    "flow_musd": 0.0,
+    "flow_pct_of_aum": 0.0,
+    "basis": "aum",
+    "days_spanned": 1,
+    "aum_musd": 39209.0
+   },
+   "flow_pct_of_aum": 0.0,
+   "flow_rank": 8
   },
   {
    "ticker": "XLU",
@@ -291,19 +339,25 @@
     "1m": -7.426,
     "3m": -7.573
    },
-   "rs_ratio": 85.71,
-   "rs_momentum": -7.846,
+   "rs_ratio": 94.42,
+   "rs_momentum": -6.519,
    "quadrant": "落後",
-   "history_days": 277,
+   "history_days": 276,
    "rank": {
     "1d": 2,
     "1w": 10,
     "1m": 11,
     "3m": 10
    },
-   "flow": null,
-   "flow_pct_of_aum": null,
-   "flow_rank": null
+   "flow": {
+    "flow_musd": 0.0,
+    "flow_pct_of_aum": 0.0,
+    "basis": "aum",
+    "days_spanned": 1,
+    "aum_musd": 23064.0
+   },
+   "flow_pct_of_aum": 0.0,
+   "flow_rank": 9
   },
   {
    "ticker": "XLRE",
@@ -323,19 +377,25 @@
     "1m": -4.242,
     "3m": -5.328
    },
-   "rs_ratio": 85.6,
-   "rs_momentum": -7.887,
+   "rs_ratio": 95.74,
+   "rs_momentum": -7.436,
    "quadrant": "落後",
-   "history_days": 277,
+   "history_days": 276,
    "rank": {
     "1d": 11,
     "1w": 11,
     "1m": 10,
     "3m": 9
    },
-   "flow": null,
-   "flow_pct_of_aum": null,
-   "flow_rank": null
+   "flow": {
+    "flow_musd": 0.0,
+    "flow_pct_of_aum": 0.0,
+    "basis": "aum",
+    "days_spanned": 1,
+    "aum_musd": 8563.0
+   },
+   "flow_pct_of_aum": 0.0,
+   "flow_rank": 10
   },
   {
    "ticker": "XLB",
@@ -355,19 +415,25 @@
     "1m": 2.404,
     "3m": -2.353
    },
-   "rs_ratio": 94.78,
-   "rs_momentum": -2.201,
-   "quadrant": "落後",
-   "history_days": 277,
+   "rs_ratio": 100.81,
+   "rs_momentum": -1.625,
+   "quadrant": "轉弱",
+   "history_days": 276,
    "rank": {
     "1d": 4,
     "1w": 3,
     "1m": 2,
     "3m": 6
    },
-   "flow": null,
-   "flow_pct_of_aum": null,
-   "flow_rank": null
+   "flow": {
+    "flow_musd": 0.0,
+    "flow_pct_of_aum": 0.0,
+    "basis": "aum",
+    "days_spanned": 1,
+    "aum_musd": 8256.0
+   },
+   "flow_pct_of_aum": 0.0,
+   "flow_rank": 11
   }
  ],
  "breadth": {
@@ -397,29 +463,107 @@
   }
  },
  "quadrants": {
-  "領漲": [
+  "改善": [
    "資訊科技",
-   "能源"
+   "非必需消費"
+  ],
+  "轉弱": [
+   "金融",
+   "醫療保健",
+   "工業",
+   "原物料"
   ],
   "落後": [
-   "金融",
    "通訊服務",
    "必需消費",
    "公用事業",
-   "房地產",
-   "原物料"
+   "房地產"
   ],
-  "轉弱": [
-   "醫療保健",
-   "工業"
-  ],
-  "改善": [
-   "非必需消費"
+  "領漲": [
+   "能源"
   ]
  },
- "rank_changes": [],
- "flow_note": "尚無可比較的前一次觀測（本日已取得 11 檔快照並存檔）；資金流需要相隔一天的兩次觀測，明日起即可計算",
- "flow_available": false,
+ "rank_changes": [
+  {
+   "ticker": "XLK",
+   "sector_zh": "資訊科技",
+   "rank_now": 7,
+   "rank_before": 7,
+   "change": 0
+  },
+  {
+   "ticker": "XLF",
+   "sector_zh": "金融",
+   "rank_now": 5,
+   "rank_before": 5,
+   "change": 0
+  },
+  {
+   "ticker": "XLV",
+   "sector_zh": "醫療保健",
+   "rank_now": 2,
+   "rank_before": 2,
+   "change": 0
+  },
+  {
+   "ticker": "XLY",
+   "sector_zh": "非必需消費",
+   "rank_now": 4,
+   "rank_before": 4,
+   "change": 0
+  },
+  {
+   "ticker": "XLC",
+   "sector_zh": "通訊服務",
+   "rank_now": 8,
+   "rank_before": 8,
+   "change": 0
+  },
+  {
+   "ticker": "XLI",
+   "sector_zh": "工業",
+   "rank_now": 6,
+   "rank_before": 6,
+   "change": 0
+  },
+  {
+   "ticker": "XLP",
+   "sector_zh": "必需消費",
+   "rank_now": 9,
+   "rank_before": 9,
+   "change": 0
+  },
+  {
+   "ticker": "XLE",
+   "sector_zh": "能源",
+   "rank_now": 1,
+   "rank_before": 1,
+   "change": 0
+  },
+  {
+   "ticker": "XLU",
+   "sector_zh": "公用事業",
+   "rank_now": 10,
+   "rank_before": 10,
+   "change": 0
+  },
+  {
+   "ticker": "XLRE",
+   "sector_zh": "房地產",
+   "rank_now": 11,
+   "rank_before": 11,
+   "change": 0
+  },
+  {
+   "ticker": "XLB",
+   "sector_zh": "原物料",
+   "rank_now": 3,
+   "rank_before": 3,
+   "change": 0
+  }
+ ],
+ "flow_note": null,
+ "flow_available": true,
  "notes": [
   "視窗一律以交易日計（近一週＝5 個交易日、近一月＝21 個），不用日曆天——連假前後的日曆週會是不同長度的區間，跨日期無法比較。",
   "資金流由 ETF 流通股數變化計算（Δ股數 × 價格＝申贖金額本身），股數不可信時退回淨資產分解（估計），每一筆都標明用的是哪一種。",
