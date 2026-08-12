@@ -139,7 +139,9 @@ def build_report(as_of: str = None, data: dict = None, diagnostics: dict = None)
         "updated_today": updated_today,
         "news": {
             "attached": news_attached,
-            "notes": news_notes[:20],
+            "notes": news_notes[:24],
+            # 失敗原因分類：三種的處置完全不同，混在一起就看不出該做什麼
+            "failure_kinds": _count_failures(news_notes),
             "method": ("摘要取自各指標的**官方統計發布原文**（BLS／BEA／Census／Fed 等），"
                        "不是二手新聞。抓不到文件就不呼叫模型——讓模型憑記憶說明「上個月 CPI "
                        "為什麼上漲」，會得到一段完全通順而且是編造的解釋。"
@@ -172,6 +174,16 @@ def build_report(as_of: str = None, data: dict = None, diagnostics: dict = None)
             "殖利率與利差等市場價格類指標沒有對應的統計發布，因此沒有摘要。",
         ],
     }
+
+
+def _count_failures(notes: list) -> dict:
+    """把失敗原因歸類。來源封鎖、沒有來源、內容不符、模型出錯——
+    四種的處置完全不同，混成一份清單就看不出該做什麼。"""
+    from . import news_ai
+    kinds = {}
+    for n in notes:
+        kinds[news_ai.classify_failure(n)] = kinds.get(news_ai.classify_failure(n), 0) + 1
+    return kinds
 
 
 def write_report(report: dict, data_root: str) -> Path:

@@ -36,6 +36,11 @@ log = logging.getLogger(__name__)
 
 # 各指標對應的官方統計發布。用發布機構的原始新聞稿，不用二手媒體。
 # 一個指標可以有多個候選；依序嘗試，取第一個抓得到內容的。
+# ⚠ 實測 2026-08（GitHub Actions）：**bls.gov 全站對資料中心 IP 回 403**。
+# CPI、就業報告、JOLTS 六條指標因此都拿不到官方發布文字。這與 ETF.com、
+# CME 是同一種情況，換路徑沒有用（403 出現在 host 層級，三個不同路徑皆然）。
+# 保留這些設定是為了讓失敗原因能被歸類與呈現，而不是假裝沒有這個來源；
+# 若日後改由可存取的環境執行就會自動生效。
 RELEASE_SOURCES = {
     "CPIAUCSL": ["https://www.bls.gov/news.release/cpi.nr0.htm"],
     "CPILFESL": ["https://www.bls.gov/news.release/cpi.nr0.htm"],
@@ -69,6 +74,10 @@ RELEASE_SOURCES = {
 
 # 抓回來的頁面要有足夠內容才值得送給模型。太短通常代表拿到的是
 # JavaScript 外殼或錯誤頁——那正是幻覺的溫床。
+# 同一個原因只能有一種說法。實測分類器漏判，正是因為我在兩處把同一件事
+# 寫成「沒有對應的官方統計發布」與「無對應的官方統計發布」。
+NO_SOURCE_REASON = "無對應的官方統計發布（市場價格類指標）"
+
 MIN_DOCUMENT_CHARS = 800
 MAX_DOCUMENT_CHARS = 14000
 
@@ -102,6 +111,21 @@ _PROMPT = """你是總體經濟統計發布的摘要器。以下是「{label}」
 """
 
 
+# 失敗原因分類。三種的處置完全不同：
+#   blocked        來源擋住資料中心 IP —— 換來源或放棄，重試沒有用
+#   no_source      本來就沒有對應的統計發布 —— 正常，不是故障
+#   content        抓到了但內容不符 —— 網址可能指向入口頁而非發布頁，要檢查
+#   model          模型或 API 出錯 —— 下次會自動重試
+def classify_failure(message: str) -> str:
+    if "HTTP 403" in message or "HTTP 401" in message:
+        return "blocked"
+    if NO_SOURCE_REASON in message:
+        return "no_source"
+    if "不足以摘要" in message or "內容過短" in message:
+        return "content"
+    return "model"
+
+
 @dataclass
 class NewsSummary:
     fred_id: str
@@ -131,7 +155,7 @@ def fetch_release_document(fred_id: str, timeout: int = 30, session=None) -> tup
     """
     urls = RELEASE_SOURCES.get(fred_id)
     if not urls:
-        raise ValueError(f"{fred_id} 沒有對應的官方統計發布（市場價格類指標無此類文件）")
+        raise ValueError(f"{fred_id}：{NO_SOURCE_REASON}")
 
     http = session or requests
     problems = []
@@ -213,7 +237,7 @@ def summarise_updated(
         if not row or not row.get("available"):
             continue
         if fred_id not in RELEASE_SOURCES:
-            notes.append(f"{fred_id}：市場價格類指標，無對應的官方統計發布")
+            notes.append(f"{fred_id}：{NO_SOURCE_REASON}")
             continue
         try:
             document, url = fetch_release_document(fred_id, session=session)
@@ -223,7 +247,11 @@ def summarise_updated(
         try:
             summary = summarise_release(row, document, url, api_key, model, session)
         except Exception as e:  # noqa: BLE001
-            notes.append(str(e))
+            # 訊息一定要帶指標代碼。實測有一則是「模型回應中找不到 JSON」，
+            # 因為那是共用的 call_model 拋出的、不知道自己在處理哪一條——
+            # 於是報告上出現一個無主的錯誤，無從追查。
+            msg = str(e)
+            notes.append(msg if fred_id in msg else f"{fred_id}：{msg}")
             continue
         out[fred_id] = {
             "summary_zh": summary.summary_zh,
