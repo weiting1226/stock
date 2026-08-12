@@ -1,6 +1,6 @@
 {
  "as_of": "2026-08-12",
- "generated_at": "2026-08-12T13:12:02Z",
+ "generated_at": "2026-08-12T13:16:02Z",
  "categories": {
   "growth": "① 成長動能",
   "labor": "② 就業市場",
@@ -5019,15 +5019,9 @@
   "stale": 0,
   "missing": 0,
   "discontinued": 0,
-  "updated_today": 1
+  "updated_today": 0
  },
- "updated_today": [
-  {
-   "fred_id": "NFCI",
-   "reference_date": "2026-08-07",
-   "label": "全國金融條件指數"
-  }
- ],
+ "updated_today": [],
  "news": {
   "attached": 4,
   "notes": [
