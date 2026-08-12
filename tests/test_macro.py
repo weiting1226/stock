@@ -398,7 +398,7 @@ def test_market_price_indicators_have_no_release_source():
     from macro_monitor import news_ai
     for fid in ("DGS10", "T10Y2Y", "T5YIFR"):
         assert fid not in news_ai.RELEASE_SOURCES
-        with pytest.raises(ValueError, match="沒有對應的官方統計發布"):
+        with pytest.raises(ValueError, match="無對應的官方統計發布"):
             news_ai.fetch_release_document(fid)
 
 
@@ -460,3 +460,49 @@ def test_store_keeps_only_recent_periods(tmp_path):
                                                      "model": "m"}}, rows, p)
     assert len(store) == news_store.KEEP_PER_SERIES
     assert news_store.key("CPIAUCSL", "2026-10-01") in store
+
+
+def test_every_summary_failure_names_the_indicator():
+    """實測有一則失敗訊息是「模型回應中找不到 JSON」，沒有指標代碼——
+    因為那是共用的 call_model 拋出的、不知道自己在處理哪一條。
+    報告上於是出現一個無主的錯誤，無從追查。"""
+    from unittest import mock
+    from macro_monitor import news_ai
+
+    doc_resp = mock.Mock(status_code=200, text="<p>" + ("Consumer prices data. " * 100) + "</p>")
+    empty = {"content": [{"type": "text", "text": ""}]}
+    api_resp = mock.Mock(status_code=200, text="{}")
+    api_resp.json.return_value = empty
+    session = mock.Mock(get=mock.Mock(return_value=doc_resp),
+                        post=mock.Mock(return_value=api_resp))
+
+    _, notes = news_ai.summarise_updated([_ROW], ["CPIAUCSL"], api_key="k", session=session)
+    assert notes and all("CPIAUCSL" in n for n in notes)
+
+
+@pytest.mark.parametrize("message,expected", [
+    ("CPIAUCSL 官方發布抓取失敗——https://www.bls.gov/x: HTTP 403", "blocked"),
+    ("DGS10：無對應的官方統計發布（市場價格類指標）", "no_source"),
+    ("RSAFS：模型判定文件內容不足以摘要這一期的數字", "content"),
+    ("HOUST 官方發布抓取失敗——https://x: 內容過短（120 字）", "content"),
+    ("CPIAUCSL：Anthropic API 回應 500", "model"),
+])
+def test_failure_reasons_are_classified(message, expected):
+    """來源封鎖、沒有來源、內容不符、模型出錯——四種的處置完全不同：
+    封鎖要換來源、沒有來源是正常、內容不符要檢查網址、模型出錯下次會重試。
+    混成一份清單就看不出該做什麼。"""
+    from macro_monitor import news_ai
+    assert news_ai.classify_failure(message) == expected
+
+
+def test_the_no_source_reason_has_exactly_one_wording():
+    """同一個原因寫成兩種說法，分類器就得猜——實測就是這樣漏判的。"""
+    from macro_monitor import news_ai
+    _, notes = news_ai.summarise_updated(
+        [{"fred_id": "DGS10", "available": True, "reference_date": "2026-08-11"}],
+        ["DGS10"], api_key="k")
+    assert notes and news_ai.classify_failure(notes[0]) == "no_source"
+    try:
+        news_ai.fetch_release_document("DGS10")
+    except ValueError as e:
+        assert news_ai.classify_failure(str(e)) == "no_source"

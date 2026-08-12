@@ -332,16 +332,36 @@ function renderNews(row) {
   </div>`;
 }
 
+const FAILURE_LABEL = {
+  blocked: ["來源封鎖", "該站台對資料中心 IP 回 403。換路徑沒有用，需要改來源或改執行環境"],
+  no_source: ["本來就沒有來源", "市場價格類指標（殖利率、利差、通膨預期）沒有對應的統計發布。這是正常狀態，不是故障"],
+  content: ["內容不符", "抓到了頁面但看不出這一期的數字，多半是網址指向入口頁而非發布頁——模型拒絕摘要是對的，該檢查的是網址"],
+  model: ["模型或 API 出錯", "下次執行會自動重試"],
+};
+
 function renderNewsNotes(r) {
   const n = r.news || {};
   const slot = document.getElementById("news-notes");
-  const notes = (n.notes || []).length
-    ? `<div style="margin-top:8px">${n.notes.map((x) =>
-        `<div>· ${escapeHtml(x)}</div>`).join("")}</div>`
+  const kinds = n.failure_kinds || {};
+  // 四種失敗的處置完全不同，混成一份清單就看不出該做什麼
+  const kindHtml = Object.entries(kinds).length
+    ? `<div class="table-scroll"><table>
+        <thead><tr><th>原因</th><th class="num">項數</th><th>該怎麼辦</th></tr></thead>
+        <tbody>${Object.entries(kinds).sort((a, b) => b[1] - a[1]).map(([k, v]) => {
+          const [label, advice] = FAILURE_LABEL[k] || [k, ""];
+          return `<tr><td>${escapeHtml(label)}</td><td class="num">${v}</td>
+            <td class="subtitle">${escapeHtml(advice)}</td></tr>`;
+        }).join("")}</tbody></table></div>`
     : "";
-  slot.innerHTML = `<p class="subtitle">${escapeHtml(n.method || "")}</p>`
-    + (n.attached ? `<p class="subtitle">目前有 <strong>${n.attached}</strong> 條指標帶有當期摘要。</p>` : "")
-    + (notes ? `<div class="warning-box">未產生摘要的原因：${notes}</div>` : "");
+  const notes = (n.notes || []).length
+    ? `<details class="longtext" style="margin-top:12px"><summary><span class="clamp">`
+      + `逐項原因（${n.notes.length} 則）</span></summary>`
+      + `<div style="margin-top:8px">${n.notes.map((x) =>
+          `<div class="subtitle">· ${escapeHtml(x)}</div>`).join("")}</div></details>`
+    : "";
+  slot.innerHTML =
+    (n.attached ? `<p class="subtitle">目前有 <strong>${n.attached}</strong> 條指標帶有當期摘要。</p>` : "")
+    + kindHtml + notes;
 }
 
 function renderReleaseLog(r) {
