@@ -9,7 +9,7 @@ import pandas as pd
 
 from liquidity_monitor.sources import fred
 
-from . import analysis, indicators, release_log
+from . import analysis, indicators, news_ai, news_store, release_log
 from .config import (
     CATEGORIES,
     HISTORY_YEARS,
@@ -96,6 +96,21 @@ def build_report(as_of: str = None, data: dict = None, diagnostics: dict = None)
     stale = [r for r in available if r.get("stale") and not r.get("discontinued")]
     missing = [r for r in rows if not r.get("available")]
 
+    # --- AI 新聞摘要 -------------------------------------------------------
+    # 只為「當期還沒有摘要」的指標呼叫模型：成功的留著（同一期重算沒有意義），
+    # 失敗的下次自然重試（若以發布日誌為判準，今天失敗的就永遠不會再試）。
+    news_notes = []
+    try:
+        store = news_store.load()
+        pending = news_store.missing(rows, store)
+        summaries, news_notes = news_ai.summarise_updated(rows, pending)
+        store = news_store.save(store, summaries, rows)
+        news_attached = news_store.attach(rows, store)
+    except Exception as e:  # noqa: BLE001 — 摘要失敗不該讓整份報告失敗
+        log.warning("新聞摘要處理失敗：%s", e)
+        news_notes.append(f"{type(e).__name__}: {e}")
+        news_attached = 0
+
     by_category = {}
     for key, label in CATEGORIES.items():
         items = [r for r in rows if r["category"] == key]
@@ -122,6 +137,14 @@ def build_report(as_of: str = None, data: dict = None, diagnostics: dict = None)
                    "discontinued": len(discontinued),
                    "updated_today": len(updated_today)},
         "updated_today": updated_today,
+        "news": {
+            "attached": news_attached,
+            "notes": news_notes[:20],
+            "method": ("摘要取自各指標的**官方統計發布原文**（BLS／BEA／Census／Fed 等），"
+                       "不是二手新聞。抓不到文件就不呼叫模型——讓模型憑記憶說明「上個月 CPI "
+                       "為什麼上漲」，會得到一段完全通順而且是編造的解釋。"
+                       "模型提供的原文佐證必須逐字出現在文件中，否則整份摘要作廢。"),
+        },
         "discontinued_series": [
             {"fred_id": r["fred_id"], "label": r["label"],
              "reference_date": r["reference_date"], "lag_days": r["lag_days"]}
@@ -145,6 +168,8 @@ def build_report(as_of: str = None, data: dict = None, diagnostics: dict = None)
             "掃描為每日一次，因此最多高估一天；累積期數不足兩期時不顯示。",
             "「停止更新」與「延遲」分開判定：超過過期門檻四倍且至少一年，"
             "視為該序列已停止發布，應從清單移除而不是繼續等。",
+            "AI 摘要只描述官方發布文件說了什麼，不預測、不給投資判斷；"
+            "殖利率與利差等市場價格類指標沒有對應的統計發布，因此沒有摘要。",
         ],
     }
 

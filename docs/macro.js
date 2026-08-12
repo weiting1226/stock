@@ -183,6 +183,7 @@ function renderTable(r) {
       <td class="num">${signed(x.change_12m)}</td>
       <td class="num">${x.percentile_20y === null ? "—" : x.percentile_20y.toFixed(0) + "%"}</td>
       <td class="${dirCls}">${escapeHtml(x.direction_3m)}</td>
+      <td>${x.news ? '<span class="badge ok" title="有官方發布摘要">摘要</span>' : ""}</td>
       <td>${sparkSvg(r.charts[x.fred_id],
                      x.direction_3m === "改善" ? true : x.direction_3m === "惡化" ? false : null)}</td>
     </tr>`;
@@ -297,6 +298,50 @@ function renderAnalysis(r, row) {
   }
   document.getElementById("analysis-detail").innerHTML =
     parts.length ? `<div class="warning-box" style="margin-top:16px">${parts.join("")}</div>` : "";
+
+  renderNews(row);
+}
+
+/**
+ * 官方發布摘要。三件事一定要一起顯示：摘要、原文佐證、來源連結。
+ * 只給摘要的話，讀者無從判斷那句話是文件裡真的有，還是模型補出來的。
+ */
+function renderNews(row) {
+  const slot = document.getElementById("news-detail");
+  const n = row.news;
+  if (!n) {
+    slot.innerHTML = `<p class="subtitle">這項指標沒有當期的官方發布摘要。`
+      + `殖利率與利差等市場價格類指標沒有對應的統計發布；`
+      + `其餘則可能是文件抓取失敗或尚未輪到（見下方註記）。</p>`;
+    return;
+  }
+  const drivers = (n.drivers || []).length
+    ? `<div style="margin-top:8px">主要項目：${n.drivers.map((d) =>
+        `<span class="source-pill">${escapeHtml(d)}</span>`).join(" ")}</div>`
+    : "";
+  slot.innerHTML = `<div class="warning-box" style="margin-top:16px">
+    <div>${escapeHtml(n.summary_zh)}</div>
+    ${drivers}
+    <div style="margin-top:10px" class="subtitle">
+      原文佐證（已驗證逐字出現於文件中）：<em>「${escapeHtml(n.evidence)}」</em>
+    </div>
+    <div style="margin-top:6px" class="subtitle">
+      來源：<a href="${escapeHtml(n.source_url)}" target="_blank" rel="noopener">${escapeHtml(n.source_url)}</a>
+      　摘要模型：${escapeHtml(n.model)}
+    </div>
+  </div>`;
+}
+
+function renderNewsNotes(r) {
+  const n = r.news || {};
+  const slot = document.getElementById("news-notes");
+  const notes = (n.notes || []).length
+    ? `<div style="margin-top:8px">${n.notes.map((x) =>
+        `<div>· ${escapeHtml(x)}</div>`).join("")}</div>`
+    : "";
+  slot.innerHTML = `<p class="subtitle">${escapeHtml(n.method || "")}</p>`
+    + (n.attached ? `<p class="subtitle">目前有 <strong>${n.attached}</strong> 條指標帶有當期摘要。</p>` : "")
+    + (notes ? `<div class="warning-box">未產生摘要的原因：${notes}</div>` : "");
 }
 
 function renderReleaseLog(r) {
@@ -357,6 +402,7 @@ async function main() {
   renderTable(r);
   renderSeriesChart(r);
   renderReleaseLog(r);
+  renderNewsNotes(r);
 }
 
 main();

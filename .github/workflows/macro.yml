@@ -33,13 +33,15 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run macro monitor
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python3 scripts/run_macro.py -v
 
       - name: Commit results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/data/macro
+          git add docs/data/macro data/macro
           if git diff --cached --quiet; then
             echo "no changes"
             exit 0
