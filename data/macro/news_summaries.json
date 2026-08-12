@@ -1,1 +1,51 @@
-{}
+{
+ "INDPRO@2026-06-01": {
+  "summary_zh": "2026年6月工業生產指數較上月上升0.1%，第二季以年率計成長4.0%。製造業產出持平，但礦業與公用事業指數各成長0.4%。產能利用率維持在76.1%，較長期平均值低3.3個百分點。",
+  "drivers": [
+   "礦業產出成長0.4%",
+   "公用事業指數成長0.4%",
+   "製造業產出持平",
+   "消費品產出上升0.3%"
+  ],
+  "evidence": "Industrial production (IP) ticked up 0.1 percent in June and grew at an annual rate of 4.0 percent in the second quarter.",
+  "source_url": "https://www.federalreserve.gov/releases/g17/current/default.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-06-01",
+  "fred_id": "INDPRO"
+ },
+ "PCEPI@2026-06-01": {
+  "summary_zh": "文件顯示美國PCE物價指數同比變動率在2026年6月為+3.7%，較5月的+4.1%略為下降，但仍高於4月的+3.8%與3月的+3.5%。文件未說明造成此變動的具體原因。",
+  "drivers": [],
+  "evidence": "June 2026 +3.7%  May 2026 +4.1%  April 2026 +3.8%  March 2026 +3.5%",
+  "source_url": "https://www.bea.gov/data/personal-consumption-expenditures-price-index",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-06-01",
+  "fred_id": "PCEPI"
+ },
+ "HOUST@2026-06-01": {
+  "summary_zh": "2026年6月新屋開工經季節調整年化率為142.7萬戶,較5月修正後的119.9萬戶大幅上升19.0%,也較2025年6月的137.9萬戶上升3.5%。其中單戶住宅開工率為89.5萬戶,較5月的89.7萬戶微幅下降0.2%;五戶以上建築單位開工率為51.3萬戶。",
+  "drivers": [
+   "單戶住宅開工率89.5萬戶,較5月下降0.2%",
+   "五戶以上建築單位開工率51.3萬戶",
+   "整體開工率較5月大幅上升19.0%"
+  ],
+  "evidence": "Privately-owned housing starts in June were at a seasonally adjusted annual rate of 1,427,000. This is 19.0 percent (&plusmn;15.9 percent) above the revised May estimate of 1,199,000",
+  "source_url": "https://www.census.gov/construction/nrc/current/index.html",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-06-01",
+  "fred_id": "HOUST"
+ },
+ "MORTGAGE30US@2026-08-06": {
+  "summary_zh": "截至2026年8月6日,30年期固定房貸利率平均為6.69%,較前一週的6.66%小幅上升,亦高於去年同期的6.63%。文件指出,雖然房貸利率持續影響負擔能力,但房市正呈現調整跡象,包括上市房價略低於去年同期水準,且待售庫存較近年的緊縮狀況有所改善。",
+  "drivers": [
+   "房貸利率持續影響負擔能力",
+   "上市房價略低於去年同期水準",
+   "待售庫存從近年的有限供給中改善"
+  ],
+  "evidence": "While mortgage rates continue to influence affordability, the housing market is showing signs of adjustment, with listing prices modestly below year-ago levels and for-sale inventory improving from the limited supply seen in recent years.",
+  "source_url": "https://www.freddiemac.com/pmms",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-08-06",
+  "fred_id": "MORTGAGE30US"
+ }
+}

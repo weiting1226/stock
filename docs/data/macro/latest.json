@@ -1,6 +1,6 @@
 {
  "as_of": "2026-08-12",
- "generated_at": "2026-08-12T07:18:51Z",
+ "generated_at": "2026-08-12T10:16:47Z",
  "categories": {
   "growth": "① 成長動能",
   "labor": "② 就業市場",
@@ -60,12 +60,56 @@
    "reference_date": "2026-04-01",
    "lag_days": 133,
    "stale": false,
+   "discontinued": false,
    "change_3m": -0.583,
    "change_12m": 0.021,
    "direction_3m": "惡化",
    "percentile_20y": 41.2,
    "higher_is_better": true,
-   "note": "季頻，約季後一個月公布首次估計，之後還會修正兩次"
+   "publish_lag_days": 120,
+   "note": "季頻，約季後一個月公布首次估計，之後還會修正兩次",
+   "analysis": {
+    "zscore_full": -0.148,
+    "zscore_10y": -0.147,
+    "acceleration_3m": -1.278,
+    "extremes": {
+     "high": 12.386,
+     "high_date": "2021-04-01",
+     "low": -7.399,
+     "low_date": "2020-04-01",
+     "position_in_range_pct": 48.02,
+     "vs_high_pct": -83.03
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2023-10-01",
+     "periods_since_peak": 10,
+     "last_trough_date": "2022-10-01",
+     "periods_since_trough": 14
+    },
+    "volatility": {
+     "recent_vol": 0.429,
+     "long_run_vol": 1.774,
+     "vol_ratio": 0.242
+    },
+    "recession_contrast": {
+     "recession_months": 10,
+     "expansion_months": 105,
+     "recession_mean": -1.247,
+     "expansion_mean": 2.761,
+     "toward_recession_pct": 16.449,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 115,
+    "history_start": "1997-10-01"
+   },
+   "observed_release": {
+    "observations": 2,
+    "median_lag_days": 315,
+    "min_lag_days": 11,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   }
   },
   {
    "fred_id": "INDPRO",
@@ -79,12 +123,68 @@
    "reference_date": "2026-06-01",
    "lag_days": 72,
    "stale": false,
+   "discontinued": false,
    "change_3m": 0.573,
    "change_12m": 0.565,
    "direction_3m": "改善",
    "percentile_20y": 48.3,
    "higher_is_better": true,
-   "note": ""
+   "publish_lag_days": 45,
+   "note": "",
+   "analysis": {
+    "zscore_full": 0.035,
+    "zscore_10y": 0.211,
+    "acceleration_3m": 1.165,
+    "extremes": {
+     "high": 16.552,
+     "high_date": "2021-04-01",
+     "low": -17.318,
+     "low_date": "2020-04-01",
+     "position_in_range_pct": 54.509,
+     "vs_high_pct": -93.088
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2025-07-01",
+     "periods_since_peak": 11,
+     "last_trough_date": "2024-11-01",
+     "periods_since_trough": 19
+    },
+    "volatility": {
+     "recent_vol": 0.415,
+     "long_run_vol": 1.581,
+     "vol_ratio": 0.262
+    },
+    "recession_contrast": {
+     "recession_months": 28,
+     "expansion_months": 318,
+     "recession_mean": -6.416,
+     "expansion_mean": 1.647,
+     "toward_recession_pct": 6.242,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 346,
+    "history_start": "1997-09-01"
+   },
+   "observed_release": {
+    "observations": 2,
+    "median_lag_days": 315,
+    "min_lag_days": 11,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   },
+   "news": {
+    "summary_zh": "2026年6月工業生產指數較上月上升0.1%，第二季以年率計成長4.0%。製造業產出持平，但礦業與公用事業指數各成長0.4%。產能利用率維持在76.1%，較長期平均值低3.3個百分點。",
+    "drivers": [
+     "礦業產出成長0.4%",
+     "公用事業指數成長0.4%",
+     "製造業產出持平",
+     "消費品產出上升0.3%"
+    ],
+    "evidence": "Industrial production (IP) ticked up 0.1 percent in June and grew at an annual rate of 4.0 percent in the second quarter.",
+    "source_url": "https://www.federalreserve.gov/releases/g17/current/default.htm",
+    "model": "claude-sonnet-5"
+   }
   },
   {
    "fred_id": "RSAFS",
@@ -98,12 +198,56 @@
    "reference_date": "2026-06-01",
    "lag_days": 72,
    "stale": false,
+   "discontinued": false,
    "change_3m": 2.479,
    "change_12m": 2.717,
    "direction_3m": "改善",
    "percentile_20y": 84.6,
    "higher_is_better": true,
-   "note": "含汽車與加油站"
+   "publish_lag_days": 45,
+   "note": "含汽車與加油站",
+   "analysis": {
+    "zscore_full": 0.44,
+    "zscore_10y": 0.178,
+    "acceleration_3m": 0.671,
+    "extremes": {
+     "high": 51.85,
+     "high_date": "2021-04-01",
+     "low": -19.689,
+     "low_date": "2020-04-01",
+     "position_in_range_pct": 36.914,
+     "vs_high_pct": -87.041
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2025-03-01",
+     "periods_since_peak": 15,
+     "last_trough_date": "2025-12-01",
+     "periods_since_trough": 6
+    },
+    "volatility": {
+     "recent_vol": 0.981,
+     "long_run_vol": 3.065,
+     "vol_ratio": 0.32
+    },
+    "recession_contrast": {
+     "recession_months": 28,
+     "expansion_months": 318,
+     "recession_mean": -2.792,
+     "expansion_mean": 5.098,
+     "toward_recession_pct": -20.553,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 346,
+    "history_start": "1997-09-01"
+   },
+   "observed_release": {
+    "observations": 2,
+    "median_lag_days": 315,
+    "min_lag_days": 11,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   }
   },
   {
    "fred_id": "UNRATE",
@@ -117,12 +261,56 @@
    "reference_date": "2026-07-01",
    "lag_days": 42,
    "stale": false,
+   "discontinued": false,
    "change_3m": -0.2,
    "change_12m": 0.0,
    "direction_3m": "改善",
    "percentile_20y": 23.3,
    "higher_is_better": false,
-   "note": ""
+   "publish_lag_days": 37,
+   "note": "",
+   "analysis": {
+    "zscore_full": -0.758,
+    "zscore_10y": -0.261,
+    "acceleration_3m": -0.2,
+    "extremes": {
+     "high": 14.8,
+     "high_date": "2020-04-01",
+     "low": 3.4,
+     "low_date": "2023-04-01",
+     "position_in_range_pct": 6.14,
+     "vs_high_pct": -72.297
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2025-11-01",
+     "periods_since_peak": 8,
+     "last_trough_date": "2025-01-01",
+     "periods_since_trough": 17
+    },
+    "volatility": {
+     "recent_vol": 0.076,
+     "long_run_vol": 0.604,
+     "vol_ratio": 0.125
+    },
+    "recession_contrast": {
+     "recession_months": 28,
+     "expansion_months": 330,
+     "recession_mean": 6.429,
+     "expansion_mean": 5.425,
+     "toward_recession_pct": -50.0,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 358,
+    "history_start": "1996-09-01"
+   },
+   "observed_release": {
+    "observations": 2,
+    "median_lag_days": 330,
+    "min_lag_days": 42,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   }
   },
   {
    "fred_id": "PAYEMS",
@@ -136,12 +324,56 @@
    "reference_date": "2026-07-01",
    "lag_days": 42,
    "stale": false,
+   "discontinued": false,
    "change_3m": -171.0,
    "change_12m": -87.0,
    "direction_3m": "惡化",
    "percentile_20y": 14.6,
    "higher_is_better": true,
-   "note": "顯示月增人數（非水準），這才是每月公布時市場在看的數字"
+   "publish_lag_days": 37,
+   "note": "顯示月增人數（非水準），這才是每月公布時市場在看的數字",
+   "analysis": {
+    "zscore_full": -0.113,
+    "zscore_10y": -0.072,
+    "acceleration_3m": -159.0,
+    "extremes": {
+     "high": 4631.0,
+     "high_date": "2020-06-01",
+     "low": -20469.0,
+     "low_date": "2020-04-01",
+     "position_in_range_pct": 81.458,
+     "vs_high_pct": -100.497
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2024-12-01",
+     "periods_since_peak": 19,
+     "last_trough_date": "2025-01-01",
+     "periods_since_trough": 18
+    },
+    "volatility": {
+     "recent_vol": 202.208,
+     "long_run_vol": 1609.197,
+     "vol_ratio": 0.126
+    },
+    "recession_contrast": {
+     "recession_months": 28,
+     "expansion_months": 330,
+     "recession_mean": -1102.179,
+     "expansion_mean": 210.058,
+     "toward_recession_pct": 17.76,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 358,
+    "history_start": "1996-10-01"
+   },
+   "observed_release": {
+    "observations": 2,
+    "median_lag_days": 315,
+    "min_lag_days": 11,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   }
   },
   {
    "fred_id": "ICSA",
@@ -155,12 +387,56 @@
    "reference_date": "2026-08-01",
    "lag_days": 11,
    "stale": false,
+   "discontinued": false,
    "change_3m": 0.0,
    "change_12m": -27000.0,
    "direction_3m": "—",
    "percentile_20y": 0.8,
    "higher_is_better": false,
-   "note": "週頻，是就業市場最即時的指標"
+   "publish_lag_days": 6,
+   "note": "週頻，是就業市場最即時的指標",
+   "analysis": {
+    "zscore_full": -0.5,
+    "zscore_10y": -0.295,
+    "acceleration_3m": 31000.0,
+    "extremes": {
+     "high": 6137000.0,
+     "high_date": "2020-04-04",
+     "low": 189000.0,
+     "low_date": "2026-07-18",
+     "position_in_range_pct": 0.168,
+     "vs_high_pct": -96.757
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2026-06-06",
+     "periods_since_peak": 8,
+     "last_trough_date": "2026-04-25",
+     "periods_since_trough": 14
+    },
+    "volatility": {
+     "recent_vol": 10503.406,
+     "long_run_vol": 113566.123,
+     "vol_ratio": 0.092
+    },
+    "recession_contrast": {
+     "recession_months": 120,
+     "expansion_months": 1441,
+     "recession_mean": 666558.333,
+     "expansion_mean": 335458.709,
+     "toward_recession_pct": -41.214,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 1564,
+    "history_start": "1996-08-17"
+   },
+   "observed_release": {
+    "observations": 3,
+    "median_lag_days": 66,
+    "min_lag_days": 11,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   }
   },
   {
    "fred_id": "CIVPART",
@@ -174,12 +450,56 @@
    "reference_date": "2026-07-01",
    "lag_days": 42,
    "stale": false,
+   "discontinued": false,
    "change_3m": -0.4,
    "change_12m": -0.9,
    "direction_3m": "惡化",
    "percentile_20y": 0.8,
    "higher_is_better": true,
-   "note": ""
+   "publish_lag_days": 37,
+   "note": "",
+   "analysis": {
+    "zscore_full": -1.587,
+    "zscore_10y": -1.813,
+    "acceleration_3m": -0.1,
+    "extremes": {
+     "high": 67.3,
+     "high_date": "2000-01-01",
+     "low": 60.1,
+     "low_date": "2020-04-01",
+     "position_in_range_pct": 18.056,
+     "vs_high_pct": -8.767
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2025-04-01",
+     "periods_since_peak": 14,
+     "last_trough_date": "2024-11-01",
+     "periods_since_trough": 19
+    },
+    "volatility": {
+     "recent_vol": 0.106,
+     "long_run_vol": 0.197,
+     "vol_ratio": 0.537
+    },
+    "recession_contrast": {
+     "recession_months": 28,
+     "expansion_months": 330,
+     "recession_mean": 65.821,
+     "expansion_mean": 64.344,
+     "toward_recession_pct": -50.0,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 358,
+    "history_start": "1996-09-01"
+   },
+   "observed_release": {
+    "observations": 2,
+    "median_lag_days": 315,
+    "min_lag_days": 11,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   }
   },
   {
    "fred_id": "JTSJOL",
@@ -193,12 +513,56 @@
    "reference_date": "2026-06-01",
    "lag_days": 72,
    "stale": false,
+   "discontinued": false,
    "change_3m": 472.0,
    "change_12m": 155.0,
    "direction_3m": "改善",
    "percentile_20y": 77.9,
    "higher_is_better": true,
-   "note": "JOLTS，比就業數據多落後一個月"
+   "publish_lag_days": 70,
+   "note": "JOLTS，比就業數據多落後一個月",
+   "analysis": {
+    "zscore_full": 0.815,
+    "zscore_10y": -0.278,
+    "acceleration_3m": 135.0,
+    "extremes": {
+     "high": 12301.0,
+     "high_date": "2022-03-01",
+     "low": 2232.0,
+     "low_date": "2009-07-01",
+     "position_in_range_pct": 50.919,
+     "vs_high_pct": -40.176
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2022-03-01",
+     "periods_since_peak": 51,
+     "last_trough_date": "2025-12-01",
+     "periods_since_trough": 6
+    },
+    "volatility": {
+     "recent_vol": 428.914,
+     "long_run_vol": 301.87,
+     "vol_ratio": 1.421
+    },
+    "recession_contrast": {
+     "recession_months": 28,
+     "expansion_months": 279,
+     "recession_mean": 3749.786,
+     "expansion_mean": 5680.853,
+     "toward_recession_pct": -50.0,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 307,
+    "history_start": "2000-12-01"
+   },
+   "observed_release": {
+    "observations": 2,
+    "median_lag_days": 315,
+    "min_lag_days": 11,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   }
   },
   {
    "fred_id": "SAHMREALTIME",
@@ -212,12 +576,56 @@
    "reference_date": "2026-07-01",
    "lag_days": 42,
    "stale": false,
+   "discontinued": false,
    "change_3m": -0.16,
    "change_12m": -0.2,
    "direction_3m": "改善",
    "percentile_20y": 25.4,
    "higher_is_better": false,
-   "note": "失業率三個月均值相對前 12 個月低點的升幅。原作者定義 ≥0.50 代表衰退已經開始"
+   "publish_lag_days": 40,
+   "note": "失業率三個月均值相對前 12 個月低點的升幅。原作者定義 ≥0.50 代表衰退已經開始",
+   "analysis": {
+    "zscore_full": -0.383,
+    "zscore_10y": -0.359,
+    "acceleration_3m": 0.01,
+    "extremes": {
+     "high": 9.5,
+     "high_date": "2020-06-01",
+     "low": -0.37,
+     "low_date": "2021-09-01",
+     "position_in_range_pct": 3.445,
+     "vs_high_pct": -100.316
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2025-11-01",
+     "periods_since_peak": 8,
+     "last_trough_date": "2025-07-01",
+     "periods_since_trough": 11
+    },
+    "volatility": {
+     "recent_vol": 0.027,
+     "long_run_vol": 0.367,
+     "vol_ratio": 0.073
+    },
+    "recession_contrast": {
+     "recession_months": 28,
+     "expansion_months": 330,
+     "recession_mean": 1.488,
+     "expansion_mean": 0.33,
+     "toward_recession_pct": -31.137,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 358,
+    "history_start": "1996-09-01"
+   },
+   "observed_release": {
+    "observations": 2,
+    "median_lag_days": 315,
+    "min_lag_days": 11,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   }
   },
   {
    "fred_id": "CPIAUCSL",
@@ -231,12 +639,56 @@
    "reference_date": "2026-06-01",
    "lag_days": 72,
    "stale": false,
+   "discontinued": false,
    "change_3m": 0.406,
    "change_12m": 1.349,
    "direction_3m": "—",
    "percentile_20y": 80.8,
    "higher_is_better": null,
-   "note": ""
+   "publish_lag_days": 43,
+   "note": "",
+   "analysis": {
+    "zscore_full": 0.71,
+    "zscore_10y": 0.233,
+    "acceleration_3m": 0.088,
+    "extremes": {
+     "high": 8.979,
+     "high_date": "2022-06-01",
+     "low": -1.959,
+     "low_date": "2009-07-01",
+     "position_in_range_pct": 51.977,
+     "vs_high_pct": -58.499
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2025-01-01",
+     "periods_since_peak": 16,
+     "last_trough_date": "2025-04-01",
+     "periods_since_trough": 13
+    },
+    "volatility": {
+     "recent_vol": 0.417,
+     "long_run_vol": 0.436,
+     "vol_ratio": 0.957
+    },
+    "recession_contrast": {
+     "recession_months": 28,
+     "expansion_months": 317,
+     "recession_mean": 2.371,
+     "expansion_mean": 2.559,
+     "toward_recession_pct": -50.0,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 345,
+    "history_start": "1997-09-01"
+   },
+   "observed_release": {
+    "observations": 2,
+    "median_lag_days": 315,
+    "min_lag_days": 11,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   }
   },
   {
    "fred_id": "CPILFESL",
@@ -250,12 +702,56 @@
    "reference_date": "2026-06-01",
    "lag_days": 72,
    "stale": false,
+   "discontinued": false,
    "change_3m": 0.133,
    "change_12m": 0.04,
    "direction_3m": "—",
    "percentile_20y": 75.0,
    "higher_is_better": null,
-   "note": ""
+   "publish_lag_days": 43,
+   "note": "",
+   "analysis": {
+    "zscore_full": 0.378,
+    "zscore_10y": -0.221,
+    "acceleration_3m": 0.298,
+    "extremes": {
+     "high": 6.624,
+     "high_date": "2022-09-01",
+     "low": 0.603,
+     "low_date": "2010-10-01",
+     "position_in_range_pct": 36.587,
+     "vs_high_pct": -57.644
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2022-09-01",
+     "periods_since_peak": 44,
+     "last_trough_date": "2025-05-01",
+     "periods_since_trough": 12
+    },
+    "volatility": {
+     "recent_vol": 0.169,
+     "long_run_vol": 0.175,
+     "vol_ratio": 0.965
+    },
+    "recession_contrast": {
+     "recession_months": 28,
+     "expansion_months": 317,
+     "recession_mean": 2.253,
+     "expansion_mean": 2.413,
+     "toward_recession_pct": -50.0,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 345,
+    "history_start": "1997-09-01"
+   },
+   "observed_release": {
+    "observations": 2,
+    "median_lag_days": 315,
+    "min_lag_days": 11,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   }
   },
   {
    "fred_id": "PCEPI",
@@ -269,12 +765,63 @@
    "reference_date": "2026-06-01",
    "lag_days": 72,
    "stale": false,
+   "discontinued": false,
    "change_3m": 0.125,
    "change_12m": 1.075,
    "direction_3m": "—",
    "percentile_20y": 87.1,
    "higher_is_better": null,
-   "note": ""
+   "publish_lag_days": 60,
+   "note": "",
+   "analysis": {
+    "zscore_full": 1.096,
+    "zscore_10y": 0.492,
+    "acceleration_3m": -0.54,
+    "extremes": {
+     "high": 7.243,
+     "high_date": "2022-06-01",
+     "low": -1.466,
+     "low_date": "2009-07-01",
+     "position_in_range_pct": 58.948,
+     "vs_high_pct": -49.361
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2024-12-01",
+     "periods_since_peak": 18,
+     "last_trough_date": "2025-04-01",
+     "periods_since_trough": 14
+    },
+    "volatility": {
+     "recent_vol": 0.308,
+     "long_run_vol": 0.308,
+     "vol_ratio": 1.0
+    },
+    "recession_contrast": {
+     "recession_months": 28,
+     "expansion_months": 318,
+     "recession_mean": 1.774,
+     "expansion_mean": 2.183,
+     "toward_recession_pct": -50.0,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 346,
+    "history_start": "1997-09-01"
+   },
+   "observed_release": {
+    "observations": 2,
+    "median_lag_days": 315,
+    "min_lag_days": 11,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   },
+   "news": {
+    "summary_zh": "文件顯示美國PCE物價指數同比變動率在2026年6月為+3.7%，較5月的+4.1%略為下降，但仍高於4月的+3.8%與3月的+3.5%。文件未說明造成此變動的具體原因。",
+    "drivers": [],
+    "evidence": "June 2026 +3.7%  May 2026 +4.1%  April 2026 +3.8%  March 2026 +3.5%",
+    "source_url": "https://www.bea.gov/data/personal-consumption-expenditures-price-index",
+    "model": "claude-sonnet-5"
+   }
   },
   {
    "fred_id": "PCEPILFE",
@@ -288,12 +835,56 @@
    "reference_date": "2026-06-01",
    "lag_days": 72,
    "stale": false,
+   "discontinued": false,
    "change_3m": 0.033,
    "change_12m": 0.479,
    "direction_3m": "—",
    "percentile_20y": 85.8,
    "higher_is_better": null,
-   "note": "Fed 的 2% 目標指的是這一條"
+   "publish_lag_days": 60,
+   "note": "Fed 的 2% 目標指的是這一條",
+   "analysis": {
+    "zscore_full": 1.237,
+    "zscore_10y": 0.385,
+    "acceleration_3m": -0.25,
+    "extremes": {
+     "high": 5.606,
+     "high_date": "2022-09-01",
+     "low": 0.626,
+     "low_date": "2009-07-01",
+     "position_in_range_pct": 53.423,
+     "vs_high_pct": -41.38
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2024-12-01",
+     "periods_since_peak": 18,
+     "last_trough_date": "2025-04-01",
+     "periods_since_trough": 14
+    },
+    "volatility": {
+     "recent_vol": 0.111,
+     "long_run_vol": 0.162,
+     "vol_ratio": 0.686
+    },
+    "recession_contrast": {
+     "recession_months": 28,
+     "expansion_months": 318,
+     "recession_mean": 1.648,
+     "expansion_mean": 2.096,
+     "toward_recession_pct": -50.0,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 346,
+    "history_start": "1997-09-01"
+   },
+   "observed_release": {
+    "observations": 2,
+    "median_lag_days": 315,
+    "min_lag_days": 11,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   }
   },
   {
    "fred_id": "T5YIFR",
@@ -307,12 +898,56 @@
    "reference_date": "2026-08-11",
    "lag_days": 1,
    "stale": false,
+   "discontinued": false,
    "change_3m": 0.04,
    "change_12m": 0.02,
    "direction_3m": "—",
    "percentile_20y": 58.0,
    "higher_is_better": null,
-   "note": "市場對長期通膨的定價，比實際通膨更能反映預期是否脫錨"
+   "publish_lag_days": 3,
+   "note": "市場對長期通膨的定價，比實際通膨更能反映預期是否脫錨",
+   "analysis": {
+    "zscore_full": 0.185,
+    "zscore_10y": 0.859,
+    "acceleration_3m": -0.06,
+    "extremes": {
+     "high": 3.05,
+     "high_date": "2008-11-12",
+     "low": 0.43,
+     "low_date": "2008-12-29",
+     "position_in_range_pct": 71.756,
+     "vs_high_pct": -24.262
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2026-07-07",
+     "periods_since_peak": 25,
+     "last_trough_date": "2026-07-09",
+     "periods_since_trough": 23
+    },
+    "volatility": {
+     "recent_vol": 0.024,
+     "long_run_vol": 0.05,
+     "vol_ratio": 0.489
+    },
+    "recession_contrast": {
+     "recession_months": 418,
+     "expansion_months": 5488,
+     "recession_mean": 2.05,
+     "expansion_mean": 2.265,
+     "toward_recession_pct": -20.74,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 5906,
+    "history_start": "2003-01-02"
+   },
+   "observed_release": {
+    "observations": 3,
+    "median_lag_days": 11,
+    "min_lag_days": 1,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   }
   },
   {
    "fred_id": "T10YIE",
@@ -326,12 +961,56 @@
    "reference_date": "2026-08-11",
    "lag_days": 1,
    "stale": false,
+   "discontinued": false,
    "change_3m": -0.2,
    "change_12m": -0.08,
    "direction_3m": "—",
    "percentile_20y": 60.8,
    "higher_is_better": null,
-   "note": ""
+   "publish_lag_days": 3,
+   "note": "",
+   "analysis": {
+    "zscore_full": 0.413,
+    "zscore_10y": 0.486,
+    "acceleration_3m": -0.35,
+    "extremes": {
+     "high": 3.02,
+     "high_date": "2022-04-21",
+     "low": 0.04,
+     "low_date": "2008-11-20",
+     "position_in_range_pct": 74.832,
+     "vs_high_pct": -24.834
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2026-07-23",
+     "periods_since_peak": 13,
+     "last_trough_date": "2026-07-28",
+     "periods_since_trough": 10
+    },
+    "volatility": {
+     "recent_vol": 0.022,
+     "long_run_vol": 0.034,
+     "vol_ratio": 0.661
+    },
+    "recession_contrast": {
+     "recession_months": 418,
+     "expansion_months": 5488,
+     "recession_mean": 1.624,
+     "expansion_mean": 2.145,
+     "toward_recession_pct": -24.058,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 5906,
+    "history_start": "2003-01-02"
+   },
+   "observed_release": {
+    "observations": 3,
+    "median_lag_days": 11,
+    "min_lag_days": 1,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   }
   },
   {
    "fred_id": "FEDFUNDS",
@@ -345,12 +1024,56 @@
    "reference_date": "2026-07-01",
    "lag_days": 42,
    "stale": false,
+   "discontinued": false,
    "change_3m": -0.01,
    "change_12m": -0.7,
    "direction_3m": "—",
    "percentile_20y": 73.8,
    "higher_is_better": null,
-   "note": ""
+   "publish_lag_days": 35,
+   "note": "",
+   "analysis": {
+    "zscore_full": 0.568,
+    "zscore_10y": 0.662,
+    "acceleration_3m": -0.01,
+    "extremes": {
+     "high": 6.54,
+     "high_date": "2000-07-01",
+     "low": 0.05,
+     "low_date": "2020-04-01",
+     "position_in_range_pct": 55.162,
+     "vs_high_pct": -44.495
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2025-08-01",
+     "periods_since_peak": 11,
+     "last_trough_date": "2025-02-01",
+     "periods_since_trough": 17
+    },
+    "volatility": {
+     "recent_vol": 0.059,
+     "long_run_vol": 0.175,
+     "vol_ratio": 0.337
+    },
+    "recession_contrast": {
+     "recession_months": 28,
+     "expansion_months": 331,
+     "recession_mean": 1.892,
+     "expansion_mean": 2.445,
+     "toward_recession_pct": -50.0,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 359,
+    "history_start": "1996-09-01"
+   },
+   "observed_release": {
+    "observations": 2,
+    "median_lag_days": 315,
+    "min_lag_days": 11,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   }
   },
   {
    "fred_id": "DGS2",
@@ -364,12 +1087,56 @@
    "reference_date": "2026-08-10",
    "lag_days": 2,
    "stale": false,
+   "discontinued": false,
    "change_3m": 0.35,
    "change_12m": 0.56,
    "direction_3m": "—",
    "percentile_20y": 85.5,
    "higher_is_better": null,
-   "note": ""
+   "publish_lag_days": 3,
+   "note": "",
+   "analysis": {
+    "zscore_full": 0.806,
+    "zscore_10y": 1.115,
+    "acceleration_3m": -0.07,
+    "extremes": {
+     "high": 6.93,
+     "high_date": "2000-05-18",
+     "low": 0.09,
+     "low_date": "2021-02-05",
+     "position_in_range_pct": 60.819,
+     "vs_high_pct": -38.672
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2026-07-23",
+     "periods_since_peak": 12,
+     "last_trough_date": "2026-07-15",
+     "periods_since_trough": 18
+    },
+    "volatility": {
+     "recent_vol": 0.05,
+     "long_run_vol": 0.054,
+     "vol_ratio": 0.928
+    },
+    "recession_contrast": {
+     "recession_months": 584,
+     "expansion_months": 6903,
+     "recession_mean": 2.128,
+     "expansion_mean": 2.704,
+     "toward_recession_pct": -50.0,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 7502,
+    "history_start": "1996-08-12"
+   },
+   "observed_release": {
+    "observations": 3,
+    "median_lag_days": 11,
+    "min_lag_days": 2,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   }
   },
   {
    "fred_id": "DGS10",
@@ -383,12 +1150,56 @@
    "reference_date": "2026-08-10",
    "lag_days": 2,
    "stale": false,
+   "discontinued": false,
    "change_3m": 0.34,
    "change_12m": 0.5,
    "direction_3m": "—",
    "percentile_20y": 96.2,
    "higher_is_better": null,
-   "note": ""
+   "publish_lag_days": 3,
+   "note": "",
+   "analysis": {
+    "zscore_full": 0.746,
+    "zscore_10y": 1.547,
+    "acceleration_3m": 0.18,
+    "extremes": {
+     "high": 6.98,
+     "high_date": "1996-09-05",
+     "low": 0.52,
+     "low_date": "2020-08-04",
+     "position_in_range_pct": 65.015,
+     "vs_high_pct": -32.378
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2026-07-31",
+     "periods_since_peak": 6,
+     "last_trough_date": "2026-06-29",
+     "periods_since_trough": 29
+    },
+    "volatility": {
+     "recent_vol": 0.045,
+     "long_run_vol": 0.057,
+     "vol_ratio": 0.788
+    },
+    "recession_contrast": {
+     "recession_months": 584,
+     "expansion_months": 6903,
+     "recession_mean": 3.698,
+     "expansion_mean": 3.615,
+     "toward_recession_pct": 150.0,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 7502,
+    "history_start": "1996-08-12"
+   },
+   "observed_release": {
+    "observations": 3,
+    "median_lag_days": 11,
+    "min_lag_days": 2,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   }
   },
   {
    "fred_id": "T10Y2Y",
@@ -402,12 +1213,56 @@
    "reference_date": "2026-08-11",
    "lag_days": 1,
    "stale": false,
+   "discontinued": false,
    "change_3m": 0.01,
    "change_12m": -0.03,
    "direction_3m": "改善",
    "percentile_20y": 33.4,
    "higher_is_better": true,
-   "note": "倒掛（負值）在過去每一次衰退前都出現過，但領先時間從半年到兩年不等"
+   "publish_lag_days": 3,
+   "note": "倒掛（負值）在過去每一次衰退前都出現過，但領先時間從半年到兩年不等",
+   "analysis": {
+    "zscore_full": -0.511,
+    "zscore_10y": 0.218,
+    "acceleration_3m": 0.25,
+    "extremes": {
+     "high": 2.91,
+     "high_date": "2011-02-04",
+     "low": -1.08,
+     "low_date": "2023-07-03",
+     "position_in_range_pct": 39.098,
+     "vs_high_pct": -83.505
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2026-07-31",
+     "periods_since_peak": 7,
+     "last_trough_date": "2026-07-27",
+     "periods_since_trough": 11
+    },
+    "volatility": {
+     "recent_vol": 0.028,
+     "long_run_vol": 0.038,
+     "vol_ratio": 0.746
+    },
+    "recession_contrast": {
+     "recession_months": 584,
+     "expansion_months": 6904,
+     "recession_mean": 1.57,
+     "expansion_mean": 0.911,
+     "toward_recession_pct": -50.0,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 7503,
+    "history_start": "1996-08-12"
+   },
+   "observed_release": {
+    "observations": 3,
+    "median_lag_days": 11,
+    "min_lag_days": 1,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   }
   },
   {
    "fred_id": "T10Y3M",
@@ -421,12 +1276,56 @@
    "reference_date": "2026-08-11",
    "lag_days": 1,
    "stale": false,
+   "discontinued": false,
    "change_3m": 0.09,
    "change_12m": 0.9,
    "direction_3m": "改善",
    "percentile_20y": 37.5,
    "higher_is_better": true,
-   "note": "紐約聯準銀行的衰退模型用的是這一條，不是 10年−2年"
+   "publish_lag_days": 3,
+   "note": "紐約聯準銀行的衰退模型用的是這一條，不是 10年−2年",
+   "analysis": {
+    "zscore_full": -0.387,
+    "zscore_10y": 0.417,
+    "acceleration_3m": -0.16,
+    "extremes": {
+     "high": 3.85,
+     "high_date": "2004-05-13",
+     "low": -1.89,
+     "low_date": "2023-05-04",
+     "position_in_range_pct": 47.038,
+     "vs_high_pct": -78.961
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2026-07-31",
+     "periods_since_peak": 7,
+     "last_trough_date": "2026-07-27",
+     "periods_since_trough": 11
+    },
+    "volatility": {
+     "recent_vol": 0.045,
+     "long_run_vol": 0.065,
+     "vol_ratio": 0.69
+    },
+    "recession_contrast": {
+     "recession_months": 584,
+     "expansion_months": 6904,
+     "recession_mean": 2.146,
+     "expansion_mean": 1.232,
+     "toward_recession_pct": -46.242,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 7503,
+    "history_start": "1996-08-12"
+   },
+   "observed_release": {
+    "observations": 3,
+    "median_lag_days": 11,
+    "min_lag_days": 1,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   }
   },
   {
    "fred_id": "NFCI",
@@ -440,12 +1339,56 @@
    "reference_date": "2026-07-31",
    "lag_days": 12,
    "stale": false,
+   "discontinued": false,
    "change_3m": -0.03,
    "change_12m": -0.011,
    "direction_3m": "改善",
    "percentile_20y": 38.1,
    "higher_is_better": false,
-   "note": "芝加哥聯準銀行編製。0 = 歷史平均，正值代表條件緊縮"
+   "publish_lag_days": 6,
+   "note": "芝加哥聯準銀行編製。0 = 歷史平均，正值代表條件緊縮",
+   "analysis": {
+    "zscore_full": -0.331,
+    "zscore_10y": -0.463,
+    "acceleration_3m": -0.091,
+    "extremes": {
+     "high": 3.072,
+     "high_date": "2008-11-28",
+     "low": -0.813,
+     "low_date": "2004-02-27",
+     "position_in_range_pct": 7.31,
+     "vs_high_pct": -117.22
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2026-03-27",
+     "periods_since_peak": 18,
+     "last_trough_date": "2026-01-23",
+     "periods_since_trough": 27
+    },
+    "volatility": {
+     "recent_vol": 0.009,
+     "long_run_vol": 0.031,
+     "vol_ratio": 0.299
+    },
+    "recession_contrast": {
+     "recession_months": 121,
+     "expansion_months": 1440,
+     "recession_mean": 0.787,
+     "expansion_mean": -0.461,
+     "toward_recession_pct": -5.438,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 1564,
+    "history_start": "1996-08-16"
+   },
+   "observed_release": {
+    "observations": 2,
+    "median_lag_days": 315,
+    "min_lag_days": 11,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   }
   },
   {
    "fred_id": "BAMLH0A0HYM2",
@@ -459,12 +1402,48 @@
    "reference_date": "2026-08-10",
    "lag_days": 2,
    "stale": false,
+   "discontinued": false,
    "change_3m": -0.06,
    "change_12m": -0.08,
    "direction_3m": "改善",
    "percentile_20y": 8.3,
    "higher_is_better": false,
-   "note": "FRED 對這條序列只提供近三年歷史（ICE BofA 為授權資料），百分位僅供參考"
+   "publish_lag_days": 3,
+   "note": "FRED 對這條序列只提供近三年歷史（ICE BofA 為授權資料），百分位僅供參考",
+   "analysis": {
+    "zscore_full": -1.055,
+    "zscore_10y": -1.055,
+    "acceleration_3m": 0.12,
+    "extremes": {
+     "high": 4.61,
+     "high_date": "2025-04-07",
+     "low": 2.59,
+     "low_date": "2025-01-22",
+     "position_in_range_pct": 5.446,
+     "vs_high_pct": -41.432
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2026-07-29",
+     "periods_since_peak": 8,
+     "last_trough_date": "2026-07-22",
+     "periods_since_trough": 13
+    },
+    "volatility": {
+     "recent_vol": 0.054,
+     "long_run_vol": 0.07,
+     "vol_ratio": 0.776
+    },
+    "observations": 785,
+    "history_start": "2023-08-14"
+   },
+   "observed_release": {
+    "observations": 3,
+    "median_lag_days": 11,
+    "min_lag_days": 2,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   }
   },
   {
    "fred_id": "UMCSENT",
@@ -478,12 +1457,56 @@
    "reference_date": "2026-06-01",
    "lag_days": 72,
    "stale": false,
+   "discontinued": false,
    "change_3m": -3.8,
    "change_12m": -11.2,
    "direction_3m": "惡化",
    "percentile_20y": 0.4,
    "higher_is_better": true,
-   "note": ""
+   "publish_lag_days": 45,
+   "note": "",
+   "analysis": {
+    "zscore_full": -2.236,
+    "zscore_10y": -1.685,
+    "acceleration_3m": -4.2,
+    "extremes": {
+     "high": 112.0,
+     "high_date": "2000-01-01",
+     "low": 44.8,
+     "low_date": "2026-05-01",
+     "position_in_range_pct": 6.994,
+     "vs_high_pct": -55.804
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2024-12-01",
+     "periods_since_peak": 18,
+     "last_trough_date": "2025-04-01",
+     "periods_since_trough": 14
+    },
+    "volatility": {
+     "recent_vol": 3.601,
+     "long_run_vol": 4.166,
+     "vol_ratio": 0.865
+    },
+    "recession_contrast": {
+     "recession_months": 28,
+     "expansion_months": 330,
+     "recession_mean": 71.807,
+     "expansion_mean": 84.855,
+     "toward_recession_pct": 150.0,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 358,
+    "history_start": "1996-09-01"
+   },
+   "observed_release": {
+    "observations": 2,
+    "median_lag_days": 315,
+    "min_lag_days": 11,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   }
   },
   {
    "fred_id": "HOUST",
@@ -497,12 +1520,67 @@
    "reference_date": "2026-06-01",
    "lag_days": 72,
    "stale": false,
+   "discontinued": false,
    "change_3m": -95.0,
    "change_12m": 48.0,
    "direction_3m": "惡化",
    "percentile_20y": 79.6,
    "higher_is_better": true,
-   "note": "年化"
+   "publish_lag_days": 48,
+   "note": "年化",
+   "analysis": {
+    "zscore_full": 0.22,
+    "zscore_10y": 0.328,
+    "acceleration_3m": -239.0,
+    "extremes": {
+     "high": 2273.0,
+     "high_date": "2006-01-01",
+     "low": 478.0,
+     "low_date": "2009-04-01",
+     "position_in_range_pct": 52.869,
+     "vs_high_pct": -37.22
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2024-12-01",
+     "periods_since_peak": 18,
+     "last_trough_date": "2025-10-01",
+     "periods_since_trough": 8
+    },
+    "volatility": {
+     "recent_vol": 143.95,
+     "long_run_vol": 103.623,
+     "vol_ratio": 1.389
+    },
+    "recession_contrast": {
+     "recession_months": 28,
+     "expansion_months": 330,
+     "recession_mean": 1036.179,
+     "expansion_mean": 1363.391,
+     "toward_recession_pct": -19.44,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 358,
+    "history_start": "1996-09-01"
+   },
+   "observed_release": {
+    "observations": 2,
+    "median_lag_days": 315,
+    "min_lag_days": 11,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   },
+   "news": {
+    "summary_zh": "2026年6月新屋開工經季節調整年化率為142.7萬戶,較5月修正後的119.9萬戶大幅上升19.0%,也較2025年6月的137.9萬戶上升3.5%。其中單戶住宅開工率為89.5萬戶,較5月的89.7萬戶微幅下降0.2%;五戶以上建築單位開工率為51.3萬戶。",
+    "drivers": [
+     "單戶住宅開工率89.5萬戶,較5月下降0.2%",
+     "五戶以上建築單位開工率51.3萬戶",
+     "整體開工率較5月大幅上升19.0%"
+    ],
+    "evidence": "Privately-owned housing starts in June were at a seasonally adjusted annual rate of 1,427,000. This is 19.0 percent (&plusmn;15.9 percent) above the revised May estimate of 1,199,000",
+    "source_url": "https://www.census.gov/construction/nrc/current/index.html",
+    "model": "claude-sonnet-5"
+   }
   },
   {
    "fred_id": "MORTGAGE30US",
@@ -516,12 +1594,67 @@
    "reference_date": "2026-08-06",
    "lag_days": 6,
    "stale": false,
+   "discontinued": false,
    "change_3m": 0.32,
    "change_12m": 0.06,
    "direction_3m": "惡化",
    "percentile_20y": 90.5,
    "higher_is_better": false,
-   "note": ""
+   "publish_lag_days": 4,
+   "note": "",
+   "analysis": {
+    "zscore_full": 0.82,
+    "zscore_10y": 1.169,
+    "acceleration_3m": 0.06,
+    "extremes": {
+     "high": 8.64,
+     "high_date": "2000-05-19",
+     "low": 2.65,
+     "low_date": "2021-01-07",
+     "position_in_range_pct": 67.446,
+     "vs_high_pct": -22.569
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2026-05-28",
+     "periods_since_peak": 10,
+     "last_trough_date": "2026-02-26",
+     "periods_since_trough": 23
+    },
+    "volatility": {
+     "recent_vol": 0.072,
+     "long_run_vol": 0.095,
+     "vol_ratio": 0.749
+    },
+    "recession_contrast": {
+     "recession_months": 122,
+     "expansion_months": 1440,
+     "recession_mean": 5.89,
+     "expansion_mean": 5.434,
+     "toward_recession_pct": 150.0,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 1565,
+    "history_start": "1996-08-16"
+   },
+   "observed_release": {
+    "observations": 3,
+    "median_lag_days": 11,
+    "min_lag_days": 6,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   },
+   "news": {
+    "summary_zh": "截至2026年8月6日,30年期固定房貸利率平均為6.69%,較前一週的6.66%小幅上升,亦高於去年同期的6.63%。文件指出,雖然房貸利率持續影響負擔能力,但房市正呈現調整跡象,包括上市房價略低於去年同期水準,且待售庫存較近年的緊縮狀況有所改善。",
+    "drivers": [
+     "房貸利率持續影響負擔能力",
+     "上市房價略低於去年同期水準",
+     "待售庫存從近年的有限供給中改善"
+    ],
+    "evidence": "While mortgage rates continue to influence affordability, the housing market is showing signs of adjustment, with listing prices modestly below year-ago levels and for-sale inventory improving from the limited supply seen in recent years.",
+    "source_url": "https://www.freddiemac.com/pmms",
+    "model": "claude-sonnet-5"
+   }
   },
   {
    "fred_id": "CSUSHPINSA",
@@ -535,12 +1668,56 @@
    "reference_date": "2026-05-01",
    "lag_days": 103,
    "stale": false,
+   "discontinued": false,
    "change_3m": 0.304,
    "change_12m": -1.262,
    "direction_3m": "—",
    "percentile_20y": 31.2,
    "higher_is_better": null,
-   "note": "落後約兩個月，是所有指標中時滯最長的"
+   "publish_lag_days": 85,
+   "note": "落後約兩個月，是所有指標中時滯最長的",
+   "analysis": {
+    "zscore_full": -0.613,
+    "zscore_10y": -1.015,
+    "acceleration_3m": 0.786,
+    "extremes": {
+     "high": 20.775,
+     "high_date": "2022-03-01",
+     "low": -12.751,
+     "low_date": "2009-02-01",
+     "position_in_range_pct": 41.356,
+     "vs_high_pct": -94.638
+    },
+    "turning_point": {
+     "confirmation_lag_periods": 6,
+     "last_peak_date": "2024-03-01",
+     "periods_since_peak": 26,
+     "last_trough_date": "2023-05-01",
+     "periods_since_trough": 36
+    },
+    "volatility": {
+     "recent_vol": 0.142,
+     "long_run_vol": 0.628,
+     "vol_ratio": 0.227
+    },
+    "recession_contrast": {
+     "recession_months": 28,
+     "expansion_months": 317,
+     "recession_mean": -3.782,
+     "expansion_mean": 5.839,
+     "toward_recession_pct": 49.107,
+     "note": "0% = 目前值等於擴張期平均，100% = 等於衰退期平均。這是分布位置，不是衰退機率——單一指標算不出機率。"
+    },
+    "observations": 345,
+    "history_start": "1997-09-01"
+   },
+   "observed_release": {
+    "observations": 2,
+    "median_lag_days": 361,
+    "min_lag_days": 103,
+    "max_lag_days": 619,
+    "note": "由每日掃描觀測而得，最多高估一天（掃描頻率所限）"
+   }
   }
  ],
  "charts": {
@@ -3840,8 +5017,94 @@
   "total": 26,
   "available": 26,
   "stale": 0,
-  "missing": 0
+  "missing": 0,
+  "discontinued": 0,
+  "updated_today": 11
  },
+ "updated_today": [
+  {
+   "fred_id": "UNRATE",
+   "reference_date": "2026-07-01",
+   "label": "失業率"
+  },
+  {
+   "fred_id": "ICSA",
+   "reference_date": "2026-08-01",
+   "label": "初領失業金人數"
+  },
+  {
+   "fred_id": "T5YIFR",
+   "reference_date": "2026-08-11",
+   "label": "5年後5年通膨預期"
+  },
+  {
+   "fred_id": "T10YIE",
+   "reference_date": "2026-08-11",
+   "label": "10年期損益兩平通膨率"
+  },
+  {
+   "fred_id": "DGS2",
+   "reference_date": "2026-08-10",
+   "label": "2年期公債殖利率"
+  },
+  {
+   "fred_id": "DGS10",
+   "reference_date": "2026-08-10",
+   "label": "10年期公債殖利率"
+  },
+  {
+   "fred_id": "T10Y2Y",
+   "reference_date": "2026-08-11",
+   "label": "10年−2年利差"
+  },
+  {
+   "fred_id": "T10Y3M",
+   "reference_date": "2026-08-11",
+   "label": "10年−3個月利差"
+  },
+  {
+   "fred_id": "BAMLH0A0HYM2",
+   "reference_date": "2026-08-10",
+   "label": "高收益債利差"
+  },
+  {
+   "fred_id": "MORTGAGE30US",
+   "reference_date": "2026-08-06",
+   "label": "30年期房貸利率"
+  },
+  {
+   "fred_id": "CSUSHPINSA",
+   "reference_date": "2026-05-01",
+   "label": "Case-Shiller 房價指數"
+  }
+ ],
+ "news": {
+  "attached": 4,
+  "notes": [
+   "模型回應中找不到 JSON；前 200 字：''",
+   "RSAFS：模型判定文件內容不足以摘要這一期的數字",
+   "UNRATE 官方發布抓取失敗——https://www.bls.gov/news.release/empsit.nr0.htm: HTTP 403",
+   "PAYEMS 官方發布抓取失敗——https://www.bls.gov/news.release/empsit.nr0.htm: HTTP 403",
+   "ICSA：市場價格類指標，無對應的官方統計發布",
+   "CIVPART 官方發布抓取失敗——https://www.bls.gov/news.release/empsit.nr0.htm: HTTP 403",
+   "JTSJOL 官方發布抓取失敗——https://www.bls.gov/news.release/jolts.nr0.htm: HTTP 403",
+   "SAHMREALTIME 官方發布抓取失敗——https://www.bls.gov/news.release/empsit.nr0.htm: HTTP 403",
+   "CPIAUCSL 官方發布抓取失敗——https://www.bls.gov/news.release/cpi.nr0.htm: HTTP 403",
+   "CPILFESL 官方發布抓取失敗——https://www.bls.gov/news.release/cpi.nr0.htm: HTTP 403",
+   "PCEPILFE：模型判定文件內容不足以摘要這一期的數字",
+   "T5YIFR：市場價格類指標，無對應的官方統計發布",
+   "T10YIE：市場價格類指標，無對應的官方統計發布",
+   "FEDFUNDS：模型判定文件內容不足以摘要這一期的數字",
+   "DGS2：市場價格類指標，無對應的官方統計發布",
+   "DGS10：市場價格類指標，無對應的官方統計發布",
+   "T10Y2Y：市場價格類指標，無對應的官方統計發布",
+   "T10Y3M：市場價格類指標，無對應的官方統計發布",
+   "NFCI：模型判定文件內容不足以摘要這一期的數字",
+   "BAMLH0A0HYM2：市場價格類指標，無對應的官方統計發布"
+  ],
+  "method": "摘要取自各指標的**官方統計發布原文**（BLS／BEA／Census／Fed 等），不是二手新聞。抓不到文件就不呼叫模型——讓模型憑記憶說明「上個月 CPI 為什麼上漲」，會得到一段完全通順而且是編造的解釋。模型提供的原文佐證必須逐字出現在文件中，否則整份摘要作廢。"
+ },
+ "discontinued_series": [],
  "stale_series": [],
  "missing_series": [],
  "fetch_diagnostics": {
@@ -3919,6 +5182,9 @@
   "「改善／惡化」的方向由設定檔明確指定（失業率上升是惡化、GDP 上升是改善）；通膨與殖利率這類沒有單一方向好壞的指標一律顯示「—」，不硬套。",
   "百分位以最近 20 年為比較期間，樣本不足時留空而不是硬給數字。",
   "衰退陰影取自 NBER 認定（FRED USREC）。NBER 往往在衰退開始一年後才公布認定，因此最近期不會有標記——那是「還沒認定」，不是「沒有衰退」。",
-  "總體數據會被事後修正，本頁顯示的一律是目前最新的修正版本。"
+  "總體數據會被事後修正，本頁顯示的一律是目前最新的修正版本。",
+  "「觀測發布時滯」由每日掃描累積而得——記錄每一期第一次被看到是哪一天。掃描為每日一次，因此最多高估一天；累積期數不足兩期時不顯示。",
+  "「停止更新」與「延遲」分開判定：超過過期門檻四倍且至少一年，視為該序列已停止發布，應從清單移除而不是繼續等。",
+  "AI 摘要只描述官方發布文件說了什麼，不預測、不給投資判斷；殖利率與利差等市場價格類指標沒有對應的統計發布，因此沒有摘要。"
  ]
 }
