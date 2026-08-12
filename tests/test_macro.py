@@ -580,3 +580,188 @@ def test_the_no_source_reason_has_exactly_one_wording():
         news_ai.fetch_release_document("DGS10")
     except ValueError as e:
         assert news_ai.classify_failure(str(e)) == "no_source"
+
+
+# --- 替代來源探測 -----------------------------------------------------------
+#
+# 探測器的價值全在「它會不會放過爛頁面」。只檢查 HTTP 200 的話，一頁導覽選單
+# 也能拿到綠燈——而那正是目前那四條「內容不符」的來源被選中的原因。
+# 因此這一組測試每一則都在餵一種**看起來像成功的失敗**。
+
+from datetime import date as _date  # noqa: E402
+
+
+def _resp(text="", status=200, url=None):
+    from unittest import mock
+    return mock.Mock(status_code=status, text=text, url=url)
+
+
+def _session(resp):
+    from unittest import mock
+    return mock.Mock(get=mock.Mock(return_value=resp))
+
+
+_AS_OF = _date(2026, 8, 12)
+
+# 一頁「像樣」的 CPI 當期發布：夠長、主題對、提到參考月份
+_GOOD_PAGE = "<p>" + (
+    "Consumer Price Index News Release. The CPI for All Urban Consumers rose in July 2026. "
+    "The index for shelter rose 0.4 percent, the largest contributor to inflation. " * 12
+) + "</p>"
+
+
+def _cand(url="https://www.example.gov/cpi.htm", kind="official"):
+    from macro_monitor.source_probe import Candidate
+    return Candidate(url, kind)
+
+
+def test_a_real_release_page_passes_every_check():
+    from macro_monitor import source_probe
+    r = source_probe.probe("CPIAUCSL", _cand(), session=_session(_resp(_GOOD_PAGE)), as_of=_AS_OF)
+    assert r.verdict == "usable"
+    assert len(r.topic_hits) >= source_probe.MIN_TOPIC_HITS
+    assert "July" in r.recent_months
+
+
+def test_a_navigation_menu_is_not_mistaken_for_a_release():
+    """五千字的導覽選單也會回 200、也夠長。分辨它靠的是主題關鍵詞。"""
+    from macro_monitor import source_probe
+    menu = "<p>" + ("Home About Contact Careers Data Tools Publications Help FAQ " * 80) + "</p>"
+    r = source_probe.probe("CPIAUCSL", _cand(), session=_session(_resp(menu)), as_of=_AS_OF)
+    assert r.verdict == "off_topic"
+
+
+def test_a_static_explainer_page_is_not_mistaken_for_the_current_release():
+    """這正是目前那四條「內容不符」的病灶：頁面主題對、內容也夠長，
+    但講的是「這項指標是什麼」，沒有這一期的數字。"""
+    from macro_monitor import source_probe
+    explainer = "<p>" + (
+        "The Consumer Price Index measures inflation faced by urban consumers. "
+        "The CPI basket includes shelter, food and energy components. " * 20) + "</p>"
+    r = source_probe.probe("CPIAUCSL", _cand(), session=_session(_resp(explainer)), as_of=_AS_OF)
+    assert r.verdict == "stale_page"
+
+
+def test_a_redirect_to_the_homepage_is_not_a_success():
+    """實測很多站台把不存在的頁面 302 回首頁再回 200。
+    只看狀態碼，就會把首頁當成發布頁收下。"""
+    from macro_monitor import source_probe
+    r = source_probe.probe(
+        "CPIAUCSL", _cand("https://www.bls.gov/news.release/cpi.nr0.htm"),
+        session=_session(_resp(_GOOD_PAGE, url="https://www.somewhereelse.com/")), as_of=_AS_OF)
+    assert r.verdict == "redirected"
+
+
+def test_a_redirect_within_the_same_site_is_still_fine():
+    """http→https、加 www、換路徑都算同一個來源，不該因此淘汰。"""
+    from macro_monitor import source_probe
+    r = source_probe.probe(
+        "CPIAUCSL", _cand("https://bls.gov/news.release/cpi.nr0.htm"),
+        session=_session(_resp(_GOOD_PAGE, url="https://www.bls.gov/news.release/cpi.nr0.htm")),
+        as_of=_AS_OF)
+    assert r.verdict == "usable"
+
+
+def test_a_403_is_recorded_as_blocked_not_as_a_generic_error():
+    """封鎖與「網址寫錯」的處置完全不同，報告上必須分得出來。"""
+    from macro_monitor import source_probe
+    r = source_probe.probe("CPIAUCSL", _cand(), session=_session(_resp("", status=403)),
+                           as_of=_AS_OF)
+    assert r.verdict == "blocked" and "403" in r.reason
+
+
+def test_a_js_shell_is_rejected_before_topic_checks():
+    from macro_monitor import source_probe
+    r = source_probe.probe("NFCI", _cand(), session=_session(_resp("<div id='app'></div>")),
+                           as_of=_AS_OF)
+    assert r.verdict == "too_short"
+
+
+def test_a_network_error_is_a_result_not_a_crash():
+    """探測十幾個網址，其中一個逾時不該讓整份報告消失。"""
+    from unittest import mock
+    from macro_monitor import source_probe
+    session = mock.Mock(get=mock.Mock(side_effect=TimeoutError("timed out")))
+    r = source_probe.probe("CPIAUCSL", _cand(), session=session, as_of=_AS_OF)
+    assert r.verdict == "error" and not r.usable
+
+
+def test_recent_months_crosses_the_year_boundary():
+    """一月往回推是去年十二月。用 month-1 減會得到 0，索引就爆了。"""
+    from macro_monitor import source_probe
+    assert source_probe.recent_month_names(_date(2026, 1, 15)) == ["January", "December", "November"]
+
+
+def test_every_candidate_has_topic_terms_to_be_checked_against():
+    """少了主題關鍵詞，那條指標的第三道檢查會自動放行——
+    看起來有四道檢查，實際只有三道。"""
+    from macro_monitor import source_probe
+    for fred_id in source_probe.CANDIDATES:
+        terms = source_probe.TOPIC_TERMS.get(fred_id, [])
+        assert len(terms) >= source_probe.MIN_TOPIC_HITS, fred_id
+
+
+def test_the_probe_never_changes_the_live_source_table():
+    """探測器只提供證據。自動採用等於把「沒驗證」換個地方藏起來。"""
+    from macro_monitor import news_ai, source_probe
+    before = {k: list(v) for k, v in news_ai.RELEASE_SOURCES.items()}
+    source_probe.probe_all({"CPIAUCSL": [_cand()]}, session=_session(_resp(_GOOD_PAGE)),
+                           as_of=_AS_OF)
+    assert news_ai.RELEASE_SOURCES == before
+
+
+def test_the_report_explains_why_each_url_failed():
+    """只寫「可用／不可用」的話，「來源改版了」與「我們挑錯頁面」
+    在報告上又會長得一模一樣。"""
+    from macro_monitor import source_probe
+    results = [
+        source_probe.probe("CPIAUCSL", _cand(), session=_session(_resp("", status=403)),
+                           as_of=_AS_OF),
+        source_probe.probe("CPIAUCSL", _cand(), session=_session(_resp(_GOOD_PAGE)),
+                           as_of=_AS_OF),
+    ]
+    md = source_probe.to_markdown(results)
+    assert "blocked" in md and "usable" in md and "HTTP 403" in md
+
+
+def test_fedfunds_uses_the_proven_fomc_resolver_not_a_static_url():
+    """原本指向 press_monetary.xml——那是發布索引的 RSS，去標籤後只剩一串標題，
+    看不出這一期的利率決定。模型正確地拒絕摘要，卻被記成「內容不符」。
+    病灶是我們挑錯文件，不是來源不給。"""
+    from unittest import mock
+    from macro_monitor import news_ai
+
+    assert "FEDFUNDS" not in news_ai.RELEASE_SOURCES
+    assert "FEDFUNDS" in news_ai.RESOLVERS
+
+    meeting = mock.Mock(statement_text="The Committee decided to maintain the target range. " * 40,
+                        statement_url="https://www.federalreserve.gov/x/monetary20260729a.htm")
+    with mock.patch("liquidity_monitor.sources.fomc.latest_meeting_on_or_before",
+                    return_value=meeting):
+        doc, url = news_ai.fetch_release_document("FEDFUNDS")
+    assert "target range" in doc and "monetary2026" in url
+
+
+def test_a_resolver_that_finds_nothing_fails_loudly():
+    """解析器回 None 時若靜靜略過，FEDFUNDS 就會從失敗清單裡消失，
+    看起來像「本來就沒有來源」——那是另一件事。"""
+    from unittest import mock
+    from macro_monitor import news_ai
+    with mock.patch("liquidity_monitor.sources.fomc.latest_meeting_on_or_before",
+                    return_value=None):
+        with pytest.raises(ValueError, match="FEDFUNDS"):
+            news_ai.fetch_release_document("FEDFUNDS")
+
+
+def test_indicators_with_a_resolver_are_not_reported_as_having_no_source():
+    """RESOLVERS 裡的指標不在 RELEASE_SOURCES 裡。若只檢查後者，
+    FEDFUNDS 每天會被歸成「本來就沒有來源」——一個完全錯誤的結論。"""
+    from unittest import mock
+    from macro_monitor import news_ai
+    row = {"fred_id": "FEDFUNDS", "label": "聯邦資金利率", "reference_date": "2026-07-01",
+           "value": 4.25, "unit": "%", "change_3m": 0.0, "available": True}
+    with mock.patch("liquidity_monitor.sources.fomc.latest_meeting_on_or_before",
+                    side_effect=RuntimeError("boom")):
+        _, notes = news_ai.summarise_updated([row], ["FEDFUNDS"], api_key="k",
+                                             session=mock.Mock())
+    assert notes and news_ai.classify_failure(notes[0]) != "no_source"

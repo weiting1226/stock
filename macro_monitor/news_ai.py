@@ -68,7 +68,12 @@ RELEASE_SOURCES = {
     "GDPC1": ["https://www.bea.gov/data/gdp/gross-domestic-product"],
     "PCEPI": ["https://www.bea.gov/data/personal-consumption-expenditures-price-index"],
     "PCEPILFE": ["https://www.bea.gov/data/personal-consumption-expenditures-price-index"],
-    "FEDFUNDS": ["https://www.federalreserve.gov/feeds/press_monetary.xml"],
+    # FEDFUNDS 不列靜態網址：正確的文件是「最近一次 FOMC 聲明」，網址每次會議
+    # 都不同。改用 RESOLVERS 裡的解析器（見下方）。
+    #
+    # 原本指向 press_monetary.xml，那是**發布索引的 RSS**——去標籤之後只剩一串
+    # 標題，看不出這一期的利率決定。模型於是正確地拒絕摘要，被歸為「內容不符」。
+    # 這一條的病灶從頭到尾都是我們挑錯文件，不是來源不給。
     # 市場價格類（殖利率、利差、通膨預期、高收益債利差）沒有對應的統計發布。
     # 硬要配一個來源，只會讓模型對著不相干的文件生出一段像樣的解釋。
     #
@@ -160,6 +165,30 @@ def _strip_html(html: str) -> str:
     return re.sub(r"\n\s*\n+", "\n\n", text).strip()
 
 
+def _fomc_statement_document() -> tuple[str, str]:
+    """取最近一次 FOMC 聲明全文。
+
+    這個解析器不是新的來源，是**已經在用、而且已經證明可靠的**那一個：
+    模組一每天靠它抓聲明來評分⑥，索引鏈（RSS 優先、四個候選）也早就修過了。
+    與其為 FEDFUNDS 另外猜一個網址，不如用這個有實績的。
+    """
+    from datetime import date as _date
+
+    from liquidity_monitor.sources.fomc import latest_meeting_on_or_before
+
+    meeting = latest_meeting_on_or_before(_date.today().isoformat())
+    if meeting is None or not (meeting.statement_text or "").strip():
+        raise ValueError("FEDFUNDS：取不到最近一次 FOMC 聲明全文")
+    return meeting.statement_text[:MAX_DOCUMENT_CHARS], meeting.statement_url
+
+
+# 有些指標的正確文件沒有固定網址（FOMC 聲明每次會議一個網址）。
+# 這種情況硬填一個靜態網址，就會像先前那樣指到索引頁而抓不到當期內容。
+RESOLVERS = {
+    "FEDFUNDS": _fomc_statement_document,
+}
+
+
 def fetch_release_document(fred_id: str, timeout: int = 30, session=None) -> tuple[str, str]:
     """抓官方發布全文。回傳 (純文字, 來源網址)；全部失敗則拋出。
 
@@ -168,6 +197,8 @@ def fetch_release_document(fred_id: str, timeout: int = 30, session=None) -> tup
     """
     if fred_id in UNAVAILABLE_SOURCES:
         raise ValueError(f"{fred_id}：{UNAVAILABLE_REASON}——{UNAVAILABLE_SOURCES[fred_id]}")
+    if fred_id in RESOLVERS:
+        return RESOLVERS[fred_id]()
     urls = RELEASE_SOURCES.get(fred_id)
     if not urls:
         raise ValueError(f"{fred_id}：{NO_SOURCE_REASON}")
@@ -255,7 +286,7 @@ def summarise_updated(
             # 已決定接受沒有摘要——不發請求、不呼叫模型，只留下說明
             notes.append(f"{fred_id}：{UNAVAILABLE_REASON}——{UNAVAILABLE_SOURCES[fred_id]}")
             continue
-        if fred_id not in RELEASE_SOURCES:
+        if fred_id not in RELEASE_SOURCES and fred_id not in RESOLVERS:
             notes.append(f"{fred_id}：{NO_SOURCE_REASON}")
             continue
         try:
