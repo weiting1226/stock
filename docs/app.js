@@ -327,29 +327,77 @@ const lightBandPlugin = {
   },
 };
 
-function renderHistoryChart(rows) {
+/**
+ * 綜合分數歷史。兩條線的來源完全不同，必須看得出差別：
+ *   實線＝每日執行實際跑出來的分數（18 項指標）
+ *   虛線＝由歷史資料回溯重建（13 項指標，不含 ⑥ 政策方向）
+ * 缺少的類別會讓其餘權重按比例放大，因此同一天兩者不會相同。
+ * 混成同一條線的話，將來沒有人分得出哪一段是真的跑出來的。
+ */
+function renderHistoryChart(rows, reconstructed) {
   const ctx = document.getElementById("history-chart");
-  const recent = rows.slice(-180);
+
+  // 時間軸取兩份資料的聯集。只用實際執行那份的話，軸長就等於部署至今的天數
+  // （目前 6 天），回溯重建的十年歷史會被裁成同樣的 6 個點——等於白做。
+  const HISTORY_POINTS = 500;
+  const byDate = new Map();
+  (reconstructed || []).forEach((r) => byDate.set(r.as_of, { recon: Number(r.composite_score) }));
+  rows.forEach((r) => {
+    const e = byDate.get(r.as_of) || {};
+    e.live = Number(r.composite_score);
+    byDate.set(r.as_of, e);
+  });
+  const dates = [...byDate.keys()].sort().slice(-HISTORY_POINTS);
+
   if (historyChart) historyChart.destroy();
   historyChart = new Chart(ctx, {
     type: "line",
     data: {
-      labels: recent.map((r) => r.as_of),
-      datasets: [{
-        data: recent.map((r) => Number(r.composite_score)),
-        borderColor: cssVar("--series-1"),
-        backgroundColor: "transparent",
-        borderWidth: 2,
-        pointRadius: 0,
-        tension: 0.15,
-      }],
+      labels: dates,
+      datasets: [
+        {
+          label: "每日執行（18 項指標）",
+          data: dates.map((d) => {
+            const v = byDate.get(d).live;
+            return v === undefined || Number.isNaN(v) ? null : v;
+          }),
+          borderColor: cssVar("--series-1"),
+          backgroundColor: "transparent",
+          borderWidth: 2,
+          pointRadius: 0,
+          tension: 0.15,
+          spanGaps: false,
+        },
+        ...(reconstructed && reconstructed.length ? [{
+          label: "回溯重建（13 項指標）",
+          data: dates.map((d) => {
+            const v = byDate.get(d).recon;
+            return v === undefined || Number.isNaN(v) ? null : v;
+          }),
+          // 用灰階而不是另一個資料色：這條線是背景脈絡，不是與實際紀錄
+          // 對等的第二個序列。兩條都給飽和色的話，讀者會以為兩者同等可信
+          borderColor: cssVar("--text-muted"),
+          backgroundColor: "transparent",
+          borderWidth: 1.2,
+          borderDash: [4, 3],
+          pointRadius: 0,
+          tension: 0.15,
+          spanGaps: false,
+        }] : []),
+      ],
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
+      interaction: { mode: "index", intersect: false },
+      plugins: {
+        legend: { display: true, labels: { color: cssVar("--text-secondary"),
+                                           boxWidth: 12, font: { size: 11 } } },
+      },
       scales: {
-        y: { min: -2, max: 2, grid: { color: cssVar("--hairline") }, ticks: { color: cssVar("--text-muted") } },
-        x: { grid: { display: false }, ticks: { color: cssVar("--text-muted"), maxTicksLimit: 8, font: AXIS_FONT } },
+        y: { min: -2, max: 2, grid: { color: cssVar("--hairline") },
+             ticks: { color: cssVar("--text-muted") } },
+        x: { grid: { display: false },
+             ticks: { color: cssVar("--text-muted"), maxTicksLimit: 8, font: AXIS_FONT } },
       },
     },
     plugins: [lightBandPlugin],
@@ -408,7 +456,23 @@ async function main() {
 
   try {
     const csv = await fetchText(`${DATA_ROOT}/scores_history.csv`);
-    renderHistoryChart(parseCsv(csv));
+    let reconstructed = [];
+    try {
+      reconstructed = parseCsv(await fetchText(`${DATA_ROOT}/scores_history_reconstructed.csv`));
+    } catch (e) {
+      // 還沒回溯重建過就只畫實際執行那條
+    }
+    renderHistoryChart(parseCsv(csv), reconstructed);
+    if (reconstructed.length) {
+      document.getElementById("history-legend-note").innerHTML =
+        `<span><span class="dot" style="background:var(--text-muted)"></span>`
+        + `回溯重建（${reconstructed.length.toLocaleString()} 個交易日，`
+        + `${escapeHtml(reconstructed[0].as_of)} 起）</span>`
+        + `<span>回溯只用得到 13 項指標：⑥ 政策方向三項需要逐次會議的 AI 判讀與 CME 歷史頁面、`
+        + `NDX 廣度需要當時的成分股名單（用今日名單回推有存活者偏誤）、`
+        + `ETF 資金流是本專案每日自行累積的。缺少的類別會讓其餘權重按比例放大，`
+        + `<strong>因此同一天兩條線不會相同</strong>。</span>`;
+    }
   } catch (e) {
     // 歷史檔案還不存在（第一次執行）時安靜略過折線圖
   }

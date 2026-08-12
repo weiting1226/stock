@@ -57,6 +57,10 @@ jobs:
           python3 scripts/run_backtest.py $ARGS
 
       # 門檻搜尋比回測慢得多（142 組 × 逐年前進），排程時一併更新即可
+      # 模組一的分數歷史回溯重建（13 項指標版），與回測共用同一批快取資料
+      - name: Backfill reconstructed score history
+        run: python3 scripts/backfill_score_history.py -v --years 10 --as-of "$(date -u +%F)"
+
       - name: Search buy/sell thresholds
         run: python3 scripts/optimize_thresholds.py -v --as-of "$(date -u +%F)"
 
@@ -64,7 +68,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/data/backtest data/backtest
+          git add docs/data/backtest data/backtest docs/data/scores_history_reconstructed.csv
           if git diff --cached --quiet; then
             echo "no changes"
             exit 0
