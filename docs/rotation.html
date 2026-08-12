@@ -32,9 +32,17 @@
   <section class="card">
     <h2>輪動四象限（相對強弱 × 動能）</h2>
     <div class="chart-wrap"><canvas id="quadrant-chart"></canvas></div>
+    <p class="subtitle" id="trail-note"></p>
     <p class="subtitle">橫軸為相對強弱（RS＝「類股÷大盤」相對它自己 63 日均值，100 為與自身近期水準持平），縱軸為 RS 的 10 日動能。
     右上「領漲」、右下「轉弱」、左上「改善」、左下「落後」。
     <strong>輪動發生在「轉弱」與「改善」兩格</strong>——漲幅排行只告訴你過去誰強，象限告訴你資金正在往哪走。</p>
+  </section>
+
+  <section class="card" id="timeline-card" hidden>
+    <h2>象限分布的變化</h2>
+    <div class="chart-wrap"><canvas id="timeline-chart"></canvas></div>
+    <p class="subtitle">每一天有幾檔類股落在各象限。「改善」增加代表資金開始擴散、
+    「轉弱」增加代表領漲族群正在鬆動——單看個別類股看不出這種全局變化。</p>
   </section>
 
   <section class="card">

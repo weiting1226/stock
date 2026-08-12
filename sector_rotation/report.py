@@ -11,6 +11,7 @@ from liquidity_monitor.sources import yahoo
 from liquidity_monitor.sources.etf_creation_flows import fetch_snapshots
 
 from . import flows as flow_mod
+from . import history as hist
 from . import metrics, storage
 from .config import (
     ALL_TICKERS,
@@ -84,6 +85,24 @@ def build_report(as_of: str = None, prices: pd.DataFrame = None,
     changes = metrics.rotation_changes(rows, prev_ranks, key="1w")
     storage.append_ranks(as_of, {r["ticker"]: r.get("rank", {}).get("1w") for r in rows})
 
+    # 回溯重建的價格面歷史。只需要價格，所以有多久的價格就有多久的歷史；
+    # 資金流回溯不了（需要當時的逐日股數快照，沒有任何來源提供），
+    # 因此歷史只含價格面，兩者不混在一起。
+    try:
+        series = hist.sector_history(prices, BENCHMARK)
+        history_block = {
+            "trails": hist.build_trails(series),
+            "quadrant_timeline": hist.quadrant_timeline(series),
+            "rank_history": hist.rank_history(series),
+            "days": max((len(df) for df in series.values()), default=0),
+            "note": ("由價格回溯重建：報酬、相對強弱、動能、象限、名次都只需要價格。"
+                     "**資金流不在其中**——它需要當時的逐日流通股數與淨資產快照，"
+                     "沒有任何來源提供回溯查詢，因此資金流仍從部署當日起累積。"),
+        }
+    except Exception as e:  # noqa: BLE001
+        log.warning("輪動歷史重建失敗: %s", e)
+        history_block = {"error": f"{type(e).__name__}: {e}"}
+
     quadrants = {}
     for r in rows:
         quadrants.setdefault(r["quadrant"], []).append(r["sector_zh"])
@@ -98,6 +117,7 @@ def build_report(as_of: str = None, prices: pd.DataFrame = None,
         "breadth": {k: metrics.breadth(rows, k) for k in WINDOWS},
         "quadrants": quadrants,
         "rank_changes": changes,
+        "history": history_block,
         "flow_note": flow_note,
         "flow_available": bool(flow_data),
         "notes": [

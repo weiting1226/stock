@@ -65,16 +65,38 @@ function renderStats(r) {
  */
 function renderQuadrant(r) {
   const pts = r.rows.filter((x) => x.rs_ratio !== null && x.rs_momentum !== null);
+  const trails = (r.history || {}).trails || {};
+  const trailDatasets = [];
+  // 軌跡：每檔類股最近幾週的位置連成一條線。只看今天那個點，
+  // 分不出「剛進入這一格」與「已經待在這裡很久」——而那是完全不同的訊息。
+  pts.forEach((x) => {
+    const tr = trails[x.ticker];
+    if (!tr || tr.rs.length < 2) return;
+    trailDatasets.push({
+      label: `${x.sector_zh} 軌跡`,
+      data: tr.rs.map((v, i) => ({ x: v, y: tr.momentum[i] })),
+      borderColor: cssVar(QUADRANT_COLOR[x.quadrant] || "--text-muted"),
+      borderWidth: 1,
+      pointRadius: 1.5,
+      showLine: true,
+      fill: false,
+      order: 2,
+    });
+  });
   draw("quadrant-chart", {
     type: "scatter",
     data: {
-      datasets: pts.map((x) => ({
-        label: x.sector_zh,
-        data: [{ x: x.rs_ratio, y: x.rs_momentum, label: x.sector_zh }],
-        backgroundColor: cssVar(QUADRANT_COLOR[x.quadrant] || "--text-muted"),
-        pointRadius: 7,
-        pointHoverRadius: 9,
-      })),
+      datasets: [
+        ...pts.map((x) => ({
+          label: x.sector_zh,
+          data: [{ x: x.rs_ratio, y: x.rs_momentum, label: x.sector_zh }],
+          backgroundColor: cssVar(QUADRANT_COLOR[x.quadrant] || "--text-muted"),
+          pointRadius: 7,
+          pointHoverRadius: 9,
+          order: 1,
+        })),
+        ...trailDatasets,
+      ],
     },
     options: {
       responsive: true, maintainAspectRatio: false,
@@ -84,6 +106,7 @@ function renderQuadrant(r) {
           callbacks: {
             label: (c) => {
               const row = pts[c.datasetIndex];
+              if (!row) return c.dataset.label;    // 軌跡上的點
               return `${row.sector_zh}（${row.ticker}）　RS ${row.rs_ratio}　`
                 + `動能 ${pct(row.rs_momentum)}　${row.quadrant}`;
             },
@@ -110,6 +133,7 @@ function renderQuadrant(r) {
         ctx.fillStyle = cssVar("--text-secondary");
         ctx.textBaseline = "middle";
         chart.data.datasets.forEach((ds, i) => {
+          if (ds.showLine) return;                 // 軌跡不標字，否則整張圖都是字
           const el = chart.getDatasetMeta(i).data[0];
           if (!el) return;
           // 靠右邊界的點改標在左側，否則字會被切掉
@@ -144,6 +168,38 @@ function renderQuadrant(r) {
         ctx.restore();
       },
     }],
+  });
+}
+
+function renderTimeline(r) {
+  const tl = (r.history || {}).quadrant_timeline;
+  const card = document.getElementById("timeline-card");
+  if (!tl || !tl.dates || !tl.dates.length) { card.hidden = true; return; }
+  card.hidden = false;
+  const order = ["領漲", "改善", "轉弱", "落後"];
+  draw("timeline-chart", {
+    type: "line",
+    data: {
+      labels: tl.dates,
+      datasets: order.filter((q) => tl.counts[q]).map((q) => ({
+        label: q, data: tl.counts[q],
+        borderColor: cssVar(QUADRANT_COLOR[q]), backgroundColor: cssVar(QUADRANT_COLOR[q]),
+        borderWidth: 0, pointRadius: 0, fill: true, stepped: true,
+      })),
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: "index", intersect: false },
+      plugins: { legend: { display: true, labels: { color: cssVar("--text-secondary"),
+                                                    boxWidth: 10, font: { size: 11 } } } },
+      scales: {
+        x: { grid: { display: false }, ticks: { color: cssVar("--text-muted"),
+             maxTicksLimit: 10, font: { size: 11 } } },
+        y: { stacked: true, beginAtZero: true,
+             grid: { color: cssVar("--hairline") },
+             ticks: { color: cssVar("--text-muted"), stepSize: 2, font: { size: 11 } } },
+      },
+    },
   });
 }
 
@@ -253,6 +309,14 @@ async function main() {
   const r = state.report;
   renderStats(r);
   renderQuadrant(r);
+  renderTimeline(r);
+  const h = r.history || {};
+  document.getElementById("trail-note").innerHTML = h.days
+    ? `細線為各類股最近 8 週的<strong>移動軌跡</strong>（每週一點）——`
+      + `只看今天那一個點，分不出「剛進入這一格」與「已經待在這裡很久」，而那是完全不同的訊息。`
+      + `<br />價格面歷史已由價格回溯重建（${h.days} 個交易日）；`
+      + `<strong>資金流不在其中</strong>，它需要當時的逐日股數快照，沒有任何來源提供回溯查詢。`
+    : "";
   wire(r);
   renderReturns(r);
   renderTable(r);

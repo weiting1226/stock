@@ -283,3 +283,54 @@ def test_snapshots_are_keyed_by_market_close_date_not_run_date(monkeypatch, tmp_
     out = rep.build_report(as_of="2026-06-20", prices=px)
     assert out["close_date"] == str(idx[-1].date())
     assert out["close_date"] != out["as_of"]
+
+
+# --- 回溯重建 ---------------------------------------------------------------
+
+def test_history_is_rebuilt_from_prices_alone():
+    """報酬、相對強弱、動能、象限都只需要價格，因此有多久的價格就有多久的歷史。"""
+    from sector_rotation import history as H
+    idx = pd.bdate_range("2024-01-01", periods=300)
+    rng = np.random.default_rng(5)
+    px = pd.DataFrame({t: 100 * np.cumprod(1 + rng.normal(0.0004, 0.01, 300))
+                       for t in ("SPY", "XLK", "XLF")}, index=idx)
+    h = H.sector_history(px, "SPY")
+    assert set(h) == {"XLK", "XLF"}
+    for df in h.values():
+        assert len(df) > 200
+        assert {"rs", "momentum", "quadrant", "ret_1w"} <= set(df.columns)
+
+
+def test_rebuilt_history_matches_the_live_metric_definition():
+    """重建與當日計算必須是同一個定義，否則歷史線與最新點會對不起來。"""
+    from sector_rotation import history as H
+    idx = pd.bdate_range("2024-01-01", periods=300)
+    rng = np.random.default_rng(6)
+    sector = pd.Series(100 * np.cumprod(1 + rng.normal(0.0005, 0.011, 300)), index=idx)
+    bench = pd.Series(100 * np.cumprod(1 + rng.normal(0.0004, 0.008, 300)), index=idx)
+    assert H.rs_series(sector, bench).iloc[-1] == pytest.approx(
+        metrics.relative_strength(sector, bench).iloc[-1])
+
+
+def test_trails_are_sampled_weekly_so_the_direction_is_visible():
+    """逐日的軌跡會糾成一團，看不出方向。"""
+    from sector_rotation import history as H
+    idx = pd.bdate_range("2024-01-01", periods=300)
+    rng = np.random.default_rng(7)
+    px = pd.DataFrame({t: 100 * np.cumprod(1 + rng.normal(0.0004, 0.01, 300))
+                       for t in ("SPY", "XLK")}, index=idx)
+    tr = H.build_trails(H.sector_history(px, "SPY"), points=8, step_days=5)
+    dates = pd.to_datetime(tr["XLK"]["dates"])
+    assert len(dates) == 8
+    gaps = {(dates[i + 1] - dates[i]).days for i in range(len(dates) - 1)}
+    assert gaps == {7}                     # 每週一點
+
+
+def test_rebuilt_history_never_includes_fund_flow():
+    """資金流需要當時的逐日股數快照，沒有任何來源提供回溯查詢。
+    硬要補只能用今天的股數往回推，那會得到一條完全錯誤的曲線。"""
+    from sector_rotation import history as H
+    idx = pd.bdate_range("2024-01-01", periods=200)
+    px = pd.DataFrame({t: np.linspace(100, 120, 200) for t in ("SPY", "XLK")}, index=idx)
+    for df in H.sector_history(px, "SPY").values():
+        assert not any("flow" in c for c in df.columns)
