@@ -71,11 +71,42 @@ def test_the_reference_period_is_reported_not_the_fetch_date():
 def test_stale_detection_uses_each_series_own_release_cadence():
     """週頻的初領失業金與季頻的 GDP 不能用同一把尺量——
     不是誤報就是漏報。"""
-    weekly = _spec("ICSA")            # 21 天門檻
-    quarterly = _spec("GDPC1")        # 150 天門檻
     d = pd.Timestamp("2026-01-01")
-    assert indicators.is_stale(d, weekly, "2026-03-01") is True
-    assert indicators.is_stale(d, quarterly, "2026-03-01") is False
+    assert indicators.is_stale(d, _spec("ICSA"), "2026-03-01") is True
+    assert indicators.is_stale(d, _spec("GDPC1"), "2026-03-01") is False
+
+
+@pytest.mark.parametrize("spec", [s for s in SERIES if s.publish_lag_days],
+                         ids=[s.fred_id for s in SERIES if s.publish_lag_days])
+def test_stale_threshold_exceeds_the_normal_maximum_lag(spec):
+    """落後天數在兩次發布之間會持續增加，門檻必須大於「發布時滯＋發布間隔」。
+
+    第一版直接把發布時滯當門檻（月頻 70 天），結果 7 條指標在發布週期尾聲
+    被誤標為過期——例如 2026-08-12 當天，CPI 最新的仍是 6 月資料、落後 72 天，
+    而那完全正常（7 月資料要到 08-13 才公布）。
+    """
+    from macro_monitor.config import RELEASE_INTERVAL_DAYS
+    normal_max = spec.publish_lag_days + RELEASE_INTERVAL_DAYS[spec.freq]
+    assert spec.stale_after_days > normal_max
+
+
+def test_a_monthly_series_right_before_the_next_release_is_not_stale():
+    """實測案例：2026-08-12 的 CPI，最新參考期 2026-06-01、落後 72 天。
+    下一次發布（7 月資料）是 08-13，所以這是正常狀態，不是過期。"""
+    assert indicators.is_stale(pd.Timestamp("2026-06-01"), _spec("CPIAUCSL"),
+                               "2026-08-12") is False
+
+
+def test_a_monthly_series_that_missed_a_release_is_stale():
+    """真的漏掉一次發布就要標出來——門檻放寬不等於關掉。"""
+    assert indicators.is_stale(pd.Timestamp("2026-04-01"), _spec("CPIAUCSL"),
+                               "2026-08-12") is True
+
+
+def test_discontinued_series_are_not_carried_in_the_list():
+    """USSLIND（費城聯準銀行美國領先指標）最後一期停在 2020-02、落後 2384 天。
+    那是停止更新，不是「還沒公布」；留著只會每天多一則假警告。"""
+    assert "USSLIND" not in {s.fred_id for s in SERIES}
 
 
 def test_a_freshly_published_series_is_not_flagged_stale():
