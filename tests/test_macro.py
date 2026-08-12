@@ -857,3 +857,76 @@ def test_nfci_has_no_release_text_and_that_is_a_finding_not_an_oversight():
     with pytest.raises(ValueError) as exc:
         news_ai.fetch_release_document("NFCI")
     assert news_ai.classify_failure(str(exc.value)) == "no_source"
+
+
+# --- 兩個「錯誤訊息指向錯誤方向」的問題 -------------------------------------
+
+def test_a_truncated_response_says_so_instead_of_blaming_the_model():
+    """實測 CPI 摘要失敗，訊息是「模型回應中找不到 JSON」，但附的片段
+    明明就是一段 JSON 的開頭——它是被 max_tokens 截斷的。那句錯誤訊息會把人
+    引向「模型出錯」，實際上是我們給的額度不夠。"""
+    from unittest import mock
+    from liquidity_monitor.sources import fomc_ai
+
+    payload = {"content": [{"type": "text", "text": '{"found": true, "summary_zh": "寫到一半'}],
+               "stop_reason": "max_tokens"}
+    resp = mock.Mock(status_code=200)
+    resp.json.return_value = payload
+    with pytest.raises(ValueError, match="被截斷"):
+        fomc_ai.call_model("p", api_key="k", session=mock.Mock(post=lambda *a, **k: resp))
+
+
+def test_the_summary_call_asks_for_more_tokens_than_the_fomc_classifier():
+    """中文摘要加一段 30-200 字的引句，1024 不夠。FOMC 那種短分類夠。"""
+    from unittest import mock
+    from macro_monitor import news_ai
+
+    captured = {}
+
+    def fake_post(url, **kw):
+        captured.update(kw.get("json", {}))
+        r = mock.Mock(status_code=200)
+        r.json.return_value = {"content": [{"type": "text", "text": json.dumps(_answer())}],
+                               "stop_reason": "end_turn"}
+        return r
+
+    news_ai.summarise_release(_ROW, DOC, "u", api_key="k",
+                              session=mock.Mock(post=fake_post))
+    assert captured["max_tokens"] == news_ai.MAX_SUMMARY_TOKENS > 1024
+
+
+def test_indicators_sharing_a_release_fetch_it_once():
+    """PCE 與核心 PCE 出自同一份 BEA 新聞稿，就業報告一份涵蓋四條指標。
+    實測同一次執行中對 apps.bea.gov 的兩次請求拿到不同內容，於是 PCEPI 通過
+    期別比對、PCEPILFE 沒通過——同一個網址、同一個參考期，兩種結論。"""
+    from unittest import mock
+    from macro_monitor import news_ai
+
+    doc = "<p>" + ("Personal income and outlays, June 2026. PCE price index. " * 40) + "</p>"
+    get = mock.Mock(return_value=mock.Mock(status_code=200, text=doc, url=None))
+    cache: dict = {}
+    a = news_ai.fetch_release_document("PCEPI", session=mock.Mock(get=get), cache=cache)
+    b = news_ai.fetch_release_document("PCEPILFE", session=mock.Mock(get=get), cache=cache)
+    assert a == b
+    assert get.call_count == 1
+
+
+def test_two_indicators_on_one_document_cannot_disagree_about_the_period():
+    """快取的真正價值不是省流量，是讓結論一致。第二次請求若拿到別的內容，
+    同一份發布會產生兩種期別判定。"""
+    from unittest import mock
+    from macro_monitor import news_ai
+
+    good = "<p>" + ("Personal income and outlays, June 2026. PCE price index rose. " * 40) + "</p>"
+    bad = "<p>" + ("Site maintenance. Please check back later for our releases. " * 40) + "</p>"
+    session = mock.Mock(get=mock.Mock(side_effect=[
+        mock.Mock(status_code=200, text=good, url=None),
+        mock.Mock(status_code=200, text=bad, url=None),
+    ]))
+    cache: dict = {}
+    docs = []
+    for fid in ("PCEPI", "PCEPILFE"):
+        d, _ = news_ai.fetch_release_document(fid, session=session, cache=cache)
+        docs.append(d)
+    for d in docs:
+        news_ai.assert_document_covers_period(d, "PCEPILFE", "2026-06-01", "M")

@@ -131,11 +131,14 @@ def call_model(
     model: str = DEFAULT_MODEL,
     timeout: int = 60,
     session=None,
+    max_tokens: int = 1024,
 ) -> dict:
     """送出提示並取回 JSON 物件。供各個需要 AI 抽取的指標共用。
 
     抽成共用函式是因為「呼叫 API、檢查狀態碼、從回應裡挖出 JSON」這幾件事
     每個指標都一樣；各寫一份的話，錯誤處理會逐漸長歪成不同的樣子。
+
+    `max_tokens` 可調：中文摘要比 FOMC 那種短分類長得多，用同一個上限會被截斷。
     """
     key = api_key or os.environ.get(API_KEY_ENV)
     if not key:
@@ -144,7 +147,7 @@ def call_model(
     http = session or requests
     resp = http.post(
         API_URL,
-        json={"model": model, "max_tokens": 1024,
+        json={"model": model, "max_tokens": max_tokens,
               "messages": [{"role": "user", "content": prompt}]},
         timeout=timeout,
         headers={"x-api-key": key, "anthropic-version": API_VERSION,
@@ -157,6 +160,16 @@ def call_model(
     payload = resp.json()
     blocks = payload.get("content") or []
     text = "".join(b.get("text", "") for b in blocks if b.get("type") == "text")
+
+    # 被 max_tokens 截斷時，回應是一段**沒寫完的 JSON**。若只交給 _extract_json，
+    # 得到的錯誤是「模型回應中找不到 JSON」——那句話會把人引向完全錯誤的方向：
+    # 實際上模型輸出得好好的，是我們給的額度不夠。實測 CPI 摘要就是這樣失敗的，
+    # 錯誤訊息裡還附著一段明明是 JSON 的開頭。
+    if payload.get("stop_reason") == "max_tokens":
+        raise ValueError(
+            f"模型回應在 max_tokens={max_tokens} 處被截斷，JSON 不完整——"
+            f"這不是模型出錯，是額度不夠（已輸出 {len(text)} 字）"
+        )
     return _extract_json(text)
 
 

@@ -113,6 +113,10 @@ RELEASE_SOURCES = {
 NO_SOURCE_REASON = "無對應的官方統計發布（市場價格類指標）"
 UNAVAILABLE_REASON = "來源已確認無法取得，依決定不再嘗試"
 
+# 中文摘要 + 最多四個 drivers + 一段 30-200 字的英文引句，1024 不夠。
+# 實測 CPI 那則就是寫到一半被截斷，而錯誤訊息卻說「找不到 JSON」。
+MAX_SUMMARY_TOKENS = 2048
+
 MIN_DOCUMENT_CHARS = 800
 MAX_DOCUMENT_CHARS = 14000
 
@@ -255,11 +259,18 @@ RESOLVERS = {
 }
 
 
-def fetch_release_document(fred_id: str, timeout: int = 30, session=None) -> tuple[str, str]:
+def fetch_release_document(fred_id: str, timeout: int = 30, session=None,
+                           cache: Optional[dict] = None) -> tuple[str, str]:
     """抓官方發布全文。回傳 (純文字, 來源網址)；全部失敗則拋出。
 
     錯誤訊息要帶出每個候選網址的結果——抓不到時，「來源改版了」與
     「這個指標本來就沒有對應發布」必須分得出來。
+
+    `cache` 讓同一次執行內共用同一份文件。有些指標本來就共用一份發布
+    （PCE 與核心 PCE 在同一份 BEA 新聞稿裡，就業報告涵蓋四條指標），
+    重抓除了浪費，還會讓結果不穩定：實測同一次執行中對 apps.bea.gov 的兩次
+    請求拿到不同內容，於是 PCEPI 通過期別比對、PCEPILFE 沒通過——
+    同一個網址、同一個參考期，卻有兩種結論。抓一次就沒有這個問題。
     """
     if fred_id in UNAVAILABLE_SOURCES:
         raise ValueError(f"{fred_id}：{UNAVAILABLE_REASON}——{UNAVAILABLE_SOURCES[fred_id]}")
@@ -272,6 +283,8 @@ def fetch_release_document(fred_id: str, timeout: int = 30, session=None) -> tup
     http = session or requests
     problems = []
     for url in urls:
+        if cache is not None and url in cache:
+            return cache[url], url
         try:
             resp = http.get(url, headers=_HEADERS, timeout=timeout)
             if resp.status_code != 200:
@@ -281,7 +294,10 @@ def fetch_release_document(fred_id: str, timeout: int = 30, session=None) -> tup
             if len(text) < MIN_DOCUMENT_CHARS:
                 problems.append(f"{url}: 內容過短（{len(text)} 字），可能是 JS 外殼或錯誤頁")
                 continue
-            return text[:MAX_DOCUMENT_CHARS], url
+            document = text[:MAX_DOCUMENT_CHARS]
+            if cache is not None:
+                cache[url] = document
+            return document, url
         except Exception as e:  # noqa: BLE001
             problems.append(f"{url}: {type(e).__name__}")
     raise ValueError(f"{fred_id} 官方發布抓取失敗——{'；'.join(problems)}")
@@ -304,7 +320,8 @@ def summarise_release(
         change_3m=row.get("change_3m", "—"),
         document=document,
     )
-    data = call_model(prompt, api_key=api_key, model=model, session=session)
+    data = call_model(prompt, api_key=api_key, model=model, session=session,
+                      max_tokens=MAX_SUMMARY_TOKENS)
 
     if not data.get("found"):
         raise ValueError(f"{row.get('fred_id')}：模型判定文件內容不足以摘要這一期的數字")
@@ -344,6 +361,9 @@ def summarise_updated(
 
     by_id = {r.get("fred_id"): r for r in rows}
     out, notes = {}, []
+    # 同一次執行內共用文件：PCE 與核心 PCE 出自同一份 BEA 新聞稿，
+    # 就業報告一份涵蓋四條指標。抓一次就好，也避免同一網址兩次拿到不同內容。
+    documents: dict = {}
     for fred_id in updated_ids:
         row = by_id.get(fred_id)
         if not row or not row.get("available"):
@@ -356,7 +376,8 @@ def summarise_updated(
             notes.append(f"{fred_id}：{NO_SOURCE_REASON}")
             continue
         try:
-            document, url = fetch_release_document(fred_id, session=session)
+            document, url = fetch_release_document(fred_id, session=session,
+                                                   cache=documents)
         except Exception as e:  # noqa: BLE001
             notes.append(str(e))
             continue
