@@ -6,6 +6,7 @@
 """
 from __future__ import annotations
 
+import json
 import numpy as np
 import pandas as pd
 import pytest
@@ -314,3 +315,148 @@ def test_zscore_and_percentile_are_both_reported():
     z = analysis.zscore(v)
     p = indicators.percentile_of_latest(v)
     assert z > 3 and p > 99
+
+
+# --- AI 新聞摘要：反幻覺 ----------------------------------------------------
+#
+# 散文比數字更危險：數字錯了看得出來，一段流暢的解釋不會有人懷疑。
+# 因此這一組測試守的是「模型不能編」，而不是「摘要寫得好不好」。
+
+DOC = (
+    "Consumer Price Index - July 2026. The Consumer Price Index for All Urban "
+    "Consumers rose 0.3 percent in July on a seasonally adjusted basis. "
+    "The index for shelter rose 0.4 percent and was the largest contributor. "
+    "The energy index declined 1.1 percent over the month. " * 6
+)
+
+
+def _model(obj):
+    from unittest import mock
+    payload = {"content": [{"type": "text", "text": json.dumps(obj, ensure_ascii=False)}]}
+    resp = mock.Mock(status_code=200, text=json.dumps(payload))
+    resp.json.return_value = payload
+    return mock.Mock(post=mock.Mock(return_value=resp))
+
+
+def _answer(**kw):
+    base = {"found": True,
+            "summary_zh": "7 月 CPI 月增 0.3%，住房分項上漲 0.4% 為最大貢獻來源，能源分項下跌 1.1%。",
+            "drivers": ["住房 +0.4%", "能源 −1.1%"],
+            "evidence": "The index for shelter rose 0.4 percent and was the largest contributor."}
+    base.update(kw)
+    return base
+
+
+_ROW = {"fred_id": "CPIAUCSL", "label": "CPI 消費者物價", "reference_date": "2026-07-01",
+        "value": 3.6, "unit": "%", "change_3m": 0.4, "available": True}
+
+
+def test_summary_is_accepted_when_the_quote_exists_in_the_document():
+    from macro_monitor import news_ai
+    out = news_ai.summarise_release(_ROW, DOC, "https://bls.gov/x",
+                                    api_key="k", session=_model(_answer()))
+    assert "住房" in out.summary_zh
+    assert out.drivers == ["住房 +0.4%", "能源 −1.1%"]
+
+
+def test_a_fabricated_quote_discards_the_whole_summary():
+    """引句編得出來，摘要同樣不可信——只丟掉引句、留下摘要是不夠的。"""
+    from macro_monitor import news_ai
+    with pytest.raises(ValueError, match="幻覺"):
+        news_ai.summarise_release(
+            _ROW, DOC, "https://bls.gov/x", api_key="k",
+            session=_model(_answer(evidence="Used car prices surged 12 percent in July.")))
+
+
+def test_a_summary_without_evidence_is_rejected():
+    from macro_monitor import news_ai
+    with pytest.raises(ValueError, match="未提供原文佐證"):
+        news_ai.summarise_release(_ROW, DOC, "https://bls.gov/x",
+                                  api_key="k", session=_model(_answer(evidence="")))
+
+
+def test_the_model_saying_it_cannot_read_the_document_is_not_forced():
+    """文件抓錯或與指標無關時，模型說「看不出來」要被接受，不能硬要一段摘要。"""
+    from macro_monitor import news_ai
+    with pytest.raises(ValueError, match="不足以摘要"):
+        news_ai.summarise_release(_ROW, DOC, "https://bls.gov/x",
+                                  api_key="k", session=_model(_answer(found=False)))
+
+
+def test_a_javascript_shell_page_is_not_sent_to_the_model():
+    """只有框架、沒有內容的頁面正是幻覺的溫床——寧可不摘要。"""
+    from unittest import mock
+    from macro_monitor import news_ai
+    resp = mock.Mock(status_code=200, text="<html><body><div id='app'></div></body></html>")
+    with pytest.raises(ValueError, match="內容過短"):
+        news_ai.fetch_release_document("CPIAUCSL", session=mock.Mock(get=lambda *a, **k: resp))
+
+
+def test_market_price_indicators_have_no_release_source():
+    """殖利率與利差沒有對應的統計發布。硬配一個來源，只會讓模型對著
+    不相干的文件生出一段像樣的解釋。"""
+    from macro_monitor import news_ai
+    for fid in ("DGS10", "T10Y2Y", "T5YIFR"):
+        assert fid not in news_ai.RELEASE_SOURCES
+        with pytest.raises(ValueError, match="沒有對應的官方統計發布"):
+            news_ai.fetch_release_document(fid)
+
+
+def test_no_api_key_skips_quietly_with_a_reason():
+    from macro_monitor import news_ai
+    out, notes = news_ai.summarise_updated([_ROW], ["CPIAUCSL"], api_key="")
+    assert out == {} and any("ANTHROPIC_API_KEY" in n for n in notes)
+
+
+def test_fetch_failure_is_reported_per_url():
+    """抓不到時，「來源改版了」與「這個指標本來就沒有發布」必須分得出來。"""
+    from unittest import mock
+    from macro_monitor import news_ai
+    resp = mock.Mock(status_code=404, text="")
+    with pytest.raises(ValueError) as exc:
+        news_ai.fetch_release_document("CPIAUCSL", session=mock.Mock(get=lambda *a, **k: resp))
+    assert "HTTP 404" in str(exc.value) and "bls.gov" in str(exc.value)
+
+
+# --- 摘要儲存 ---------------------------------------------------------------
+
+def test_successful_summaries_persist_and_are_not_regenerated(tmp_path):
+    """同一期的數字不會變，重算只是多花一次模型成本。"""
+    from macro_monitor import news_store
+    p = str(tmp_path / "n.json")
+    rows = [dict(_ROW)]
+    store = news_store.save({}, {"CPIAUCSL": {"summary_zh": "x", "drivers": [],
+                                              "evidence": "e", "source_url": "u",
+                                              "model": "m"}}, rows, p)
+    assert news_store.missing(rows, store) == []
+
+
+def test_failed_summaries_are_retried_on_the_next_run(tmp_path):
+    """若以「發布日誌記錄過這一期」為判準，今天 API 出錯的指標明天不會再試，
+    那一期就永遠沒有摘要。改以「摘要存不存在」為判準。"""
+    from macro_monitor import news_store
+    rows = [dict(_ROW)]
+    assert news_store.missing(rows, {}) == ["CPIAUCSL"]
+
+
+def test_a_new_period_needs_a_new_summary(tmp_path):
+    from macro_monitor import news_store
+    rows = [dict(_ROW)]
+    store = news_store.save({}, {"CPIAUCSL": {"summary_zh": "x", "drivers": [],
+                                              "evidence": "e", "source_url": "u", "model": "m"}},
+                            rows, str(tmp_path / "n.json"))
+    rows[0]["reference_date"] = "2026-08-01"       # 新的一期
+    assert news_store.missing(rows, store) == ["CPIAUCSL"]
+
+
+def test_store_keeps_only_recent_periods(tmp_path):
+    from macro_monitor import news_store
+    p = str(tmp_path / "n.json")
+    store = {}
+    for m in range(1, 11):
+        rows = [{**_ROW, "reference_date": f"2026-{m:02d}-01"}]
+        store = news_store.save(store, {"CPIAUCSL": {"summary_zh": f"s{m}", "drivers": [],
+                                                     "evidence": "e", "source_url": "u",
+                                                     "model": "m"}}, rows, p)
+    assert len(store) == news_store.KEEP_PER_SERIES
+    assert news_store.key("CPIAUCSL", "2026-10-01") in store

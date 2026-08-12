@@ -63,7 +63,7 @@
             <th>指標</th><th class="num">最新值</th><th>參考期</th>
             <th class="num">落後</th><th class="num">3個月變化</th>
             <th class="num">12個月變化</th><th class="num">20年百分位</th>
-            <th>方向</th><th>走勢</th>
+            <th>方向</th><th>摘要</th><th>走勢</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -83,6 +83,20 @@
     <p class="subtitle" id="series-note"></p>
     <div class="stat-row" id="analysis-stats"></div>
     <div id="analysis-detail"></div>
+    <h2 style="margin-top:28px">官方發布摘要</h2>
+    <div id="news-detail"></div>
+  </section>
+
+  <section class="card">
+    <h2>摘要的產生方式</h2>
+    <div id="news-notes"></div>
+    <p class="subtitle"><strong>摘要取自官方統計發布的原文</strong>（BLS／BEA／Census／Fed 等），
+    不是二手新聞——CPI 變動的原因，最準確的來源就是 BLS 那份新聞稿本身，它逐項說明哪個分類推升了指數。</p>
+    <p class="subtitle"><strong>抓不到文件就不呼叫模型。</strong>讓模型憑記憶說明「上個月 CPI 為什麼上漲」，
+    會得到一段完全通順、細節具體、而且是編造的解釋。散文比數字更危險——數字錯了看得出來，
+    一段流暢的解釋不會有人懷疑。</p>
+    <p class="subtitle">模型提供的原文佐證會逐字比對文件，對不上就<strong>整份摘要作廢</strong>——
+    引句編得出來，摘要同樣不可信。摘要只描述文件說了什麼，不預測、不給投資判斷。</p>
   </section>
 
   <section class="card" id="release-card">
