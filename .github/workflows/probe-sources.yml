@@ -1,0 +1,54 @@
+name: Probe alternative sources
+
+# 手動觸發。這支不是日常流程，是「我想知道某個網址在資料中心 IP 底下
+# 到底通不通」時才跑的——開發環境沒有對外網路，那個問題只有這裡答得出來。
+#
+# 不排程的理由：它探測的是設定要不要改，不是每天會變的資料。
+on:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "只探測這幾條（逗號分隔的 FRED 代碼，留空表示全部）"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: probe-sources
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Probe
+        run: |
+          python3 scripts/probe_sources.py -v \
+            ${{ inputs.only && format('--only {0}', inputs.only) || '' }}
+
+      # 報告要留下來。探測結果是決策依據，只存在於 log 裡的話，
+      # 下次要重新判斷時就得再跑一次。
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-probe
+          path: |
+            data/macro/source_probe.md
+            data/macro/source_probe.json
+          retention-days: 30
