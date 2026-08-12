@@ -9,7 +9,7 @@ import pandas as pd
 
 from liquidity_monitor.sources import fred
 
-from . import indicators
+from . import analysis, indicators, release_log
 from .config import (
     CATEGORIES,
     HISTORY_YEARS,
@@ -58,17 +58,42 @@ def build_report(as_of: str = None, data: dict = None, diagnostics: dict = None)
         data, diagnostics = fetch_all(as_of)
     diagnostics = diagnostics or {}
 
-    rows, charts = [], {}
+    usrec = data.get(RECESSION_SERIES)
+    rows, charts, observations = [], {}, {}
     for spec in SERIES:
         raw = data.get(spec.fred_id)
         item = indicators.build_indicator(raw, spec, as_of)
         if item.get("available"):
             values = indicators.transform(raw, spec)
             charts[spec.fred_id] = indicators.sparkline(values, freq=spec.freq)
+            # 深入分析：z 分數、加速度、極值、轉折、波動、衰退期對照
+            item["analysis"] = analysis.analyse(values, usrec, spec.freq)
+            observations[spec.fred_id] = (item["reference_date"], item["value"])
         rows.append(item)
 
+    # 每日掃描的發布日誌。記錄「這一期第一次被看到是哪一天」，
+    # 累積之後就有本專案自己量到的發布節奏，可以驗證手填的估計值。
+    try:
+        newly = release_log.record_scan(observations, as_of)
+        release_log.record_scan_time(as_of, observations)
+        rlog = release_log.load_log()
+        for r in rows:
+            if not r.get("available"):
+                continue
+            stats = release_log.observed_lag_stats(rlog, r["fred_id"])
+            if stats:
+                r["observed_release"] = stats
+        updated_today = [{"fred_id": n["fred_id"], "reference_date": n["reference_date"],
+                          "label": next((x["label"] for x in rows if x["fred_id"] == n["fred_id"]), n["fred_id"])}
+                         for n in newly]
+    except Exception as e:  # noqa: BLE001 — 日誌寫不進去不該讓整份報告失敗
+        log.warning("發布日誌記錄失敗：%s", e)
+        updated_today, rlog = [], None
+
     available = [r for r in rows if r.get("available")]
-    stale = [r for r in available if r.get("stale")]
+    discontinued = [r for r in available if r.get("discontinued")]
+    # 已停止更新的不算「延遲」——兩者的處置完全不同
+    stale = [r for r in available if r.get("stale") and not r.get("discontinued")]
     missing = [r for r in rows if not r.get("available")]
 
     by_category = {}
@@ -93,7 +118,14 @@ def build_report(as_of: str = None, data: dict = None, diagnostics: dict = None)
         "recession_bands": indicators.recession_bands(data.get(RECESSION_SERIES)),
         "percentile_years": PERCENTILE_YEARS,
         "counts": {"total": len(rows), "available": len(available),
-                   "stale": len(stale), "missing": len(missing)},
+                   "stale": len(stale), "missing": len(missing),
+                   "discontinued": len(discontinued),
+                   "updated_today": len(updated_today)},
+        "updated_today": updated_today,
+        "discontinued_series": [
+            {"fred_id": r["fred_id"], "label": r["label"],
+             "reference_date": r["reference_date"], "lag_days": r["lag_days"]}
+            for r in discontinued],
         "stale_series": [{"fred_id": r["fred_id"], "label": r["label"],
                           "reference_date": r["reference_date"], "lag_days": r["lag_days"]}
                          for r in stale],
@@ -109,6 +141,10 @@ def build_report(as_of: str = None, data: dict = None, diagnostics: dict = None)
             "衰退陰影取自 NBER 認定（FRED USREC）。NBER 往往在衰退開始一年後才公布認定，"
             "因此最近期不會有標記——那是「還沒認定」，不是「沒有衰退」。",
             "總體數據會被事後修正，本頁顯示的一律是目前最新的修正版本。",
+            "「觀測發布時滯」由每日掃描累積而得——記錄每一期第一次被看到是哪一天。"
+            "掃描為每日一次，因此最多高估一天；累積期數不足兩期時不顯示。",
+            "「停止更新」與「延遲」分開判定：超過過期門檻四倍且至少一年，"
+            "視為該序列已停止發布，應從清單移除而不是繼續等。",
         ],
     }
 

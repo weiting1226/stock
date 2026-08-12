@@ -73,7 +73,7 @@
   </section>
 
   <section class="card">
-    <h2>單一指標走勢</h2>
+    <h2>單一指標深入分析</h2>
     <div class="filter-bar">
       <label>選擇指標
         <select id="series-picker"></select>
@@ -81,6 +81,24 @@
     </div>
     <div class="chart-wrap"><canvas id="series-chart"></canvas></div>
     <p class="subtitle" id="series-note"></p>
+    <div class="stat-row" id="analysis-stats"></div>
+    <div id="analysis-detail"></div>
+  </section>
+
+  <section class="card" id="release-card">
+    <h2>發布日誌</h2>
+    <p class="subtitle" id="release-summary"></p>
+    <div class="table-scroll">
+      <table id="release-table">
+        <thead><tr><th>指標</th><th>最新參考期</th>
+          <th class="num">觀測期數</th><th class="num">觀測發布時滯（中位數）</th>
+          <th class="num">範圍</th><th class="num">設定估計值</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="subtitle">「觀測發布時滯」由每日掃描累積而得——記錄每一期第一次被看到是哪一天。
+    掃描為每日一次，因此最多高估一天。累積兩期以上才顯示。
+    設定估計值是依各機構慣例手填的，兩者的差距就是估計的誤差。</p>
   </section>
 
   <footer class="disclaimer">

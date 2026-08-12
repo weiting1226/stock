@@ -167,15 +167,31 @@ def test_no_recession_data_is_an_empty_list_not_an_error():
 
 # --- 報告組裝 ---------------------------------------------------------------
 
-def test_report_separates_missing_from_stale():
-    """「這個月還沒公布」與「來源壞了」在畫面上都是沒有新數字，
-    但處置完全不同。"""
-    data = {s.fred_id: _monthly([1.0] * 40) for s in SERIES}
-    data["UNRATE"] = pd.Series(dtype=float)                       # 缺失
-    data["ICSA"] = _monthly([200.0] * 40, start="2015-01-01")     # 過期
+def test_report_separates_missing_stale_and_discontinued(tmp_path, monkeypatch):
+    """三種狀態的處置完全不同，畫面上卻都是「沒有新數字」：
+
+      缺失      抓不到          -> 要去修來源
+      延遲      這一期還沒公布   -> 等就好
+      停止更新  這條序列不發了   -> 從清單移除
+    """
+    from macro_monitor import release_log
+    monkeypatch.setattr(release_log, "RELEASE_LOG_PATH", str(tmp_path / "r.csv"))
+    monkeypatch.setattr(release_log, "SCAN_LOG_PATH", str(tmp_path / "s.csv"))
+
+    data = {s.fred_id: _monthly([1.0] * 40, start="2023-05-01") for s in SERIES}
+    data["UNRATE"] = pd.Series(dtype=float)                        # 缺失
+    # ICSA 門檻 20 天：落後 60 天是延遲，還沒到停止更新的程度
+    data["ICSA"] = pd.Series([200.0] * 40,
+                             index=pd.date_range("2026-06-13", periods=40, freq="-1W"))
+    # Case-Shiller 落後十年 -> 停止更新
+    data["CSUSHPINSA"] = _monthly([100.0] * 40, start="2012-01-01")
+
     rep = report.build_report(as_of="2026-08-12", data=data)
     assert "UNRATE" in {r["fred_id"] for r in rep["missing_series"]}
     assert "ICSA" in {r["fred_id"] for r in rep["stale_series"]}
+    assert "CSUSHPINSA" in {r["fred_id"] for r in rep["discontinued_series"]}
+    # 已停止更新的不該同時被算成「延遲」——那會讓人以為等一等就有
+    assert "CSUSHPINSA" not in {r["fred_id"] for r in rep["stale_series"]}
     assert rep["counts"]["available"] == len(SERIES) - 1
 
 
@@ -192,3 +208,109 @@ def test_every_category_appears_in_the_summary():
     rep = report.build_report(as_of="2026-08-12", data=data)
     assert set(rep["summary"]) == set(rep["categories"])
     assert sum(v["count"] for v in rep["summary"].values()) == len(SERIES)
+
+
+# --- 發布日誌 ---------------------------------------------------------------
+
+def test_release_log_records_when_a_period_first_appeared(tmp_path):
+    """FRED 只帶參考期，不帶「這個數字哪天公布」。發布日必須靠每日掃描觀測。"""
+    from macro_monitor import release_log
+    p = str(tmp_path / "log.csv")
+    assert len(release_log.record_scan({"CPIAUCSL": ("2026-06-01", 3.73)}, "2026-08-12", p)) == 1
+    assert len(release_log.record_scan({"CPIAUCSL": ("2026-07-01", 3.60)}, "2026-08-13", p)) == 1
+    df = release_log.load_log(p)
+    assert list(df["observed_at"]) == ["2026-08-12", "2026-08-13"]
+
+
+def test_rescanning_the_same_period_is_not_a_new_release(tmp_path):
+    from macro_monitor import release_log
+    p = str(tmp_path / "log.csv")
+    release_log.record_scan({"CPIAUCSL": ("2026-06-01", 3.73)}, "2026-08-12", p)
+    assert release_log.record_scan({"CPIAUCSL": ("2026-06-01", 3.73)}, "2026-08-13", p) == []
+
+
+def test_a_revision_is_not_counted_as_a_new_release(tmp_path):
+    """數值被事後修正而參考期不變——那是修正，不是發布。
+    算成發布的話，觀測到的發布時滯會被大量假訊號污染。"""
+    from macro_monitor import release_log
+    p = str(tmp_path / "log.csv")
+    release_log.record_scan({"GDPC1": ("2026-04-01", 2.1)}, "2026-07-30", p)
+    assert release_log.record_scan({"GDPC1": ("2026-04-01", 2.4)}, "2026-08-28", p) == []
+
+
+def test_observed_lag_needs_at_least_two_periods(tmp_path):
+    """一期算不出節奏。硬給一個數字會讓人以為那是量出來的結果。"""
+    from macro_monitor import release_log
+    p = str(tmp_path / "log.csv")
+    release_log.record_scan({"CPIAUCSL": ("2026-06-01", 3.7)}, "2026-07-13", p)
+    assert release_log.observed_lag_stats(release_log.load_log(p), "CPIAUCSL") is None
+    release_log.record_scan({"CPIAUCSL": ("2026-07-01", 3.6)}, "2026-08-13", p)
+    stats = release_log.observed_lag_stats(release_log.load_log(p), "CPIAUCSL")
+    assert stats["observations"] == 2 and stats["median_lag_days"] > 0
+
+
+def test_scan_log_distinguishes_no_change_from_no_scan(tmp_path):
+    """少了掃描紀錄，「資料停止更新」與「排程壞掉沒跑」在日誌上長得一模一樣。"""
+    from macro_monitor import release_log
+    p = str(tmp_path / "scan.csv")
+    release_log.record_scan_time("2026-08-12", ["A", "B"], p)
+    release_log.record_scan_time("2026-08-13", ["A", "B"], p)
+    df = pd.read_csv(p)
+    assert list(df["scan_date"]) == ["2026-08-12", "2026-08-13"]
+
+
+# --- 深入分析 ---------------------------------------------------------------
+
+def _series(values, start="2000-01-01"):
+    return pd.Series(values, index=pd.date_range(start, periods=len(values), freq="MS"),
+                     dtype=float)
+
+
+def test_acceleration_detects_a_slowing_rise():
+    """水準仍在上升、但上升速度在放慢——只看「三個月變化」看不出來。"""
+    from macro_monitor import analysis
+    rising_then_slowing = _series([0, 3, 6, 9, 10, 11, 12])
+    assert analysis.acceleration(rising_then_slowing, 3) < 0
+
+
+def test_turning_points_are_not_claimed_for_the_most_recent_periods():
+    """轉折需要後續資料才確認得了。硬判最近幾期會產生一堆事後被推翻的假轉折。"""
+    from macro_monitor import analysis
+    v = _series(list(np.arange(30)) + list(np.arange(30, 0, -1)))
+    tp = analysis.last_turning_point(v, window=6)
+    assert tp["confirmation_lag_periods"] == 6
+    last = pd.Timestamp(tp["last_peak_date"])
+    assert last <= v.index[-7]
+
+
+def test_recession_contrast_reports_distributions_not_a_probability():
+    """單一指標算不出衰退機率。把兩組分布擺出來比自訂門檻誠實。"""
+    from macro_monitor import analysis
+    n = 200
+    v = _series([4.0] * n)
+    v.iloc[50:70] = 8.0
+    rec = pd.Series(0, index=v.index)
+    rec.iloc[50:70] = 1
+    out = analysis.recession_contrast(v, rec)
+    assert out["recession_mean"] == pytest.approx(8.0)
+    assert out["expansion_mean"] == pytest.approx(4.0)
+    assert "不是衰退機率" in out["note"]
+
+
+def test_analysis_leaves_out_what_it_cannot_compute():
+    """樣本不足的項目留空，不硬給數字。"""
+    from macro_monitor import analysis
+    out = analysis.analyse(_series([1.0, 2.0, 3.0]), None, "M")
+    assert out["observations"] == 3
+    assert "zscore_full" not in out
+    assert "recession_contrast" not in out
+
+
+def test_zscore_and_percentile_are_both_reported():
+    """百分位說「排第幾」，z 分數說「離平均幾個標準差」。
+    分布有厚尾時兩者印象很不一樣，一起看才完整。"""
+    from macro_monitor import analysis
+    v = _series(list(np.random.default_rng(1).normal(0, 1, 200)) + [6.0])
+    z = analysis.zscore(v)
+    p = indicators.percentile_of_latest(v)
+    assert z > 3 and p > 99

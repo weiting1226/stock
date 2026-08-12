@@ -131,6 +131,12 @@ RECESSION_SERIES = "USREC"
 # 太長則會把結構已經改變的年代也算進來。
 PERCENTILE_YEARS = 20
 
+# 超過「過期門檻」這麼多倍就不是「延遲」而是「停止更新」。
+# 兩者要分開：延遲等就好，停止更新該從清單移除。
+# 實測 USSLIND 落後 2384 天／門檻 90 天 = 26 倍，遠超過任何合理的延遲。
+DISCONTINUED_MULTIPLE = 4.0
+DISCONTINUED_MIN_DAYS = 365
+
 # 抓多久的歷史
 HISTORY_YEARS = 30
 
