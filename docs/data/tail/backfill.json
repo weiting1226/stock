@@ -1,0 +1,159 @@
+{
+  "generated_for": {
+    "start": "2016-08-12",
+    "end": "2026-08-12"
+  },
+  "summary": {
+    "days_replayed": 2511,
+    "days_skipped_short_history": 0,
+    "first": "2016-08-12",
+    "last": "2026-08-12",
+    "final_state": {
+      "active_veto": 0,
+      "clean_days": 10,
+      "consec_inversion": 0
+    }
+  },
+  "measured": {
+    "years_covered": 10.0,
+    "veto_episodes": 142,
+    "false_positive_per_year_measured": 14.202,
+    "days_under_veto": 664,
+    "share_of_days_under_veto": 0.2644,
+    "whipsaw": {
+      "episodes": 142,
+      "mean_avoided": 0.00687,
+      "detail": [
+        {
+          "from": "2025-10-10",
+          "to": "2025-10-13",
+          "days": 1,
+          "tqqq_ret": 0.06346,
+          "qqq_ret": 0.02122,
+          "avoided": 0.04224
+        },
+        {
+          "from": "2025-10-14",
+          "to": "2025-10-20",
+          "days": 4,
+          "tqqq_ret": 0.06684,
+          "qqq_ret": 0.02264,
+          "avoided": 0.0442
+        },
+        {
+          "from": "2025-11-13",
+          "to": "2025-11-24",
+          "days": 7,
+          "tqqq_ret": -0.02389,
+          "qqq_ret": -0.00533,
+          "avoided": -0.01856
+        },
+        {
+          "from": "2026-01-14",
+          "to": "2026-01-15",
+          "days": 1,
+          "tqqq_ret": 0.01022,
+          "qqq_ret": 0.0036,
+          "avoided": 0.00662
+        },
+        {
+          "from": "2026-01-20",
+          "to": "2026-01-21",
+          "days": 1,
+          "tqqq_ret": 0.03942,
+          "qqq_ret": 0.01352,
+          "avoided": 0.02591
+        },
+        {
+          "from": "2026-01-30",
+          "to": "2026-02-02",
+          "days": 1,
+          "tqqq_ret": 0.02037,
+          "qqq_ret": 0.00687,
+          "avoided": 0.0135
+        },
+        {
+          "from": "2026-02-04",
+          "to": "2026-02-06",
+          "days": 2,
+          "tqqq_ret": 0.01668,
+          "qqq_ret": 0.00644,
+          "avoided": 0.01024
+        },
+        {
+          "from": "2026-02-12",
+          "to": "2026-02-25",
+          "days": 8,
+          "tqqq_ret": 0.0748,
+          "qqq_ret": 0.0267,
+          "avoided": 0.0481
+        },
+        {
+          "from": "2026-02-27",
+          "to": "2026-04-08",
+          "days": 27,
+          "tqqq_ret": -0.02909,
+          "qqq_ret": -0.00072,
+          "avoided": -0.02838
+        },
+        {
+          "from": "2026-07-29",
+          "to": "2026-07-30",
+          "days": 1,
+          "tqqq_ret": 0.0961,
+          "qqq_ret": 0.03297,
+          "avoided": 0.06313
+        }
+      ]
+    },
+    "whipsaw_cost_measured": -0.00687
+  },
+  "input_coverage": {
+    "vix9d": {
+      "from": "2014-02-24",
+      "n": 3119
+    },
+    "vix": {
+      "from": "2014-02-24",
+      "n": 3137
+    },
+    "vix3m": {
+      "from": "2014-02-24",
+      "n": 3119
+    },
+    "vvix": {
+      "from": "2014-02-24",
+      "n": 3128
+    },
+    "hyg": {
+      "from": "2014-02-24",
+      "n": 3134
+    },
+    "lqd": {
+      "from": "2014-02-24",
+      "n": 3136
+    },
+    "ief": {
+      "from": "2014-02-24",
+      "n": 3136
+    },
+    "tqqq": {
+      "from": "2014-02-24",
+      "n": 3136
+    },
+    "qqq": {
+      "from": "2014-02-24",
+      "n": 3136
+    },
+    "hy_oas": {
+      "from": "2023-08-14",
+      "n": 786
+    }
+  },
+  "problems": [],
+  "caveats": [
+    "base_alloc 由 composite_score 經部位階梯重建，**未套用 Gate A/B/C 上限**（分數歷史只存了 composite_score）。實際部位只會更保守，因此回補的 base_alloc 偏積極，模組六可砍的空間偏大。",
+    "HY OAS 受 ICE 授權限制只有近三年，更早期間「信用急變」這一類別沒有輸入，快閘在那段期間最多只有兩類可觸發。",
+    "回補列標為 source=backfill：這是重建，不是觀測到的影子運行。"
+  ]
+}
