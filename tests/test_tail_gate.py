@@ -487,3 +487,42 @@ def test_the_vectorised_stress_series_matches_the_scalar_definition():
     n = 600
     s = _series(np.concatenate([np.full(540, 100.0), np.linspace(100, 82, 60)]))
     assert _stress_series(s).iloc[-1] == pytest.approx(stress_level(s), abs=1e-9)
+
+
+def test_the_specs_three_targets_are_not_mutually_consistent():
+    """一致率 0.70 需要 corr ≈ 0.93，而說明自己的相關係數門檻只有 0.60
+    （對應一致率僅約 0.43）。一個剛好通過前兩項的代理，**數學上不可能**
+    通過第三項。這不是代理的問題，是門檻的問題，必須看得見。"""
+    from tail_gate.config import CALIBRATION_TARGETS
+    from tail_gate.credit_proxy import corr_needed_for_agreement, expected_agreement_at
+
+    needed = corr_needed_for_agreement(CALIBRATION_TARGETS["regime_agreement"])
+    assert needed > CALIBRATION_TARGETS["corr_level_dd_vs_oas"]
+    assert needed > 0.9
+    # 剛好通過相關係數門檻的代理，其一致率期望值遠低於一致率門檻
+    assert expected_agreement_at(CALIBRATION_TARGETS["corr_level_dd_vs_oas"]) < 0.5
+
+
+def test_the_benchmark_is_monotonic_and_anchored():
+    """基準表要單調（相關越高、一致率越高），兩端要對得上：
+    零相關約等於隨機猜四選一（0.25），完全相關為 1.0。"""
+    from tail_gate.credit_proxy import BIVARIATE_NORMAL_QUARTILE_AGREEMENT as T
+    xs = sorted(T)
+    ys = [T[x] for x in xs]
+    assert ys == sorted(ys)
+    assert T[0.0] == pytest.approx(0.25, abs=0.02)
+    assert T[1.0] == 1.0
+
+
+def test_agreement_is_reported_against_what_the_correlation_predicts():
+    """觀測值要與「這個相關係數應該得到多少」並列。只報 0.395 vs 0.70，
+    讀者無從判斷是代理差、還是門檻本來就不可能達到。"""
+    n = 400
+    idx = pd.bdate_range("2023-01-02", periods=n)
+    hyg = pd.Series(np.concatenate([np.full(340, 100.0), np.linspace(100, 88, 60)]), index=idx)
+    ief = pd.Series(np.full(n, 100.0), index=idx)
+    oas = pd.Series(np.concatenate([np.full(340, 3.2), np.linspace(3.2, 6.0, 60)]), index=idx)
+    r = credit_proxy.calibrate_against_oas(CreditProxyInputs(hyg=hyg, ief=ief), hy_oas=oas)
+    assert "regime_agreement_expected" in r
+    assert "regime_agreement_shortfall" in r
+    assert r["targets_are_mutually_consistent"] is False

@@ -323,6 +323,21 @@ function renderCalibration(r) {
         ${ok === null ? "無值" : ok ? "達標" : "未達標"}</td></tr>`;
   }).join("");
 
+  const benchNote = c.regime_agreement_expected === undefined ? "" : `
+    <p class="subtitle"><strong>分級一致率要放在基準旁邊讀。</strong>
+    四分位一致率本來就比相關係數難達標得多：實測相關 ${num(c.corr_level_dd_vs_oas, 3)}
+    在雙變量常態下的期望一致率是 <strong>${num(c.regime_agreement_expected, 3)}</strong>，
+    而實測是 ${num(c.regime_agreement_rank, 3)}
+    （落差 ${num(c.regime_agreement_shortfall, 3)}）。<br>
+    更要緊的是：<strong>一致率門檻 0.70 需要相關係數約
+    ${num(c.corr_needed_for_agreement_target, 3)}</strong>，
+    而說明自己的相關係數門檻只有 ${num((c.targets || {}).corr_level_dd_vs_oas, 2)}。
+    ${c.targets_are_mutually_consistent === false
+      ? `<strong style="color:${cssVar("--critical")}">也就是說，說明的三個門檻彼此不相容——
+         一個剛好通過前兩項的代理，數學上不可能通過第三項。</strong>
+         這是門檻的問題，不是代理的問題；但落差為負，代表代理本身也確實不足。`
+      : ""}</p>`;
+
   const verdict = c.passed === null || c.passed === undefined
     ? `<strong>還不知道</strong>——有項目算不出值。「還不知道」與「沒通過」是兩件事，
        混在一起會讓人以為驗證做過了。`
@@ -337,6 +352,7 @@ function renderCalibration(r) {
       <thead><tr><th>判讀項目</th><th class="num">實測</th><th>結果</th></tr></thead>
       <tbody>${rows}</tbody></table></div>
     <p class="subtitle">重疊樣本 ${escapeHtml(c.n_obs ?? "—")} 筆，久期對沖 beta ${num(c.beta, 3)}。${verdict}</p>
+    ${benchNote}
     ${c.regime_agreement_absolute === undefined ? "" : `<p class="subtitle">
       <strong>另一個分級一致率：${num(c.regime_agreement_absolute, 3)}</strong>（代理的<em>正式門檻</em>
       vs OAS 四分位）。這一項預期不會達標——<strong>門檻本來就沒校準過</strong>，
