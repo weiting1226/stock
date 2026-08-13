@@ -348,7 +348,41 @@ def test_whipsaw_is_measured_from_the_logged_closes():
     })
     r = daily_log.measure_whipsaw(df)
     assert r["episodes"] == 1
-    assert r["detail"][0]["avoided"] == pytest.approx(88 / 80 - 96 / 93, abs=1e-5)
+    assert r["detail"][0]["tqqq_minus_qqq"] == pytest.approx(88 / 80 - 96 / 93, abs=1e-5)
+
+
+def test_a_veto_that_misses_a_rally_is_recorded_as_a_cost_not_a_benefit():
+    """**符號在這裡錯過一次，而且它讓結論整個顛倒。** 否決期間 TQQQ 跑贏而你
+    沒持有，那是錯過的漲幅、是成本；原本的程式把它報成「避開的損失」。
+    實測 142 次進出平均 +0.687%，被報成 −0.687%——正負一顛倒，
+    這個模組就從「每年倒賠 4%」變成「免費的保險」。"""
+    df = pd.DataFrame({
+        "as_of": ["2026-01-02", "2026-01-05", "2026-01-06"],
+        "state_active_veto": [0, 1, 0],
+        "tqqq_close": [100.0, 100.0, 110.0],   # 否決期間 TQQQ 大漲
+        "qqq_close": [100.0, 100.0, 103.0],
+    })
+    r = daily_log.measure_whipsaw(df)
+    assert r["mean_whipsaw_cost"] > 0, "錯過漲幅必須記成正的成本"
+
+    from tail_gate import backfill as bf
+    rows = [{"as_of": d, "source": "backfill", "state_active_veto": v,
+             "tqqq_close": t, "qqq_close": q}
+            for d, v, t, q in zip(df["as_of"], df["state_active_veto"],
+                                  df["tqqq_close"], df["qqq_close"])]
+    m = bf.measure_assumptions(rows)
+    assert m["whipsaw_cost_measured"] > 0
+
+
+def test_a_veto_that_dodges_a_crash_is_recorded_as_a_benefit():
+    """反向也要對：閘門真的避開下跌時，成本應為負。"""
+    df = pd.DataFrame({
+        "as_of": ["2026-01-02", "2026-01-05", "2026-01-06"],
+        "state_active_veto": [0, 1, 0],
+        "tqqq_close": [100.0, 100.0, 70.0],    # 否決期間 TQQQ 崩跌
+        "qqq_close": [100.0, 100.0, 90.0],
+    })
+    assert daily_log.measure_whipsaw(df)["mean_whipsaw_cost"] < 0
 
 
 def test_expected_value_states_that_nothing_is_validated():
@@ -631,3 +665,21 @@ def test_base_alloc_reconstruction_matches_the_position_ladder():
     assert base_alloc_from_score(1.5)[0] == 0.5      # 50% TQQQ + 50% QQQ
     assert base_alloc_from_score(0.0) == (0.0, 1.0, 0.0)
     assert base_alloc_from_score(-2.0) == (0.0, 0.0, 1.0)
+
+
+def test_a_rolling_percentile_threshold_fires_at_a_mechanically_fixed_rate():
+    """實測觸發率 14.2 次/年，說明的設計目標是 0.5~1.0 次/年。壓倒性的來源是
+    VVIX 那一項，而它的問題是結構性的：對滾動百分位設固定門檻，觸發率在數學上
+    就被釘死在 (100−門檻)%——門檻 80 就是 20% 的日子，無論市場平靜或動盪。
+    它完全不帶「現在是否異常」的資訊。"""
+    from tail_gate.backfill import diagnose_thresholds
+    rng = np.random.default_rng(3)
+    n = 2500
+    # 完全平靜的市場：VVIX 隨機遊走，沒有任何異常事件
+    pct = pd.Series(rng.uniform(0, 100, n))
+    df = pd.DataFrame({"fg_vvix_pctile": pct})
+    d = diagnose_thresholds(df)
+    rates = d["vvix_fire_rate_by_threshold"]
+    # 即使市場毫無異常，門檻 80 仍會在約 20% 的日子觸發
+    assert 0.15 < rates["80"] < 0.25
+    assert 0.03 < rates["95"] < 0.08

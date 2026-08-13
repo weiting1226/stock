@@ -169,6 +169,7 @@ def measure_assumptions(rows: list) -> dict:
     starts = int(((veto) & (~veto.shift(1, fill_value=False))).sum())
 
     whipsaw = measure_whipsaw(df)
+    threshold_diag = diagnose_thresholds(df)
     out = {
         "years_covered": round(years, 2),
         "veto_episodes": starts,
@@ -178,7 +179,44 @@ def measure_assumptions(rows: list) -> dict:
         "whipsaw": whipsaw,
     }
     if whipsaw.get("episodes"):
-        # 避開的損失為正代表閘門幫上忙；負代表它砍在低點、回場在高點，
-        # 那才是 whipsaw_cost 的實際樣子
-        out["whipsaw_cost_measured"] = round(-whipsaw["mean_avoided"], 5)
+        # **符號在這裡錯過一次，而且它會讓結論整個顛倒。**
+        # 原本寫 -mean_avoided，把「否決期間錯過的漲幅」報成效益。
+        # 實測 mean = +0.00687：否決期間 TQQQ 平均比 QQQ 多漲 0.687%，
+        # 而那段期間並沒有持有 TQQQ——那是**成本**，不是避開的損失。
+        out["whipsaw_cost_measured"] = whipsaw["mean_whipsaw_cost"]
+    out["threshold_diagnosis"] = threshold_diag
+    return out
+
+
+def diagnose_thresholds(df: pd.DataFrame) -> dict:
+    """為什麼觸發率是設計目標的十幾倍。
+
+    **實測 14.2 次/年，說明第 6 節的目標是 0.5~1.0 次/年。** 拆開來看，
+    壓倒性的來源是 VVIX 那一項——而它的問題是**結構性**的：
+    對「滾動 250 日百分位」設固定門檻，觸發率在數學上就被釘死在 (100−門檻)%。
+    門檻 80 就是 20% 的日子，無論市場平靜或動盪都一樣。它完全不帶
+    「現在是否異常」的資訊：相對過去 250 天的前 20%，永遠有 20% 的日子。
+
+    這一項是本專案自己訂的（說明沒有給 VVIX 與 HY 的具體數值），
+    所以這是實作的問題，不是說明的問題。
+    """
+    out: dict = {}
+    p = df["fg_vvix_pctile"].dropna() if "fg_vvix_pctile" in df else pd.Series(dtype=float)
+    if len(p):
+        out["vvix_fire_rate_by_threshold"] = {
+            str(t): round(float((p >= t).mean()), 4) for t in (80, 90, 95, 98, 99)
+        }
+        out["vvix_structural_note"] = (
+            "滾動百分位對固定門檻，觸發率必然約 (100−門檻)%。"
+            "調高門檻只是換一個被釘死的觸發率，不是讓它變得有資訊量。"
+        )
+    for name, col, cond in (
+        ("term_structure_persisted", "state_consec_inversion", lambda s: s >= 4),
+        ("vol_of_vol", "fg_vvix_pctile", lambda s: s >= 80),
+        ("credit_shock", "fg_hy_chg20_bp", lambda s: s >= 75),
+    ):
+        if col in df:
+            series = df[col].dropna()
+            out.setdefault("days_triggered", {})[name] = {
+                "days": int(cond(series).sum()), "of": int(len(series))}
     return out
