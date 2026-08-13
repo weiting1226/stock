@@ -1,0 +1,237 @@
+{
+  "as_of": "2026-08-13",
+  "mode": "shadow",
+  "shadow_note": "影子運行：只記錄、不下單。慢閘門檻未經真實資料校準，快閘的危機型事件樣本 n=1。",
+  "base_alloc": {
+    "tqqq": 0.0,
+    "qqq": 1.0,
+    "sgov": 0.0,
+    "source": {
+      "as_of": "2026-08-12",
+      "text": "100% QQQ"
+    }
+  },
+  "out_alloc": {
+    "tqqq": 0.0,
+    "qqq": 1.0,
+    "sgov": 0.0
+  },
+  "changed": false,
+  "equity_ceiling": 1.0,
+  "tqqq_hard_cap": 0.5,
+  "slow": {
+    "gate": "CreditProxyGate",
+    "regime": "EXPANSION",
+    "score": 15.12,
+    "equity_ceiling": 1.0,
+    "detail": {
+      "beta": 0.4727,
+      "beta_source": "rolling",
+      "stress_level": 0.0,
+      "chg250_pctile": 49.6,
+      "hyg_lqd_chg60": 0.02711,
+      "index_last": 114.902,
+      "components": {
+        "stress": 0.0,
+        "chg_pctile": 15.12,
+        "quality_dispersion": 0.0
+      },
+      "uncalibrated": true
+    }
+  },
+  "fast": {
+    "raw_veto": 0,
+    "gated_veto": 0,
+    "n_categories": 0,
+    "curve_inverted": false,
+    "vix9d": 11.09,
+    "vix": 14.55,
+    "vix3m": 18.53,
+    "detail": {
+      "triggered": [],
+      "missing": [],
+      "vvix_pctile": 8.0,
+      "hy_chg20_bp": 0.0,
+      "threshold_shift": -0.0,
+      "vvix_trigger": 80.0,
+      "hy_trigger_bp": 75.0,
+      "sample_size_note": "危機型事件樣本 n=1（2020），等級不代表統計信心"
+    }
+  },
+  "crowding": {
+    "score": 42.17,
+    "threshold_shift": -0.0,
+    "detail": {
+      "components": {
+        "low_vol": 0.0,
+        "trailing_gain": 0.843
+      },
+      "missing": [
+        "cftc_jpy_net_short",
+        "margin_debt_yoy"
+      ],
+      "known": true,
+      "coverage": "2/4"
+    }
+  },
+  "state": {
+    "active_veto": 0,
+    "clean_days": 1,
+    "consec_inversion": 0
+  },
+  "state_meta": {
+    "found": false,
+    "reason": "狀態檔不存在（首次執行）",
+    "staleness_days": null
+  },
+  "controller": {
+    "raw_veto": 0,
+    "gated_veto": 0,
+    "effective_categories": [],
+    "persist_days": 4,
+    "reentry_clean_days": 0,
+    "slow_ceiling": 1.0,
+    "veto_ceiling": 1.0,
+    "tqqq_hard_cap": 0.5
+  },
+  "ev": {
+    "expected_annual": 0.01202,
+    "gross_benefit_annual": 0.05618,
+    "crisis_gain_annual": 0.05,
+    "false_positive_cost_annual": 0.04416,
+    "crisis_share": 0.89,
+    "doc_expected_annual": 0.012,
+    "doc_crisis_share": 0.89,
+    "reproduces_doc": true,
+    "assumptions": {
+      "crisis_period_years": 7.0,
+      "crisis_avoided_drawdown": 0.35,
+      "moderate_gain_annual": 0.00618,
+      "false_positive_per_year": 0.8,
+      "whipsaw_cost": 0.0552
+    },
+    "validated": {
+      "crisis_period_years": false,
+      "crisis_avoided_drawdown": false,
+      "moderate_gain_annual": false,
+      "false_positive_per_year": false,
+      "whipsaw_cost": false
+    },
+    "unvalidated_count": 5,
+    "note": "參數是為了重現說明的 1.2%／89% 回推而得，不是獨立驗證。五項假設全部未實測，其中 whipsaw_cost 是最大的不確定來源。"
+  },
+  "ev_sensitivity": [
+    {
+      "whipsaw_cost": 0.02,
+      "expected_annual": 0.04018,
+      "positive": true,
+      "is_assumed": false,
+      "is_breakeven": false
+    },
+    {
+      "whipsaw_cost": 0.04,
+      "expected_annual": 0.02418,
+      "positive": true,
+      "is_assumed": false,
+      "is_breakeven": false
+    },
+    {
+      "whipsaw_cost": 0.0552,
+      "expected_annual": 0.01202,
+      "positive": true,
+      "is_assumed": true,
+      "is_breakeven": false
+    },
+    {
+      "whipsaw_cost": 0.0702,
+      "expected_annual": 2e-05,
+      "positive": true,
+      "is_assumed": false,
+      "is_breakeven": true
+    },
+    {
+      "whipsaw_cost": 0.09,
+      "expected_annual": -0.01582,
+      "positive": false,
+      "is_assumed": false,
+      "is_breakeven": false
+    }
+  ],
+  "whipsaw": {
+    "episodes": 0,
+    "note": "快閘尚未完整觸發並回場過，whipsaw_cost 仍是估計值（EV 模型最未驗證的一環）"
+  },
+  "calibration": {
+    "n_obs": 614,
+    "beta": 0.4727,
+    "corr_level_dd_vs_oas": 0.7715,
+    "corr_change_60d": -0.9026,
+    "regime_agreement": 0.2865,
+    "targets": {
+      "corr_level_dd_vs_oas": 0.6,
+      "corr_change_60d": -0.5,
+      "regime_agreement": 0.7
+    },
+    "passed": false
+  },
+  "input_lags": {
+    "vix_family": 0,
+    "credit_proxy": 0,
+    "funding": 1,
+    "cftc_jpy": 3,
+    "margin_debt": 30
+  },
+  "problems": [],
+  "history": {
+    "dates": [
+      "2026-08-13"
+    ],
+    "series": {
+      "cp_score": [
+        15.12
+      ],
+      "state_active_veto": [
+        0.0
+      ],
+      "fg_n_categories": [
+        0.0
+      ],
+      "out_w_tqqq": [
+        0.0
+      ],
+      "base_w_tqqq": [
+        0.0
+      ],
+      "cr_score": [
+        42.17
+      ]
+    }
+  },
+  "limitations": [
+    {
+      "limit": "Type IV（SVB／LDI 型）零領先期",
+      "impact": "完全防不到",
+      "solvable": "否，只能靠事前部位上限"
+    },
+    {
+      "limit": "Type II（踩踏型）干預 EV ≈ 0",
+      "impact": "最頻繁的事件類型無法獲利",
+      "solvable": "已由 persist_days 主動放棄"
+    },
+    {
+      "limit": "慢閘門檻未校準",
+      "impact": "可能系統性過鬆或過緊",
+      "solvable": "跑代理驗證（本頁下方）"
+    },
+    {
+      "limit": "whipsaw_cost 未實測",
+      "impact": "EV 估計的最大不確定來源",
+      "solvable": "日誌已記錄 tqqq/qqq 收盤價，觸發後可算"
+    },
+    {
+      "limit": "危機型事件樣本 n=1",
+      "impact": "尾部效益估計不穩健",
+      "solvable": "無法解決，時間問題"
+    }
+  ]
+}
