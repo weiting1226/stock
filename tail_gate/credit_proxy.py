@@ -213,24 +213,61 @@ def calibrate_against_oas(inputs: CreditProxyInputs, hy_oas: pd.Series) -> dict:
     out["corr_change_60d"] = (round(float(chg["idx"].corr(chg["oas"])), 4)
                               if len(chg) >= 60 else None)
 
-    # 分級一致率：把 OAS 也切成四段（用它自己的分位），比對兩者的 regime
-    proxy_regimes, oas_regimes = [], []
-    q = joined["oas"].quantile([0.25, 0.50, 0.75]).tolist()
-    for ts, row in joined.iterrows():
-        sub = index.loc[:ts]
-        if len(sub) < 60:
-            continue
-        proxy_regimes.append(_regime_from_score(
-            min(100.0, stress_level(sub) / 0.15 * 100.0)))
-        v = row["oas"]
-        oas_regimes.append(REGIME_ORDER[sum(v > t for t in q)])
-    if proxy_regimes:
-        agree = np.mean([a == b for a, b in zip(proxy_regimes, oas_regimes)])
-        out["regime_agreement"] = round(float(agree), 4)
+    # --- 分級一致率 --------------------------------------------------------
+    #
+    # **這裡原本量錯了東西。** 第一版拿代理的「絕對門檻分級」去比 OAS 的
+    # 「四分位分級」，實測得到 0.2865，看起來像代理失敗。但四分位在結構上
+    # 強制各 25%——平靜期裡它會把最近三年相對最差的 25% 天標成 STRESS，
+    # 而那些日子的絕對壓力可能只有 3% 回撤，代理當然說 EXPANSION。
+    #
+    # 用**完美相關**（corr=1.0）的合成序列驗證過：舊指標回 0.2508，
+    # 與實測的 0.2865 幾乎一樣。也就是說那個指標無論代理好壞都不會過關——
+    # 一個過不了的量尺，量不出任何東西。
+    #
+    # 因此改為兩個指標，各自回答不同的問題，兩個都報出來：
+    #   rank      兩邊都用四分位 —— 代理**排序**日子的方式跟 OAS 一樣嗎
+    #             （這才是「方向對不對」，doc 第 6 節的 0.70 門檻用這個）
+    #   absolute  代理的正式門檻 vs OAS 四分位 —— 出貨用的門檻對不對
+    #             （門檻本來就未校準，這一項預期不會過，保留是為了讓那件事
+    #              有數字，而不是被新指標蓋掉）
+    stress_series = _stress_series(index).reindex(joined.index).dropna()
+    if len(stress_series) >= 60:
+        proxy_score = np.minimum(100.0, stress_series / 0.15 * 100.0)
+        oas_aligned = joined["oas"].reindex(stress_series.index)
+
+        oas_regimes = _quartile_regimes(oas_aligned)
+        out["regime_agreement_rank"] = round(float(np.mean(
+            [a == b for a, b in zip(_quartile_regimes(proxy_score), oas_regimes)])), 4)
+        out["regime_agreement_absolute"] = round(float(np.mean(
+            [_regime_from_score(s) == b
+             for s, b in zip(proxy_score, oas_regimes)])), 4)
+        # 對外仍叫 regime_agreement（doc 的用語），指向公平的那一個
+        out["regime_agreement"] = out["regime_agreement_rank"]
 
     out["targets"] = CALIBRATION_TARGETS
     out["passed"] = _passes(out)
     return out
+
+
+def _stress_series(index: pd.Series, lookback: int = 500, ma_window: int = 200) -> pd.Series:
+    """逐日的壓力水準。與 stress_level() 同一套定義，但向量化。
+
+    原本在校準迴圈裡逐列呼叫 stress_level()，614 列各做一次 500 列的滾動——
+    結果一樣，但慢得沒有道理。
+    """
+    s = index.dropna()
+    peak = s.rolling(lookback, min_periods=20).max()
+    drawdown = ((peak - s) / peak).clip(lower=0.0)
+    ma = s.rolling(ma_window, min_periods=max(20, ma_window // 4)).mean()
+    below = ((ma - s) / ma).clip(lower=0.0)
+    return pd.concat([drawdown, below], axis=1).max(axis=1).dropna()
+
+
+def _quartile_regimes(values) -> list:
+    """用序列自己的四分位切成四級。兩邊都用同一套，比較才公平。"""
+    s = pd.Series(values).dropna()
+    q = s.quantile([0.25, 0.50, 0.75]).tolist()
+    return [REGIME_ORDER[sum(v > t for t in q)] for v in s]
 
 
 def _passes(result: dict) -> Optional[bool]:

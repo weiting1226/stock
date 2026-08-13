@@ -428,3 +428,62 @@ def test_the_shadow_mode_caveats_are_on_the_page_not_only_in_the_readme():
     html = (root / "docs" / "tail.html").read_text(encoding="utf-8")
     for phrase in ("未經真實資料校準", "n=1", "影子運行"):
         assert phrase in js or phrase in html, f"畫面上找不到「{phrase}」"
+
+
+# --- 校準指標本身也要被驗證 -------------------------------------------------
+#
+# 第一次真實執行的 regime_agreement 是 0.2865，看起來像代理失敗。
+# 實際上是量尺壞了：拿絕對門檻分級去比四分位分級，而四分位在結構上
+# 強制各 25%。一個過不了的量尺，量不出任何東西。
+
+def _perfectly_correlated_pair(n=614):
+    """完美相關、但壓力水準很低的一對序列（模擬平靜的近三年）。"""
+    rng = np.random.default_rng(0)
+    stress = np.abs(rng.normal(0, 0.02, n)).cumsum()
+    stress = (stress - stress.min())
+    stress = stress / stress.max() * 0.06      # 最大僅 6% 回撤
+    idx = pd.bdate_range("2023-01-02", periods=n)
+    return pd.Series(stress, index=idx), pd.Series(stress, index=idx)
+
+
+def test_absolute_vs_quartile_comparison_fails_even_at_perfect_correlation():
+    """守住那個診斷：舊指標在 corr=1.0 時仍只有約 0.25。
+    這就是為什麼 0.2865 不能被讀成「代理失敗」。"""
+    from tail_gate.credit_proxy import _quartile_regimes, _regime_from_score
+    score_src, oas = _perfectly_correlated_pair()
+    score = np.minimum(100.0, score_src / 0.15 * 100.0)
+    oas_regimes = _quartile_regimes(oas)
+    absolute = np.mean([_regime_from_score(s) == b
+                        for s, b in zip(score, oas_regimes)])
+    assert absolute < 0.35, "舊指標若能過關，這個診斷就不成立了"
+
+
+def test_rank_comparison_passes_at_perfect_correlation():
+    """公平的量尺在完美相關時必須接近 1.0，否則它同樣量不出東西。"""
+    from tail_gate.credit_proxy import _quartile_regimes
+    score_src, oas = _perfectly_correlated_pair()
+    score = np.minimum(100.0, score_src / 0.15 * 100.0)
+    rank = np.mean([a == b for a, b in
+                    zip(_quartile_regimes(score), _quartile_regimes(oas))])
+    assert rank > 0.95
+
+
+def test_calibration_reports_both_agreements_so_neither_hides_the_other():
+    """絕對門檻那一項預期不會過（門檻本來就沒校準）。保留它是為了讓
+    那件事有數字，而不是被新指標蓋掉。"""
+    n = 400
+    idx = pd.bdate_range("2023-01-02", periods=n)
+    hyg = pd.Series(np.concatenate([np.full(340, 100.0), np.linspace(100, 88, 60)]), index=idx)
+    ief = pd.Series(np.full(n, 100.0), index=idx)
+    oas = pd.Series(np.concatenate([np.full(340, 3.2), np.linspace(3.2, 6.0, 60)]), index=idx)
+    r = credit_proxy.calibrate_against_oas(CreditProxyInputs(hyg=hyg, ief=ief), hy_oas=oas)
+    assert "regime_agreement_rank" in r and "regime_agreement_absolute" in r
+    assert r["regime_agreement"] == r["regime_agreement_rank"]
+
+
+def test_the_vectorised_stress_series_matches_the_scalar_definition():
+    """向量化只是為了快，定義不能跟著變——否則校準量的就不是上線用的那個閘門。"""
+    from tail_gate.credit_proxy import _stress_series, stress_level
+    n = 600
+    s = _series(np.concatenate([np.full(540, 100.0), np.linspace(100, 82, 60)]))
+    assert _stress_series(s).iloc[-1] == pytest.approx(stress_level(s), abs=1e-9)
