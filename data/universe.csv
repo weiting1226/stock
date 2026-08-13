@@ -2621,6 +2621,7 @@ FOA,Finance of America Companies Inc. Class A Common Stock,N,False,common,nasdaq
 FOCL,"EDAP TMS S.A. - American Depositary Shares, each representing One Ordinary Share",NASDAQ,False,common,nasdaqtrader
 FOF,"Cohen & Steers Closed-End Opportunity Fund, Inc. Common Stock",N,False,common,nasdaqtrader
 FOFO,"Hang Feng Technology Innovation Co., Ltd. - Ordinary Shares",NASDAQ,False,common,nasdaqtrader
+FOIL,"Londian Wason New Energy Tech Inc. American Depositary Shares, each representing five Ordinary Shares",N,False,common,nasdaqtrader
 FOR,Forestar Group Inc Common Stock,N,False,common,nasdaqtrader
 FORM,"FormFactor, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 FORR,"Forrester Research, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -4217,8 +4218,6 @@ MDLZ,"Mondelez International, Inc. - Class A Common Stock",NASDAQ,False,common,n
 MDRR,"Medalist Diversified, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 MDT,Medtronic plc. Ordinary Shares,N,False,common,nasdaqtrader
 MDU,"MDU Resources Group, Inc. Common Stock (Holding Company)",N,False,common,nasdaqtrader
-MDV,"Modiv Industrial, Inc. Class C Common Stock",N,False,common,nasdaqtrader
-MDV-PA,"Modiv Industrial, Inc. 7.375% Series A Cumulative Redeemable Perpetual Preferred Stock",N,False,preferred,nasdaqtrader
 MDWD,MediWound Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 MDXG,"MiMedx Group, Inc - Common Stock",NASDAQ,False,common,nasdaqtrader
 MDXH,MDxHealth SA - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -4376,7 +4375,6 @@ MNST,Monster Beverage Corporation - Common Stock,NASDAQ,False,common,nasdaqtrade
 MNTK,"Montauk Renewables, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 MNTN,"MNTN, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 MNTS,Momentus Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
-MNTSW,Momentus Inc. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 MNY,MoneyHero Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 MNYWW,MoneyHero Limited - Warrants,NASDAQ,False,warrant,nasdaqtrader
 MO,"Altria Group, Inc.",N,False,common,nasdaqtrader
@@ -4834,7 +4832,6 @@ NUCL,Eagle Nuclear Energy Corp. - Common stock,NASDAQ,False,common,nasdaqtrader
 NUCLW,Eagle Nuclear Energy Corp. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 NUE,Nucor Corporation Common Stock,N,False,common,nasdaqtrader
 NUS,"Nu Skin Enterprises, Inc. Common Stock",N,False,common,nasdaqtrader
-NUTR,Nusatrip Incorporated - Common Stock,NASDAQ,False,common,nasdaqtrader
 NUTX,Nutex Health Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 NUV,"Nuveen Municipal Value Fund, Inc. Common Stock",N,False,common,nasdaqtrader
 NUVB,Nuvation Bio Inc. Class A Common Stock,N,False,common,nasdaqtrader
@@ -5335,6 +5332,8 @@ PLBC,Plumas Bancorp - Common Stock,NASDAQ,False,common,nasdaqtrader
 PLBL,Polibeli Group Ltd - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 PLBY,"Playboy, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PLCE,"Children's Place, Inc. (The) - Common Stock",NASDAQ,False,common,nasdaqtrader
+PLCI,Pelican Acquisition II Corporation - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+PLCIR,Pelican Acquisition II Corporation - Right,NASDAQ,False,right,nasdaqtrader
 PLCIU,Pelican Acquisition II Corporation - Unit,NASDAQ,False,unit,nasdaqtrader
 PLD,"Prologis, Inc. Common Stock",N,False,common,nasdaqtrader
 PLG,Platinum Group Metals Ltd. Ordinary Shares (Canada),A,False,common,nasdaqtrader
@@ -6245,6 +6244,7 @@ SNN,"Smith & Nephew SNATS, Inc. Common Stock",N,False,common,nasdaqtrader
 SNOA,"Sonoma Pharmaceuticals, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SNOW,Snowflake Inc. Common Stock,N,False,common,nasdaqtrader
 SNPS,"Synopsys, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+SNSC,SunScout Holding Limited Class A Ordinary Shares,A,False,common,nasdaqtrader
 SNT,Senstar Technologies Corporation - Common Shares,NASDAQ,False,common,nasdaqtrader
 SNTG,Sentage Holdings Inc. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 SNTI,"Senti Biosciences Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -6632,7 +6632,7 @@ TIMB,TIM S.A. American Depositary Shares (Each representing 5 Common Shares),N,F
 TIPT,Tiptree Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 TISI,"Team, Inc. Common Stock",N,False,common,nasdaqtrader
 TITN,Titan Machinery Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
-TJGC,TJGC Group Limited - ordinary shares,NASDAQ,False,common,nasdaqtrader
+TJGC,TJGC Group Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 TJX,"TJX Companies, Inc. (The) Common Stock",N,False,common,nasdaqtrader
 TK,Teekay Corporation Ltd. Common Stock,N,False,common,nasdaqtrader
 TKC,Turkcell Iletisim Hizmetleri AS Common Stock,N,False,common,nasdaqtrader
@@ -7090,6 +7090,7 @@ VNT,Vontier Corporation Common Stock,N,False,common,nasdaqtrader
 VNTG,Vantage Corp Class A Ordinary Shares,A,False,common,nasdaqtrader
 VOC,VOC Energy Trust Units of Beneficial Interest,N,False,unit,nasdaqtrader
 VOD,Vodafone Group Plc - American Depositary Shares each representing ten Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+VOGX,Vogenx Inc - Common Stock,NASDAQ,False,common,nasdaqtrader
 VOR,Vor Biopharma Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 VOXR,Vox Royalty Corp. - common stock,NASDAQ,False,common,nasdaqtrader
 VOYA,"Voya Financial, Inc. Common Stock",N,False,common,nasdaqtrader
