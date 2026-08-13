@@ -22,18 +22,18 @@
   "slow": {
     "gate": "CreditProxyGate",
     "regime": "EXPANSION",
-    "score": 15.12,
+    "score": 20.16,
     "equity_ceiling": 1.0,
     "detail": {
-      "beta": 0.4727,
+      "beta": 0.4667,
       "beta_source": "rolling",
       "stress_level": 0.0,
-      "chg250_pctile": 49.6,
-      "hyg_lqd_chg60": 0.02711,
-      "index_last": 114.902,
+      "chg250_pctile": 32.8,
+      "hyg_lqd_chg60": 0.02134,
+      "index_last": 115.093,
       "components": {
         "stress": 0.0,
-        "chg_pctile": 15.12,
+        "chg_pctile": 20.16,
         "quality_dispersion": 0.0
       },
       "uncalibrated": true
@@ -76,13 +76,14 @@
   },
   "state": {
     "active_veto": 0,
-    "clean_days": 1,
+    "clean_days": 2,
     "consec_inversion": 0
   },
   "state_meta": {
-    "found": false,
-    "reason": "狀態檔不存在（首次執行）",
-    "staleness_days": null
+    "found": true,
+    "as_of": "2026-08-13",
+    "saved_at": "2026-08-13T01:11:40+00:00",
+    "staleness_days": 0
   },
   "controller": {
     "raw_veto": 0,
@@ -162,11 +163,13 @@
     "note": "快閘尚未完整觸發並回場過，whipsaw_cost 仍是估計值（EV 模型最未驗證的一環）"
   },
   "calibration": {
-    "n_obs": 614,
-    "beta": 0.4727,
-    "corr_level_dd_vs_oas": 0.7715,
-    "corr_change_60d": -0.9026,
-    "regime_agreement": 0.2865,
+    "n_obs": 616,
+    "beta": 0.4667,
+    "corr_level_dd_vs_oas": 0.772,
+    "corr_change_60d": -0.9021,
+    "regime_agreement_rank": 0.3953,
+    "regime_agreement_absolute": 0.2697,
+    "regime_agreement": 0.3953,
     "targets": {
       "corr_level_dd_vs_oas": 0.6,
       "corr_change_60d": -0.5,
@@ -188,7 +191,7 @@
     ],
     "series": {
       "cp_score": [
-        15.12
+        20.16
       ],
       "state_active_veto": [
         0.0

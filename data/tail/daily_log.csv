@@ -1,2 +1,2 @@
 as_of,state_active_veto,state_clean_days,state_consec_inversion,cp_beta,cp_stress_level,cp_chg250_pctile,cp_hyg_lqd_chg60,cp_score,cp_regime,cp_equity_ceiling,fg_vix9d,fg_vix,fg_vix3m,fg_curve_inverted,fg_vvix_pctile,fg_hy_chg20_bp,fg_n_categories,fg_raw_veto,fg_gated_veto,cr_score,cr_threshold_shift,out_w_tqqq,out_w_qqq,out_w_sgov,base_w_tqqq,base_w_qqq,base_w_sgov,tqqq_close,qqq_close
-2026-08-13,0,1,0,0.4727,0.0,49.6,0.02711,15.12,EXPANSION,1.0,11.09,14.55,18.53,False,8.0,0.0,0,0,0,42.17,-0.0,0.0,1.0,0.0,0.0,1.0,0.0,74.6,723.7
+2026-08-13,0,2,0,0.4667,0.0,32.8,0.02134,20.16,EXPANSION,1.0,11.09,14.55,18.53,False,8.0,0.0,0,0,0,42.17,-0.0,0.0,1.0,0.0,0.0,1.0,0.0,74.6,723.7
