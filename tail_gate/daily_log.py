@@ -153,14 +153,25 @@ def measure_whipsaw(log: pd.DataFrame) -> dict:
             continue
         if not (t0 > 0 and q0 > 0):
             continue
+        # 欄位名稱一定要說清楚方向。原本叫 `avoided`（避開的損失），但算出來的是
+        # 「TQQQ 倍數 − QQQ 倍數」——**正值代表 TQQQ 在否決期間跑贏**，
+        # 而否決期間並沒有持有 TQQQ，所以正值是**錯過的漲幅，是成本**。
+        # 名字寫反，下游就把成本當成效益，整個結論會顛倒過來（實測發生過）。
         out.append({"from": str(df.loc[a, "as_of"]), "to": str(df.loc[b, "as_of"]),
                     "days": int(b - a),
                     "tqqq_ret": round(t1 / t0 - 1.0, 5),
                     "qqq_ret": round(q1 / q0 - 1.0, 5),
-                    "avoided": round((t1 / t0) - (q1 / q0), 5)})
+                    "tqqq_minus_qqq": round((t1 / t0) - (q1 / q0), 5)})
 
     if not out:
         return {"episodes": 0,
                 "note": "快閘尚未完整觸發並回場過，whipsaw_cost 仍是估計值（EV 模型最未驗證的一環）"}
-    avg = sum(e["avoided"] for e in out) / len(out)
-    return {"episodes": len(out), "mean_avoided": round(avg, 5), "detail": out[-10:]}
+    avg = sum(e["tqqq_minus_qqq"] for e in out) / len(out)
+    return {"episodes": len(out),
+            "mean_tqqq_minus_qqq": round(avg, 5),
+            # 這就是 whipsaw_cost 的定義：否決期間錯過的相對漲幅。
+            # 正值＝閘門讓你錯過漲幅（成本）；負值＝閘門幫你避開下跌（效益）。
+            "mean_whipsaw_cost": round(avg, 5),
+            "direction_note": ("正值＝否決期間 TQQQ 跑贏，但你沒持有，"
+                               "那是成本；負值＝閘門確實避開了下跌"),
+            "detail": out[-10:]}
