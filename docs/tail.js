@@ -279,6 +279,31 @@ function renderEV(r) {
     },
   });
 
+  const meas = r.ev_with_measured;
+  const srcs = r.log_sources || {};
+  const measSlot = document.getElementById("ev-measured");
+  if (measSlot) {
+    measSlot.innerHTML = !meas ? `<p class="subtitle">尚未回補歷史，五項假設仍全部是估計值。
+      回補可把「誤觸次數／年」與「每次誤觸的來回成本」換成量測值——那是 EV 模型
+      最要緊的兩項（執行 <code>scripts/backfill_tail_gate.py</code>）。</p>`
+      : `<div class="table-scroll"><table>
+          <thead><tr><th>參數</th><th class="num">原假設</th><th class="num">回補量測</th></tr></thead>
+          <tbody>
+            <tr><td>誤觸次數／年</td><td class="num">${num(meas.assumed.false_positive_per_year, 2)}</td>
+              <td class="num">${num(meas.substituted.false_positive_per_year, 2)}</td></tr>
+            <tr><td>每次誤觸的來回成本</td><td class="num">${pct(meas.assumed.whipsaw_cost, 2)}</td>
+              <td class="num">${pct(meas.substituted.whipsaw_cost, 2)}</td></tr>
+            <tr><td><strong>年化期望值</strong></td>
+              <td class="num">${pct(r.ev?.expected_annual, 2)}</td>
+              <td class="num" style="color:${cssVar((meas.expected_annual ?? 0) > 0 ? "--good" : "--critical")}">
+                <strong>${pct(meas.expected_annual, 2)}</strong></td></tr>
+          </tbody></table></div>
+        <p class="subtitle">${escapeHtml(meas.caveat || "")}
+        日誌組成：實際執行 ${escapeHtml(srcs.live ?? 0)} 列、回補 ${escapeHtml(srcs.backfill ?? 0)} 列。
+        <strong>回補的列是重建，不是觀測到的影子運行</strong>——兩者的可信度不一樣，
+        所以分開計數。</p>`;
+  }
+
   const be = sens.find((x) => x.is_breakeven);
   const assumed = sens.find((x) => x.is_assumed);
   if (be && assumed) {

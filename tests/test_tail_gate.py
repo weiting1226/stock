@@ -526,3 +526,108 @@ def test_agreement_is_reported_against_what_the_correlation_predicts():
     assert "regime_agreement_expected" in r
     assert "regime_agreement_shortfall" in r
     assert r["targets_are_mutually_consistent"] is False
+
+
+# --- 回補：前視偏誤是唯一真正的風險，而且它不會報錯 -------------------------
+
+def _backfill_fixture(n=700, crash_at=None):
+    """造一組可重播的序列。crash_at 之後注入崩盤。"""
+    idx = pd.bdate_range("2021-01-04", periods=n)
+    base = np.full(n, 100.0)
+    if crash_at is not None:
+        base[crash_at:] = np.linspace(100.0, 60.0, n - crash_at)
+    vol = {"vix9d": pd.Series(np.full(n, 12.0), index=idx),
+           "vix": pd.Series(np.full(n, 14.0), index=idx),
+           "vix3m": pd.Series(np.full(n, 16.0), index=idx),
+           "vvix": pd.Series(np.full(n, 90.0), index=idx)}
+    credit = {"hyg": pd.Series(base, index=idx),
+              "ief": pd.Series(np.full(n, 100.0), index=idx),
+              "lqd": pd.Series(np.full(n, 100.0), index=idx)}
+    val = {"tqqq": pd.Series(np.linspace(50, 90, n), index=idx),
+           "qqq": pd.Series(np.linspace(300, 400, n), index=idx)}
+    scores = pd.Series(np.full(n, 0.8), index=idx)     # 固定 25% TQQQ + 75% QQQ
+    return vol, credit, val, scores
+
+
+def test_a_future_crash_cannot_change_an_earlier_days_output():
+    """前視偏誤的實體測試。拿今天的完整序列去算 2018 年的壓力水準，
+    500 日高點會包含 2020 年的崩盤——於是 2018 年每一天都「離高點很遠」，
+    回測會變得非常漂亮。這則測試在崩盤前後各跑一次，早期的列必須一模一樣。"""
+    from tail_gate import backfill as bf
+
+    idx = pd.bdate_range("2021-01-04", periods=1400)
+    replay_from = str(idx[300].date())
+    quiet = bf.replay(*_backfill_fixture(1400, crash_at=None), start=replay_from)[0]
+    crashed = bf.replay(*_backfill_fixture(1400, crash_at=1200), start=replay_from)[0]
+    assert quiet and crashed
+
+    # 取崩盤日之前的共同日期比對
+    cutoff = str(idx[1190].date())
+    a = {r["as_of"]: r for r in quiet if r["as_of"] <= cutoff}
+    b = {r["as_of"]: r for r in crashed if r["as_of"] <= cutoff}
+    shared = sorted(set(a) & set(b))
+    assert len(shared) > 100, "共同日期太少，這個測試沒有真的在比對"
+    for day in shared:
+        assert a[day]["cp_score"] == b[day]["cp_score"], f"{day} 受到未來資料影響"
+        assert a[day]["out_w_tqqq"] == b[day]["out_w_tqqq"], f"{day} 受到未來資料影響"
+
+
+def test_the_backfill_actually_slices_rather_than_passing_whole_series():
+    """守住上一則測試的前提：若 _slice 被改成直接回傳整條序列，
+    崩盤就會滲透到早期的列，上一則會失敗。這裡直接驗證切片行為。"""
+    from tail_gate.backfill import _slice
+    idx = pd.bdate_range("2024-01-01", periods=50)
+    s = pd.Series(range(50), index=idx, dtype=float)
+    cut = _slice(s, idx[10])
+    assert len(cut) == 11 and cut.index.max() == idx[10]
+
+
+def test_backfilled_rows_are_labelled_so_they_cannot_pass_as_live():
+    """混進日誌而不標，畫面上會看起來像已經影子運行了十年——
+    但那是重建的，不是觀測到的。"""
+    from tail_gate import backfill as bf
+    rows, _ = bf.replay(*_backfill_fixture(700), start="2023-01-02")
+    assert rows and all(r["source"] == "backfill" for r in rows)
+    from tail_gate.daily_log import COLUMNS
+    assert "source" in COLUMNS
+
+
+def test_days_without_enough_history_are_skipped_not_guessed():
+    """慢閘要 500 日回撤與 250 日百分位。樣本太短時算出來的不是壓力，
+    是「歷史還不夠長」——那種日子要跳過，不能給一個看起來像數字的東西。"""
+    from tail_gate import backfill as bf
+    rows, summary = bf.replay(*_backfill_fixture(400), start="2021-01-04")
+    assert summary["days_skipped_short_history"] > 0
+    assert all(r["as_of"] >= rows[0]["as_of"] for r in rows)
+
+
+def test_the_replay_state_machine_carries_across_days():
+    """回補若每天重置 state，倒掛計數器永遠到不了 persist_days——
+    回測就會顯示快閘從未觸發，而那是假的。"""
+    from tail_gate import backfill as bf
+    vol, credit, val, scores = _backfill_fixture(700)
+    n = len(scores)
+    idx = scores.index
+    # 後段倒掛
+    vol["vix9d"] = pd.Series(np.concatenate([np.full(600, 12.0), np.full(n - 600, 30.0)]), index=idx)
+    vol["vix"] = pd.Series(np.concatenate([np.full(600, 14.0), np.full(n - 600, 26.0)]), index=idx)
+    vol["vix3m"] = pd.Series(np.concatenate([np.full(600, 16.0), np.full(n - 600, 22.0)]), index=idx)
+    rows, _ = bf.replay(vol, credit, val, scores, start="2023-01-02")
+    assert max(int(r["state_consec_inversion"]) for r in rows) >= 4
+
+
+def test_measured_assumptions_say_so_when_there_is_no_episode():
+    """算不出來時要說算不出來，不能退回估計值——那樣就回到原點了。"""
+    from tail_gate import backfill as bf
+    rows, _ = bf.replay(*_backfill_fixture(700), start="2023-01-02")
+    m = bf.measure_assumptions(rows)
+    assert "false_positive_per_year_measured" in m
+    if not m["whipsaw"].get("episodes"):
+        assert "whipsaw_cost_measured" not in m
+
+
+def test_base_alloc_reconstruction_matches_the_position_ladder():
+    from tail_gate.backfill import base_alloc_from_score
+    assert base_alloc_from_score(1.5)[0] == 0.5      # 50% TQQQ + 50% QQQ
+    assert base_alloc_from_score(0.0) == (0.0, 1.0, 0.0)
+    assert base_alloc_from_score(-2.0) == (0.0, 0.0, 1.0)

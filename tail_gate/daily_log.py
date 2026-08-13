@@ -27,6 +27,9 @@ REQUIRED_COLUMNS = [
 
 COLUMNS = [
     "as_of",
+    # 回補的列必須標記。混進日誌而不標，畫面上就會看起來像已經影子運行了十年——
+    # 但那是重建的，不是觀測到的。兩者的可信度差很多。
+    "source",
     # 狀態持久化
     "state_active_veto", "state_clean_days", "state_consec_inversion",
     # 慢閘
@@ -54,6 +57,7 @@ def build_row(as_of: str, result, vol: dict, hy_chg20_bp: Optional[float],
 
     return {
         "as_of": as_of,
+        "source": "live",
         "state_active_veto": result.state.active_veto,
         "state_clean_days": result.state.clean_days,
         "state_consec_inversion": result.state.consec_inversion,
