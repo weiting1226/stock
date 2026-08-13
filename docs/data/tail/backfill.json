@@ -4,7 +4,7 @@
     "end": "2026-08-12"
   },
   "summary": {
-    "days_replayed": 2511,
+    "days_replayed": 2513,
     "days_skipped_short_history": 0,
     "first": "2016-08-12",
     "last": "2026-08-12",
@@ -19,10 +19,12 @@
     "veto_episodes": 142,
     "false_positive_per_year_measured": 14.202,
     "days_under_veto": 664,
-    "share_of_days_under_veto": 0.2644,
+    "share_of_days_under_veto": 0.2642,
     "whipsaw": {
       "episodes": 142,
-      "mean_avoided": 0.00687,
+      "mean_tqqq_minus_qqq": 0.00687,
+      "mean_whipsaw_cost": 0.00687,
+      "direction_note": "正值＝否決期間 TQQQ 跑贏，但你沒持有，那是成本；負值＝閘門確實避開了下跌",
       "detail": [
         {
           "from": "2025-10-10",
@@ -30,7 +32,7 @@
           "days": 1,
           "tqqq_ret": 0.06346,
           "qqq_ret": 0.02122,
-          "avoided": 0.04224
+          "tqqq_minus_qqq": 0.04224
         },
         {
           "from": "2025-10-14",
@@ -38,7 +40,7 @@
           "days": 4,
           "tqqq_ret": 0.06684,
           "qqq_ret": 0.02264,
-          "avoided": 0.0442
+          "tqqq_minus_qqq": 0.0442
         },
         {
           "from": "2025-11-13",
@@ -46,7 +48,7 @@
           "days": 7,
           "tqqq_ret": -0.02389,
           "qqq_ret": -0.00533,
-          "avoided": -0.01856
+          "tqqq_minus_qqq": -0.01856
         },
         {
           "from": "2026-01-14",
@@ -54,7 +56,7 @@
           "days": 1,
           "tqqq_ret": 0.01022,
           "qqq_ret": 0.0036,
-          "avoided": 0.00662
+          "tqqq_minus_qqq": 0.00662
         },
         {
           "from": "2026-01-20",
@@ -62,7 +64,7 @@
           "days": 1,
           "tqqq_ret": 0.03942,
           "qqq_ret": 0.01352,
-          "avoided": 0.02591
+          "tqqq_minus_qqq": 0.02591
         },
         {
           "from": "2026-01-30",
@@ -70,7 +72,7 @@
           "days": 1,
           "tqqq_ret": 0.02037,
           "qqq_ret": 0.00687,
-          "avoided": 0.0135
+          "tqqq_minus_qqq": 0.0135
         },
         {
           "from": "2026-02-04",
@@ -78,7 +80,7 @@
           "days": 2,
           "tqqq_ret": 0.01668,
           "qqq_ret": 0.00644,
-          "avoided": 0.01024
+          "tqqq_minus_qqq": 0.01024
         },
         {
           "from": "2026-02-12",
@@ -86,7 +88,7 @@
           "days": 8,
           "tqqq_ret": 0.0748,
           "qqq_ret": 0.0267,
-          "avoided": 0.0481
+          "tqqq_minus_qqq": 0.0481
         },
         {
           "from": "2026-02-27",
@@ -94,7 +96,7 @@
           "days": 27,
           "tqqq_ret": -0.02909,
           "qqq_ret": -0.00072,
-          "avoided": -0.02838
+          "tqqq_minus_qqq": -0.02838
         },
         {
           "from": "2026-07-29",
@@ -102,16 +104,40 @@
           "days": 1,
           "tqqq_ret": 0.0961,
           "qqq_ret": 0.03297,
-          "avoided": 0.06313
+          "tqqq_minus_qqq": 0.06313
         }
       ]
     },
-    "whipsaw_cost_measured": -0.00687
+    "whipsaw_cost_measured": 0.00687,
+    "threshold_diagnosis": {
+      "vvix_fire_rate_by_threshold": {
+        "80": 0.226,
+        "90": 0.1138,
+        "95": 0.0553,
+        "98": 0.0239,
+        "99": 0.0147
+      },
+      "vvix_structural_note": "滾動百分位對固定門檻，觸發率必然約 (100−門檻)%。調高門檻只是換一個被釘死的觸發率，不是讓它變得有資訊量。",
+      "days_triggered": {
+        "term_structure_persisted": {
+          "days": 66,
+          "of": 2513
+        },
+        "vol_of_vol": {
+          "days": 568,
+          "of": 2513
+        },
+        "credit_shock": {
+          "days": 14,
+          "of": 733
+        }
+      }
+    }
   },
   "input_coverage": {
     "vix9d": {
       "from": "2014-02-24",
-      "n": 3119
+      "n": 3118
     },
     "vix": {
       "from": "2014-02-24",
@@ -119,15 +145,15 @@
     },
     "vix3m": {
       "from": "2014-02-24",
-      "n": 3119
+      "n": 3118
     },
     "vvix": {
       "from": "2014-02-24",
-      "n": 3128
+      "n": 3127
     },
     "hyg": {
       "from": "2014-02-24",
-      "n": 3134
+      "n": 3136
     },
     "lqd": {
       "from": "2014-02-24",
