@@ -296,7 +296,7 @@ function renderEV(r) {
 const CAL_ZH = {
   corr_level_dd_vs_oas: "代理指數回撤 vs OAS 水準（需 &gt; 0.6）",
   corr_change_60d: "60 日變化的反向對應（需 &lt; −0.5）",
-  regime_agreement: "分級一致率（需 &gt; 0.70）",
+  regime_agreement: "分級一致率 · 排序基準（需 &gt; 0.70）",
 };
 
 function renderCalibration(r) {
@@ -337,6 +337,12 @@ function renderCalibration(r) {
       <thead><tr><th>判讀項目</th><th class="num">實測</th><th>結果</th></tr></thead>
       <tbody>${rows}</tbody></table></div>
     <p class="subtitle">重疊樣本 ${escapeHtml(c.n_obs ?? "—")} 筆，久期對沖 beta ${num(c.beta, 3)}。${verdict}</p>
+    ${c.regime_agreement_absolute === undefined ? "" : `<p class="subtitle">
+      <strong>另一個分級一致率：${num(c.regime_agreement_absolute, 3)}</strong>（代理的<em>正式門檻</em>
+      vs OAS 四分位）。這一項預期不會達標——<strong>門檻本來就沒校準過</strong>，
+      而四分位在結構上強制各 25%，平靜期裡它會把最近三年相對最差的四分之一天標成 STRESS。
+      上表用的是排序基準（兩邊都取四分位），問的是「代理排序日子的方式跟 OAS 一樣嗎」。
+      兩個都列出來，是因為它們回答的是不同問題，任何一個單獨看都會誤導。</p>`}
     <p class="subtitle">三年樣本不足以定百分位門檻，但足以判斷<strong>方向對不對</strong>。
     方向錯了，門檻調再多也沒用。（FRED 的 HY OAS 只給得出近三年，這是 ICE 授權限制，
     本專案已實測確認。）</p>`;
