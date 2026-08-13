@@ -139,6 +139,20 @@
   "reference_date": "2026-07-01",
   "fred_id": "FEDFUNDS"
  },
+ "CPIAUCSL@2026-07-01": {
+  "summary_zh": "2026年6月消費者物價指數季調後較上月下降0.4%，為2020年4月以來最大單月跌幅，主要受能源指數大幅下滑5.7%所拖累，超過房租與食品價格上漲的影響。過去12個月物價指數上升3.5%，低於前一個月止12個月的4.2%漲幅，核心指數(不含食品與能源)當月則持平，年增率為2.6%。",
+  "drivers": [
+   "能源指數下降5.7%（其中汽油下降9.7%）",
+   "食品指數上升0.2%",
+   "房租指數上升0.1%",
+   "汽車保險、通訊、服飾、醫療保健及中古車價格下降"
+  ],
+  "evidence": "The index for energy fell 5.7 percent in June after rising 3.9 percent in May, 3.8 percent in April, and 10.9 percent in March. The energy index was the largest contributor to the monthly all items decrease",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/cpi.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-07-01",
+  "fred_id": "CPIAUCSL"
+ },
  "CPIAUCSL@2026-06-01": {
   "summary_zh": "2026年6月消費者物價指數季調後較上月下降0.4%，是自2020年4月以來最大單月跌幔；未經季調之12個月漲幅為3.5%。能源指數大跌5.7%為主要拉低因素，其中汽油下跌9.7%；食品指數則上漲0.2%。核心物價（不含食品與能源）當月持平，住宅指數僅上漲0.1%。",
   "drivers": [
@@ -166,5 +180,19 @@
   "model": "claude-sonnet-5",
   "reference_date": "2026-06-01",
   "fred_id": "UMCSENT"
+ },
+ "GDPC1@2026-04-01": {
+  "summary_zh": "根據美國經濟分析局公布的初值估計，2026年第2季實質GDP年化成長率為1.5%，較第1季的2.1%明顯放緩。此次成長趨緩主要反映在消費支出、投資與出口的增幅遭到政府支出下降的部分抵銷，同時進口增加亦對GDP計算構成減項。",
+  "drivers": [
+   "consumer spending",
+   "investment",
+   "exports",
+   "decrease in government spending"
+  ],
+  "evidence": "Real gross domestic product (GDP) increased at an annual rate of 1.5 percent in the second quarter of 2026 (April, May, and June), according to the advance estimate released today by the U.S. Bureau of Economic Analysis (BEA). In the first quarter, real GDP increased 2.1 percent.",
+  "source_url": "https://www.bea.gov/data/gdp/gross-domestic-product",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-04-01",
+  "fred_id": "GDPC1"
  }
 }
