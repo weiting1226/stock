@@ -244,6 +244,20 @@ def calibrate_against_oas(inputs: CreditProxyInputs, hy_oas: pd.Series) -> dict:
         # 對外仍叫 regime_agreement（doc 的用語），指向公平的那一個
         out["regime_agreement"] = out["regime_agreement_rank"]
 
+        # 基準：這個相關係數「應該」得到多少一致率。少了它，0.395 只能被讀成
+        # 「差很遠」，讀不出「門檻本身要求 corr 0.93」這件事。
+        expected = expected_agreement_at(out.get("corr_level_dd_vs_oas"))
+        out["regime_agreement_expected"] = expected
+        if expected is not None:
+            out["regime_agreement_shortfall"] = round(
+                out["regime_agreement_rank"] - expected, 4)
+
+    out["corr_needed_for_agreement_target"] = corr_needed_for_agreement(
+        CALIBRATION_TARGETS["regime_agreement"])
+    out["targets_are_mutually_consistent"] = (
+        out["corr_needed_for_agreement_target"]
+        <= CALIBRATION_TARGETS["corr_level_dd_vs_oas"])
+
     out["targets"] = CALIBRATION_TARGETS
     out["passed"] = _passes(out)
     return out
@@ -261,6 +275,44 @@ def _stress_series(index: pd.Series, lookback: int = 500, ma_window: int = 200) 
     ma = s.rolling(ma_window, min_periods=max(20, ma_window // 4)).mean()
     below = ((ma - s) / ma).clip(lower=0.0)
     return pd.concat([drawdown, below], axis=1).max(axis=1).dropna()
+
+
+# 雙變量常態下，相關係數對應的四分位一致率基準。
+#
+# **為什麼需要這張表**：實測 corr 0.772、一致率 0.395，看起來離 0.70 的門檻很遠。
+# 但四分位一致率本來就比相關係數難達標得多——這張表顯示，一致率要到 0.70
+# **需要 corr ≈ 0.93**，而說明第 6 節自己給的相關係數門檻只有 0.60（對應一致率
+# 僅約 0.43）。也就是說，**說明的三個門檻彼此不相容**：一個剛好通過前兩項的代理，
+# 數學上不可能通過第三項。
+#
+# 沒有這張表的話，0.395 只能被讀成「差很遠」，讀不出「門檻本身要求 corr 0.93」。
+# 同一個模式在模組三用過（以純雜訊的期望 z 值當基準）。
+#
+# 產生方式：雙變量常態，n=800、每個 rho 取 60 次平均，種子 20260813。
+# 存成固定表而不是每天模擬——確定性、零成本，而且表本身看得見、可被檢查。
+BIVARIATE_NORMAL_QUARTILE_AGREEMENT = {
+    0.00: 0.2513, 0.05: 0.2571, 0.10: 0.2686, 0.15: 0.2821, 0.20: 0.2939,
+    0.25: 0.3101, 0.30: 0.3255, 0.35: 0.3395, 0.40: 0.3544, 0.45: 0.3709,
+    0.50: 0.3914, 0.55: 0.4049, 0.60: 0.4292, 0.65: 0.4511, 0.70: 0.4763,
+    0.75: 0.5085, 0.80: 0.5433, 0.85: 0.5892, 0.90: 0.6492, 0.95: 0.7389,
+    1.00: 1.0000,
+}
+
+
+def expected_agreement_at(corr: float) -> Optional[float]:
+    """這個相關係數「應該」得到多少四分位一致率。"""
+    if corr is None or not np.isfinite(corr):
+        return None
+    xs = sorted(BIVARIATE_NORMAL_QUARTILE_AGREEMENT)
+    ys = [BIVARIATE_NORMAL_QUARTILE_AGREEMENT[x] for x in xs]
+    return round(float(np.interp(abs(float(corr)), xs, ys)), 4)
+
+
+def corr_needed_for_agreement(target: float) -> float:
+    """反推：要達到這個一致率，相關係數得多高。"""
+    xs = sorted(BIVARIATE_NORMAL_QUARTILE_AGREEMENT)
+    ys = [BIVARIATE_NORMAL_QUARTILE_AGREEMENT[x] for x in xs]
+    return round(float(np.interp(target, ys, xs)), 3)
 
 
 def _quartile_regimes(values) -> list:
