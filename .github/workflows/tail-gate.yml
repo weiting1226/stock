@@ -1,0 +1,58 @@
+name: Tail fragility gate
+
+# 每個交易日執行。**跨日狀態必須被 commit 回來**——這個模組的計數器存在
+# data/tail/state.json，漏推的話下一次執行會從 0 重數，快閘等於永遠不觸發，
+# 而且不會報錯（接線說明第 7 節點名的最常見失效模式）。
+#
+# 排在模組一之後：base_alloc 來自主評分的輸出 docs/data/latest.json，
+# 主評分還沒跑完就執行，讀到的會是昨天的部位。
+on:
+  schedule:
+    - cron: "30 21 * * 1-5"      # 週一至週五 21:30 UTC（美股收盤後）
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tail-gate
+  cancel-in-progress: false
+
+jobs:
+  tail:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run tail fragility gate
+        run: python3 scripts/run_tail_gate.py -v
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # data/tail 一定要包含在內：state.json 漏推等於關閉快閘
+          git add docs/data/tail data/tail
+          if git diff --cached --quiet; then
+            echo "no changes"
+            exit 0
+          fi
+          git commit -m "chore: tail gate update"
+          for attempt in 1 2 3 4; do
+            git pull --rebase origin main && git push && exit 0
+            echo "推送失敗，重試 $attempt"
+            sleep $((attempt * 3))
+          done
+          exit 1

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>模組六：尾部脆弱度雙閘門 — 儀表板</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="wrap">
+  <nav class="module-nav">
+    <a href="index.html">模組一：市場流動性監控</a>
+    <a href="valuation.html">模組二：分析師估值比較</a>
+    <a href="backtest.html">模組三：策略回測</a>
+    <a href="rotation.html">模組四：類股資金輪動</a>
+    <a href="macro.html">模組五：總體經濟觀察</a>
+    <a href="tail.html" class="active">模組六：尾部脆弱度</a>
+  </nav>
+
+  <header class="top">
+    <div>
+      <h1>尾部脆弱度雙閘門</h1>
+      <div class="subtitle" id="asof-label">影子運行：只記錄、不下單；本頁純資料呈現，非投資建議</div>
+    </div>
+  </header>
+
+  <div id="error-slot"></div>
+
+  <!-- 這一段刻意放在最上面。一個紅色的 STRESS 看起來跟已驗證過的訊號一模一樣，
+       而這個模組的門檻沒有一個校準過。 -->
+  <section class="card" id="caveat-card">
+    <h2>讀這一頁之前</h2>
+    <div id="caveat-body"></div>
+  </section>
+
+  <section class="card">
+    <h2>今日配置：主評分 → 本模組</h2>
+    <div class="stat-row" id="alloc-row"></div>
+    <div class="chart-wrap" style="max-height:220px"><canvas id="alloc-chart"></canvas></div>
+    <p class="subtitle" id="alloc-note"></p>
+  </section>
+
+  <section class="card">
+    <h2>兩道閘門</h2>
+    <div class="grid-3" id="gates-grid"></div>
+  </section>
+
+  <section class="card">
+    <h2>跨日狀態</h2>
+    <div class="stat-row" id="state-row"></div>
+    <p class="subtitle" id="state-note"></p>
+  </section>
+
+  <section class="card">
+    <h2>歷史</h2>
+    <div class="chart-wrap"><canvas id="history-chart"></canvas></div>
+    <p class="subtitle">慢閘分數（0-100）與否決等級（0-3）。日誌自本模組上線起累積，
+    影子運行三個月後才足以比對建議配置與實際配置的報酬差。</p>
+  </section>
+
+  <section class="card">
+    <h2>期望值與它的假設</h2>
+    <div class="stat-row" id="ev-row"></div>
+    <div class="table-scroll"><table id="ev-table">
+      <thead><tr><th>假設</th><th class="num">值</th><th>是否實測</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+    <p class="subtitle" id="ev-note"></p>
+    <div class="chart-wrap" style="max-height:260px"><canvas id="ev-chart"></canvas></div>
+    <p class="subtitle" id="ev-sens-note"></p>
+  </section>
+
+  <section class="card">
+    <h2>慢閘代理驗證（上線前必做的第一步）</h2>
+    <div id="calibration-body"></div>
+  </section>
+
+  <section class="card">
+    <h2>已知限制</h2>
+    <div class="table-scroll"><table id="limit-table">
+      <thead><tr><th>限制</th><th>影響</th><th>可否解決</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+    <p class="subtitle">最後一項無解。這也是為什麼 <strong>50% TQQQ 的事前上限比任何訊號都重要</strong>——
+    它不依賴任何一個需要校準的參數。</p>
+  </section>
+
+  <section class="card">
+    <h2>資料落後</h2>
+    <div class="table-scroll"><table id="lag-table">
+      <thead><tr><th>輸入</th><th class="num">延遲（日）</th><th>說明</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+    <div id="problems-slot"></div>
+  </section>
+
+  <footer class="disclaimer">
+    <p><strong>非投資建議。</strong>本頁為「尾部脆弱度雙閘門」接線說明的機械化實作結果，提供者非持牌投資顧問。</p>
+    <p>本模組的期望值約 +1.2%/年，且大部分來自約七年一遇的危機型事件。<strong>它不是黑天鵝防護罩，是薄利的尾部保險。</strong>
+    慢閘門檻未經真實資料校準，快閘的危機型事件樣本 n=1。</p>
+    <p>資料來源與程式碼：<a href="https://github.com/weiting1226/stock">GitHub repository</a></p>
+  </footer>
+</div>
+
+<script src="vendor/chart.umd.js"></script>
+<script src="tail.js"></script>
+</body>
+</html>
