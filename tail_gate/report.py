@@ -157,6 +157,17 @@ def build_report(as_of: Optional[str] = None, data_root: str = DATA_ROOT) -> dic
             problems.append(f"代理驗證失敗：{type(e).__name__}: {e}")
 
     history = load_log()
+
+    # 回補結果（若跑過）。它的價值在於把 EV 模型兩項最要緊的假設換成量測值——
+    # 但回補是重建，不是觀測，所以與 live 分開呈現，而且不會自動改寫假設。
+    backfill = None
+    bf_path = Path(data_root) / "backfill.json"
+    if bf_path.exists():
+        try:
+            backfill = json.loads(bf_path.read_text(encoding="utf-8"))
+        except Exception as e:  # noqa: BLE001
+            problems.append(f"回補報告無法解析：{type(e).__name__}")
+
     report = {
         "as_of": as_of,
         "mode": "shadow",
@@ -189,6 +200,9 @@ def build_report(as_of: Optional[str] = None, data_root: str = DATA_ROOT) -> dic
         "ev": expected_value(),
         "ev_sensitivity": sensitivity_to_whipsaw(),
         "whipsaw": measure_whipsaw(history),
+        "backfill": backfill,
+        "ev_with_measured": _ev_with_measured(backfill),
+        "log_sources": _log_sources(history),
         "calibration": calibration,
         "input_lags": INPUT_LAG_DAYS,
         "problems": problems,
@@ -196,6 +210,49 @@ def build_report(as_of: Optional[str] = None, data_root: str = DATA_ROOT) -> dic
         "limitations": _limitations(),
     }
     return report
+
+
+def _ev_with_measured(backfill: Optional[dict]) -> Optional[dict]:
+    """用回補量到的值重算 EV，與原假設並列。
+
+    **不直接改寫假設**：回補是重建（base_alloc 沒有套用 Gate A/B/C 上限、
+    HY OAS 只有近三年），把它當成已驗證會言過其實。並列呈現，讓差距自己說話。
+    """
+    m = (backfill or {}).get("measured") or {}
+    fp = m.get("false_positive_per_year_measured")
+    wc = m.get("whipsaw_cost_measured")
+    if fp is None and wc is None:
+        return None
+
+    from .ev import EVAssumptions, expected_value
+    base = EVAssumptions()
+    alt = EVAssumptions(
+        crisis_period_years=base.crisis_period_years,
+        crisis_avoided_drawdown=base.crisis_avoided_drawdown,
+        moderate_gain_annual=base.moderate_gain_annual,
+        false_positive_per_year=base.false_positive_per_year if fp is None else fp,
+        whipsaw_cost=base.whipsaw_cost if wc is None else wc,
+    )
+    out = expected_value(alt)
+    out["substituted"] = {
+        "false_positive_per_year": fp,
+        "whipsaw_cost": wc,
+    }
+    out["assumed"] = {
+        "false_positive_per_year": base.false_positive_per_year,
+        "whipsaw_cost": base.whipsaw_cost,
+    }
+    out["caveat"] = ("回補是重建而非觀測：base_alloc 未套用 Gate A/B/C 上限，"
+                     "且 HY OAS 只有近三年。這組數字用來看差距，不是已驗證的結論。")
+    return out
+
+
+def _log_sources(df: pd.DataFrame) -> dict:
+    """日誌裡有幾列是實際跑出來的、幾列是回補的。混在一起看會高估可信度。"""
+    if df.empty or "source" not in df.columns:
+        return {"live": int(len(df)), "backfill": 0}
+    counts = df["source"].fillna("live").value_counts().to_dict()
+    return {k: int(v) for k, v in counts.items()}
 
 
 def _history_for_chart(df: pd.DataFrame, keep: int = 180) -> dict:
