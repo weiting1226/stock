@@ -158,7 +158,7 @@ function renderTable(r) {
   const keyOf = (s) => {
     const p = s.etfs.find((e) => e.is_primary) || s.etfs[0];
     if (state.sort === "from_high") return p.from_high_pct ?? -999;
-    if (state.sort === "dispersion") return s.dispersion_1y ?? -1;
+    if (state.sort === "dispersion") return s.provider_dispersion_1y ?? -1;
     return p.returns?.[w] ?? -999;
   };
   sectors.sort((a, b) => keyOf(b) - keyOf(a));
@@ -168,14 +168,19 @@ function renderTable(r) {
     const etfs = state.primaryOnly ? s.etfs.filter((e) => e.is_primary) : s.etfs;
     etfs.forEach((e, i) => {
       const first = i === 0;
-      const disp = s.dispersion_1y;
-      const dispTag = first && disp !== null && disp !== undefined && disp >= 5
-        ? `<div class="subtitle" title="同類股不同 ETF 的近一年報酬差距">
-             同類 ETF 近一年差 ${disp.toFixed(1)}pp</div>` : "";
+      const disp = s.provider_dispersion_1y;
+      const dispTag = first && disp !== null && disp !== undefined && disp >= 3
+        ? `<div class="subtitle" title="同類股、不同發行商的近一年報酬差距（不含次產業）">
+             發行商間差 ${disp.toFixed(1)}pp</div>` : "";
+      // 次產業標的要標出來。XBI 是生技、不是醫療保健類股，
+      // 把它跟 XLV 並排而不標，讀者會以為那是「同一個東西的另一種買法」
+      const kindTag = e.kind === "industry"
+        ? `<span class="subtitle" style="color:${cssVar("--warning")}" title="次產業，不代表整個類股">
+             ・次產業</span>` : "";
       rows.push(`<tr>
         <td>${first ? `<strong>${escapeHtml(s.sector)}</strong><br>` : ""}
           <span class="ticker-cell">${escapeHtml(e.ticker)}</span>
-          <span class="subtitle"> ${escapeHtml(e.issuer)}${e.is_primary ? "・代表" : ""}</span>
+          <span class="subtitle"> ${escapeHtml(e.issuer)}${e.is_primary ? "・代表" : ""}</span>${kindTag}
           ${dispTag}</td>
         <td class="num">${e.close?.toFixed(2) ?? "—"}</td>
         <td class="num ${cls(e.returns?.[w])}">${pct(e.returns?.[w])}</td>
@@ -190,15 +195,19 @@ function renderTable(r) {
   document.querySelector("#trend-table tbody").innerHTML = rows.join("");
 
   const spread = sectors
-    .map((s) => ({ sector: s.sector, d: s.dispersion_1y }))
+    .map((s) => ({ sector: s.sector, d: s.provider_dispersion_1y }))
     .filter((x) => x.d !== null && x.d !== undefined)
     .sort((a, b) => b.d - a.d)
     .slice(0, 3);
   document.getElementById("dispersion-note").innerHTML = spread.length
-    ? `<strong>同一類股，不同 ETF 的近一年報酬差距最大的三個：</strong>`
-      + spread.map((x) => `${escapeHtml(x.sector)} ${x.d.toFixed(1)} 個百分點`).join("、")
-      + `。差距大的時候，用單一 ETF 代表整個類股會失真——它們追的指數不同，
-         成分與權重就不同（例如 SPDR 只取 S&P 500 成分，Vanguard 含中小型）。`
+    ? `<strong>同一類股、不同發行商的近一年報酬差距最大的三個：</strong>`
+      + spread.map((x) => `${escapeHtml(x.sector)} ${x.d.toFixed(1)}pp`).join("、")
+      + `。它們追的指數不同，成分與權重就不同（SPDR 只取 S&P 500 成分，
+         Vanguard 含中小型，iShares 用羅素 1000）。<br>
+         <strong>這個數字刻意不含標為「次產業」的 ETF。</strong>
+         XBI 是生技、KRE 是區域銀行、XME 是金屬礦業——它們本來就該與整個類股不同，
+         算進來會得到一個看起來很大、但標籤與內容不符的數字
+         （實測醫療保健含 XBI 是 50.7pp，只看全類股 ETF 則是 1.6pp）。`
     : "";
 }
 

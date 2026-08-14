@@ -25,39 +25,53 @@ from __future__ import annotations
 
 BENCHMARK = "SPY"
 
-# 每個 GICS 類股的主要 ETF。同一類股列多檔，是因為它們追不同指數——
-# 差異本身就是資訊，而不是重複。
-# (ticker, 發行商, 追蹤範圍簡述)
+# 每個 GICS 類股的主要 ETF。
+#
+# **`kind` 這一欄是後來補的，因為第一版把兩件事混在一起量了。**
+# 原本只算「同類股所有 ETF 的報酬差距」，實測醫療保健 50.7pp、原物料 29.1pp，
+# 看起來像「選哪一檔差很多」。但拆開來看，差距**全部**來自次產業 ETF：
+#
+#   醫療保健  XLV 30.6 / VHT 32.1  → 真正的差距 1.6pp；XBI（生技）81.3
+#   原物料    XLB 19.3 / VAW 19.5  → 真正的差距 0.2pp；XME（金屬礦業）48.4
+#   金融      XLF 12.8 / VFH 15.8  → 真正的差距 3.0pp；KRE（區域銀行）34.1
+#
+# 沒有人會拿 XBI 代表醫療保健類股。把它算進「同類股離散度」，那個數字就在
+# 回答一個沒有人問的問題，而標籤卻說它在回答「選哪一檔會不會不一樣」。
+#
+#   broad     追整個類股，只差在指數編製者 → 這才是「選哪一檔」的問題
+#   industry  次產業，本來就該不一樣 → 有參考價值，但不併入離散度
+#
+# (ticker, 發行商, 追蹤範圍簡述, kind)
 SECTOR_FAMILIES = {
-    "資訊科技": [("XLK", "SPDR", "S&P 500 資訊科技"),
-                 ("VGT", "Vanguard", "MSCI 美國 IMI 資訊科技（含中小型）"),
-                 ("IYW", "iShares", "羅素 1000 科技")],
-    "金融": [("XLF", "SPDR", "S&P 500 金融"),
-             ("VFH", "Vanguard", "MSCI 美國 IMI 金融"),
-             ("KRE", "SPDR", "區域銀行（產業別，非全類股）")],
-    "醫療保健": [("XLV", "SPDR", "S&P 500 醫療保健"),
-                 ("VHT", "Vanguard", "MSCI 美國 IMI 醫療保健"),
-                 ("XBI", "SPDR", "生技（等權重，波動遠高於全類股）")],
-    "非必需消費": [("XLY", "SPDR", "S&P 500 非必需消費"),
-                   ("VCR", "Vanguard", "MSCI 美國 IMI 非必需消費"),
-                   ("XRT", "SPDR", "零售（等權重）")],
-    "通訊服務": [("XLC", "SPDR", "S&P 500 通訊服務"),
-                 ("VOX", "Vanguard", "MSCI 美國 IMI 通訊服務")],
-    "工業": [("XLI", "SPDR", "S&P 500 工業"),
-             ("VIS", "Vanguard", "MSCI 美國 IMI 工業"),
-             ("XAR", "SPDR", "航太國防")],
-    "必需消費": [("XLP", "SPDR", "S&P 500 必需消費"),
-                 ("VDC", "Vanguard", "MSCI 美國 IMI 必需消費")],
-    "能源": [("XLE", "SPDR", "S&P 500 能源"),
-             ("VDE", "Vanguard", "MSCI 美國 IMI 能源"),
-             ("XOP", "SPDR", "油氣探勘生產（等權重）")],
-    "公用事業": [("XLU", "SPDR", "S&P 500 公用事業"),
-                 ("VPU", "Vanguard", "MSCI 美國 IMI 公用事業")],
-    "房地產": [("XLRE", "SPDR", "S&P 500 房地產"),
-               ("VNQ", "Vanguard", "MSCI 美國 REIT")],
-    "原物料": [("XLB", "SPDR", "S&P 500 原物料"),
-               ("VAW", "Vanguard", "MSCI 美國 IMI 原物料"),
-               ("XME", "SPDR", "金屬礦業（等權重）")],
+    "資訊科技": [("XLK", "SPDR", "S&P 500 資訊科技", "broad"),
+                 ("VGT", "Vanguard", "MSCI 美國 IMI 資訊科技（含中小型）", "broad"),
+                 ("IYW", "iShares", "羅素 1000 科技", "broad")],
+    "金融": [("XLF", "SPDR", "S&P 500 金融", "broad"),
+             ("VFH", "Vanguard", "MSCI 美國 IMI 金融", "broad"),
+             ("KRE", "SPDR", "區域銀行（產業別，非全類股）", "industry")],
+    "醫療保健": [("XLV", "SPDR", "S&P 500 醫療保健", "broad"),
+                 ("VHT", "Vanguard", "MSCI 美國 IMI 醫療保健", "broad"),
+                 ("XBI", "SPDR", "生技（等權重，波動遠高於全類股）", "industry")],
+    "非必需消費": [("XLY", "SPDR", "S&P 500 非必需消費", "broad"),
+                   ("VCR", "Vanguard", "MSCI 美國 IMI 非必需消費", "broad"),
+                   ("XRT", "SPDR", "零售（等權重）", "industry")],
+    "通訊服務": [("XLC", "SPDR", "S&P 500 通訊服務", "broad"),
+                 ("VOX", "Vanguard", "MSCI 美國 IMI 通訊服務", "broad")],
+    "工業": [("XLI", "SPDR", "S&P 500 工業", "broad"),
+             ("VIS", "Vanguard", "MSCI 美國 IMI 工業", "broad"),
+             ("XAR", "SPDR", "航太國防", "industry")],
+    "必需消費": [("XLP", "SPDR", "S&P 500 必需消費", "broad"),
+                 ("VDC", "Vanguard", "MSCI 美國 IMI 必需消費", "broad")],
+    "能源": [("XLE", "SPDR", "S&P 500 能源", "broad"),
+             ("VDE", "Vanguard", "MSCI 美國 IMI 能源", "broad"),
+             ("XOP", "SPDR", "油氣探勘生產（等權重）", "industry")],
+    "公用事業": [("XLU", "SPDR", "S&P 500 公用事業", "broad"),
+                 ("VPU", "Vanguard", "MSCI 美國 IMI 公用事業", "broad")],
+    "房地產": [("XLRE", "SPDR", "S&P 500 房地產", "broad"),
+               ("VNQ", "Vanguard", "MSCI 美國 REIT", "broad")],
+    "原物料": [("XLB", "SPDR", "S&P 500 原物料", "broad"),
+               ("VAW", "Vanguard", "MSCI 美國 IMI 原物料", "broad"),
+               ("XME", "SPDR", "金屬礦業（等權重）", "industry")],
 }
 
 # 跨類股的產業型 ETF：不屬於單一 GICS 類股，但市場當成獨立主題在看
@@ -76,7 +90,7 @@ PRIMARY = {sector: etfs[0][0] for sector, etfs in SECTOR_FAMILIES.items()}
 def all_tickers() -> list:
     seen = [BENCHMARK]
     for etfs in SECTOR_FAMILIES.values():
-        for t, _, _ in etfs:
+        for t, _, _, _ in etfs:
             if t not in seen:
                 seen.append(t)
     for t, _, _ in THEMATIC:

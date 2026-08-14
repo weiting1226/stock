@@ -108,21 +108,45 @@ def test_breadth_skips_tickers_without_enough_history():
 
 # --- 同類股不同 ETF 的離散度 ------------------------------------------------
 
-def test_family_dispersion_shows_that_the_choice_of_etf_matters():
+def _broad(v):
+    return {"kind": "broad", "returns": {"1y": v}}
+
+
+def test_provider_dispersion_shows_that_the_choice_of_etf_matters():
     """這是本模組相對模組四多出來的那件事：「科技類股今年漲多少」
     其實取決於你拿哪一檔。"""
-    fam = [{"returns": {"1y": 22.0}}, {"returns": {"1y": 31.5}}, {"returns": {"1y": 18.0}}]
-    assert metrics.family_dispersion(fam, "1y") == pytest.approx(13.5)
+    fam = [_broad(22.0), _broad(31.5), _broad(18.0)]
+    assert metrics.provider_dispersion(fam, "1y") == pytest.approx(13.5)
 
 
-def test_dispersion_needs_at_least_two_etfs():
-    assert metrics.family_dispersion([{"returns": {"1y": 10.0}}], "1y") is None
+def test_sub_industry_etfs_are_excluded_from_provider_dispersion():
+    """**第一版把這兩件事混在一起量了。** 實測醫療保健 50.7pp，看起來像
+    「選哪一檔差很多」——但差距全部來自 XBI（生技）。拆開之後只有 1.55pp。
+    沒有人會拿 XBI 代表醫療保健類股。"""
+    fam = [_broad(30.59), _broad(32.14),
+           {"kind": "industry", "returns": {"1y": 81.29}}]     # XBI 實測值
+    assert metrics.provider_dispersion(fam, "1y") == pytest.approx(1.55)
+
+
+def test_dispersion_needs_at_least_two_broad_etfs():
+    assert metrics.provider_dispersion([_broad(10.0)], "1y") is None
+    # 一檔全類股 + 一檔次產業，仍然算不出「發行商之間」的差距
+    assert metrics.provider_dispersion(
+        [_broad(10.0), {"kind": "industry", "returns": {"1y": 50.0}}], "1y") is None
 
 
 def test_dispersion_ignores_missing_values_rather_than_treating_them_as_zero():
     """把缺值當成 0 會憑空造出一個巨大的離散度。"""
-    fam = [{"returns": {"1y": 20.0}}, {"returns": {"1y": None}}, {"returns": {"1y": 24.0}}]
-    assert metrics.family_dispersion(fam, "1y") == pytest.approx(4.0)
+    fam = [_broad(20.0), _broad(None), _broad(24.0)]
+    assert metrics.provider_dispersion(fam, "1y") == pytest.approx(4.0)
+
+
+def test_every_etf_is_labelled_broad_or_industry():
+    """沒標到的會被當成 industry 而從離散度裡消失——那是靜默的漏算。"""
+    for sector, etfs in config.SECTOR_FAMILIES.items():
+        for t, _, _, kind in etfs:
+            assert kind in ("broad", "industry"), f"{sector} {t}"
+        assert sum(1 for *_, k in etfs if k == "broad") >= 2, f"{sector} 全類股 ETF 不足兩檔"
 
 
 # --- 設定的一致性 -----------------------------------------------------------
@@ -130,7 +154,7 @@ def test_dispersion_ignores_missing_values_rather_than_treating_them_as_zero():
 def test_every_sector_has_a_primary_etf_that_is_in_its_family():
     """廣度用固定的代表 ETF。代表若不在該類股清單裡，廣度就會算到別的東西。"""
     for sector, etfs in config.SECTOR_FAMILIES.items():
-        tickers = [t for t, _, _ in etfs]
+        tickers = [t for t, _, _, _ in etfs]
         assert config.PRIMARY[sector] in tickers, sector
 
 
