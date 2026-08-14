@@ -35,6 +35,19 @@
   "reference_date": "2026-06-01",
   "fred_id": "HOUST"
  },
+ "MORTGAGE30US@2026-08-13": {
+  "summary_zh": "截至2026年8月13日,30年期固定房貸利率平均為6.67%,較前一週的6.69%略降,但仍高於去年同期的6.58%。文件指出房貸利率本週維持相對穩定,同時房屋可負擔性較去年同期改善,購屋與再融資申請的增加顯示借款人仍對房貸利率的細微變化有所反應。",
+  "drivers": [
+   "房屋可負擔性較去年同期改善",
+   "購屋與再融資申請增加",
+   "借款人對房貸利率細微變化的反應"
+  ],
+  "evidence": "Mortgage rates remained relatively stable this week at 6.67%. Housing affordability has improved from a year ago, and recent increases in purchase and refinance applications suggest that borrowers continue to respond to even modest changes in mortgage rates.",
+  "source_url": "https://www.freddiemac.com/pmms",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-08-13",
+  "fred_id": "MORTGAGE30US"
+ },
  "MORTGAGE30US@2026-08-06": {
   "summary_zh": "截至2026年8月6日,30年期固定房貸利率平均為6.69%,較前一週的6.66%小幅上升,亦高於去年同期的6.63%。文件指出,雖然房貸利率持續影響負擔能力,但房市正呈現調整跡象,包括上市房價略低於去年同期水準,且待售庫存較近年的緊縮狀況有所改善。",
   "drivers": [
@@ -47,6 +60,20 @@
   "model": "claude-sonnet-5",
   "reference_date": "2026-08-06",
   "fred_id": "MORTGAGE30US"
+ },
+ "RSAFS@2026-07-01": {
+  "summary_zh": "2026年7月美國零售及餐飲服務銷售額為7,636億美元，較前一個月下降0.6%，但較去年同期上升5.0%。5月至7月三個月的銷售總額較去年同期成長6.3%，而5月至6月的月變動維持上升0.2%未修正。",
+  "drivers": [
+   "較上月下降0.6%",
+   "較去年同期上升5.0%",
+   "5月至7月三個月銷售較去年同期上升6.3%",
+   "5月至6月月變動維持上升0.2%未修正"
+  ],
+  "evidence": "down 0.6 percent (&plusmn;0.4 percent) from the previous month, but up 5.0 percent (&plusmn;0.5 percent) from July 2025.",
+  "source_url": "https://www.census.gov/retail/sales.html",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-07-01",
+  "fred_id": "RSAFS"
  },
  "RSAFS@2026-06-01": {
   "summary_zh": "2026年6月美國零售與餐飲服務銷售額為7,686億美元，較前一月上升0.2%，較2025年6月則上升6.7%。2026年4月至6月期間的總銷售額較去年同期成長6.4%，且4月至5月的變動幅度由原公布的上升0.9%上修至上升1.0%。",
@@ -110,6 +137,20 @@
   "model": "claude-sonnet-5",
   "reference_date": "2026-06-01",
   "fred_id": "JTSJOL"
+ },
+ "CPILFESL@2026-07-01": {
+  "summary_zh": "核心CPI（不含食物與能源）在7月上升0.2%，此前6月持平。上漲主要來自醫療保健、機票、通訊、教育及休閒等項目，而汽車保險指數則下降，抵銷部分漲幅。過去12個月核心CPI上升2.5%，較6月的2.6%略為放緩。",
+  "drivers": [
+   "醫療保健(medical care)",
+   "機票(airline fares)",
+   "通訊(communication)",
+   "教育(education)"
+  ],
+  "evidence": "The index for all items less food and energy rose 0.2 percent in July after being unchanged in June.",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/cpi.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-07-01",
+  "fred_id": "CPILFESL"
  },
  "CPILFESL@2026-06-01": {
   "summary_zh": "2026年6月核心CPI（不含食物能源）季調後與上月持平，未有變動，較5月0.2%的漲幅趨緩，為連續放緩。過去12個月核心CPI上漲2.6%，低於截至5月的2.9%漲幅。住房、機動車保險、通訊、服飾、醫療照護及二手車價格下跌，而娛樂、家庭用品及個人護理價格上漲，抵銷了部分跌幅。",
