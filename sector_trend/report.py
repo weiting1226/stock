@@ -50,11 +50,11 @@ def build_report(as_of: Optional[str] = None) -> dict:
     sectors = []
     for sector, etfs in SECTOR_FAMILIES.items():
         family = []
-        for ticker, issuer, desc in etfs:
+        for ticker, issuer, desc, kind in etfs:
             row = rows_by_ticker.get(ticker)
             if row is None:
                 continue
-            family.append({**row, "issuer": issuer, "tracks": desc,
+            family.append({**row, "issuer": issuer, "tracks": desc, "kind": kind,
                            "is_primary": ticker == PRIMARY[sector]})
         if not family:
             continue
@@ -62,8 +62,11 @@ def build_report(as_of: Optional[str] = None) -> dict:
             "sector": sector,
             "primary": PRIMARY[sector],
             "etfs": family,
-            "dispersion_1y": metrics.family_dispersion(family, "1y"),
-            "dispersion_3y": metrics.family_dispersion(family, "3y"),
+            # 只比同類股的**全類股** ETF：次產業標的本來就該不一樣，
+            # 把它算進來只會得到一個標籤與內容不符的大數字
+            "provider_dispersion_1y": metrics.provider_dispersion(family, "1y"),
+            "provider_dispersion_3y": metrics.provider_dispersion(family, "3y"),
+            "broad_count": sum(1 for e in family if e["kind"] == "broad"),
         })
 
     thematic = []
@@ -108,7 +111,9 @@ def _notes() -> list:
         "本頁沒有自創的綜合分數。呈現的是均線位置、距 52 週高低點、各視窗報酬——"
         "全部可以自己驗算。50/200 日均線是市場慣用的長度，不是本專案挑的。",
         "同一類股列多檔 ETF，是因為它們追不同指數：「科技類股今年漲多少」"
-        "取決於你拿哪一檔。離散度大的時候，用單一 ETF 代表整個類股會失真。",
+        "取決於你拿哪一檔。離散度只計入**全類股** ETF——次產業標的"
+        "（生技、區域銀行、金屬礦業等）本來就該與整個類股不同，"
+        "把它們算進去只會得到一個標籤與內容不符的大數字。",
     ]
 
 

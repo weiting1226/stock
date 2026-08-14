@@ -154,15 +154,19 @@ def breadth(rows: list, primary_tickers: list) -> dict:
     }
 
 
-def family_dispersion(family_rows: list, window: str = "1y") -> Optional[float]:
-    """同一類股不同 ETF 的報酬差距（最大 − 最小，百分點）。
+def provider_dispersion(family_rows: list, window: str = "1y") -> Optional[float]:
+    """**同一類股、不同發行商**的報酬差距（最大 − 最小，百分點）。
 
-    這是本模組相對模組四多出來的那件事：「科技類股今年漲多少」其實取決於
-    你拿哪一檔——追的指數不同，成分與權重就不同。差距大的時候，
-    用單一 ETF 代表整個類股會失真。
+    只計入 `kind == "broad"` 的 ETF。第一版把次產業 ETF 也算進來，
+    實測醫療保健 50.7pp、原物料 29.1pp，看起來像「選哪一檔差很多」——
+    但差距全部來自 XBI（生技）、XME（金屬礦業）這類次產業標的。
+    拆開之後真正的差距是 1.6pp 與 0.2pp。
+
+    沒有人會拿 XBI 代表醫療保健類股。把它算進來，這個數字就在回答一個
+    沒有人問的問題，而標籤卻說它在回答「選哪一檔會不會不一樣」。
     """
     vals = [r["returns"].get(window) for r in family_rows
-            if r.get("returns", {}).get(window) is not None]
+            if r.get("kind") == "broad" and r.get("returns", {}).get(window) is not None]
     if len(vals) < 2:
         return None
     return round(max(vals) - min(vals), 2)
