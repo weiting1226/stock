@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>模組七：類股 ETF 趨勢 — 儀表板</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="wrap">
+  <nav class="module-nav">
+    <a href="index.html">模組一：市場流動性監控</a>
+    <a href="valuation.html">模組二：分析師估值比較</a>
+    <a href="backtest.html">模組三：策略回測</a>
+    <a href="rotation.html">模組四：類股資金輪動</a>
+    <a href="macro.html">模組五：總體經濟觀察</a>
+    <a href="tail.html">模組六：尾部脆弱度</a>
+    <a href="trend.html" class="active">模組七：類股 ETF 趨勢</a>
+  </nav>
+
+  <header class="top">
+    <div>
+      <h1>類股主要 ETF 趨勢</h1>
+      <div class="subtitle" id="asof-label">本頁純資料呈現，非投資建議</div>
+    </div>
+  </header>
+
+  <div id="error-slot"></div>
+
+  <section class="card">
+    <div class="stat-row" id="stat-row"></div>
+    <p class="subtitle" id="breadth-note"></p>
+  </section>
+
+  <section class="card">
+    <h2>各類股趨勢路徑（重新基準化為 100）</h2>
+    <div class="chart-wrap"><canvas id="trend-chart"></canvas></div>
+    <p class="subtitle">每個類股取其代表 ETF，起點齊一為 100，因此線條的斜率就是這段期間的
+    累積漲跌。與模組四的象限圖不同：那張圖看的是「資金正在往哪一格走」，這張看的是
+    「走了多久、走了多遠」。</p>
+  </section>
+
+  <section class="card">
+    <h2>200 日均線廣度</h2>
+    <div class="chart-wrap" style="max-height:240px"><canvas id="breadth-chart"></canvas></div>
+    <p class="subtitle">11 個類股的代表 ETF 中，有幾檔收在 200 日均線之上。
+    用固定的代表 ETF 計算——把所有 ETF 都算進去的話，這個數字會隨清單長短而變動，
+    那不是廣度，是取樣。歷史自本模組上線起累積。</p>
+  </section>
+
+  <section class="card">
+    <h2>各類股與其主要 ETF</h2>
+    <div class="filter-bar">
+      <label>報酬視窗
+        <select id="window-select"></select>
+      </label>
+      <label>排序
+        <select id="sort-select">
+          <option value="return">依報酬</option>
+          <option value="from_high">依距 52 週高點</option>
+          <option value="dispersion">依同類股 ETF 離散度</option>
+        </select>
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" id="primary-only" /> 只看代表 ETF
+      </label>
+    </div>
+    <div class="table-scroll">
+      <table id="trend-table">
+        <colgroup>
+          <col style="width:19%" /><col style="width:8%" /><col style="width:9%" />
+          <col style="width:9%" /><col style="width:10%" /><col style="width:8%" />
+          <col style="width:8%" /><col style="width:29%" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>類股 / ETF</th><th class="num">收盤</th><th class="num" id="ret-head">報酬</th>
+            <th class="num">超額</th><th class="num">距 52 週高</th>
+            <th>50 日線</th><th>200 日線</th><th>追蹤範圍</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="subtitle" id="dispersion-note"></p>
+  </section>
+
+  <section class="card">
+    <h2>產業型 ETF</h2>
+    <div class="table-scroll">
+      <table id="thematic-table">
+        <thead>
+          <tr><th>ETF</th><th>所屬類股</th><th class="num">近一月</th><th class="num">近三月</th>
+              <th class="num">近半年</th><th class="num">近一年</th>
+              <th class="num">距 52 週高</th><th>200 日線</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="subtitle">這些不屬於單一 GICS 類股，但市場當成獨立主題在看。
+    半導體與軟體都在資訊科技底下，走勢卻常常分家。</p>
+  </section>
+
+  <footer class="disclaimer">
+    <p><strong>非投資建議。</strong>本頁為類股 ETF 價格趨勢的機械化呈現，提供者非持牌投資顧問。</p>
+    <p><strong>本頁沒有自創的綜合分數。</strong>呈現的是均線位置、距 52 週高低點、各視窗報酬——
+    全部可以自己驗算。50/200 日均線是市場慣用的長度，不是本專案挑的。</p>
+    <p id="notes-slot"></p>
+    <p>資料來源與程式碼：<a href="https://github.com/weiting1226/stock">GitHub repository</a></p>
+  </footer>
+</div>
+
+<script src="vendor/chart.umd.js"></script>
+<script src="trend.js"></script>
+</body>
+</html>
