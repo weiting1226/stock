@@ -444,9 +444,6 @@ ANNAW,"AleAnna, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
 ANNX,"Annexon, Inc. - common stock",NASDAQ,False,common,nasdaqtrader
 ANPA,Rich Sparkle Holdings Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ANRO,"Alto Neuroscience, Inc. Common Stock",N,False,common,nasdaqtrader
-ANSC,Agriculture & Natural Solutions Acquisition Corporation - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-ANSCU,Agriculture & Natural Solutions Acquisition Corporation - Unit,NASDAQ,False,unit,nasdaqtrader
-ANSCW,Agriculture & Natural Solutions Acquisition Corporation - Warrant,NASDAQ,False,warrant,nasdaqtrader
 ANTA,Antalpha Platform Holding Company - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ANTX,"AN2 Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ANVS,"Annovis Bio, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -1208,7 +1205,6 @@ BWIV-W,Blue Water Acquisition Corp. IV Warrants entitling the holder to purchase
 BWLP,BW LPG Limited Common Shares,N,False,common,nasdaqtrader
 BWMN,Bowman Consulting Group Ltd. - Common Stock,NASDAQ,False,common,nasdaqtrader
 BWMX,"Betterware de Mexico, S.A.P.I. de C.V. Ordinary Shares",N,False,common,nasdaqtrader
-BWNB,"Babcock & Wilcox Enterprises, Inc. 6.50% Senior Notes due 2026",N,False,note,nasdaqtrader
 BWXT,"BWX Technologies, Inc. Common Stock",N,False,common,nasdaqtrader
 BX,Blackstone Inc. Common Stock,N,False,common,nasdaqtrader
 BXBL,"BOXABL, Inc.  - Common stock",NASDAQ,False,common,nasdaqtrader
@@ -2773,7 +2769,7 @@ GBR,"New Concept Energy, Inc Common Stock",A,False,common,nasdaqtrader
 GBTG,"Global Business Travel Group, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 GBX,"Greenbrier Companies, Inc. (The) Common Stock",N,False,common,nasdaqtrader
 GCBC,"Greene County Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-GCDT,Green Circle Decarbonize Technology Limited Ordinary Shares,A,False,common,nasdaqtrader
+GCDT,Green Circle Decarbonize Technology Limited Class A Ordinary Shares,A,False,common,nasdaqtrader
 GCGR,General Catalyst Global Resilience Merger Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 GCGRU,General Catalyst Global Resilience Merger Corp. - Units,NASDAQ,False,unit,nasdaqtrader
 GCGRW,General Catalyst Global Resilience Merger Corp. - Warrants,NASDAQ,False,warrant,nasdaqtrader
@@ -2855,7 +2851,9 @@ GHG,"GreenTree Hospitality Group Ltd. American depositary shares, each represent
 GHI,Greystone Housing Impact Investors LP Beneficial Unit Certificates representing assignments of limited partnership interests,N,False,common,nasdaqtrader
 GHM,Graham Corporation Common Stock,N,False,common,nasdaqtrader
 GHRS,GH Research PLC - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+GHXI,"Gores Holdings XI, Inc. - Class A Ordinary Shares",NASDAQ,False,common,nasdaqtrader
 GHXIU,"Gores Holdings XI, Inc. - Units",NASDAQ,False,unit,nasdaqtrader
+GHXIW,"Gores Holdings XI, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
 GHY,"PGIM Global High Yield Fund, Inc.",N,False,common,nasdaqtrader
 GIB,CGI Inc. Common Stock,N,False,common,nasdaqtrader
 GIBO,GIBO Holdings Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -5879,6 +5877,7 @@ RUN,Sunrun Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 RUSHA,"Rush Enterprises, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 RUSHB,"Rush Enterprises, Inc. - Class B Common Stock",NASDAQ,False,common,nasdaqtrader
 RVI,Robinhood Ventures Fund I Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
+RVII,Robinhood Ventures Fund II Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 RVLV,"Revolve Group, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 RVMD,"Revolution Medicines, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 RVMDW,"Revolution Medicines, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
@@ -6528,6 +6527,7 @@ TBB,AT&T Inc. 5.350% Global Notes due 2066,N,False,note,nasdaqtrader
 TBBB,BBB Foods Inc. Class A Common Shares,N,False,common,nasdaqtrader
 TBBK,"The Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 TBCH,Turtle Beach Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
+TBCVU,"Thunder Bridge Capital Partners V, Ltd. - Units",NASDAQ,False,unit,nasdaqtrader
 TBI,"TrueBlue, Inc. Common Stock",N,False,common,nasdaqtrader
 TBLA,Taboola.com Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 TBLD,Thornburg Income Builder Opportunities Trust - Closed End Fund,NASDAQ,False,common,nasdaqtrader
