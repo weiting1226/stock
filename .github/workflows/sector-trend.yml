@@ -1,0 +1,53 @@
+name: Sector ETF trend
+
+# 每個交易日收盤後執行。廣度歷史要 commit 回來——它以收盤日為鍵逐日累積，
+# 漏推就等於那一天的廣度永遠消失（事後補不回來，因為它算的是「當天」的均線位置）。
+on:
+  schedule:
+    - cron: "45 21 * * 1-5"      # 週一至週五 21:45 UTC（美股收盤後）
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sector-trend
+  cancel-in-progress: false
+
+jobs:
+  trend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run sector trend
+        run: python3 scripts/run_sector_trend.py -v
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data/trend data/trend
+          if git diff --cached --quiet; then
+            echo "no changes"
+            exit 0
+          fi
+          git commit -m "chore: sector trend update"
+          for attempt in 1 2 3 4; do
+            git pull --rebase origin main && git push && exit 0
+            echo "推送失敗，重試 $attempt"
+            sleep $((attempt * 3))
+          done
+          exit 1
