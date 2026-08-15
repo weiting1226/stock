@@ -8,7 +8,7 @@
 | 欄位 | 說明 |
 |---|---|
 | `date` | 查價日期，`YYYY-MM-DD` |
-| `brand` | 監控品牌／通路，須完全match `diaper_monitor/config.py` 的 `BRANDS`：目前是「滿意寶寶日本境內版」「Awibii」「奢寵幫」。打錯字的話那一列不會出現在報表裡，也不會報錯——先核對拼字 |
+| `brand` | 監控品牌／通路，須完全match `diaper_monitor/config.py` 的 `BRANDS`：目前是「滿意寶寶日本境內版」「Aiwibi」「奢寵幫」。打錯字的話那一列不會出現在報表裡，也不會報錯——先核對拼字 |
 | `platform` | 該筆報價所在的電商平台，例如「蝦皮」「momo購物網」「PChome24h購物」「Yahoo奇摩購物中心」，自由文字 |
 | `product_name` | 賣場上的商品標題，用來核對是不是同一件商品、同一個尺寸 |
 | `pack_price` | 該包裝的實付售價（新台幣，已含當下適用的折扣） |
@@ -22,7 +22,7 @@
 date,brand,platform,product_name,pack_price,piece_count,url,note
 2026-08-14,滿意寶寶日本境內版,蝦皮,滿意寶寶 日本境內版 M 64片,899,64,https://example.com/a,
 2026-08-14,滿意寶寶日本境內版,momo購物網,滿意寶寶 境內版 M號 62片,950,62,https://example.com/b,
-2026-08-14,Awibii,PChome24h購物,Awibii 褲型 M 66片,1080,66,,
+2026-08-14,Aiwibi,PChome24h購物,Aiwibi 褲型 M 66片,1080,66,,
 2026-08-14,奢寵幫,蝦皮,奢寵幫代購 M 60片,780,60,,限時特價
 ```
 
