@@ -1051,7 +1051,6 @@ BNJ,Brookfield Finance Inc. 4.50% Perpetual Subordinated Notes,N,False,note,nasd
 BNKK,"Bonk, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BNL,"Broadstone Net Lease, Inc. Common Stock",N,False,common,nasdaqtrader
 BNR,Burning Rock Biotech Limited - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
-BNRG,Brenmiller Energy Ltd - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 BNS,Bank Nova Scotia Halifax Pfd 3 Ordinary Shares,N,False,common,nasdaqtrader
 BNT,Brookfield Wealth Solutions Ltd. Class A Exchangeable Limited Voting Shares,N,False,common,nasdaqtrader
 BNTC,Benitec Biopharma Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -1118,6 +1117,7 @@ BRLSW,Borealis Foods Inc. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 BRLT,"Brilliant Earth Group, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 BRN,"Barnwell Industries, Inc. Common Stock",A,False,common,nasdaqtrader
 BRNS,Barinthus Biotherapeutics plc - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
+BRNX,BrenX Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 BRO,"Brown & Brown, Inc. Common Stock",N,False,common,nasdaqtrader
 BROS,Dutch Bros Inc. Class A Common Stock,N,False,common,nasdaqtrader
 BRR,"ProCap Financial, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -2394,6 +2394,8 @@ EVTC,"Evertec, Inc. Common Stock",N,False,common,nasdaqtrader
 EVTL,Vertical Aerospace Ltd. Ordinary Shares,N,False,common,nasdaqtrader
 EVV,Eaton Vance Limited Duration Income Fund Common Shares of Beneficial Interest,A,False,common,nasdaqtrader
 EW,Edwards Lifesciences Corporation Common Stock,N,False,common,nasdaqtrader
+EWAV,East West Ave Acquisition Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
+EWAVR,East West Ave Acquisition Corp. - Rights,NASDAQ,False,right,nasdaqtrader
 EWAVU,East West Ave Acquisition Corp. - Units,NASDAQ,False,unit,nasdaqtrader
 EWBC,"East West Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 EWTX,"Edgewise Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -2830,6 +2832,7 @@ GFF,Griffon Corporation Common Stock,N,False,common,nasdaqtrader
 GFI,Gold Fields Limited American Depositary Shares,N,False,common,nasdaqtrader
 GFL,"GFL Environmental Inc. Subordinate voting shares, no par value",N,False,common,nasdaqtrader
 GFR,Greenfire Resources Ltd. Common Shares,N,False,common,nasdaqtrader
+GFR-V,"Greenfire Resources Ltd. Rights (expiring September 15, 2026) Rights when issued",N,False,right,nasdaqtrader
 GFS,GlobalFoundries Inc. - Ordinary Share,NASDAQ,False,common,nasdaqtrader
 GFUZ,General Fusion Group Ltd. - Common Shares,NASDAQ,False,common,nasdaqtrader
 GFUZW,General Fusion Group Ltd. - Warrant,NASDAQ,False,warrant,nasdaqtrader
@@ -3967,7 +3970,6 @@ LHX,"L3Harris Technologies, Inc. Common Stock",N,False,common,nasdaqtrader
 LI,Li Auto Inc. - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 LICN,Lichen International Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 LIDR,"AEye, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
-LIDRW,"AEye, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
 LIEN,"Chicago Atlantic BDC, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 LIF,"Life360, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 LIFE,Ethos Technologies Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -5573,7 +5575,6 @@ QLEP-W,"Quantum Leap Acquisition Corp Warrants, each whole warrant exercisable f
 QLYS,"Qualys, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 QMCO,Quantum Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 QMLS,"QumulusAI, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-QMMM,QMMM Holdings Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 QNC,Quantum eMotion Corp. Common Shares,A,False,common,nasdaqtrader
 QNCX,"Quince Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 QNME,"Quanome Technologies, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -6064,7 +6065,6 @@ SER,"Serina Therapeutics, Inc. Common Stock",A,False,common,nasdaqtrader
 SERA,"Sera Prognostics, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 SERV,Serve Robotics Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 SES,SES AI Corporation Class A Common Stock,N,False,common,nasdaqtrader
-SES-W,"SES AI Corporation Warrants, each whole warrant exercisable for one share of Class A Common Stock at an exercise price of $11.50 per share",N,False,warrant,nasdaqtrader
 SEV,Aptera Motors Corp. - Class B Common Stock,NASDAQ,False,common,nasdaqtrader
 SEVN,Seven Hills Realty Trust  - Common Stock,NASDAQ,False,common,nasdaqtrader
 SEZL,Sezzle Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -6612,6 +6612,8 @@ TGTX,"TG Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 TH,Target Hospitality Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 THC,Tenet Healthcare Corporation Common Stock,N,False,common,nasdaqtrader
 THCH,TH International Limited - Ordinary shares,NASDAQ,False,common,nasdaqtrader
+THEO,BOA Acquisition Corp. II - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+THEOR,BOA Acquisition Corp. II - Rights,NASDAQ,False,right,nasdaqtrader
 THEOU,BOA Acquisition Corp. II - Units,NASDAQ,False,unit,nasdaqtrader
 THFF,First Financial Corporation  - Common Stock,NASDAQ,False,common,nasdaqtrader
 THG,Hanover Insurance Group Inc,N,False,common,nasdaqtrader
