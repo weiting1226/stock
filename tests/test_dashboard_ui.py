@@ -98,3 +98,74 @@ def test_ui_script_measures_rather_than_assuming_a_breakpoint():
     assert "resize" in js
     # 表格是抓完資料才填的，只在載入時量一次會量到空表
     assert "MutationObserver" in js
+
+
+# --- 模組選單 ---------------------------------------------------------------
+#
+# 標籤列適合「快速切換 + 看出我在哪一頁」，但它說不出每一頁在做什麼，
+# 而且手機上是橫向捲動的——排在後面的模組可能從來沒被發現。
+
+def _ui_js() -> str:
+    return (DOCS / "ui.js").read_text(encoding="utf-8")
+
+
+def test_every_page_has_a_menu_entry_with_a_group_and_a_description():
+    """漏一頁不會報錯，那一項只是安靜地從選單消失——而標籤列上還在，
+    於是兩個地方顯示的模組數量不一致。"""
+    js = _ui_js()
+    block = js[js.index("const MODULE_INFO"):js.index("const GROUP_ORDER")]
+    for page in PAGES:
+        assert f'"{page}"' in block, f"選單缺少 {page}"
+        entry = block[block.index(f'"{page}"'):]
+        entry = entry[:entry.index("}")]
+        assert "group:" in entry and "desc:" in entry, page
+        desc = re.search(r'desc:\s*"([^"]+)"', entry).group(1)
+        assert len(desc.strip()) >= 8, f"{page} 的說明太短，等於沒說"
+
+
+def test_menu_groups_are_all_declared_in_the_order_list():
+    """用到但沒宣告的分組會整組不顯示——那一組的模組就消失了。"""
+    js = _ui_js()
+    info = js[js.index("const MODULE_INFO"):js.index("const GROUP_ORDER")]
+    order = re.search(r"const GROUP_ORDER = \[(.*?)\]", js, re.S).group(1)
+    declared = set(re.findall(r'"([^"]+)"', order))
+    used = set(re.findall(r'group:\s*"([^"]+)"', info))
+    assert used <= declared, f"未宣告的分組：{used - declared}"
+    assert declared == used, f"宣告了卻沒人用的分組：{declared - used}"
+
+
+def test_the_menu_is_generated_from_the_nav_not_a_second_hardcoded_list():
+    """七頁的導覽列已經有測試守著彼此一致。再手寫一份選單連結，
+    就等於多一個會走鐘的來源。"""
+    js = _ui_js()
+    fn = js[js.index("function buildMenu"):]
+    assert 'querySelectorAll("a")' in fn or "querySelectorAll('a')" in fn
+    assert ".module-nav" in fn
+    assert "nav-full" in fn
+
+
+def test_the_menu_toggle_is_accessible():
+    """展開式浮層的最低要求：狀態要能被輔助技術讀到，且要有退路。"""
+    js = _ui_js()
+    fn = js[js.index("function buildMenu"):]
+    assert "aria-expanded" in fn
+    assert "aria-controls" in fn
+    assert "aria-current" in fn          # 目前頁面要標出來
+    assert "Escape" in fn                # 鍵盤退路
+    assert "contains(e.target)" in fn    # 點外面關閉
+
+
+def test_the_menu_degrades_without_javascript():
+    """按鈕是 JS 建立的，所以 CSS 預設不能把標籤列藏起來——
+    否則停用 JS 的人會完全沒有導覽。手機規則必須以按鈕存在為前提。"""
+    css = (DOCS / "style.css").read_text(encoding="utf-8")
+    mobile = css[css.index("@media (max-width: 720px)"):]
+    assert ".menu-toggle ~ .module-nav { display: none; }" in mobile
+    assert re.search(r"^\s*\.module-nav \{ display: none; \}", mobile, re.M) is None
+
+
+def test_the_menu_panel_paints_a_background_and_sits_above_content():
+    css = (DOCS / "style.css").read_text(encoding="utf-8")
+    block = css[css.index(".module-menu {"):]
+    block = block[:block.index("}")]
+    assert "background:" in block and "z-index:" in block
