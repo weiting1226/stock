@@ -55,16 +55,23 @@
 // 選單由**既有的 nav 連結生成**，不是另外寫一份：七頁的導覽列已經有測試守著
 // 彼此一致，再手寫一份選單就等於多一個會走鐘的來源。描述放在這裡集中管理。
 
+// 每一頁一句話說明。**只有說明，沒有分組**——選單依模組編號 1→7 排列。
+//
+// 第一版按主題分成四組（市場狀態／類股／個股／策略），結果編號被打散成
+// 1,5 / 4,7 / 2 / 3,6。分組本身有它的道理，但代價是使用者記得的「模組三」
+// 在畫面上要用找的。編號是這個專案對外的固定稱呼，順序就該照它。
+//
+// 順序不寫死在這裡，而是沿用 nav 的順序——nav 已經有測試守著它是 1→7，
+// 在這裡再排一次就等於多一個會走鐘的來源。
 const MODULE_INFO = {
-  "index.html": { group: "市場狀態", desc: "六大類別計分、三道閘門、部位建議" },
-    "macro.html": { group: "市場狀態", desc: "26 條 FRED 總經指標、發布日誌與 AI 摘要" },
-  "rotation.html": { group: "類股", desc: "相對強弱象限與資金流（1 日～3 月）" },
-  "trend.html": { group: "類股", desc: "主要 ETF 的均線與趨勢（1 月～3 年）" },
-  "valuation.html": { group: "個股", desc: "分析師共識目標價與市價的差距" },
-  "backtest.html": { group: "策略", desc: "近十五年 QQQ／TQQQ／SGOV 實測模組一策略" },
-  "tail.html": { group: "策略", desc: "尾部脆弱度雙閘門（影子運行，門檻未校準）" },
+  "index.html": "六大類別計分、三道閘門、部位建議",
+  "valuation.html": "分析師共識目標價與市價的差距",
+  "backtest.html": "近十五年 QQQ／TQQQ／SGOV 實測模組一策略",
+  "rotation.html": "相對強弱象限與資金流（1 日～3 月）",
+  "macro.html": "26 條 FRED 總經指標、發布日誌與 AI 摘要",
+  "tail.html": "尾部脆弱度雙閘門（影子運行，門檻未校準）",
+  "trend.html": "主要 ETF 的均線與趨勢（1 月～3 年）",
 };
-const GROUP_ORDER = ["市場狀態", "類股", "個股", "策略"];
 
 function buildMenu() {
   const nav = document.querySelector(".module-nav");
@@ -91,15 +98,12 @@ function buildMenu() {
   panel.id = "module-menu";
   panel.className = "module-menu";
   panel.hidden = true;
-  panel.innerHTML = GROUP_ORDER.map((g) => {
-    const items = links.filter((l) => (MODULE_INFO[l.href] || {}).group === g);
-    if (!items.length) return "";
-    return `<div class="menu-group"><h3>${g}</h3>` + items.map((l) => `
-      <a href="${l.href}"${l.current ? ' aria-current="page"' : ""}>
-        <span class="menu-name">${l.full}</span>
-        <span class="menu-desc">${(MODULE_INFO[l.href] || {}).desc || ""}</span>
-      </a>`).join("") + "</div>";
-  }).join("");
+  // 直接沿用 nav 的順序（模組一→七），不重新排序
+  panel.innerHTML = links.map((l) => `
+    <a href="${l.href}"${l.current ? ' aria-current="page"' : ""}>
+      <span class="menu-name">${l.full}</span>
+      <span class="menu-desc">${MODULE_INFO[l.href] || ""}</span>
+    </a>`).join("");
 
   nav.parentNode.insertBefore(toggle, nav);
   nav.parentNode.insertBefore(panel, nav.nextSibling);

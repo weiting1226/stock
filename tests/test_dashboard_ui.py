@@ -109,29 +109,41 @@ def _ui_js() -> str:
     return (DOCS / "ui.js").read_text(encoding="utf-8")
 
 
-def test_every_page_has_a_menu_entry_with_a_group_and_a_description():
-    """漏一頁不會報錯，那一項只是安靜地從選單消失——而標籤列上還在，
-    於是兩個地方顯示的模組數量不一致。"""
-    js = _ui_js()
-    block = js[js.index("const MODULE_INFO"):js.index("const GROUP_ORDER")]
+def _module_info(js: str) -> str:
+    start = js.index("const MODULE_INFO")
+    return js[start:js.index("};", start)]
+
+
+def test_every_page_has_a_menu_description():
+    """漏一頁不會報錯，那一項只是說明變空白——標籤列上還在，
+    於是選單看起來少講了一個模組。"""
+    block = _module_info(_ui_js())
     for page in PAGES:
         assert f'"{page}"' in block, f"選單缺少 {page}"
-        entry = block[block.index(f'"{page}"'):]
-        entry = entry[:entry.index("}")]
-        assert "group:" in entry and "desc:" in entry, page
-        desc = re.search(r'desc:\s*"([^"]+)"', entry).group(1)
+        desc = re.search(rf'"{re.escape(page)}":\s*"([^"]*)"', block).group(1)
         assert len(desc.strip()) >= 8, f"{page} 的說明太短，等於沒說"
 
 
-def test_menu_groups_are_all_declared_in_the_order_list():
-    """用到但沒宣告的分組會整組不顯示——那一組的模組就消失了。"""
+def test_the_nav_itself_is_ordered_one_to_seven():
+    """選單沿用 nav 的順序，所以「1→7」這件事要在 nav 上守住。
+    在兩個地方各排一次，就等於多一個會走鐘的來源。"""
+    numerals = "一二三四五六七"
+    for page in PAGES:
+        nav = _nav((DOCS / page).read_text(encoding="utf-8"))
+        seen = re.findall(r"模組([一二三四五六七])", nav)
+        assert seen == list(numerals), f"{page} 的導覽順序不是 1→7：{seen}"
+
+
+def test_the_menu_does_not_regroup_and_reorder_the_modules():
+    """第一版按主題分組，結果編號被打散成 1,5 / 4,7 / 2 / 3,6——
+    使用者記得的「模組三」在畫面上要用找的。編號是這個專案對外的固定稱呼，
+    順序就該照它。"""
     js = _ui_js()
-    info = js[js.index("const MODULE_INFO"):js.index("const GROUP_ORDER")]
-    order = re.search(r"const GROUP_ORDER = \[(.*?)\]", js, re.S).group(1)
-    declared = set(re.findall(r'"([^"]+)"', order))
-    used = set(re.findall(r'group:\s*"([^"]+)"', info))
-    assert used <= declared, f"未宣告的分組：{used - declared}"
-    assert declared == used, f"宣告了卻沒人用的分組：{declared - used}"
+    assert "GROUP_ORDER" not in js, "又出現分組排序了"
+    fn = js[js.index("function buildMenu"):]
+    # 面板必須直接對 links 做 map，不能先分組或排序
+    assert "links.map" in fn
+    assert ".sort(" not in fn, "選單不應該重新排序，順序來自 nav"
 
 
 def test_the_menu_is_generated_from_the_nav_not_a_second_hardcoded_list():
