@@ -199,20 +199,14 @@ body {
   border-radius: var(--radius);
   padding: 20px 24px;
   margin-bottom: 32px;
+  /* 依模組編號 1→7 排列。多欄時是「先左右、後上下」，
+     所以閱讀順序仍然是 1234／567，編號不會被打散。 */
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 8px 32px;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 4px 28px;
 }
 .module-menu[hidden] { display: none; }
-
-.menu-group h3 {
-  margin: 0 0 6px;
-  font-size: var(--fs-1);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  font-weight: 500;
-}
 
 .module-menu a {
   display: block;
