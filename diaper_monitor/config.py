@@ -25,6 +25,11 @@ SIZE = "M"
 # 監控品牌／通路。順序即為儀表板呈現順序。
 BRANDS = ["滿意寶寶日本境內版", "Aiwibi", "奢寵幫"]
 
+# 每天查價至少要涵蓋的平台。`platform` 欄位本身是自由文字（不做驗證），
+# 這份清單只是給填表的人一個底線——這三個查了，其餘平台（藥妝通路、品牌官網等）
+# 有查到當然可以一起填，但不能只填這些之外的平台卻漏掉這三個。
+PLATFORMS = ["蝦皮", "酷澎", "momo購物網"]
+
 MANUAL_PRICES_PATH = "data/diaper_monitor/manual_prices.csv"
 HISTORY_PATH = "data/diaper_monitor/history.csv"
 DATA_ROOT = "docs/data/diaper"
