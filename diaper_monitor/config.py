@@ -1,7 +1,7 @@
 """模組八（尿布單價監控）設定。
 
 **量測對象**：尿布 M 號，三個品牌／通路各自視為獨立的監控對象——
-「滿意寶寶日本境內版」「Awibii」「奢寵幫」彼此不是同一件商品的不同賣場，
+「滿意寶寶日本境內版」「Aiwibi」「奢寵幫」彼此不是同一件商品的不同賣場，
 價格本來就不該放在一起比大小，只在各自的時間序列上比「今天 vs. 自己的近期」。
 
 **資料來源是人工填入，不是自動爬蟲。** 蝦皮、momo、PChome 等平台對非登入的
@@ -23,7 +23,7 @@ from __future__ import annotations
 SIZE = "M"
 
 # 監控品牌／通路。順序即為儀表板呈現順序。
-BRANDS = ["滿意寶寶日本境內版", "Awibii", "奢寵幫"]
+BRANDS = ["滿意寶寶日本境內版", "Aiwibi", "奢寵幫"]
 
 MANUAL_PRICES_PATH = "data/diaper_monitor/manual_prices.csv"
 HISTORY_PATH = "data/diaper_monitor/history.csv"
