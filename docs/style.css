@@ -147,6 +147,101 @@ body {
   border-bottom-color: var(--text-primary);
 }
 
+/* ---- 模組選單 ----
+   標籤列適合「快速切換 + 看出我在哪一頁」，但它說不出每一頁在做什麼，
+   而且手機上是橫向捲動的——排在後面的模組可能從來沒被發現。
+   選單補的是這兩件事：分組、一句話說明、以及一次看得到全部。 */
+.menu-toggle {
+  position: sticky;
+  top: 0;
+  z-index: 21;
+  display: none;                 /* 桌機由下方規則開啟；沒有 JS 時完全不出現 */
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  appearance: none;
+  background: var(--page);
+  border: 0;
+  border-bottom: 1px solid var(--hairline);
+  padding: 14px 0;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: var(--fs-3);
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+.menu-toggle:hover { color: var(--text-primary); }
+
+.menu-icon {
+  width: 16px; height: 10px;
+  border-top: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  position: relative;
+  flex: 0 0 auto;
+}
+.menu-icon::after {
+  content: ""; position: absolute; left: 0; top: 3.5px;
+  width: 100%; border-top: 1.5px solid currentColor;
+}
+
+.menu-toggle-current {
+  margin-left: auto;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.module-menu {
+  position: sticky;
+  top: 50px;
+  z-index: 19;
+  background: var(--surface-1);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 32px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 8px 32px;
+}
+.module-menu[hidden] { display: none; }
+
+.menu-group h3 {
+  margin: 0 0 6px;
+  font-size: var(--fs-1);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.module-menu a {
+  display: block;
+  padding: 8px 10px;
+  margin: 0 -10px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--text-primary);
+}
+.module-menu a:hover { background: var(--surface-2); }
+.module-menu a[aria-current="page"] {
+  background: var(--surface-2);
+  box-shadow: inset 2px 0 0 var(--text-primary);
+}
+.menu-name { display: block; font-size: var(--fs-3); font-weight: 500; }
+.menu-desc {
+  display: block;
+  margin-top: 2px;
+  font-size: var(--fs-2);
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+/* 桌機：標籤列仍是主要切換方式，選單當作「看全貌」的輔助 */
+@media (min-width: 721px) {
+  .menu-toggle { display: flex; }
+  .menu-toggle-current { display: none; }
+}
+
 /* ---- 資料範圍切換（S&P 500／全美股）---- */
 .source-switch {
   display: inline-flex;
@@ -683,7 +778,12 @@ footer.disclaimer a { color: var(--text-secondary); }
 
   /* 手機上七個完整名稱各只分到約 40px，於是「模組一：市場流動性監控」
      被拆成一行一個字，整條導覽高達 144px 而且最後一項還被切掉。
-     改為短名 + 單行橫向捲動：高度回到一行，七項全部可達。 */
+     短名 + 單行橫向捲動可以把高度壓回一行——但橫向捲動仍然會把後面的模組
+     藏在畫面外。因此手機改以選單為主：標籤列收起來，只留一顆會顯示
+     目前頁面的按鈕，按下去一次看得到全部七項。
+
+     沒有 JS 時 .menu-toggle 不會被建立，這條規則也就不生效，
+     標籤列維持原本的橫向捲動——功能不會消失，只是少了選單。 */
   .module-nav {
     gap: 18px;
     margin-bottom: 32px;
@@ -694,6 +794,10 @@ footer.disclaimer a { color: var(--text-secondary); }
   .module-nav a { white-space: nowrap; letter-spacing: 0.02em; }
   .module-nav .nav-full { display: none; }
   .module-nav .nav-short { display: inline; }
+
+  .menu-toggle { display: flex; }
+  .menu-toggle ~ .module-nav { display: none; }
+  .module-menu { top: 49px; grid-template-columns: 1fr; padding: 16px 18px; }
   .hero { gap: 32px; }
   .hero .score { font-size: var(--fs-8); }
   .stat-row { border-left: 0; }

@@ -44,7 +44,88 @@
     pending = requestAnimationFrame(() => { pending = null; apply(); });
   }
 
+
+// ---------------------------------------------------------------------------
+// 模組選單
+//
+// **為什麼不只留那條標籤列**：七項而且還在增加，標籤本身又不說明那一頁在做
+// 什麼——「模組三：策略回測」回測了什麼、用什麼資料，看標籤是不知道的。
+// 而手機上那條列是橫向捲動的，排在後面的模組使用者可能從來沒發現。
+//
+// 選單由**既有的 nav 連結生成**，不是另外寫一份：七頁的導覽列已經有測試守著
+// 彼此一致，再手寫一份選單就等於多一個會走鐘的來源。描述放在這裡集中管理。
+
+const MODULE_INFO = {
+  "index.html": { group: "市場狀態", desc: "六大類別計分、三道閘門、部位建議" },
+    "macro.html": { group: "市場狀態", desc: "26 條 FRED 總經指標、發布日誌與 AI 摘要" },
+  "rotation.html": { group: "類股", desc: "相對強弱象限與資金流（1 日～3 月）" },
+  "trend.html": { group: "類股", desc: "主要 ETF 的均線與趨勢（1 月～3 年）" },
+  "valuation.html": { group: "個股", desc: "分析師共識目標價與市價的差距" },
+  "backtest.html": { group: "策略", desc: "近十五年 QQQ／TQQQ／SGOV 實測模組一策略" },
+  "tail.html": { group: "策略", desc: "尾部脆弱度雙閘門（影子運行，門檻未校準）" },
+};
+const GROUP_ORDER = ["市場狀態", "類股", "個股", "策略"];
+
+function buildMenu() {
+  const nav = document.querySelector(".module-nav");
+  if (!nav || document.getElementById("module-menu")) return;
+
+  const links = [...nav.querySelectorAll("a")].map((a) => ({
+    href: a.getAttribute("href"),
+    full: a.querySelector(".nav-full")?.textContent.trim() || a.textContent.trim(),
+    short: a.querySelector(".nav-short")?.textContent.trim() || "",
+    current: a.classList.contains("active"),
+  }));
+  const here = links.find((l) => l.current);
+
+  const toggle = document.createElement("button");
+  toggle.type = "button";
+  toggle.className = "menu-toggle";
+  toggle.setAttribute("aria-expanded", "false");
+  toggle.setAttribute("aria-controls", "module-menu");
+  toggle.innerHTML = `<span class="menu-icon" aria-hidden="true"></span>`
+    + `<span class="menu-toggle-label">全部模組</span>`
+    + `<span class="menu-toggle-current">${here ? here.short || here.full : ""}</span>`;
+
+  const panel = document.createElement("div");
+  panel.id = "module-menu";
+  panel.className = "module-menu";
+  panel.hidden = true;
+  panel.innerHTML = GROUP_ORDER.map((g) => {
+    const items = links.filter((l) => (MODULE_INFO[l.href] || {}).group === g);
+    if (!items.length) return "";
+    return `<div class="menu-group"><h3>${g}</h3>` + items.map((l) => `
+      <a href="${l.href}"${l.current ? ' aria-current="page"' : ""}>
+        <span class="menu-name">${l.full}</span>
+        <span class="menu-desc">${(MODULE_INFO[l.href] || {}).desc || ""}</span>
+      </a>`).join("") + "</div>";
+  }).join("");
+
+  nav.parentNode.insertBefore(toggle, nav);
+  nav.parentNode.insertBefore(panel, nav.nextSibling);
+
+  const close = () => {
+    panel.hidden = true;
+    toggle.setAttribute("aria-expanded", "false");
+  };
+  const open = () => {
+    panel.hidden = false;
+    toggle.setAttribute("aria-expanded", "true");
+    panel.querySelector("a")?.focus();
+  };
+  toggle.addEventListener("click", () =>
+    (toggle.getAttribute("aria-expanded") === "true" ? close() : open()));
+  // Esc 關閉、點外面關閉：開著的浮層一定要有這兩條退路，
+  // 否則在手機上會變成「只能按那顆按鈕才回得去」
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+  document.addEventListener("click", (e) => {
+    if (!panel.hidden && !panel.contains(e.target) && !toggle.contains(e.target)) close();
+  });
+  window.addEventListener("resize", close);
+}
+
   function start() {
+    buildMenu();
     apply();
     window.addEventListener("resize", schedule);
     // 表格是抓完資料才填的，所以要在內容變動後重算——只掛在 tbody 上，
