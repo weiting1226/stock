@@ -43,8 +43,9 @@ def main() -> int:
     for s in rep["sectors"]:
         p = next((e for e in s["etfs"] if e["is_primary"]), s["etfs"][0])
         r1y = p["returns"].get("1y")
-        disp = s["dispersion_1y"]
-        flag = "" if disp is None or disp < 5 else f"  ⚠ 同類股 ETF 一年報酬差 {disp} 個百分點"
+        disp = s["provider_dispersion_1y"]
+        flag = ("" if disp is None or disp < 3
+                else f"  ⚠ 同發行商間一年報酬差 {disp} 個百分點")
         print(f"  {s['sector']:<8} {p['ticker']:<5} 近一年 {r1y if r1y is not None else '—':>7}%"
               f"  200MA {'上' if p.get('above_ma200') else '下'}{flag}")
     if rep["missing"]:

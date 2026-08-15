@@ -213,3 +213,42 @@ def test_the_page_states_it_has_no_invented_score():
     root = Path(__file__).resolve().parents[1]
     html = (root / "docs" / "trend.html").read_text(encoding="utf-8")
     assert "沒有自創的綜合分數" in html
+
+
+def test_the_runner_script_can_print_a_real_report(tmp_path, capsys):
+    """**這一則是補破網。** 把 dispersion_1y 更名為 provider_dispersion_1y 時，
+    config／metrics／report／前端／測試全都改了，唯獨漏掉 run_sector_trend.py，
+    於是排程連兩天 KeyError 失敗——而單元測試全綠，因為沒有任何一則走過
+    執行腳本的列印路徑。
+
+    這裡拿**真的由 report 產生**的字典餵給 main()，兩邊的欄位名稱若再度不一致
+    就會當場失敗。"""
+    import runpy
+    import sys
+    from unittest import mock
+
+    from sector_trend import report as R
+
+    rng = np.random.default_rng(5)
+    idx = pd.bdate_range("2022-01-03", periods=900)
+    tickers = config.all_tickers()
+    wide = pd.DataFrame({t: pd.Series(100 * np.exp(np.cumsum(
+        rng.normal(0.0003, 0.011, len(idx)))), index=idx) for t in tickers})
+
+    with mock.patch.object(R.metrics, "fetch_adjusted", return_value=(wide, [])), \
+         mock.patch.object(R, "HISTORY_PATH", str(tmp_path / "b.csv")), \
+         mock.patch("sector_trend.report.HISTORY_PATH", str(tmp_path / "b.csv")):
+        rep = R.build_report(as_of="2026-08-13")
+
+    argv = sys.argv
+    sys.argv = ["run_sector_trend.py", "--data-root", str(tmp_path)]
+    try:
+        with mock.patch("sector_trend.report.build_report", return_value=rep):
+            with pytest.raises(SystemExit) as exc:
+                runpy.run_path("scripts/run_sector_trend.py", run_name="__main__")
+    finally:
+        sys.argv = argv
+
+    assert exc.value.code == 0
+    out = capsys.readouterr().out
+    assert "廣度" in out and "站上 200 日線" in out
