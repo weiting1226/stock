@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>模組八：尿布單價監控 — 儀表板</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="wrap">
+  <nav class="module-nav">
+    <a href="index.html"><span class="nav-full">模組一：市場流動性監控</span><span class="nav-short">① 流動性</span></a>
+    <a href="valuation.html"><span class="nav-full">模組二：分析師估值比較</span><span class="nav-short">② 估值</span></a>
+    <a href="backtest.html"><span class="nav-full">模組三：策略回測</span><span class="nav-short">③ 回測</span></a>
+    <a href="rotation.html"><span class="nav-full">模組四：類股資金輪動</span><span class="nav-short">④ 輪動</span></a>
+    <a href="macro.html"><span class="nav-full">模組五：總體經濟觀察</span><span class="nav-short">⑤ 總經</span></a>
+    <a href="tail.html"><span class="nav-full">模組六：尾部脆弱度</span><span class="nav-short">⑥ 尾部</span></a>
+    <a href="trend.html"><span class="nav-full">模組七：類股 ETF 趨勢</span><span class="nav-short">⑦ 趨勢</span></a>
+    <a href="diaper.html" class="active"><span class="nav-full">模組八：尿布單價監控</span><span class="nav-short">⑧ 尿布</span></a>
+  </nav>
+
+  <header class="top">
+    <div>
+      <h1>尿布 M 號單片價監控</h1>
+      <div class="subtitle" id="asof-label">各平台電商最便宜的單片價格，與近期平均比較；本頁純資料呈現</div>
+    </div>
+  </header>
+
+  <div id="error-slot"></div>
+
+  <section class="card">
+    <h2>今日最便宜單片價</h2>
+    <div class="stat-row" id="brand-stats"></div>
+    <div id="drop-alerts"></div>
+  </section>
+
+  <section class="card">
+    <h2>最便宜單片價走勢</h2>
+    <div class="chart-wrap"><canvas id="price-chart"></canvas></div>
+    <p class="subtitle">每個品牌／通路取當天各平台報價中單片價最低者。三條線彼此不是同一件商品，
+    價格高低本來就不該放在一起比——只跟自己的近期走勢比。</p>
+  </section>
+
+  <section class="card">
+    <h2>各品牌今日各平台報價明細</h2>
+    <div id="offers-slot"></div>
+  </section>
+
+  <footer class="disclaimer">
+    <p><strong>本頁純資料呈現，非採購建議。</strong>資料來源為人工每日查價填入
+    （見 <code>data/diaper_monitor/manual_prices.csv</code>），非自動爬蟲即時抓取，
+    實際售價請以各平台當下頁面為準。</p>
+    <p id="notes-slot"></p>
+    <p>資料來源與程式碼：<a href="https://github.com/weiting1226/stock">GitHub repository</a></p>
+  </footer>
+</div>
+
+<script src="vendor/chart.umd.js"></script>
+<script src="ui.js"></script>
+<script src="diaper.js"></script>
+</body>
+</html>
