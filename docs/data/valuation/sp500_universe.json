@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-08-08",
+  "as_of": "2026-08-15",
   "constituents": [
     {
       "ticker": "MMM",
@@ -1965,7 +1965,7 @@
     },
     {
       "ticker": "MSCI",
-      "name": "MSCI Inc.",
+      "name": "MSCI",
       "sector": "Financials",
       "sub_industry": "Financial Exchanges & Data"
     },
@@ -2085,7 +2085,7 @@
     },
     {
       "ticker": "ORLY",
-      "name": "O’Reilly Automotive",
+      "name": "O'Reilly Automotive",
       "sector": "Consumer Discretionary",
       "sub_industry": "Automotive Retail"
     },
@@ -2367,7 +2367,7 @@
     },
     {
       "ticker": "RMD",
-      "name": "ResMed",
+      "name": "ResMed|",
       "sector": "Health Care",
       "sub_industry": "Health Care Equipment"
     },
