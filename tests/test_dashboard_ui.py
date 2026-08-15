@@ -1,4 +1,4 @@
-"""七頁共用的介面規則。
+"""八頁共用的介面規則。
 
 這些不是「好不好看」的主觀判斷，是**量測出來的問題**對應的修正：
 
@@ -18,7 +18,7 @@ import pytest
 
 DOCS = Path(__file__).resolve().parents[1] / "docs"
 PAGES = ["index.html", "valuation.html", "backtest.html", "rotation.html",
-         "macro.html", "tail.html", "trend.html"]
+         "macro.html", "tail.html", "trend.html", "diaper.html"]
 
 
 def _nav(html: str) -> str:
@@ -124,14 +124,14 @@ def test_every_page_has_a_menu_description():
         assert len(desc.strip()) >= 8, f"{page} 的說明太短，等於沒說"
 
 
-def test_the_nav_itself_is_ordered_one_to_seven():
-    """選單沿用 nav 的順序，所以「1→7」這件事要在 nav 上守住。
+def test_the_nav_itself_is_ordered_one_to_eight():
+    """選單沿用 nav 的順序，所以「1→8」這件事要在 nav 上守住。
     在兩個地方各排一次，就等於多一個會走鐘的來源。"""
-    numerals = "一二三四五六七"
+    numerals = "一二三四五六七八"
     for page in PAGES:
         nav = _nav((DOCS / page).read_text(encoding="utf-8"))
-        seen = re.findall(r"模組([一二三四五六七])", nav)
-        assert seen == list(numerals), f"{page} 的導覽順序不是 1→7：{seen}"
+        seen = re.findall(r"模組([一二三四五六七八])", nav)
+        assert seen == list(numerals), f"{page} 的導覽順序不是 1→8：{seen}"
 
 
 def test_the_menu_does_not_regroup_and_reorder_the_modules():

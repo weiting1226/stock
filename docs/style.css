@@ -107,7 +107,7 @@ body {
 /* ---- 導覽 ---- */
 /* ---- 模組導覽 ----
    固定在頂端：這些頁面很長（估值表在桌機上約 20,000px），導覽若跟著捲走，
-   換一個模組就得先捲回最上面。實測七頁的高度是 3,600～20,000px，
+   換一個模組就得先捲回最上面。實測既有頁面的高度是 3,600～20,000px，
    沒有一頁短到可以忽略這件事。 */
 .module-nav {
   display: flex;
@@ -199,8 +199,8 @@ body {
   border-radius: var(--radius);
   padding: 20px 24px;
   margin-bottom: 32px;
-  /* 依模組編號 1→7 排列。多欄時是「先左右、後上下」，
-     所以閱讀順序仍然是 1234／567，編號不會被打散。 */
+  /* 依模組編號 1→8 排列。多欄時是「先左右、後上下」，
+     所以閱讀順序仍然是 1234／5678，編號不會被打散。 */
   display: grid;
   grid-auto-flow: row;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -533,6 +533,19 @@ td.date, th.date { white-space: nowrap; overflow-wrap: normal; }
   color: var(--text-secondary);
 }
 
+/* 模組八：顯著跌價提示。跟 .warning-box 同樣的骨架，但左線改用 --good——
+   跌價對使用者是好消息，不該套用其他模組用來標示風險的琥珀色 */
+.bargain-box {
+  border-left: 2px solid var(--good);
+  background: transparent;
+  padding: 4px 0 4px 18px;
+  border-radius: 0;
+  margin-bottom: 16px;
+  font-size: var(--fs-3);
+  color: var(--text-secondary);
+}
+.bargain-box strong { color: var(--good-deep); }
+
 .error-banner {
   border-left: 2px solid var(--critical);
   background: transparent;
@@ -770,11 +783,11 @@ footer.disclaimer a { color: var(--text-secondary); }
 @media (max-width: 720px) {
   .wrap { padding: 32px 20px 64px; }
 
-  /* 手機上七個完整名稱各只分到約 40px，於是「模組一：市場流動性監控」
+  /* 手機上完整名稱各只分到約 40px，於是「模組一：市場流動性監控」
      被拆成一行一個字，整條導覽高達 144px 而且最後一項還被切掉。
      短名 + 單行橫向捲動可以把高度壓回一行——但橫向捲動仍然會把後面的模組
      藏在畫面外。因此手機改以選單為主：標籤列收起來，只留一顆會顯示
-     目前頁面的按鈕，按下去一次看得到全部七項。
+     目前頁面的按鈕，按下去一次看得到全部項目。
 
      沒有 JS 時 .menu-toggle 不會被建立，這條規則也就不生效，
      標籤列維持原本的橫向捲動——功能不會消失，只是少了選單。 */
