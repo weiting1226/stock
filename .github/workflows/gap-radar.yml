@@ -1,0 +1,56 @@
+name: Weekly buy-rating gap radar
+
+# 模組九不重新抓資料，只從模組二當週已產出的估值報告裡篩選、彙整，
+# 所以排在模組二的 Tue 23:10 UTC 排程之後、每週一次即可（週二 UTC ≈ 美股週一收盤後）。
+on:
+  schedule:
+    - cron: "30 23 * * 2"
+  workflow_dispatch:
+    inputs:
+      valuation_as_of:
+        description: "留空則直接讀目前的 docs/data/valuation/latest.json"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gap-radar
+  cancel-in-progress: false
+
+jobs:
+  gap-radar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run gap radar
+        run: python3 scripts/run_gap_radar.py -v
+
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data/gap_radar
+          if git diff --cached --quiet; then
+            echo "no data changes"
+          else
+            git commit -m "chore: weekly gap radar update"
+            for attempt in 1 2 3 4; do
+              git pull --rebase origin main && git push && exit 0
+              echo "推送失敗，重試 $attempt"
+              sleep $((attempt * 3))
+            done
+            exit 1
+          fi

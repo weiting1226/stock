@@ -750,6 +750,20 @@ select:focus, input:focus {
 .disp-mid { color: var(--text-secondary); }
 .disp-high { color: var(--serious); }
 
+/* ---- 模組九：風險分層（相對候選股池分歧度分布，見 gap_radar/pipeline.py）---- */
+.tier-low { color: var(--good-deep); }
+.tier-moderate { color: var(--text-secondary); }
+.tier-high { color: var(--serious); }
+.tier-extreme { color: var(--critical); font-weight: 500; }
+
+.badge.buy { color: var(--series-1); border-color: var(--series-1); margin-left: 6px; }
+.badge.strong-buy { color: var(--good-deep); border-color: var(--good); margin-left: 6px; }
+
+.rank-change { font-size: var(--fs-2); color: var(--text-muted); white-space: nowrap; }
+.rank-change.pos { color: var(--good-deep); }
+.rank-change.neg { color: var(--critical); }
+.rank-change.is-new { color: var(--series-1); font-weight: 500; }
+
 /* 股價淨值比 < 1：市價低於帳上股東權益 */
 .pb-cheap { color: var(--good-deep); font-weight: 500; }
 /* 比值算得出來但不可用（負淨值、股別不符）：用弱化的字樣與「查無資料」區分開 */

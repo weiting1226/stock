@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>模組九：買評缺口雷達 — 儀表板</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="wrap">
+  <nav class="module-nav">
+    <a href="index.html"><span class="nav-full">模組一：市場流動性監控</span><span class="nav-short">① 流動性</span></a>
+    <a href="valuation.html"><span class="nav-full">模組二：分析師估值比較</span><span class="nav-short">② 估值</span></a>
+    <a href="backtest.html"><span class="nav-full">模組三：策略回測</span><span class="nav-short">③ 回測</span></a>
+    <a href="rotation.html"><span class="nav-full">模組四：類股資金輪動</span><span class="nav-short">④ 輪動</span></a>
+    <a href="macro.html"><span class="nav-full">模組五：總體經濟觀察</span><span class="nav-short">⑤ 總經</span></a>
+    <a href="tail.html"><span class="nav-full">模組六：尾部脆弱度</span><span class="nav-short">⑥ 尾部</span></a>
+    <a href="trend.html"><span class="nav-full">模組七：類股 ETF 趨勢</span><span class="nav-short">⑦ 趨勢</span></a>
+    <a href="diaper.html"><span class="nav-full">模組八：尿布單價監控</span><span class="nav-short">⑧ 尿布</span></a>
+    <a href="gap_radar.html" class="active"><span class="nav-full">模組九：買評缺口雷達</span><span class="nav-short">⑨ 缺口</span></a>
+  </nav>
+
+  <header class="top">
+    <div>
+      <h1>買評缺口雷達</h1>
+      <div class="subtitle" id="header-subtitle">資料每週自動更新一次；本頁純資料呈現，非投資建議</div>
+    </div>
+  </header>
+
+  <div id="error-slot"></div>
+
+  <section class="card">
+    <div class="stat-row" id="stat-row"></div>
+    <p class="subtitle" id="basis-note" style="margin-bottom:0"></p>
+  </section>
+
+  <section class="card">
+    <h2>樂觀情境地圖</h2>
+    <p class="subtitle">
+      橫軸是「現價到共識目標價」的上漲空間，縱軸是目標價分歧度（機構看法有多分裂），
+      泡泡大小約略代表市值。灰點是其餘買評股，藍點是本次入選前 10 名。
+    </p>
+    <div class="chart-wrap" style="height:380px"><canvas id="scatter-chart"></canvas></div>
+  </section>
+
+  <section class="card">
+    <h2>價差 Top 10</h2>
+    <p class="subtitle">
+      在全部獲「買入」或「強力買入」評等的成分股中，依「現價→共識目標價」的上漲空間由大到小排序。
+      風險分層依本次候選股池分歧度分布計算：<span class="tier-low">低</span>／<span class="tier-moderate">中</span>／<span class="tier-high">高</span>／<span class="tier-extreme">極端</span>。
+    </p>
+    <div class="table-scroll">
+      <table id="gap-table">
+        <thead>
+          <tr>
+            <th>名次</th>
+            <th>代號</th>
+            <th>公司 / 類股</th>
+            <th class="num">收盤價 → 目標價</th>
+            <th class="num">上漲空間</th>
+            <th>目標價分歧度</th>
+            <th class="num">機構數</th>
+            <th>較上次</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="subtitle" id="table-note"></p>
+  </section>
+
+  <section class="card">
+    <h2>解讀限制</h2>
+    <ul class="checklist" id="caveats-list"></ul>
+  </section>
+
+  <footer class="disclaimer">
+    <p><strong>非投資建議。</strong>本頁是模組二（分析師估值比較）資料的機械化篩選與彙整，提供者非持牌投資顧問。</p>
+    <p>「上漲空間」只代表分析師共識目標價高於現價，<strong>不等於便宜或值得買進</strong>；「分歧度」衡量的是機構之間認知的分散程度，
+      不是統計上的標準差，方向上與不確定性正相關。兩者都可能隨財報季快速變動。</p>
+    <p>資料來源與程式碼：<a href="https://github.com/weiting1226/stock">GitHub repository</a></p>
+  </footer>
+</div>
+
+<script src="vendor/chart.umd.js"></script>
+<script src="ui.js"></script>
+<script src="gap_radar.js"></script>
+</body>
+</html>
