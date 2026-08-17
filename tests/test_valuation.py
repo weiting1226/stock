@@ -8,6 +8,7 @@
 """
 from __future__ import annotations
 
+import json
 from unittest import mock
 
 import pandas as pd
@@ -570,3 +571,101 @@ def test_both_data_paths_end_up_with_the_same_vocabulary():
     sp = build_row({"ticker": "AAA", "sector": "Information Technology"}, None, [])
     uni = row_from_record({"ticker": "BBB", "covered": False, "sector": "Technology"}, {})
     assert sp.sector == uni.sector == "Information Technology"
+
+
+# --- Nasdaq-100 股票池 -------------------------------------------------------
+#
+# 維基百科的 Nasdaq-100 頁面自 2026-08 起已無法解析出成分股表格（模組一的
+# NDX 廣度指標已因此改用 TradingView），因此這裡直接沿用同一支抓取，
+# 不重蹈覆轍。類股沒有現成資料，改用 S&P 500 清單對照補上。
+
+def _ndx_component(symbol, name=None):
+    from liquidity_monitor.sources.tradingview_ndx import Component
+    return Component(symbol=symbol, name=name)
+
+
+def test_fetch_ndx100_universe_backfills_sector_from_sp500_overlap():
+    sp500 = [
+        {"ticker": "AAPL", "name": "Apple Inc.", "sector": "Information Technology", "sub_industry": "Hardware"},
+    ]
+    with mock.patch.object(universe, "fetch_ndx_components",
+                           return_value=[_ndx_component("AAPL"), _ndx_component("ZZZZ", "Not In SP500")]), \
+         mock.patch.object(universe, "fetch_sp500_universe", return_value=sp500):
+        rows = universe.fetch_ndx100_universe()
+
+    by_ticker = {r["ticker"]: r for r in rows}
+    assert by_ticker["AAPL"]["sector"] == "Information Technology"
+    assert by_ticker["AAPL"]["name"] == "Apple Inc."
+    # 不在 S&P 500 對照表裡的成分股：類股標 Unknown，不臆測填補
+    assert by_ticker["ZZZZ"]["sector"] == "Unknown"
+    assert by_ticker["ZZZZ"]["name"] == "Not In SP500"
+
+
+def test_fetch_ndx100_universe_survives_sp500_lookup_failure():
+    """類股只是加值資訊，S&P 500 對照抓不到時，成分股清單本身仍要回傳。"""
+    with mock.patch.object(universe, "fetch_ndx_components", return_value=[_ndx_component("AAPL")]), \
+         mock.patch.object(universe, "fetch_sp500_universe", side_effect=RuntimeError("boom")):
+        rows = universe.fetch_ndx100_universe()
+
+    assert rows == [{"ticker": "AAPL", "name": "AAPL", "sector": "Unknown", "sub_industry": ""}]
+
+
+def test_fetch_ndx100_universe_uses_unexpired_cache(tmp_path):
+    cache = tmp_path / "ndx.json"
+    cache.write_text(json.dumps({
+        "as_of": str(pd.Timestamp.today().date()),
+        "constituents": [{"ticker": "CACHED", "name": "Cached Co", "sector": "Unknown", "sub_industry": ""}],
+    }))
+    with mock.patch.object(universe, "fetch_ndx_components",
+                           side_effect=AssertionError("不該重抓")):
+        rows = universe.fetch_ndx100_universe(cache_path=str(cache))
+    assert rows[0]["ticker"] == "CACHED"
+
+
+def test_pipeline_runs_against_ndx100_universe(monkeypatch, tmp_path):
+    consts = [{"ticker": "AAA", "name": "Alpha", "sector": "Energy", "sub_industry": "Oil"}]
+    monkeypatch.setattr(pipeline.universe, "fetch_ndx100_universe", lambda **kw: consts)
+    monkeypatch.setattr(pipeline.prices, "fetch_price_snapshots", lambda tickers, **kw: {
+        "AAA": PriceSnapshot("AAA", close=100.0, close_date="2026-08-07"),
+    })
+    monkeypatch.setattr(pipeline, "fetch_yahoo_target", lambda t: _quote("yahoo", 130.0))
+    monkeypatch.setattr(pipeline.finnhub_targets, "is_enabled", lambda key=None: False)
+
+    report = pipeline.run(
+        as_of="2026-08-07", universe_source="ndx100",
+        universe_cache_path=str(tmp_path / "ndx.json"),
+    )
+    assert report["universe"] == "Nasdaq-100 (TradingView constituents)"
+    assert report["rows"][0]["ticker"] == "AAA"
+
+
+def test_pipeline_rejects_unknown_universe_source():
+    with pytest.raises(ValueError, match="sp500 或 ndx100"):
+        pipeline.run(universe_source="nyse-composite")
+
+
+def test_storage_prefix_keeps_two_universes_in_the_same_data_root(tmp_path):
+    """S&P 500（無前綴）與 Nasdaq-100（"ndx100_"）共用一個 data_root，
+    檔名不能互相覆蓋。"""
+    sp500_report = {
+        "as_of": "2026-08-07", "counts": {"universe": 1, "with_target_and_price": 1},
+        "sources_available": ["yahoo"],
+        "rows": [{"ticker": "AAA", "upside_pct": 10.0}],
+    }
+    ndx_report = {
+        "as_of": "2026-08-07", "counts": {"universe": 1, "with_target_and_price": 1},
+        "sources_available": ["yahoo"],
+        "rows": [{"ticker": "BBB", "upside_pct": -5.0}],
+    }
+    storage.save_report(sp500_report, data_root=str(tmp_path))
+    storage.save_report(ndx_report, data_root=str(tmp_path), prefix="ndx100_")
+
+    assert (tmp_path / "latest.json").exists()
+    assert (tmp_path / "ndx100_latest.json").exists()
+    assert (tmp_path / "snapshots" / "2026-08-07.json").exists()
+    assert (tmp_path / "ndx100_snapshots" / "2026-08-07.json").exists()
+
+    sp_saved = json.loads((tmp_path / "latest.json").read_text())
+    ndx_saved = json.loads((tmp_path / "ndx100_latest.json").read_text())
+    assert sp_saved["rows"][0]["ticker"] == "AAA"
+    assert ndx_saved["rows"][0]["ticker"] == "BBB"

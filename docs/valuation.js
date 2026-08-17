@@ -1,8 +1,9 @@
-// 兩份資料源：S&P 500 是每日全量重抓的完整快照；全美股是跨多班次逐檔累積的
-// 掃描結果，覆蓋率會隨當天進度成長。共用同一套渲染與篩選程式碼，避免兩邊的
-// 上漲空間／離散度定義各自演化。
+// 三份資料源：S&P 500 與 Nasdaq-100 都是每日全量重抓的完整快照；全美股是跨
+// 多班次逐檔累積的掃描結果，覆蓋率會隨當天進度成長。共用同一套渲染與篩選
+// 程式碼，避免三邊的上漲空間／離散度定義各自演化。
 const DATA_SOURCES = {
   sp500: { path: "data/valuation/latest.json", label: "S&P 500" },
+  ndx100: { path: "data/valuation/ndx100_latest.json", label: "Nasdaq-100" },
   universe: { path: "data/valuation/universe_latest.json", label: "全美股" },
 };
 

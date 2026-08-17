@@ -3,6 +3,7 @@
 
     python3 scripts/run_valuation.py -v
     python3 scripts/run_valuation.py --limit 20 -v        # 只跑前20檔，快速驗證
+    python3 scripts/run_valuation.py --universe ndx100 -v # Nasdaq-100 而非 S&P 500
     FMP_API_KEY=xxx python3 scripts/run_valuation.py      # 啟用逐機構目標價（依機構去重後自行平均）
     FINNHUB_API_KEY=xxx python3 scripts/run_valuation.py  # 加入第二個共識來源
 """
@@ -17,12 +18,21 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from analyst_valuation import pipeline, storage  # noqa: E402
 
+_DEFAULT_UNIVERSE_CACHE = {
+    "sp500": "docs/data/valuation/sp500_universe.json",
+    "ndx100": "docs/data/valuation/ndx100_universe.json",
+}
+_PREFIX = {"sp500": "", "ndx100": "ndx100_"}
+
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--as-of", default=None, help="資料基準日 (YYYY-MM-DD)，預設今天(UTC)")
+    parser.add_argument("--universe", choices=["sp500", "ndx100"], default="sp500",
+                        help="股票池：S&P 500（預設）或 Nasdaq-100")
     parser.add_argument("--data-root", default="docs/data/valuation")
-    parser.add_argument("--universe-cache", default="docs/data/valuation/sp500_universe.json")
+    parser.add_argument("--universe-cache", default=None,
+                        help="預設依 --universe 自動決定（sp500_universe.json 或 ndx100_universe.json）")
     parser.add_argument("--limit", type=int, default=None, help="只處理前 N 檔（測試用）")
     parser.add_argument("--max-workers", type=int, default=8)
     parser.add_argument("-v", "--verbose", action="store_true")
@@ -33,17 +43,21 @@ def main() -> int:
         format="%(asctime)s %(levelname)s %(name)s: %(message)s",
     )
 
+    universe_cache = args.universe_cache or _DEFAULT_UNIVERSE_CACHE[args.universe]
+
     report = pipeline.run(
         as_of=args.as_of,
-        universe_cache_path=args.universe_cache,
+        universe_source=args.universe,
+        universe_cache_path=universe_cache,
+        sp500_cache_path=_DEFAULT_UNIVERSE_CACHE["sp500"],
         limit=args.limit,
         max_workers=args.max_workers,
     )
-    storage.save_report(report, data_root=args.data_root)
+    storage.save_report(report, data_root=args.data_root, prefix=_PREFIX[args.universe])
 
     counts = report["counts"]
     print(
-        f"[{report['as_of']}] 股票池 {counts['universe']} 檔，"
+        f"[{report['as_of']}] {report['universe']}　股票池 {counts['universe']} 檔，"
         f"取得目標價+收盤價 {counts['with_target_and_price']} 檔，"
         f"暫缺 {counts['missing']} 檔，來源：{'/'.join(report['sources_available']) or '無'}"
     )

@@ -48,7 +48,7 @@ jobs:
           echo "FMP_API_KEY 長度     = ${#FMP_API_KEY}  (0 表示未設定或值為空)"
           echo "FINNHUB_API_KEY 長度 = ${#FINNHUB_API_KEY}"
 
-      - name: Run valuation scraper
+      - name: Run valuation scraper (S&P 500)
         env:
           # 選用：設定後可取得逐機構目標價，依機構去重後自行計算平均
           FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
@@ -62,7 +62,23 @@ jobs:
           if [ -n "${{ github.event.inputs.limit }}" ]; then
             ARGS="$ARGS --limit ${{ github.event.inputs.limit }}"
           fi
-          python3 scripts/run_valuation.py $ARGS
+          python3 scripts/run_valuation.py --universe sp500 $ARGS
+
+      # 同一個 job 裡順便跑：Nasdaq-100 只有約 100 檔，成本很低，
+      # 而且類股對照要用到剛產生的 sp500_universe.json 快取。
+      - name: Run valuation scraper (Nasdaq-100)
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
+          FINNHUB_API_KEY: ${{ secrets.FINNHUB_API_KEY }}
+        run: |
+          ARGS="-v"
+          if [ -n "${{ github.event.inputs.as_of }}" ]; then
+            ARGS="$ARGS --as-of ${{ github.event.inputs.as_of }}"
+          fi
+          if [ -n "${{ github.event.inputs.limit }}" ]; then
+            ARGS="$ARGS --limit ${{ github.event.inputs.limit }}"
+          fi
+          python3 scripts/run_valuation.py --universe ndx100 $ARGS
 
       - name: Commit updated data
         run: |
