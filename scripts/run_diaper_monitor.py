@@ -43,10 +43,11 @@ def main() -> int:
     print(f"[{report['as_of']}] 尿布 {report['size']} 號單片價監控")
     for b in report["brands"]:
         if not b["has_data"]:
-            print(f"  {b['brand']:<12} 今日無報價")
+            print(f"  {b['brand']:<12} 尚無任何報價紀錄")
             continue
+        stale_tag = f"  [{b['data_date']}，非今日]" if b["is_stale"] else ""
         line = (f"  {b['brand']:<12} 最便宜 {b['cheapest_unit_price']:.2f} 元/片"
-                f"（{b['cheapest_platform']}，{b['offer_count']} 個平台報價）")
+                f"（{b['cheapest_platform']}，{b['offer_count']} 個平台報價）{stale_tag}")
         if b["baseline_avg"] is not None:
             line += f"  近{report['baseline_window_days']}日均 {b['baseline_avg']:.2f}  變動 {b['pct_change_vs_baseline']:+.1f}%"
             if b["significant_drop"]:

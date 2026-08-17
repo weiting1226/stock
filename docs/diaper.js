@@ -26,11 +26,19 @@ function showError(msg) {
 
 // --- 今日總覽 ------------------------------------------------------------
 
+// 沒填今天的報價時，畫面退回顯示該品牌最近一次有資料的日期，而不是空白——
+// 但一定要讓看的人知道那不是今天的價格，所以每個用到的地方都帶上這個標籤
+function staleBadge(b) {
+  return b.is_stale
+    ? ` <span class="badge muted" title="今天沒有新報價，顯示最近一次查到的價格">${escapeHtml(b.data_date)}・非今日</span>`
+    : "";
+}
+
 function renderStats(r) {
   const tiles = (r.brands || []).map((b) => {
     if (!b.has_data) {
       return `<div class="stat-tile">
-        <div class="stat-value is-text" style="color:${cssVar("--text-muted")}">今日無報價</div>
+        <div class="stat-value is-text" style="color:${cssVar("--text-muted")}">尚無報價</div>
         <div class="stat-label">${escapeHtml(b.brand)}</div></div>`;
     }
     const changeColor = b.significant_drop ? "--good-deep" : b.pct_change_vs_baseline < 0 ? "--good" : "--text-secondary";
@@ -38,7 +46,7 @@ function renderStats(r) {
       ? `<span style="color:${cssVar(changeColor)}">${pct(b.pct_change_vs_baseline)}</span> vs 近${r.baseline_window_days}日均 ${money(b.baseline_avg)}`
       : `近期資料不足（${b.baseline_points}/${r.min_baseline_points} 筆），未判定`;
     return `<div class="stat-tile">
-      <div class="stat-value">${money(b.cheapest_unit_price)}${b.significant_drop ? ` <span class="badge ok">顯著下跌</span>` : ""}</div>
+      <div class="stat-value">${money(b.cheapest_unit_price)}${b.significant_drop ? ` <span class="badge ok">顯著下跌</span>` : ""}${staleBadge(b)}</div>
       <div class="stat-label">${escapeHtml(b.brand)}・${escapeHtml(b.cheapest_platform)}</div>
       <div class="subtitle">${changeLine}</div>
     </div>`;
@@ -48,7 +56,8 @@ function renderStats(r) {
   const alerts = (r.brands || []).filter((b) => b.significant_drop);
   document.getElementById("drop-alerts").innerHTML = alerts.length
     ? alerts.map((b) => `<div class="bargain-box">
-        <strong>${escapeHtml(b.brand)}</strong> 今日最便宜 ${money(b.cheapest_unit_price)}
+        <strong>${escapeHtml(b.brand)}</strong> ${b.is_stale ? `${escapeHtml(b.data_date)}（非今日）最便宜` : "今日最便宜"}
+        ${money(b.cheapest_unit_price)}
         （${escapeHtml(b.cheapest_platform)}），較近 ${r.baseline_window_days} 日平均
         <strong>下跌 ${Math.abs(b.pct_change_vs_baseline).toFixed(1)}%</strong>，
         達顯著下跌門檻（${r.drop_threshold_pct}%）。
@@ -97,7 +106,7 @@ function renderOffers(r) {
     if (!b.has_data) {
       return `<div class="card" style="padding-top:8px">
         <h3 style="font-size:var(--fs-3);margin:0 0 8px">${escapeHtml(b.brand)}</h3>
-        <p class="subtitle">今日尚無報價。</p></div>`;
+        <p class="subtitle">尚無任何報價紀錄。</p></div>`;
     }
     const rows = (b.offers || []).map((o, i) => `<tr${i === 0 ? ' style="font-weight:500"' : ""}>
         <td>${escapeHtml(o.platform)}</td>
@@ -109,7 +118,7 @@ function renderOffers(r) {
       </tr>`).join("");
     return `<div class="card" style="padding-top:8px">
       <h3 style="font-size:var(--fs-3);margin:0 0 8px">${escapeHtml(b.brand)}
-        <span class="subtitle">（${b.offer_count} 個平台報價，最便宜標粗體）</span></h3>
+        <span class="subtitle">（${b.is_stale ? `${escapeHtml(b.data_date)} 資料，非今日；` : ""}${b.offer_count} 個平台報價，最便宜標粗體）</span></h3>
       <div class="table-scroll">
         <table>
           <thead><tr><th>平台</th><th>商品</th><th class="num">售價</th>

@@ -85,15 +85,86 @@ def test_daily_summary_uses_the_cheapest_offer_not_the_average(tmp_path):
     assert b["offers"][0]["platform"] == "momo購物網"
 
 
-def test_brand_with_no_offers_today_is_reported_as_missing_not_zero(tmp_path):
+def test_brand_with_no_offers_ever_is_reported_as_missing_not_zero(tmp_path):
     manual = tmp_path / "manual.csv"
     history = tmp_path / "history.csv"
     _write_manual_csv(manual, [("2026-07-01", BRANDS[0], "蝦皮", 6400, 64)])
     report = pipeline.build_report(as_of="2026-07-01", manual_path=str(manual), history_path=str(history))
     missing = next(x for x in report["brands"] if x["brand"] == BRANDS[1])
     assert missing["has_data"] is False
-    assert missing["cheapest_unit_price"] is None
-    assert missing["significant_drop"] is False
+    assert missing["data_date"] is None
+    assert missing["is_stale"] is False
+
+
+# --- 沒填今日資料時退回最近一筆 --------------------------------------------
+
+def test_falls_back_to_the_most_recent_data_when_today_is_missing(tmp_path):
+    manual = tmp_path / "manual.csv"
+    history = tmp_path / "history.csv"
+    brand = BRANDS[0]
+    # 只有 07-01 有資料，07-03 完全沒填（忘記查價）
+    _write_manual_csv(manual, [("2026-07-01", brand, "蝦皮", 100 * 64, 64)])
+    pipeline.build_report(as_of="2026-07-01", manual_path=str(manual), history_path=str(history))
+
+    report = pipeline.build_report(as_of="2026-07-03", manual_path=str(manual), history_path=str(history))
+    b = next(x for x in report["brands"] if x["brand"] == brand)
+    assert b["has_data"] is True
+    assert b["is_stale"] is True
+    assert b["data_date"] == "2026-07-01"
+    assert b["cheapest_unit_price"] == pytest.approx(100.0)
+    assert b["cheapest_platform"] == "蝦皮"
+
+
+def test_stale_fallback_does_not_pollute_history(tmp_path):
+    """墊檔用的舊資料不能被當成「今天」寫進歷史，否則同一個價格會重複計入
+    近期平均，變相拉高「顯著下跌」的判定門檻。"""
+    manual = tmp_path / "manual.csv"
+    history = tmp_path / "history.csv"
+    brand = BRANDS[0]
+    _write_manual_csv(manual, [("2026-07-01", brand, "蝦皮", 100 * 64, 64)])
+    pipeline.build_report(as_of="2026-07-01", manual_path=str(manual), history_path=str(history))
+
+    pipeline.build_report(as_of="2026-07-03", manual_path=str(manual), history_path=str(history))
+    pipeline.build_report(as_of="2026-07-05", manual_path=str(manual), history_path=str(history))
+
+    hist = pd.read_csv(history)
+    brand_hist = hist[hist["brand"] == brand]
+    assert len(brand_hist) == 1
+    assert list(brand_hist["date"]) == ["2026-07-01"]
+
+
+def test_baseline_for_stale_data_is_relative_to_its_own_date_not_as_of(tmp_path):
+    manual = tmp_path / "manual.csv"
+    history = tmp_path / "history.csv"
+    brand = BRANDS[0]
+    # 建立 14 天穩定在 100 的歷史，最後一天（第 15 天）大跌到 80，之後就沒再填資料
+    last_data_day = _seed_history(manual, history, brand, daily_price=100, n_days=BASELINE_WINDOW_DAYS)
+    _write_manual_csv(manual, [(last_data_day.isoformat(), brand, "蝦皮", 80 * 64, 64)])
+    pipeline.build_report(as_of=last_data_day.isoformat(), manual_path=str(manual), history_path=str(history))
+
+    much_later = last_data_day + datetime.timedelta(days=10)
+    report = pipeline.build_report(as_of=much_later.isoformat(), manual_path=str(manual), history_path=str(history))
+    b = next(x for x in report["brands"] if x["brand"] == brand)
+    assert b["is_stale"] is True
+    assert b["data_date"] == last_data_day.isoformat()
+    assert b["baseline_avg"] == pytest.approx(100.0)
+    assert b["significant_drop"] is True
+
+
+def test_fresh_data_today_is_used_instead_of_falling_back(tmp_path):
+    manual = tmp_path / "manual.csv"
+    history = tmp_path / "history.csv"
+    brand = BRANDS[0]
+    _write_manual_csv(manual, [
+        ("2026-07-01", brand, "蝦皮", 100 * 64, 64),
+        ("2026-07-02", brand, "蝦皮", 90 * 64, 64),
+    ])
+    pipeline.build_report(as_of="2026-07-01", manual_path=str(manual), history_path=str(history))
+    report = pipeline.build_report(as_of="2026-07-02", manual_path=str(manual), history_path=str(history))
+    b = next(x for x in report["brands"] if x["brand"] == brand)
+    assert b["is_stale"] is False
+    assert b["data_date"] == "2026-07-02"
+    assert b["cheapest_unit_price"] == pytest.approx(90.0)
 
 
 # --- 近期平均與顯著下跌判定 ----------------------------------------------------
