@@ -5,6 +5,10 @@
 包裝售價與片數，填成一列。`scripts/run_diaper_monitor.py` 只認得下面這幾個欄位，
 多寫沒關係，少寫會直接報錯。
 
+**比價範圍至少要涵蓋 `diaper_monitor/config.py` 的 `PLATFORMS`：蝦皮、酷澎、
+momo購物網。** 這三個平台每天都要查；其他通路（藥妝連鎖、品牌官網等）查到的話
+可以一起填進去當補充對照，但不能只填這些之外的平台卻漏掉這三個。
+
 | 欄位 | 說明 |
 |---|---|
 | `date` | 查價日期，`YYYY-MM-DD` |
@@ -22,7 +26,7 @@
 date,brand,platform,product_name,pack_price,piece_count,url,note
 2026-08-14,滿意寶寶日本境內版,蝦皮,滿意寶寶 日本境內版 M 64片,899,64,https://example.com/a,
 2026-08-14,滿意寶寶日本境內版,momo購物網,滿意寶寶 境內版 M號 62片,950,62,https://example.com/b,
-2026-08-14,Aiwibi,PChome24h購物,Aiwibi 褲型 M 66片,1080,66,,
+2026-08-14,Aiwibi,酷澎,Aiwibi 褲型 M 66片,1080,66,,
 2026-08-14,奢寵幫,蝦皮,奢寵幫代購 M 60片,780,60,,限時特價
 ```
 

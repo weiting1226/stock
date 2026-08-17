@@ -112,33 +112,50 @@ def build_report(as_of: Optional[str] = None, manual_path: str = MANUAL_PRICES_P
     today_rows_for_history = []
     for brand in BRANDS:
         day_rows = today[today["brand"] == brand]
+        data_date = as_of
+        stale = False
+
         if day_rows.empty:
-            brands_out.append({
-                "brand": brand,
-                "has_data": False,
-                "offers": [],
-                "cheapest_unit_price": None,
-                "cheapest_platform": None,
-                "avg_unit_price": None,
-                "offer_count": 0,
-                "baseline_avg": None,
-                "baseline_points": 0,
-                "pct_change_vs_baseline": None,
-                "significant_drop": False,
-            })
-            continue
+            # 今天沒填 = 忘記查價，不代表沒有價格可看。退回這個品牌有紀錄以來
+            # 最近一筆（不含未來日期），並在報表上清楚標出那不是今天的資料——
+            # 靜靜顯示「今日無報價」對每天都要看一眼的儀表板來說沒有幫助，
+            # 但假裝那是今天的價格會誤導「顯著下跌」的判定，所以兩者都要避免。
+            brand_rows = raw[(raw["brand"] == brand) & (raw["date"].astype(str) <= str(as_of))]
+            if brand_rows.empty:
+                brands_out.append({
+                    "brand": brand,
+                    "has_data": False,
+                    "data_date": None,
+                    "is_stale": False,
+                    "offers": [],
+                    "cheapest_unit_price": None,
+                    "cheapest_platform": None,
+                    "avg_unit_price": None,
+                    "offer_count": 0,
+                    "baseline_avg": None,
+                    "baseline_points": 0,
+                    "pct_change_vs_baseline": None,
+                    "significant_drop": False,
+                })
+                continue
+            data_date = brand_rows["date"].astype(str).max()
+            day_rows = brand_rows[brand_rows["date"].astype(str) == data_date]
+            stale = True
 
         summary = _brand_daily_summary(day_rows)
-        today_rows_for_history.append({
-            "date": as_of,
-            "brand": brand,
-            "cheapest_unit_price": summary["cheapest_unit_price"],
-            "cheapest_platform": summary["cheapest_platform"],
-            "avg_unit_price": summary["avg_unit_price"],
-            "offer_count": summary["offer_count"],
-        })
+        if not stale:
+            # 只有貨真價實「今天」的資料才寫進歷史——用來墊檔的舊資料重複寫入
+            # 會讓近期平均被同一筆價格灌水，變相拉高判定「顯著下跌」的門檻
+            today_rows_for_history.append({
+                "date": as_of,
+                "brand": brand,
+                "cheapest_unit_price": summary["cheapest_unit_price"],
+                "cheapest_platform": summary["cheapest_platform"],
+                "avg_unit_price": summary["avg_unit_price"],
+                "offer_count": summary["offer_count"],
+            })
 
-        baseline_avg, baseline_points = _baseline(history_before, brand, as_of)
+        baseline_avg, baseline_points = _baseline(history_before, brand, data_date)
         pct_change = None
         significant = False
         if baseline_avg:
@@ -155,6 +172,8 @@ def build_report(as_of: Optional[str] = None, manual_path: str = MANUAL_PRICES_P
         brands_out.append({
             "brand": brand,
             "has_data": True,
+            "data_date": data_date,
+            "is_stale": stale,
             "offers": offers.to_dict("records"),
             "baseline_avg": baseline_avg,
             "baseline_points": baseline_points,
@@ -198,6 +217,9 @@ def _notes() -> list:
     return [
         f"「今日最便宜」取當天各平台報價中單片價最低者，不是各平台的平均——"
         f"使用者實際能拿到的價格就是最便宜的那個，用平均會把「其實有更便宜的選擇」平均掉。",
+        "如果某個品牌當天沒填報價，畫面會退回顯示該品牌最近一次有資料的日期"
+        "（並標示「非今日」），不是顯示成「今日無報價」——但那筆退回顯示的資料"
+        "不會被當成「今天」寫進歷史，否則同一個價格會重複墊高近期平均。",
         f"「近期平均」為前 {BASELINE_WINDOW_DAYS} 天（不含當天）的「當日最便宜單價」平均，"
         f"歷史點數不足 {MIN_BASELINE_POINTS} 筆時不判定，避免用一兩筆資料誤判顯著下跌。",
         "資料來源為人工每日填入（見 data/diaper_monitor/manual_prices.csv），"
