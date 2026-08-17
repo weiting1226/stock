@@ -3,6 +3,10 @@
 - latest.json           本次快照的完整報告（top10 + 全買評股背景散布，前端主要資料源）
 - history.csv           每次快照的 top10 名單（一批一批累積），用來算「較上次」的名次變化
 - snapshots/<date>.json 當次快照，供歷史查詢
+
+`prefix` 讓 S&P 500 與 Nasdaq-100 兩個股票池的快照共用同一個 data_root——
+比照模組二 `analyst_valuation.storage` 的作法（S&P 500 用預設空字串、
+Nasdaq-100 用 "ndx100_"），不必為每個股票池各開一個資料夾。
 """
 from __future__ import annotations
 
@@ -25,11 +29,11 @@ def _load_previous_ranks(history_path: Path, before_as_of: str) -> dict[str, int
     return dict(zip(last["ticker"], last["rank"]))
 
 
-def save_report(report: dict, data_root: str = "docs/data/gap_radar") -> dict:
+def save_report(report: dict, data_root: str = "docs/data/gap_radar", prefix: str = "") -> dict:
     root = Path(data_root)
     root.mkdir(parents=True, exist_ok=True)
 
-    history_path = root / "history.csv"
+    history_path = root / f"{prefix}history.csv"
     prev_ranks = _load_previous_ranks(history_path, report["as_of"])
     for row in report["top10"]:
         prev = prev_ranks.get(row["ticker"])
@@ -37,13 +41,13 @@ def save_report(report: dict, data_root: str = "docs/data/gap_radar") -> dict:
         row["is_new"] = prev is None
 
     payload = json.dumps(report, ensure_ascii=False, indent=2, default=str)
-    (root / "latest.json").write_text(payload)
+    (root / f"{prefix}latest.json").write_text(payload)
 
-    snapshots = root / "snapshots"
+    snapshots = root / f"{prefix}snapshots"
     snapshots.mkdir(parents=True, exist_ok=True)
     (snapshots / f"{report['as_of']}.json").write_text(payload)
 
-    index_path = root / "history_index.json"
+    index_path = root / f"{prefix}history_index.json"
     index = json.loads(index_path.read_text()) if index_path.exists() else []
     index = sorted({*[d for d in index if d != report["as_of"]], report["as_of"]})[-104:]
     index_path.write_text(json.dumps(index, ensure_ascii=False, indent=2))

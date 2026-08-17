@@ -9,3 +9,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-08-14,8,MCHP,Microchip Technology,37.94,50.36,moderate
 2026-08-14,9,ZTS,Zoetis,36.79,79.26,extreme
 2026-08-14,10,FICO,Fair Isaac,35.97,70.65,high
+2026-08-17,1,APP,AppLovin,73.89,91.7,extreme
+2026-08-17,2,ORCL,Oracle Corporation,63.72,117.68,extreme
+2026-08-17,3,MU,Micron Technology,54.58,122.44,extreme
+2026-08-17,4,NRG,NRG Energy,50.06,86.04,extreme
+2026-08-17,5,VST,Vistra Corp.,49.38,93.55,extreme
+2026-08-17,6,CRH,CRH plc,42.44,43.36,moderate
+2026-08-17,7,ECHO,EchoStar,39.76,41.27,moderate
+2026-08-17,8,TRMB,Trimble Inc.,39.05,41.2,moderate
+2026-08-17,9,MCHP,Microchip Technology,37.94,50.36,moderate
+2026-08-17,10,ZTS,Zoetis,36.79,79.26,extreme

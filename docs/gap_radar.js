@@ -1,6 +1,17 @@
 // 模組九：買評缺口雷達。資料每週更新一次（見 .github/workflows/gap-radar.yml），
-// 讀 docs/data/gap_radar/latest.json——那份資料本身是模組二每日報告的篩選結果，
+// 讀 docs/data/gap_radar/latest.json——那份資料本身是模組二報告的篩選結果，
 // 兩邊共用「上漲空間」「分歧度」的定義，見 gap_radar/pipeline.py 的說明。
+//
+// 兩份資料源（S&P 500／Nasdaq-100）各自獨立跑一次候選股池與風險分層——
+// 不合併成一份，因為分歧度的「高」是相對各自候選股池的分布而言，混在一起
+// 算會讓兩邊互相污染彼此的門檻。
+
+const DATA_SOURCES = {
+  sp500: { path: "data/gap_radar/latest.json", label: "S&P 500" },
+  ndx100: { path: "data/gap_radar/ndx100_latest.json", label: "Nasdaq-100" },
+};
+
+const state = { source: "sp500" };
 
 const cssVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
@@ -43,7 +54,8 @@ function renderStats(report) {
     .join("");
 
   document.getElementById("header-subtitle").textContent =
-    `產生時間：${report.generated_at || "—"}　|　來源：模組二 ${report.source_generated_at || "—"} 的估值報告`;
+    `股票池：${report.universe || DATA_SOURCES[state.source].label}　|　`
+    + `產生時間：${report.generated_at || "—"}　|　來源：模組二 ${report.source_generated_at || "—"} 的估值報告`;
 
   document.getElementById("basis-note").textContent =
     "風險分層以本次候選股池（獲買入／強力買入評等且資料完整的個股）的分歧度分布為基準：" +
@@ -172,17 +184,31 @@ function renderCaveats(report) {
   document.getElementById("caveats-list").innerHTML = items.map((t) => `<li>${escapeHtml(t)}</li>`).join("");
 }
 
+function wireSourceSwitch() {
+  document.querySelectorAll("#source-switch button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (btn.dataset.source === state.source) return;
+      state.source = btn.dataset.source;
+      document.querySelectorAll("#source-switch button").forEach((b) =>
+        b.classList.toggle("active", b.dataset.source === state.source)
+      );
+      loadAndRender();
+    });
+  });
+}
+
 async function loadAndRender() {
+  const src = DATA_SOURCES[state.source];
   document.getElementById("error-slot").innerHTML = "";
   let report;
   try {
-    const res = await fetch("data/gap_radar/latest.json", { cache: "no-store" });
+    const res = await fetch(src.path, { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     report = await res.json();
   } catch (e) {
     showError(
-      `讀取買評缺口資料失敗：${escapeHtml(e.message)}。` +
-      "可能是模組九的排程尚未執行過，docs/data/gap_radar/latest.json 還不存在。"
+      `讀取${src.label}買評缺口資料失敗：${escapeHtml(e.message)}。` +
+      `可能是模組九的排程尚未執行過，${escapeHtml(src.path)} 還不存在。`
     );
     return;
   }
@@ -193,4 +219,5 @@ async function loadAndRender() {
   renderCaveats(report);
 }
 
+wireSourceSwitch();
 loadAndRender();

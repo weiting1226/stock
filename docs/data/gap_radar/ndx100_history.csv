@@ -1,0 +1,11 @@
+as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
+2026-08-17,1,MSTR,Strategy Inc,146.21,141.88,extreme
+2026-08-17,2,APP,AppLovin,73.89,91.7,high
+2026-08-17,3,ALNY,"Alnylam Pharmaceuticals, Inc.",62.82,82.19,high
+2026-08-17,4,SPCX,Space Exploration Technologies Corp,62.14,325.11,extreme
+2026-08-17,5,MU,Micron Technology,54.58,122.44,extreme
+2026-08-17,6,RKLB,Rocket Lab Corporation,40.74,76.15,moderate
+2026-08-17,7,MCHP,Microchip Technology,37.94,50.36,low
+2026-08-17,8,PDD,PDD Holdings Inc.,37.63,77.73,moderate
+2026-08-17,9,CRWV,"CoreWeave, Inc.",36.1,184.28,extreme
+2026-08-17,10,HONA,Honeywell Aerospace,35.43,58.14,moderate
