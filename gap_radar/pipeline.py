@@ -102,6 +102,7 @@ def build_report(valuation_report: dict, top_n: int = TOP_N) -> dict:
     return {
         "as_of": valuation_report.get("as_of"),
         "generated_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+        "universe": valuation_report.get("universe"),
         "source_generated_at": valuation_report.get("generated_at"),
         "counts": {
             "universe": valuation_report.get("counts", {}).get("universe"),

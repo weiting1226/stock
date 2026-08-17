@@ -6,11 +6,6 @@ on:
   schedule:
     - cron: "30 23 * * 2"
   workflow_dispatch:
-    inputs:
-      valuation_as_of:
-        description: "留空則直接讀目前的 docs/data/valuation/latest.json"
-        required: false
-        default: ""
 
 permissions:
   contents: write
@@ -35,8 +30,11 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run gap radar
-        run: python3 scripts/run_gap_radar.py -v
+      - name: Run gap radar (S&P 500)
+        run: python3 scripts/run_gap_radar.py --universe sp500 -v
+
+      - name: Run gap radar (Nasdaq-100)
+        run: python3 scripts/run_gap_radar.py --universe ndx100 -v
 
       - name: Commit updated data
         run: |

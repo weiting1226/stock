@@ -1665,20 +1665,35 @@ python3 scripts/run_diaper_monitor.py --as-of 2026-08-14
 「這檔股票已經連續三週在榜上」這種訊號。兩者更新頻率不同、目的也不同
 （瀏覽 vs. 精選），硬塞進同一頁只會讓兩種需求互相干擾。
 
+## Nasdaq-100
+
+比照模組二的作法，儀表板一樣有「S&P 500／Nasdaq-100」切換鈕，各自獨立
+跑一次候選股池、排序、風險分層——**不合併成一份清單**：分歧度分層是相對
+「這一批候選股池自身的分布」算出來的，兩個股票池的分歧度分布本來就不同
+（實測 Nasdaq-100 候選股池的分歧度中位數 55.7%，明顯高於 S&P 500 的
+39.5%——Nasdaq-100 集中在成長股，本來就比大盤分歧），混在一起算，門檻會
+互相污染，兩邊都會失真。
+
+輸出檔名沿用 `docs/data/gap_radar/`，Nasdaq-100 一律加 `ndx100_` 前綴
+（`ndx100_latest.json`、`ndx100_history.csv` 等），「較上次」的名次比較
+也各自對照自己的歷史，不會互相看到對方的排名。
+
 ## 架構
 
 ```
 gap_radar/
   pipeline.py   讀模組二的 latest.json -> 篩買評 -> 取上漲空間前N名 -> 風險分層
   storage.py    寫 docs/data/gap_radar/latest.json，並記錄每次快照的名次以算變化
-docs/gap_radar.html, docs/gap_radar.js   儀表板（模組九）
+                （prefix 參數讓 S&P 500／Nasdaq-100 共用同一個目錄）
+docs/gap_radar.html, docs/gap_radar.js   儀表板（模組九，含資料範圍切換）
 scripts/run_gap_radar.py                 執行入口
-.github/workflows/gap-radar.yml          每週排程一次（模組二排程之後）
+.github/workflows/gap-radar.yml          每週排程一次，依序跑兩個股票池
 ```
 
 ## 使用方式
 
 ```bash
-# 前提：docs/data/valuation/latest.json 已存在（先跑過模組二）
-python3 scripts/run_gap_radar.py -v
+# 前提：對應股票池的模組二報告已存在（先跑過模組二 --universe sp500/ndx100）
+python3 scripts/run_gap_radar.py --universe sp500 -v    # 預設
+python3 scripts/run_gap_radar.py --universe ndx100 -v
 ```

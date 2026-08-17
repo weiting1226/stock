@@ -104,6 +104,14 @@ def test_load_valuation_report_raises_a_helpful_error_when_missing(tmp_path):
         pipeline.load_valuation_report(str(missing))
 
 
+def test_universe_label_passes_through_from_the_source_report():
+    """讓前端能標示這份候選股池是 S&P 500 還是 Nasdaq-100。"""
+    report = _valuation_report([_row("AAA", 20, 40)])
+    report["universe"] = "Nasdaq-100 (TradingView constituents)"
+    built = pipeline.build_report(report, top_n=10)
+    assert built["universe"] == "Nasdaq-100 (TradingView constituents)"
+
+
 # --- storage ---------------------------------------------------------------
 
 def _report(as_of, top10):
@@ -162,3 +170,30 @@ def test_rerunning_the_same_as_of_upserts_instead_of_duplicating(tmp_path):
     import pandas as pd
     df = pd.read_csv(tmp_path / "history.csv")
     assert len(df) == 1
+
+
+def test_prefix_keeps_two_universes_in_the_same_data_root(tmp_path):
+    """S&P 500（無前綴）與 Nasdaq-100（"ndx100_"）共用一個 data_root，
+    檔名跟彼此的「較上次」歷史都不能互相覆蓋或污染。"""
+    sp500 = storage.save_report(
+        _report("2026-08-17", [_top10_row("AAA", 1)]), data_root=str(tmp_path),
+    )
+    ndx100 = storage.save_report(
+        _report("2026-08-17", [_top10_row("BBB", 1)]), data_root=str(tmp_path), prefix="ndx100_",
+    )
+    assert (tmp_path / "latest.json").exists()
+    assert (tmp_path / "ndx100_latest.json").exists()
+    assert (tmp_path / "snapshots" / "2026-08-17.json").exists()
+    assert (tmp_path / "ndx100_snapshots" / "2026-08-17.json").exists()
+    assert sp500["top10"][0]["ticker"] == "AAA"
+    assert ndx100["top10"][0]["ticker"] == "BBB"
+
+    # 第二週：兩邊的「較上次」歷史各自獨立累積，不會互相看到對方的名次
+    second_sp500 = storage.save_report(
+        _report("2026-08-24", [_top10_row("AAA", 1)]), data_root=str(tmp_path),
+    )
+    second_ndx100 = storage.save_report(
+        _report("2026-08-24", [_top10_row("CCC", 1)]), data_root=str(tmp_path), prefix="ndx100_",
+    )
+    assert second_sp500["top10"][0]["is_new"] is False   # AAA 上週在 S&P 500 榜上
+    assert second_ndx100["top10"][0]["is_new"] is True   # CCC 沒有出現在 ndx100 上週榜單（BBB）裡
