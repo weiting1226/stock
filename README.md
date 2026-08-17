@@ -811,6 +811,29 @@ NFCI 的 0）都是**原作者或編製機構定義的**，不是本專案自訂
 資金流以**佔自身淨資產的比例**呈現：XLK 的規模是 XLRE 的十幾倍，比絕對金額
 等於在比誰規模大，不是在比誰的資金動能強。
 
+## Nasdaq-100（模組二的擴充）
+
+除了 S&P 500，儀表板的「資料範圍」多一顆 **Nasdaq-100** 切換鈕，用完全同一套
+上漲空間／離散度／信心等級邏輯，只是換一個約 100 檔的股票池——不是另一套實作，
+避免兩邊的定義各自演化出不同答案（沿用模組一到現在的教訓）。
+
+**成分股清單不是走維基百科**：維基百科的 Nasdaq-100 頁面自 2026-08 起已無法
+解析出成分股表格（18 個表格全不足 50 列），模組一的 NDX 廣度指標已因此改用
+TradingView 的 screener 端點（見 `liquidity_monitor/sources/tradingview_ndx.py`），
+這裡直接沿用同一支抓取，不重蹈覆轍。
+
+TradingView 端點不回傳 GICS 類股，改用 S&P 500 清單的類股對照補上——兩者成分股
+高度重疊。不在 S&P 500 對照表裡的成分股（或對照抓取本身失敗時），類股一律標為
+`Unknown`，不臆測填補；這只影響「各類股篩選」欄位，不影響上漲空間與離散度本身。
+
+```bash
+python3 scripts/run_valuation.py --universe ndx100 -v
+```
+
+輸出檔名一律加上 `ndx100_` 前綴（`docs/data/valuation/ndx100_latest.json` 等），
+與 S&P 500 的檔案共用同一個 `docs/data/valuation/` 目錄，不必另開資料夾。
+兩個股票池在同一個 GitHub Actions job 裡依序執行（見 `.github/workflows/daily-valuation.yml`）。
+
 ## 全美股逐檔抓取（模組二的擴充）
 
 除了 S&P 500 的每日彙總，另有一條「**全美股上市公司逐檔抓取**」的流程，

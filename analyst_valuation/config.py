@@ -6,7 +6,11 @@ from __future__ import annotations
 # ---------------------------------------------------------------------------
 # S&P 500 成分股表同時提供 GICS 類股欄位，正好滿足「各類股篩選」需求。
 SP500_WIKI_URL = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
-NDX_WIKI_URL = "https://en.wikipedia.org/wiki/Nasdaq-100"
+
+# Nasdaq-100 沒有對應的 WIKI_URL 常數：維基百科的 Nasdaq-100 頁面自 2026-08 起
+# 已無法解析出成分股表格（見 liquidity_monitor/config.py），成分股改直接沿用
+# liquidity_monitor.sources.tradingview_ndx.fetch_ndx_components（模組一
+# NDX 廣度指標已用的同一支）。
 
 UNIVERSE_CACHE_DAYS = 7  # 成分股清單快取天數（季度調整，一週更新一次綽綽有餘）
 

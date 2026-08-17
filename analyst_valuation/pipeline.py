@@ -43,9 +43,17 @@ def _drop_stale(records: list[TargetRecord]) -> list[TargetRecord]:
     return [r for r in records if not r.published or r.published >= cutoff]
 
 
+UNIVERSE_LABELS = {
+    "sp500": "S&P 500 (Wikipedia constituents)",
+    "ndx100": "Nasdaq-100 (TradingView constituents)",
+}
+
+
 def run(
     as_of: Optional[str] = None,
+    universe_source: str = "sp500",
     universe_cache_path: str = "docs/data/valuation/sp500_universe.json",
+    sp500_cache_path: Optional[str] = None,
     limit: Optional[int] = None,
     max_workers: int = MAX_WORKERS,
     finnhub_key: Optional[str] = None,
@@ -53,7 +61,17 @@ def run(
 ) -> dict:
     as_of = as_of or datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
-    constituents = universe.fetch_sp500_universe(cache_path=universe_cache_path)
+    if universe_source == "ndx100":
+        # NDX-100 的成分股清單來自 TradingView，類股再拿 S&P 500 清單對照補上
+        # （兩者高度重疊）——見 sources/universe.fetch_ndx100_universe 的說明。
+        constituents = universe.fetch_ndx100_universe(
+            cache_path=universe_cache_path, sp500_cache_path=sp500_cache_path,
+        )
+    elif universe_source == "sp500":
+        constituents = universe.fetch_sp500_universe(cache_path=universe_cache_path)
+    else:
+        raise ValueError(f"未知的 universe_source：{universe_source!r}（須為 sp500 或 ndx100）")
+
     if limit:
         constituents = constituents[:limit]
     tickers = [c["ticker"] for c in constituents]
@@ -112,7 +130,7 @@ def run(
     return {
         "as_of": as_of,
         "generated_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
-        "universe": "S&P 500 (Wikipedia constituents)",
+        "universe": UNIVERSE_LABELS[universe_source],
         "sources_available": sources_available,
         "finnhub_enabled": use_finnhub,
         "fmp_enabled": use_fmp,
