@@ -22,6 +22,18 @@
   "reference_date": "2026-06-01",
   "fred_id": "PCEPI"
  },
+ "HOUST@2026-07-01": {
+  "summary_zh": "2026年7月新屋開工經季節調整年率為123.9萬戶，較6月修正後的141.5萬戶下降12.4%，較2025年7月的143.2萬戶下降13.5%。其中單戶住宅開工為80.8萬戶，較6月的89.7萬戶下降9.9%。",
+  "drivers": [
+   "單戶住宅開工較6月下降9.9%",
+   "五戶以上建築單位開工率為42.1萬戶"
+  ],
+  "evidence": "Privately-owned housing starts in July were at a seasonally adjusted annual rate of 1,239,000. This is 12.4 percent (&plusmn;9.5 percent) below the revised June estimate of 1,415,000",
+  "source_url": "https://www.census.gov/construction/nrc/current/index.html",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-07-01",
+  "fred_id": "HOUST"
+ },
  "HOUST@2026-06-01": {
   "summary_zh": "2026年6月新屋開工經季節調整年化率為142.7萬戶,較5月修正後的119.9萬戶大幅上升19.0%,也較2025年6月的137.9萬戶上升3.5%。其中單戶住宅開工率為89.5萬戶,較5月的89.7萬戶微幅下降0.2%;五戶以上建築單位開工率為51.3萬戶。",
   "drivers": [
