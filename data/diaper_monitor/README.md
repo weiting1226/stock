@@ -5,11 +5,12 @@
 只認得下面這幾個欄位，多寫沒關係，少寫會直接報錯。
 
 **自動爬蟲只是補人工的空檔，不是取代它。** `scripts/run_diaper_monitor.py`
-每次執行會先跑一輪 PChome 自動查價（`diaper_monitor/sources/pchome.py`），
-結果寫進格式相同的 `scraped_prices.csv`；同一天、同一品牌、同一平台，
-`manual_prices.csv` 的資料永遠蓋過爬蟲抓到的。這份檔案不需要、也不建議
-手動編輯——直接改 `manual_prices.csv` 就會蓋過它。爬蟲的原理、限制、
-為什麼先選 PChome，見 `diaper_monitor/sources/pchome.py` 開頭的說明。
+每次執行會先跑兩個自動查價來源——PChome（`sources/pchome.py`）跟蝦皮
+（`sources/shopee.py`）——結果寫進格式相同的 `scraped_prices.csv`；同一天、
+同一品牌、同一平台，`manual_prices.csv` 的資料永遠蓋過爬蟲抓到的。這份
+檔案不需要、也不建議手動編輯——直接改 `manual_prices.csv` 就會蓋過它。
+爬蟲的原理、限制、各自的風險，見兩支檔案開頭的說明（蝦皮那支風險明顯
+更高，見下一段）。
 
 **比價範圍至少要涵蓋 `diaper_monitor/config.py` 的 `PLATFORMS`：蝦皮、酷澎、
 momo購物網。** 這三個平台每天都要查；其他通路（藥妝連鎖、品牌官網等）查到的話
@@ -47,14 +48,28 @@ date,brand,platform,product_name,pack_price,piece_count,url,note
 雖然多一道手續，但每一筆都是查價當下親眼確認過的——這也是為什麼兩邊都有
 資料時一律以人工為準，而不是「誰的日期新就用誰」。
 
-目前唯一接上的自動來源是 PChome（有公開回傳 JSON 的搜尋端點，相對不需要
-瀏覽器引擎渲染）。**這支爬蟲程式碼開發時所在的環境連不到
-`ecshweb.pchome.com.tw`（網路出口直接擋掉），所以從未在真實回應上驗證過**，
-對回應格式的假設全憑公開資料。如果儀表板上一直看不到 PChome 來源的報價，
-先查 `python3 scripts/run_diaper_monitor.py -v` 的警告訊息——是完全連不上
-（環境網路限制、平台真的擋了爬蟲），還是抓到資料但解析不出來（API 回應格式
-跟程式碼的假設不一樣，需要照 log 裡的原始回應調整 `sources/pchome.py`）。
+**PChome** 有公開回傳 JSON 的搜尋端點，相對不需要瀏覽器引擎渲染，是第一個
+接上的來源。2026-08-18 第一次在 GitHub Actions 上實跑，證實連線與回應格式
+的假設可用，但同一次也抓到三種標題會**算錯而非抓不到**單片價（試用包、
+多尺寸片數擠在一起、箱購倍數）——過濾規則（`sources/_common.py` 的
+`looks_unreliable`）就是照那三個真實案例補上的，之後再抓到新的錯誤案例，
+一樣照這個模式：把真實標題寫成測試，再補規則。
+
+**蝦皮**是第二個接上的來源，但**風險明顯更高**：蝦皮的防爬機制公認比
+PChome 積極，常見的失敗方式是 HTTP 200 但回應裡夾帶 `error` 欄位，不是
+單純連不上；價格欄位公開資料記載要除以 100000 才是實際售價，這個換算
+係數本身也沒被驗證過（`config.PLAUSIBLE_PACK_PRICE_RANGE` 是防換算係數
+猜錯的保底防呆，不是精確驗證）。**這兩支爬蟲開發時所在的環境都連不到
+對應平台（網路出口直接擋掉）**——蝦皮那支因此完全沒機會驗證過，PChome
+那支則是驗證過一次之後才修的。
+
+如果儀表板上一直看不到某個來源的報價，先查
+`python3 scripts/run_diaper_monitor.py -v` 的警告訊息——是完全連不上
+（環境網路限制、平台真的擋了爬蟲）、被防爬機制擋下（蝦皮的 `error` 欄位）、
+還是抓到資料但解析不出來或被過濾規則擋下（需要照 log 裡的原始回應調整
+`sources/pchome.py` 或 `sources/shopee.py`）。
 
 新增其他平台的爬蟲時，一樣在 `diaper_monitor/sources/` 底下新增模組、
-輸出跟這份 CSV 相同的欄位（`diaper_monitor.sources.pchome.fetch_all` 是
-現成的參考實作），`pipeline.py` 的合併邏輯不需要更動。
+輸出跟這份 CSV 相同的欄位（`pchome.fetch_all`／`shopee.fetch_all` 是
+現成的參考實作，M 號／片數／不可靠標題的判斷可以直接重用
+`sources/_common.py`），`pipeline.py` 的合併邏輯不需要更動。
