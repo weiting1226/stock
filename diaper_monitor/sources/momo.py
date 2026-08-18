@@ -8,21 +8,28 @@ HTML 搜尋結果頁。這代表多了一層前兩個來源都沒有的不確定
 「連不連得到」，還有「頁面的 DOM 結構猜得對不對」，而 DOM 結構通常比
 JSON API 的欄位名稱更容易在改版時跑掉，而且完全沒有公開文件可以參考。
 
-搜尋頁用行動版 `m.momoshop.com.tw/search.momo`，不是桌機版——這個網址格式
-不是憑空猜的：2026-08 稍早研究這幾個品牌的市售通路時，Web Search 實際
-索引到、真的存在這個頁面（見同一次對話的查價記錄）。但「搜尋引擎索引到
-這個網址存在」不等於「用程式直接 GET 也能拿到一樣的內容」——行動版是否
-需要額外標頭、會不會被導去別的頁面、內容是不是伺服器端直接算好的 HTML
-（而非需要執行 JS 才會出現），一樣完全沒驗證過。
+請求打的是行動版 `m.momoshop.com.tw/search.momo`，但**實測證實**（見下）
+會被 302 導向桌機版的 `www.momoshop.com.tw/search/<關鍵字>`。
 
-解析邏輯因此寫得比另外兩個來源更寬鬆：不依賴猜測的 CSS class 名稱（那種
+解析邏輯寫得比另外兩個來源更寬鬆：不依賴猜測的 CSS class 名稱（那種
 名稱完全沒公開文件可查，改版就跑掉），改用結構特徵——商品詳情連結
 （href 帶 `i_code=` 或走 `/goods.momo`）加上同一個區塊裡的 NT$ 價格文字
-——去找候選商品區塊。找到 0 個候選區塊時會特別記錄「可能是頁面結構不對
-或需要 JS 才能看到內容」，跟「找到候選但沒有一個通過 M 號／片數篩選」的
-警告分開，方便之後從 log 判斷問題出在哪一層。**另外，一個商品區塊裡常常
-不只一個價格（例如劃線的原價＋促銷價），這裡只取區塊文字裡第一個符合
-`$數字` 樣式的價格，哪一個排在前面同樣沒有驗證過。**
+——去找候選商品區塊。**但這套邏輯目前實測完全派不上用場**（見下）。
+另外，一個商品區塊裡常常不只一個價格（例如劃線的原價＋促銷價），這裡
+只取區塊文字裡第一個符合 `$數字` 樣式的價格，哪一個排在前面同樣沒有
+驗證過——不過這一段目前根本走不到，見下。
+
+**實測結果：2026-08-18 在 GitHub Actions 上證實這條路線走不通。** 三個
+品牌的查詢都拿到 `HTTP 200`、標題也正確對應搜尋關鍵字，代表請求本身、
+重新導向都正常；但回應的原始 HTML 裡總共 0 個 `<a href>` 連結，開頭
+片段看得出是 Next.js 的殼頁面（`_next/static/css`／`data-precedence=
+"next"` 這類標記）。也就是說 momo 現在的搜尋頁是用戶端渲染
+（client-side rendered）：伺服器只回一個幾乎空的 HTML 殼，商品清單要
+瀏覽器執行 JS 之後才會被塞進 DOM。純用 `requests` 抓靜態 HTML 這個做法
+對現在的 momo 搜尋頁**架構上就走不通**，不是 CSS 選擇器或 URL 猜錯（見
+`_looks_like_client_rendered_shell`／`fetch_brand` 裡對這個情況的專門
+判斷與 log 訊息）。要修好只有換成能執行 JS 的做法（例如 headless
+browser）一途，而目前沒有做——這支爬蟲短期內大概率抓不到任何資料。
 
 **信任層級低於人工填寫**，跟另外兩個來源一樣：見 `pipeline.load_all_prices`
 的合併邏輯，同一天、同一品牌、同一平台，人工填的資料永遠蓋過這裡抓到的。
@@ -81,6 +88,19 @@ def _candidate_blocks(soup: BeautifulSoup) -> list[tuple]:
     return blocks
 
 
+NEXTJS_SHELL_MARKER = "_next/static"
+
+
+def _looks_like_client_rendered_shell(html: str) -> bool:
+    """2026-08-18 實跑後證實：`m.momoshop.com.tw/search.momo` 會被 302
+    重新導向到 `www.momoshop.com.tw/search/<關鍵字>`——一個 Next.js 網站。
+    伺服器直接回應的 HTML 只有殼（帶 `_next/static` 開頭的 CSS／JS 資源
+    連結），完全沒有商品連結；真正的商品清單要等瀏覽器執行 JS 之後才會
+    被塞進 DOM。這代表拿到 0 個候選區塊不是「頁面結構猜錯」，而是「純
+    HTTP GET 解析靜態 HTML 這條路線，對現在的 momo 搜尋頁根本走不通」。"""
+    return NEXTJS_SHELL_MARKER in html
+
+
 def _diagnose(resp: requests.Response, soup: BeautifulSoup, html: str) -> str:
     """在「找不到候選商品連結」時，把足夠診斷問題出在哪一層的線索塞進
     警告訊息：有沒有被重新導向、頁面標題（常常能看出是不是被導去搜尋結果
@@ -132,11 +152,21 @@ def fetch_brand(brand: str, query: Optional[str] = None,
 
     candidates = _candidate_blocks(soup)
     if not candidates:
-        log.warning(
-            "momo 來源：品牌 %s（關鍵字「%s」）在回應裡找不到任何商品連結——"
-            "可能是頁面結構跟預期不同、需要執行 JS 才看得到內容，或是被導去了別的頁面。%s",
-            brand, query, _diagnose(resp, soup, html),
-        )
+        if _looks_like_client_rendered_shell(html):
+            log.warning(
+                "momo 來源：品牌 %s（關鍵字「%s」）拿到的是 Next.js 用戶端渲染的空殼頁面"
+                "（HTML 裡看得到 %s 開頭的資源連結，但完全沒有商品連結）——"
+                "2026-08-18 實測證實這是目前 momo 搜尋頁的架構，商品清單要執行 JS 才會出現，"
+                "純解析靜態 HTML 這條路線走不通，不是解析規則猜錯，需要換成能執行 JS 的方式"
+                "（例如 headless browser）才有機會抓到資料。%s",
+                brand, query, NEXTJS_SHELL_MARKER, _diagnose(resp, soup, html),
+            )
+        else:
+            log.warning(
+                "momo 來源：品牌 %s（關鍵字「%s」）在回應裡找不到任何商品連結——"
+                "可能是頁面結構跟預期不同，或是被導去了別的頁面。%s",
+                brand, query, _diagnose(resp, soup, html),
+            )
         return []
 
     quotes: list[dict] = []

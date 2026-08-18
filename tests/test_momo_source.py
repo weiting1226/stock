@@ -154,6 +154,28 @@ def test_no_candidates_logs_diagnostic_details(caplog):
     assert "總連結數=0" in caplog.text
 
 
+def test_detects_the_real_nextjs_client_rendered_shell_page(caplog):
+    """2026-08-18 實跑 GitHub Actions 時的真實回應：momo 的行動版搜尋頁
+    被 302 導去 www.momoshop.com.tw/search/<關鍵字>，回應是 Next.js 的
+    空殼 HTML（帶 _next/static 資源連結），完全沒有商品連結——這是「架構
+    上走不通」，跟單純的「頁面結構跟預期不同」要分開講清楚，警告訊息裡
+    要明確指出根因是用戶端渲染，不能只說「可能是...可能是...」。"""
+    html = (
+        '<!DOCTYPE html><html lang="zh-TW"><head><meta charSet="utf-8"/>'
+        '<title>滿意寶寶 日本境內版 M - momo購物網 - 好評推薦 - 2026年8月</title>'
+        '<link rel="stylesheet" href="/search/_next/static/css/62ed5c88d356ea37.css" '
+        'data-precedence="next"/></head><body><div id="__next"></div></body></html>'
+    )
+    session = _FakeSession(_FakeResponse(
+        html, url="https://www.momoshop.com.tw/search/%E6%BB%BF%E6%84%8F%E5%AF%B6%E5%AF%B6?viewport=mobile",
+    ))
+    with caplog.at_level("WARNING"):
+        assert momo.fetch_brand("滿意寶寶日本境內版", session=session) == []
+    assert "Next.js" in caplog.text
+    assert "用戶端渲染" in caplog.text
+    assert "headless browser" in caplog.text
+
+
 # --- 失敗要安靜地回傳空 list，不能拋例外 ----------------------------------------
 
 def test_network_exception_returns_empty_not_raised():
