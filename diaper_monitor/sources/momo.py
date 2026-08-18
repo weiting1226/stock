@@ -81,6 +81,22 @@ def _candidate_blocks(soup: BeautifulSoup) -> list[tuple]:
     return blocks
 
 
+def _diagnose(resp: requests.Response, soup: BeautifulSoup, html: str) -> str:
+    """在「找不到候選商品連結」時，把足夠診斷問題出在哪一層的線索塞進
+    警告訊息：有沒有被重新導向、頁面標題（常常能看出是不是被導去搜尋結果
+    以外的頁面，例如首頁或錯誤頁）、整份回應裡到底有沒有 <a href>（完全
+    沒有的話多半是要靠 JS 才會出現內容），以及開頭一小段原始 HTML。
+    這是 2026-08-18 第一次實跑「找不到任何商品連結」之後才加的——與其
+    再猜一次 DOM 結構，不如直接把回應本身的線索記下來。"""
+    title = soup.title.get_text(strip=True) if soup.title else "(無 <title>)"
+    total_links = len(soup.find_all("a", href=True))
+    snippet = re.sub(r"\s+", " ", html[:500]).strip()
+    return (
+        f"最終網址={resp.url}｜回應狀態={resp.status_code}｜頁面標題={title!r}｜"
+        f"HTML 長度={len(html)}｜總連結數={total_links}｜開頭片段={snippet!r}"
+    )
+
+
 def fetch_brand(brand: str, query: Optional[str] = None,
                  session: Optional[requests.Session] = None) -> list[dict]:
     """查一個品牌在 momo 的報價，回傳與 manual_prices.csv 相同欄位的
@@ -118,8 +134,8 @@ def fetch_brand(brand: str, query: Optional[str] = None,
     if not candidates:
         log.warning(
             "momo 來源：品牌 %s（關鍵字「%s」）在回應裡找不到任何商品連結——"
-            "可能是頁面結構跟預期不同、需要執行 JS 才看得到內容，或是被導去了別的頁面",
-            brand, query,
+            "可能是頁面結構跟預期不同、需要執行 JS 才看得到內容，或是被導去了別的頁面。%s",
+            brand, query, _diagnose(resp, soup, html),
         )
         return []
 
