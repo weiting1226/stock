@@ -126,6 +126,36 @@ def test_rejects_box_purchases_with_a_pack_multiplier():
     assert pchome.fetch_brand("奢寵幫", session=session) == []
 
 
+# --- 逐筆略過的原因要記錄成 log，不能只留下總數 ------------------------------
+#
+# 2026-08-18 23:00 UTC 那次排程實跑，三個品牌合計查到 20 筆結果、全部略過，
+# 但 log 只印出「查到 N 筆、略過 N 筆」這種總數，沒辦法回答「被略過的商品
+# 標題到底長怎樣、卡在哪一關」。以下測試釘住補上的逐筆 log.info。
+
+def test_logs_the_title_and_reason_for_each_skipped_item(caplog):
+    payload = {"prods": [
+        {"Id": "1", "name": "滿意寶寶 日本境內版 L 54片", "price": 999},
+        {"Id": "2", "name": "零觸感瞬吸 褲型紙尿褲 2片/包 M-2XL(褲型/紙尿褲/尿布/體驗包)", "price": 29},
+        {"Id": "3", "name": "滿意寶寶 日本境內版 M 箱購組合", "price": 999},
+        {"Id": "4", "name": "滿意寶寶 日本境內版 M 62片", "price": 5000000},
+    ]}
+    session = _FakeSession(_FakeResponse(payload))
+    with caplog.at_level("INFO"):
+        assert pchome.fetch_brand("滿意寶寶日本境內版", session=session) == []
+    assert "L 54片" in caplog.text and "判定不是 M 號" in caplog.text
+    assert "體驗包" in caplog.text and "不可靠" in caplog.text
+    assert "箱購組合" in caplog.text and "找不到片數" in caplog.text
+    assert "62片" in caplog.text and "超出合理範圍" in caplog.text
+
+
+def test_logs_which_fields_are_missing_when_name_or_price_absent(caplog):
+    payload = {"prods": [{"Id": "1", "price": 999}]}
+    session = _FakeSession(_FakeResponse(payload))
+    with caplog.at_level("INFO"):
+        assert pchome.fetch_brand("滿意寶寶日本境內版", session=session) == []
+    assert "缺少 name 或 price 欄位" in caplog.text
+
+
 def test_caps_results_per_brand():
     items = [{"Id": str(i), "name": f"滿意寶寶 日本境內版 M {60 + i}片", "price": 500 + i}
              for i in range(pchome.MAX_RESULTS_PER_BRAND + 5)]
