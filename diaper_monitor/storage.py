@@ -36,8 +36,11 @@ def write_scraped_prices(quotes: list[dict], as_of: str, path: str = SCRAPED_PRI
     """把自動爬蟲抓到的報價（`diaper_monitor/sources/*.fetch_all` 的回傳值）
     落地成跟 `manual_prices.csv` 同樣格式的 CSV，補上 `date` 欄位。
 
-    跟 `pipeline._append_history` 同樣的鍵值邏輯：以 (date, brand, platform)
-    為鍵，同一天重跑要覆蓋掉舊的爬蟲結果，不是無限疊加。"""
+    這次執行對 `as_of` 這天來說是**唯一且完整**的權威結果，所以先把舊檔裡
+    `date == as_of` 的列全部丟掉，再整批換成這次抓到的（可能是空的）——
+    不能只挑「這次也抓到的品牌/平台」去覆蓋，那樣的話某個品牌這次因為
+    過濾規則收緊而查不到東西時，上次抓到的舊資料反而會被誤以為還有效、
+    留在檔案裡沒人清（這正是 2026-08-18 那次修過濾規則時發生的狀況）。"""
     p = Path(path)
     new_rows = pd.DataFrame(
         [{**q, "date": as_of} for q in quotes],
@@ -45,11 +48,7 @@ def write_scraped_prices(quotes: list[dict], as_of: str, path: str = SCRAPED_PRI
     )
     if p.exists():
         existing = pd.read_csv(p, dtype={"date": str})
-        if not new_rows.empty:
-            keys = set(zip(new_rows["date"], new_rows["brand"], new_rows["platform"]))
-            existing = existing[
-                ~existing.apply(lambda r: (str(r["date"]), r["brand"], r["platform"]) in keys, axis=1)
-            ]
+        existing = existing[existing["date"].astype(str) != str(as_of)]
         combined = pd.concat([existing, new_rows], ignore_index=True)
     else:
         combined = new_rows
