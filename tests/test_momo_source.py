@@ -15,10 +15,10 @@ from diaper_monitor.sources import momo
 
 
 class _FakeResponse:
-    def __init__(self, text="", status=200, request_error=None):
+    def __init__(self, text="", status=200, url="https://m.momoshop.com.tw/search.momo"):
         self.text = text
         self.status_code = status
-        self._request_error = request_error
+        self.url = url
 
     def raise_for_status(self):
         if self.status_code >= 400:
@@ -139,6 +139,19 @@ def test_no_product_links_returns_empty_not_an_exception():
     html = "<html><body><div>找不到任何商品連結的頁面</div></body></html>"
     session = _FakeSession(_FakeResponse(html))
     assert momo.fetch_brand("滿意寶寶日本境內版", session=session) == []
+
+
+def test_no_candidates_logs_diagnostic_details(caplog):
+    """真的抓不到候選商品時，警告要帶足夠線索判斷問題出在哪一層
+    （有沒有被重新導向、頁面標題、總連結數、原始 HTML 開頭）——
+    不能只是一句「找不到」，那樣下次還是只能用猜的。"""
+    html = "<html><head><title>找不到結果</title></head><body>無商品</body></html>"
+    session = _FakeSession(_FakeResponse(html, url="https://m.momoshop.com.tw/redirected.momo"))
+    with caplog.at_level("WARNING"):
+        momo.fetch_brand("滿意寶寶日本境內版", session=session)
+    assert "redirected.momo" in caplog.text
+    assert "找不到結果" in caplog.text
+    assert "總連結數=0" in caplog.text
 
 
 # --- 失敗要安靜地回傳空 list，不能拋例外 ----------------------------------------
