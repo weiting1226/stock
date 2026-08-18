@@ -14,7 +14,7 @@
         {
           "platform": "康是美",
           "product_name": "滿意寶寶 極上呵護紙尿褲 M號 62片（促銷價、原價649）",
-          "pack_price": 509.0,
+          "pack_price": 509,
           "piece_count": 62,
           "unit_price": 8.21,
           "url": "https://shop.cosmed.com.tw/v2/official/SalePageCategory/463337",
@@ -23,7 +23,7 @@
         {
           "platform": "屈臣氏",
           "product_name": "滿意寶寶 極上呵護紙尿褲 M號 62片",
-          "pack_price": 519.0,
+          "pack_price": 519,
           "piece_count": 62,
           "unit_price": 8.37,
           "url": "https://www.watsons.com.tw/%E6%BB%BF%E6%84%8F%E5%AF%B6%E5%AF%B6%E6%A5%B5%E4%B8%8A%E5%91%B5%E8%AD%B7m-62%E7%89%87/p/BP_253329",
@@ -32,7 +32,7 @@
         {
           "platform": "PChome24h購物",
           "product_name": "mamypoko 滿意寶寶 極上呵護M 62片x4包入（箱購）",
-          "pack_price": 2390.0,
+          "pack_price": 2390,
           "piece_count": 248,
           "unit_price": 9.64,
           "url": "https://24h.pchome.com.tw/prod/DEDG0G-A900FMWRI",
@@ -52,63 +52,63 @@
     {
       "brand": "Aiwibi",
       "has_data": true,
-      "data_date": "2026-08-18",
-      "is_stale": false,
+      "data_date": "2026-08-15",
+      "is_stale": true,
       "offers": [
         {
-          "platform": "PChome24h購物",
-          "product_name": "零觸感瞬吸 褲型紙尿褲 2片/包 M-2XL(褲型/紙尿褲/尿布/體驗包)",
-          "pack_price": 29.0,
-          "piece_count": 2,
-          "unit_price": 14.5,
-          "url": "https://24h.pchome.com.tw/prod/DAAO56-A900I6R5D",
-          "source": "自動爬蟲"
-        },
-        {
-          "platform": "PChome24h購物",
-          "product_name": "夜用甄柔瞬吸 褲型紙尿褲 M-XXL(單包入48/44/40/36片)",
-          "pack_price": 529.0,
-          "piece_count": 36,
-          "unit_price": 14.69,
-          "url": "https://24h.pchome.com.tw/prod/DAAOAE-A900I53F1",
-          "source": "自動爬蟲"
+          "platform": "酷澎",
+          "product_name": "Aiwibi愛薇彼 清新乾爽透氣輕薄黏貼型尿布 M 6~11kg 48片",
+          "pack_price": 308,
+          "piece_count": 48,
+          "unit_price": 6.42,
+          "url": "",
+          "source": "人工"
         }
       ],
       "baseline_avg": null,
-      "baseline_points": 1,
+      "baseline_points": 0,
       "pct_change_vs_baseline": null,
       "significant_drop": false,
-      "cheapest_unit_price": 14.5,
-      "cheapest_platform": "PChome24h購物",
-      "cheapest_product_name": "零觸感瞬吸 褲型紙尿褲 2片/包 M-2XL(褲型/紙尿褲/尿布/體驗包)",
-      "avg_unit_price": 14.6,
-      "offer_count": 2
+      "cheapest_unit_price": 6.42,
+      "cheapest_platform": "酷澎",
+      "cheapest_product_name": "Aiwibi愛薇彼 清新乾爽透氣輕薄黏貼型尿布 M 6~11kg 48片",
+      "avg_unit_price": 6.42,
+      "offer_count": 1
     },
     {
       "brand": "奢寵幫",
       "has_data": true,
-      "data_date": "2026-08-18",
-      "is_stale": false,
+      "data_date": "2026-08-15",
+      "is_stale": true,
       "offers": [
         {
-          "platform": "PChome24h購物",
-          "product_name": "奢寵幫 M 38片入*3包入(箱購)",
-          "pack_price": 1520.0,
+          "platform": "蝦皮",
+          "product_name": "幫寶適 奢寵幫黏貼型紙尿褲 M號 38片",
+          "pack_price": 439,
           "piece_count": 38,
-          "unit_price": 40.0,
-          "url": "https://24h.pchome.com.tw/prod/DEDG0G-A900H4H82",
-          "source": "自動爬蟲"
+          "unit_price": 11.55,
+          "url": "",
+          "source": "人工"
+        },
+        {
+          "platform": "媽媽好婦幼用品",
+          "product_name": "幫寶適 奢寵幫黏貼型紙尿褲 M號 38片",
+          "pack_price": 499,
+          "piece_count": 38,
+          "unit_price": 13.13,
+          "url": "https://shop.mamahow.com.tw/SalePage/Index/9442416",
+          "source": "人工"
         }
       ],
       "baseline_avg": null,
-      "baseline_points": 1,
+      "baseline_points": 0,
       "pct_change_vs_baseline": null,
       "significant_drop": false,
-      "cheapest_unit_price": 40.0,
-      "cheapest_platform": "PChome24h購物",
-      "cheapest_product_name": "奢寵幫 M 38片入*3包入(箱購)",
-      "avg_unit_price": 40.0,
-      "offer_count": 1
+      "cheapest_unit_price": 11.55,
+      "cheapest_platform": "蝦皮",
+      "cheapest_product_name": "幫寶適 奢寵幫黏貼型紙尿褲 M號 38片",
+      "avg_unit_price": 12.34,
+      "offer_count": 2
     }
   ],
   "history": {
