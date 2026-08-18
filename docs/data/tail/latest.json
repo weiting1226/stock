@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-08-17",
+  "as_of": "2026-08-18",
   "mode": "shadow",
   "shadow_note": "影子運行：只記錄、不下單。慢閘門檻未經真實資料校準，快閘的危機型事件樣本 n=1。",
   "base_alloc": {
@@ -7,7 +7,7 @@
     "qqq": 1.0,
     "sgov": 0.0,
     "source": {
-      "as_of": "2026-08-14",
+      "as_of": "2026-08-17",
       "text": "100% QQQ"
     }
   },
@@ -22,17 +22,17 @@
   "slow": {
     "gate": "CreditProxyGate",
     "regime": "EXPANSION",
-    "score": 19.05,
+    "score": 19.59,
     "equity_ceiling": 1.0,
     "detail": {
-      "beta": 0.4669,
+      "beta": 0.4681,
       "beta_source": "rolling",
-      "stress_level": 0.0003,
+      "stress_level": 0.0017,
       "chg250_pctile": 36.8,
-      "hyg_lqd_chg60": 0.02111,
-      "index_last": 115.001,
+      "hyg_lqd_chg60": 0.0203,
+      "index_last": 114.638,
       "components": {
-        "stress": 0.09,
+        "stress": 0.63,
         "chg_pctile": 18.96,
         "quality_dispersion": 0.0
       },
@@ -44,14 +44,14 @@
     "gated_veto": 0,
     "n_categories": 0,
     "curve_inverted": false,
-    "vix9d": 12.39,
-    "vix": 15.19,
-    "vix3m": 19.04,
+    "vix9d": 13.59,
+    "vix": 15.84,
+    "vix3m": 19.27,
     "detail": {
       "triggered": [],
       "missing": [],
-      "vvix_pctile": 31.6,
-      "hy_chg20_bp": -6.000000000000005,
+      "vvix_pctile": 26.400000000000002,
+      "hy_chg20_bp": 1.000000000000023,
       "threshold_shift": -0.0,
       "vvix_trigger": 80.0,
       "hy_trigger_bp": 75.0,
@@ -59,12 +59,12 @@
     }
   },
   "crowding": {
-    "score": 48.52,
+    "score": 47.34,
     "threshold_shift": -0.0,
     "detail": {
       "components": {
-        "low_vol": 0.068,
-        "trailing_gain": 0.903
+        "low_vol": 0.059,
+        "trailing_gain": 0.888
       },
       "missing": [
         "cftc_jpy_net_short",
@@ -76,14 +76,14 @@
   },
   "state": {
     "active_veto": 0,
-    "clean_days": 5,
+    "clean_days": 6,
     "consec_inversion": 0
   },
   "state_meta": {
     "found": true,
-    "as_of": "2026-08-14",
-    "saved_at": "2026-08-14T21:48:43+00:00",
-    "staleness_days": 3
+    "as_of": "2026-08-17",
+    "saved_at": "2026-08-17T21:49:14+00:00",
+    "staleness_days": 1
   },
   "controller": {
     "raw_veto": 0,
@@ -468,18 +468,18 @@
   },
   "log_sources": {
     "backfill": 2513,
-    "live": 3
+    "live": 4
   },
   "calibration": {
     "n_obs": 616,
-    "beta": 0.4669,
-    "corr_level_dd_vs_oas": 0.7766,
-    "corr_change_60d": -0.9023,
-    "regime_agreement_rank": 0.4037,
-    "regime_agreement_absolute": 0.2546,
-    "regime_agreement": 0.4037,
-    "regime_agreement_expected": 0.527,
-    "regime_agreement_shortfall": -0.1233,
+    "beta": 0.4681,
+    "corr_level_dd_vs_oas": 0.7788,
+    "corr_change_60d": -0.9026,
+    "regime_agreement_rank": 0.4054,
+    "regime_agreement_absolute": 0.2563,
+    "regime_agreement": 0.4054,
+    "regime_agreement_expected": 0.5285,
+    "regime_agreement_shortfall": -0.1231,
     "corr_needed_for_agreement_target": 0.928,
     "targets_are_mutually_consistent": false,
     "targets": {
@@ -499,7 +499,6 @@
   "problems": [],
   "history": {
     "dates": [
-      "2025-11-26",
       "2025-11-28",
       "2025-12-01",
       "2025-12-02",
@@ -678,11 +677,11 @@
       "2026-08-12",
       "2026-08-13",
       "2026-08-14",
-      "2026-08-17"
+      "2026-08-17",
+      "2026-08-18"
     ],
     "series": {
       "cp_score": [
-        31.513,
         29.806,
         27.769,
         27.0,
@@ -861,7 +860,8 @@
         20.16,
         16.92,
         20.16,
-        19.052
+        19.052,
+        19.585
       ],
       "state_active_veto": [
         0.0,
@@ -895,7 +895,6 @@
         0.0,
         0.0,
         0.0,
-        0.0,
         1.0,
         0.0,
         0.0,
@@ -1031,6 +1030,7 @@
         0.0,
         0.0,
         1.0,
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -1077,7 +1077,6 @@
         0.0,
         0.0,
         0.0,
-        0.0,
         1.0,
         0.0,
         0.0,
@@ -1213,6 +1212,7 @@
         0.0,
         0.0,
         1.0,
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -1231,7 +1231,6 @@
         0.0,
         0.0,
         0.0,
-        0.0,
         0.1875,
         0.1875,
         0.1875,
@@ -1405,6 +1404,7 @@
         0.25,
         0.25,
         0.25,
+        0.0,
         0.0,
         0.0,
         0.0
@@ -1413,7 +1413,6 @@
         0.0,
         0.0,
         0.0,
-        0.0,
         0.25,
         0.25,
         0.25,
@@ -1587,12 +1586,12 @@
         0.25,
         0.25,
         0.25,
+        0.0,
         0.0,
         0.0,
         0.0
       ],
       "cr_score": [
-        44.73,
         49.05,
         46.79,
         45.78,
@@ -1771,7 +1770,8 @@
         42.17,
         45.96,
         48.91,
-        48.52
+        48.52,
+        47.34
       ]
     }
   },
