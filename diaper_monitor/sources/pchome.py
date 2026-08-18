@@ -19,12 +19,17 @@ workflow log 判斷到底是「PChome 真的沒有這個商品」還是程式碼
 from __future__ import annotations
 
 import logging
-import re
 from typing import Optional
 
 import requests
 
-from ..config import PIECE_COUNT_PATTERN, SIZE_M_PATTERN, UNRELIABLE_TITLE_PATTERN
+from ._common import (
+    extract_piece_count,
+    first,
+    looks_like_a_plausible_pack_price,
+    looks_like_size_m,
+    looks_unreliable,
+)
 
 log = logging.getLogger(__name__)
 
@@ -41,31 +46,6 @@ SEARCH_QUERIES = {
     "Aiwibi": "Aiwibi 愛薇彼 M",
     "奢寵幫": "奢寵幫 M",
 }
-
-
-def _first(item: dict, *keys: str):
-    """依序試幾種常見的欄位命名（大小寫不一致是這類舊版 API 的常態），
-    避免因為猜錯一種大小寫就整批漏抓。"""
-    for k in keys:
-        v = item.get(k)
-        if v not in (None, ""):
-            return v
-    return None
-
-
-def _extract_piece_count(name: str) -> Optional[int]:
-    m = re.search(PIECE_COUNT_PATTERN, name)
-    return int(m.group(1)) if m else None
-
-
-def _looks_like_size_m(name: str) -> bool:
-    return re.search(SIZE_M_PATTERN, name) is not None
-
-
-def _looks_unreliable(name: str) -> bool:
-    """擋掉試用包、多尺寸片數擠在一起、箱購倍數這三種標題——
-    三個都是 UNRELIABLE_TITLE_PATTERN 開頭註解裡實際抓錯過的真實案例。"""
-    return re.search(UNRELIABLE_TITLE_PATTERN, name) is not None
 
 
 def fetch_brand(brand: str, query: Optional[str] = None,
@@ -95,7 +75,7 @@ def fetch_brand(brand: str, query: Optional[str] = None,
         log.warning("PChome 來源：查詢「%s」失敗（%s: %s）", query, type(e).__name__, e)
         return []
 
-    items = _first(payload, "prods", "Prods")
+    items = first(payload, "prods", "Prods")
     if not isinstance(items, list):
         log.warning(
             "PChome 來源：回應格式跟預期不符（找不到 prods 陣列），"
@@ -110,25 +90,28 @@ def fetch_brand(brand: str, query: Optional[str] = None,
         if not isinstance(item, dict):
             skipped += 1
             continue
-        name = _first(item, "name", "Name", "describe", "Describe")
-        price = _first(item, "price", "Price")
-        item_id = _first(item, "Id", "id")
+        name = first(item, "name", "Name", "describe", "Describe")
+        price = first(item, "price", "Price")
+        item_id = first(item, "Id", "id")
         if not name or price is None:
             skipped += 1
             continue
-        if not _looks_like_size_m(str(name)):
+        if not looks_like_size_m(str(name)):
             skipped += 1
             continue
-        if _looks_unreliable(str(name)):
+        if looks_unreliable(str(name)):
             skipped += 1
             continue
-        piece_count = _extract_piece_count(str(name))
+        piece_count = extract_piece_count(str(name))
         if piece_count is None:
             skipped += 1
             continue
         try:
             pack_price = float(price)
         except (TypeError, ValueError):
+            skipped += 1
+            continue
+        if not looks_like_a_plausible_pack_price(pack_price):
             skipped += 1
             continue
 
