@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-08-17",
+  "as_of": "2026-08-18",
   "size": "M",
   "baseline_window_days": 14,
   "min_baseline_points": 5,
@@ -17,7 +17,8 @@
           "pack_price": 509,
           "piece_count": 62,
           "unit_price": 8.21,
-          "url": "https://shop.cosmed.com.tw/v2/official/SalePageCategory/463337"
+          "url": "https://shop.cosmed.com.tw/v2/official/SalePageCategory/463337",
+          "source": "人工"
         },
         {
           "platform": "屈臣氏",
@@ -25,7 +26,8 @@
           "pack_price": 519,
           "piece_count": 62,
           "unit_price": 8.37,
-          "url": "https://www.watsons.com.tw/%E6%BB%BF%E6%84%8F%E5%AF%B6%E5%AF%B6%E6%A5%B5%E4%B8%8A%E5%91%B5%E8%AD%B7m-62%E7%89%87/p/BP_253329"
+          "url": "https://www.watsons.com.tw/%E6%BB%BF%E6%84%8F%E5%AF%B6%E5%AF%B6%E6%A5%B5%E4%B8%8A%E5%91%B5%E8%AD%B7m-62%E7%89%87/p/BP_253329",
+          "source": "人工"
         },
         {
           "platform": "PChome24h購物",
@@ -33,7 +35,8 @@
           "pack_price": 2390,
           "piece_count": 248,
           "unit_price": 9.64,
-          "url": "https://24h.pchome.com.tw/prod/DEDG0G-A900FMWRI"
+          "url": "https://24h.pchome.com.tw/prod/DEDG0G-A900FMWRI",
+          "source": "人工"
         }
       ],
       "baseline_avg": null,
@@ -58,7 +61,8 @@
           "pack_price": 308,
           "piece_count": 48,
           "unit_price": 6.42,
-          "url": ""
+          "url": "",
+          "source": "人工"
         }
       ],
       "baseline_avg": null,
@@ -83,7 +87,8 @@
           "pack_price": 439,
           "piece_count": 38,
           "unit_price": 11.55,
-          "url": ""
+          "url": "",
+          "source": "人工"
         },
         {
           "platform": "媽媽好婦幼用品",
@@ -91,7 +96,8 @@
           "pack_price": 499,
           "piece_count": 38,
           "unit_price": 13.13,
-          "url": "https://shop.mamahow.com.tw/SalePage/Index/9442416"
+          "url": "https://shop.mamahow.com.tw/SalePage/Index/9442416",
+          "source": "人工"
         }
       ],
       "baseline_avg": null,
@@ -135,7 +141,7 @@
     "「今日最便宜」取當天各平台報價中單片價最低者，不是各平台的平均——使用者實際能拿到的價格就是最便宜的那個，用平均會把「其實有更便宜的選擇」平均掉。",
     "如果某個品牌當天沒填報價，畫面會退回顯示該品牌最近一次有資料的日期（並標示「非今日」），不是顯示成「今日無報價」——但那筆退回顯示的資料不會被當成「今天」寫進歷史，否則同一個價格會重複墊高近期平均。",
     "「近期平均」為前 14 天（不含當天）的「當日最便宜單價」平均，歷史點數不足 5 筆時不判定，避免用一兩筆資料誤判顯著下跌。",
-    "資料來源為人工每日填入（見 data/diaper_monitor/manual_prices.csv），非自動爬蟲：多數平台對非登入的自動化請求有防爬機制，貿然爬取容易撞到服務條款，也容易在頁面改版後安靜地爬到錯誤價格。",
+    "資料以人工每日填入為主（見 data/diaper_monitor/manual_prices.csv），目前另有 PChome 的自動爬蟲補人工沒查到的空檔（見 data/diaper_monitor/scraped_prices.csv）——同一天、同一品牌、同一平台，人工填的資料永遠蓋過爬蟲抓到的；明細裡每一筆都標了「人工」或「自動爬蟲」的來源。",
     "三個品牌／通路彼此不比較——「滿意寶寶日本境內版」「Aiwibi」「奢寵幫」不是同一件商品，價格高低本來就不該放在一起看，各自只跟自己的近期平均比。"
   ]
 }

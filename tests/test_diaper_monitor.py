@@ -265,3 +265,68 @@ def test_rerunning_the_same_date_overwrites_history_instead_of_duplicating(tmp_p
     same_day = hist[(hist["date"] == "2026-07-01") & (hist["brand"] == brand)]
     assert len(same_day) == 1
     assert same_day.iloc[0]["cheapest_unit_price"] == pytest.approx(90.0)
+
+
+# --- 人工與自動爬蟲資料合併 ----------------------------------------------------
+
+def test_scraped_data_is_ignored_when_scraped_path_is_not_given(tmp_path):
+    """既有只傳 manual_path 的呼叫端（包含其餘所有測試）行為不能變——
+    scraped_path 預設 None 就是完全不去看爬蟲那份資料。"""
+    manual = tmp_path / "manual.csv"
+    scraped = tmp_path / "scraped.csv"
+    history = tmp_path / "history.csv"
+    brand = BRANDS[0]
+    _write_manual_csv(manual, [("2026-07-01", brand, "蝦皮", 100 * 64, 64)])
+    _write_manual_csv(scraped, [("2026-07-01", brand, "momo購物網", 50 * 64, 64)])  # 應該被忽略
+
+    report = pipeline.build_report(as_of="2026-07-01", manual_path=str(manual), history_path=str(history))
+    b = next(x for x in report["brands"] if x["brand"] == brand)
+    assert b["offer_count"] == 1
+    assert b["cheapest_unit_price"] == pytest.approx(100.0)
+
+
+def test_scraped_data_fills_gaps_when_scraped_path_is_given(tmp_path):
+    manual = tmp_path / "manual.csv"
+    scraped = tmp_path / "scraped.csv"
+    history = tmp_path / "history.csv"
+    brand = BRANDS[0]
+    _write_manual_csv(manual, [("2026-07-01", brand, "蝦皮", 100 * 64, 64)])
+    _write_manual_csv(scraped, [("2026-07-01", brand, "PChome24h購物", 80 * 64, 64)])
+
+    report = pipeline.build_report(as_of="2026-07-01", manual_path=str(manual), history_path=str(history),
+                                    scraped_path=str(scraped))
+    b = next(x for x in report["brands"] if x["brand"] == brand)
+    assert b["offer_count"] == 2
+    assert b["cheapest_unit_price"] == pytest.approx(80.0)
+    assert b["cheapest_platform"] == "PChome24h購物"
+    sources = {o["platform"]: o["source"] for o in b["offers"]}
+    assert sources["蝦皮"] == "人工"
+    assert sources["PChome24h購物"] == "自動爬蟲"
+
+
+def test_manual_data_wins_over_scraped_data_on_the_same_platform_and_day(tmp_path):
+    """同一天、同一品牌、同一平台，人工填的資料要蓋過爬蟲抓到的——
+    爬蟲補的是空檔，不是取代查證，兩邊都有資料時不該採信沒人核對過的那一筆。"""
+    manual = tmp_path / "manual.csv"
+    scraped = tmp_path / "scraped.csv"
+    history = tmp_path / "history.csv"
+    brand = BRANDS[0]
+    _write_manual_csv(manual, [("2026-07-01", brand, "蝦皮", 100 * 64, 64)])
+    # 爬蟲對同一天、同一品牌、同一平台抓到一個離譜的低價（例如抓錯商品）
+    _write_manual_csv(scraped, [("2026-07-01", brand, "蝦皮", 1 * 64, 64)])
+
+    report = pipeline.build_report(as_of="2026-07-01", manual_path=str(manual), history_path=str(history),
+                                    scraped_path=str(scraped))
+    b = next(x for x in report["brands"] if x["brand"] == brand)
+    assert b["offer_count"] == 1
+    assert b["cheapest_unit_price"] == pytest.approx(100.0)
+    assert b["offers"][0]["source"] == "人工"
+
+
+def test_load_all_prices_returns_manual_only_when_scraped_file_is_missing(tmp_path):
+    manual = tmp_path / "manual.csv"
+    brand = BRANDS[0]
+    _write_manual_csv(manual, [("2026-07-01", brand, "蝦皮", 100 * 64, 64)])
+    df = pipeline.load_all_prices(str(manual), str(tmp_path / "does_not_exist.csv"))
+    assert len(df) == 1
+    assert df.iloc[0]["source"] == "人工"

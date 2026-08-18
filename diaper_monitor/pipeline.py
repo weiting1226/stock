@@ -21,6 +21,7 @@ from .config import (
     HISTORY_PATH,
     MANUAL_PRICES_PATH,
     MIN_BASELINE_POINTS,
+    SCRAPED_PRICES_PATH,
     SIZE,
 )
 
@@ -30,9 +31,9 @@ REQUIRED_COLUMNS = ["date", "brand", "platform", "product_name", "pack_price", "
 HISTORY_COLUMNS = ["date", "brand", "cheapest_unit_price", "cheapest_platform", "avg_unit_price", "offer_count"]
 
 
-def load_manual_prices(path: str = MANUAL_PRICES_PATH) -> pd.DataFrame:
-    """讀取人工填入的報價表，換算單片價。片數 <=0 或缺售價的列直接捨棄——
-    那種列算不出單片價，留著只會在後面除以零。"""
+def _load_price_csv(path: str) -> pd.DataFrame:
+    """共用的報價表讀取／換算邏輯，人工填的與自動爬蟲抓的共用同一份欄位定義。
+    片數 <=0 或缺售價的列直接捨棄——那種列算不出單片價，留著只會在後面除以零。"""
     p = Path(path)
     if not p.exists():
         return pd.DataFrame(columns=REQUIRED_COLUMNS + ["unit_price", "url", "note"])
@@ -49,6 +50,44 @@ def load_manual_prices(path: str = MANUAL_PRICES_PATH) -> pd.DataFrame:
     df = df[df["piece_count"] > 0]
     df["unit_price"] = df["pack_price"] / df["piece_count"]
     return df
+
+
+def load_manual_prices(path: str = MANUAL_PRICES_PATH) -> pd.DataFrame:
+    """讀取人工填入的報價表。人工填的資料一律信任，見 `load_all_prices`
+    的合併規則——同一天、同一品牌、同一平台，這份資料永遠蓋過自動爬蟲。"""
+    df = _load_price_csv(path)
+    df["source"] = "人工"
+    return df
+
+
+def load_scraped_prices(path: str = SCRAPED_PRICES_PATH) -> pd.DataFrame:
+    """讀取自動爬蟲（見 `diaper_monitor/sources/`）寫入的報價表。信任層級
+    低於人工填寫，只用來補人工沒空查、或忘記查的空檔——見 `load_all_prices`。"""
+    df = _load_price_csv(path)
+    df["source"] = "自動爬蟲"
+    return df
+
+
+def load_all_prices(manual_path: str = MANUAL_PRICES_PATH,
+                     scraped_path: Optional[str] = None) -> pd.DataFrame:
+    """合併人工與自動爬蟲的報價。`scraped_path` 給 None 時完全不碰爬蟲資料——
+    這是刻意的預設值，讓既有只傳 `manual_path` 的呼叫端（包含測試）行為不變。
+
+    同一天、同一品牌、同一平台，人工的資料蓋過爬蟲的：爬蟲的角色是補人工的
+    空檔，不是取代查證，兩邊都有資料時沒有理由採信沒人核對過的那一筆。"""
+    manual = load_manual_prices(manual_path)
+    if not scraped_path:
+        return manual
+    scraped = load_scraped_prices(scraped_path)
+    if scraped.empty:
+        return manual
+    if manual.empty:
+        return scraped
+    manual_keys = set(zip(manual["date"], manual["brand"], manual["platform"]))
+    scraped = scraped[
+        ~scraped.apply(lambda r: (r["date"], r["brand"], r["platform"]) in manual_keys, axis=1)
+    ]
+    return pd.concat([manual, scraped], ignore_index=True)
 
 
 def _load_history(path: str = HISTORY_PATH) -> pd.DataFrame:
@@ -102,9 +141,10 @@ def _baseline(history: pd.DataFrame, brand: str, as_of: str,
 
 
 def build_report(as_of: Optional[str] = None, manual_path: str = MANUAL_PRICES_PATH,
-                  history_path: str = HISTORY_PATH) -> dict:
+                  history_path: str = HISTORY_PATH,
+                  scraped_path: Optional[str] = None) -> dict:
     as_of = as_of or date_cls.today().isoformat()
-    raw = load_manual_prices(manual_path)
+    raw = load_all_prices(manual_path, scraped_path)
     today = raw[raw["date"].astype(str) == str(as_of)]
     history_before = _load_history(history_path)
 
@@ -163,7 +203,7 @@ def build_report(as_of: Optional[str] = None, manual_path: str = MANUAL_PRICES_P
             significant = pct_change <= -DROP_THRESHOLD_PCT
 
         offers = (
-            day_rows[["platform", "product_name", "pack_price", "piece_count", "unit_price", "url"]]
+            day_rows[["platform", "product_name", "pack_price", "piece_count", "unit_price", "url", "source"]]
             .sort_values("unit_price")
             .copy()
         )
@@ -222,9 +262,10 @@ def _notes() -> list:
         "不會被當成「今天」寫進歷史，否則同一個價格會重複墊高近期平均。",
         f"「近期平均」為前 {BASELINE_WINDOW_DAYS} 天（不含當天）的「當日最便宜單價」平均，"
         f"歷史點數不足 {MIN_BASELINE_POINTS} 筆時不判定，避免用一兩筆資料誤判顯著下跌。",
-        "資料來源為人工每日填入（見 data/diaper_monitor/manual_prices.csv），"
-        "非自動爬蟲：多數平台對非登入的自動化請求有防爬機制，貿然爬取容易撞到服務條款，"
-        "也容易在頁面改版後安靜地爬到錯誤價格。",
+        "資料以人工每日填入為主（見 data/diaper_monitor/manual_prices.csv），"
+        "目前另有 PChome 的自動爬蟲補人工沒查到的空檔（見 data/diaper_monitor/scraped_prices.csv）——"
+        "同一天、同一品牌、同一平台，人工填的資料永遠蓋過爬蟲抓到的；"
+        "明細裡每一筆都標了「人工」或「自動爬蟲」的來源。",
         f"三個品牌／通路彼此不比較——「滿意寶寶日本境內版」「Aiwibi」「奢寵幫」不是同一件商品，"
         f"價格高低本來就不該放在一起看，各自只跟自己的近期平均比。",
     ]
