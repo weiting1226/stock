@@ -4,14 +4,17 @@
 「滿意寶寶日本境內版」「Aiwibi」「奢寵幫」彼此不是同一件商品的不同賣場，
 價格本來就不該放在一起比大小，只在各自的時間序列上比「今天 vs. 自己的近期」。
 
-**資料來源是人工填入，不是自動爬蟲。** 蝦皮、momo、PChome 等平台對非登入的
+**資料來源以人工填入為主，自動爬蟲為輔。** 蝦皮、momo、PChome 等平台對非登入的
 自動化請求有防爬機制，貿然爬取容易撞到服務條款、也容易因頁面改版而悄悄爬錯
 （爬蟲最危險的失敗方式不是報錯，是安靜地回傳一個過期或錯誤的數字）。
-比照模組一 `manual_overrides.json` 的前例：由人工每日把各平台的報價填進
-`data/diaper_monitor/manual_prices.csv`，本模組只負責換算與比較。
-之後若要接自動爬蟲，在獨立的 `sources/` 子模組裡新增即可，只要輸出同樣的欄位
+比照模組一 `manual_overrides.json` 的前例：人工查價填進
+`data/diaper_monitor/manual_prices.csv` 一律信任；`sources/` 底下的自動爬蟲
+（目前只有 PChome，理由見 `sources/pchome.py`）輸出到獨立的
+`data/diaper_monitor/scraped_prices.csv`，**兩邊同一天、同一品牌、同一平台
+都有資料時，以人工填的為準**——爬蟲的角色是補人工沒空查、或忘記查的空檔，
+不是取代查證。新增其他平台的爬蟲時，一樣輸出跟這份 CSV 相同的欄位
 （date, brand, platform, product_name, pack_price, piece_count, url），
-不需要動 `pipeline.py`。
+不需要動 `pipeline.py` 的合併邏輯。
 
 **「今日最便宜」怎麼算**：同一天、同一品牌可能有好幾個平台的報價，
 取單片價（= 包裝售價 / 片數）最低的那一筆，作為當日代表值。
@@ -31,8 +34,15 @@ BRANDS = ["滿意寶寶日本境內版", "Aiwibi", "奢寵幫"]
 PLATFORMS = ["蝦皮", "酷澎", "momo購物網"]
 
 MANUAL_PRICES_PATH = "data/diaper_monitor/manual_prices.csv"
+SCRAPED_PRICES_PATH = "data/diaper_monitor/scraped_prices.csv"
 HISTORY_PATH = "data/diaper_monitor/history.csv"
 DATA_ROOT = "docs/data/diaper"
+
+# 自動爬蟲抓到的商品標題必須同時通過這兩關才會被採用：確實是 M 號、
+# 且標題上找得到片數。抓不到片數就沒辦法換算單片價；沒標 M 號的話很可能是
+# 別的尺寸，兩者都寧可漏抓，不要抓錯——抓錯的資料會直接誤導「顯著下跌」的判定。
+PIECE_COUNT_PATTERN = r"(\d+)\s*片"
+SIZE_M_PATTERN = r"(?<![A-Za-z])M(?![A-Za-z])"
 
 # 「近期平均」的比較視窗（天數，非交易日）。
 # 太短（例如 3 天）容易被單一天的異常報價牽著走；太長則會把一個月前的價格

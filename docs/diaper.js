@@ -114,6 +114,8 @@ function renderOffers(r) {
         <td class="num">${Number(o.pack_price).toLocaleString()}</td>
         <td class="num">${o.piece_count}</td>
         <td class="num">${Number(o.unit_price).toFixed(2)}</td>
+        <td><span class="badge ${o.source === "自動爬蟲" ? "warn" : "muted"}"
+              title="${o.source === "自動爬蟲" ? "自動爬蟲抓到、未經人工核對；同一天若人工也填了同一平台，一律以人工為準" : "人工查價填入"}">${escapeHtml(o.source)}</span></td>
         <td>${o.url ? `<a href="${escapeHtml(o.url)}" target="_blank" rel="noopener">連結</a>` : ""}</td>
       </tr>`).join("");
     return `<div class="card" style="padding-top:8px">
@@ -122,7 +124,7 @@ function renderOffers(r) {
       <div class="table-scroll">
         <table>
           <thead><tr><th>平台</th><th>商品</th><th class="num">售價</th>
-            <th class="num">片數</th><th class="num">單片價</th><th>連結</th></tr></thead>
+            <th class="num">片數</th><th class="num">單片價</th><th>來源</th><th>連結</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>

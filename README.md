@@ -1574,30 +1574,44 @@ MSCI 美國 IMI（含中小型），IYW 追羅素 1000。追的指數不同，�
 
 以上三個數字（視窗天數、最少樣本數、跌幅門檻）定義在 `diaper_monitor/config.py`。
 
-## 資料來源：人工填寫，不是自動爬蟲
+## 資料來源：人工填寫為主，自動爬蟲補空檔
 
 蝦皮、momo、PChome 等平台對非登入的自動化請求普遍有防爬機制，貿然爬取容易
 撞到服務條款；就算能爬到，頁面改版時爬蟲最危險的失敗方式不是報錯，是
 **安靜地**抓到過期或錯誤的價格，而錯誤的資料會直接誤導「顯著下跌」的判定。
-
 比照模組一 `manual_overrides.json` 的前例：每日查價後填入
-`data/diaper_monitor/manual_prices.csv`，欄位格式與範例見同資料夾的
-`README.md`。之後若要接自動化來源，建議在 `diaper_monitor/sources/`
-底下新增個別平台的擷取模組，輸出與這份 CSV 相同的欄位即可，
-`pipeline.py` 不需要更動。
+`data/diaper_monitor/manual_prices.csv`（欄位格式與範例見同資料夾的
+`README.md`），這份資料的信任層級最高。
+
+`scripts/run_diaper_monitor.py` 每次執行會先跑一輪 PChome 自動查價
+（`diaper_monitor/sources/pchome.py`），結果寫進格式相同的
+`data/diaper_monitor/scraped_prices.csv`；**同一天、同一品牌、同一平台，
+人工填的資料永遠蓋過爬蟲抓到的**，爬蟲的角色是補人工沒空查、或忘記查的
+空檔。選 PChome 當第一個自動來源是因為它有公開回傳 JSON 的搜尋端點，理論上
+比蝦皮／momo 那種需要瀏覽器引擎渲染的頁面更不容易被防爬機制攔下——
+但**這支程式碼開發時所在的沙盒環境連不到 PChome（網路出口整段擋掉），
+從未在真實 API 回應上驗證過**，對回應格式的假設全憑公開資料。第一次在
+GitHub Actions 上真的跑起來時，務必看 `-v` 的 log 確認到底有沒有抓到東西、
+抓到的解析對不對；`sources/pchome.py` 開頭有完整說明。
+
+新增其他平台的爬蟲時，一樣在 `diaper_monitor/sources/` 底下新增模組，
+輸出跟這份 CSV 相同的欄位即可，`pipeline.py` 的合併邏輯不需要更動。
 
 ## 架構
 
 ```
 diaper_monitor/
-  config.py    品牌清單、比較視窗、門檻
-  pipeline.py  讀報價 -> 換算單片價 -> 取當日最便宜 -> 與近期平均比較
-  storage.py   寫 docs/data/diaper/latest.json、建立報價表範本
+  config.py    品牌清單、比較視窗、門檻、平台範圍
+  pipeline.py  讀報價（人工+爬蟲合併，人工優先）-> 換算單片價
+               -> 取當日最便宜 -> 與近期平均比較
+  storage.py   寫 docs/data/diaper/latest.json、報價表範本、落地爬蟲結果
+  sources/pchome.py  PChome 自動查價（目前唯一的自動來源）
 data/diaper_monitor/
-  manual_prices.csv  每日人工填入的報價（唯一資料輸入）
-  history.csv        每日執行後累積的「當日最便宜單價」序列，近期平均由此計算
-docs/diaper.html, docs/diaper.js   儀表板（模組八）
-scripts/run_diaper_monitor.py     每日執行入口
+  manual_prices.csv   每日人工填入的報價，信任層級最高
+  scraped_prices.csv  自動爬蟲抓到的報價，同天同品牌同平台時被人工資料蓋過
+  history.csv         每日執行後累積的「當日最便宜單價」序列，近期平均由此計算
+docs/diaper.html, docs/diaper.js   儀表板（模組八），明細會標「人工」或「自動爬蟲」
+scripts/run_diaper_monitor.py     每日執行入口：先跑爬蟲、再合併人工資料算報表
 .github/workflows/diaper-monitor.yml  在 manual_prices.csv 有更動時執行，
                                        並每日排程一次作為備援
 ```
@@ -1607,6 +1621,7 @@ scripts/run_diaper_monitor.py     每日執行入口
 ```bash
 python3 scripts/run_diaper_monitor.py -v
 python3 scripts/run_diaper_monitor.py --as-of 2026-08-14
+python3 scripts/run_diaper_monitor.py --skip-scrape   # 只用人工資料，不跑爬蟲
 ```
 
 ---
@@ -1627,10 +1642,11 @@ python3 scripts/run_diaper_monitor.py --as-of 2026-08-14
 期望值模型的五項假設全部未實測。在跑完接線說明第 6 節的驗證之前，
 它的輸出不該接上任何下單邏輯。
 
-模組八呈現的是**人工填入**的每日報價換算結果，非即時自動抓取；資料的正確性
-取決於填寫當下有沒有查對品牌、尺寸與片數，**下單前請以各平台當下頁面實際
-顯示的價格為準**。「顯著下跌」的 20% 門檻與 14 天比較視窗是折衷設定，
-不是回測校準過的最佳參數。
+模組八呈現的是**人工填入為主、PChome 自動爬蟲補空檔**的每日報價換算結果，
+非即時逐一核對；人工資料的正確性取決於填寫當下有沒有查對品牌、尺寸與片數，
+自動爬蟲的部分**從未在真實 PChome API 回應上驗證過**（開發環境連不到該平台）。
+**下單前請一律以各平台當下頁面實際顯示的價格為準**。「顯著下跌」的 20% 門檻
+與 14 天比較視窗是折衷設定，不是回測校準過的最佳參數。
 
 模組九是機構共識目標價與市價落差的**再篩選**，不是新的資料來源；目標價本身
 的所有限制（分析師偏多傾向、共識價事後調整、逐機構資料未啟用）同樣適用。
