@@ -1,18 +1,17 @@
 """PChome 24h購物 的自動查價來源。
 
-**這支程式碼沒有機會在真正的 PChome API 上跑過一次再上線。** 開發這個模組的
-沙盒環境網路出口把 `ecshweb.pchome.com.tw` 也擋掉了（連 curl 都在 CONNECT
-階段被 403），所以底下對回應格式的假設全部來自公開資料（PChome search v3.3
-端點常見於其他開源爬蟲專案的參考實作），未經本專案任何一次即時驗證。
-
 選 PChome 而不是蝦皮／momo 當第一個自動來源，是因為它有一個公開、回傳 JSON
 （而非需要瀏覽器引擎渲染的動態頁面）的搜尋端點，理論上比較不容易被防爬機制
-攔下——但「理論上」三個字換句話說就是沒驗證過。
+攔下。開發這個模組的沙盒環境連不到 `ecshweb.pchome.com.tw`（連 curl 都在
+CONNECT 階段被 403），所以最初的實作完全沒驗證過；**2026-08-18 第一次在
+GitHub Actions 上跑，證實連得到、JSON 結構（`prods` 陣列、`name`/`price`
+欄位）的假設也是對的**——但同一次也抓到三種會**算錯單片價而不是抓不到**的
+標題（試用包、多尺寸片數擠在一起、箱購倍數），修正後的過濾規則見
+`config.UNRELIABLE_TITLE_PATTERN` 開頭的說明與那三個真實案例。
 
-**第一次真的在 GitHub Actions 上跑起來時，務必看 log。** `fetch_brand()`
-對抓不到的欄位、格式對不上的回應、片數／M 號比對不到的商品，一律記錄警告
-而不是拋例外或安靜略過，方便從 workflow log 判斷到底是「PChome 真的沒有
-這個商品」還是「這支程式碼對回應格式的假設錯了」。
+`fetch_brand()` 對抓不到的欄位、格式對不上的回應、片數／M 號／上述三種
+不可靠標題比對不到的商品，一律記錄警告而不是拋例外或安靜略過，方便從
+workflow log 判斷到底是「PChome 真的沒有這個商品」還是程式碼的假設錯了。
 
 **信任層級低於人工填寫**：見 `pipeline.load_all_prices` 的合併邏輯，
 同一天、同一品牌、同一平台，人工填的資料永遠蓋過這裡抓到的。
@@ -25,7 +24,7 @@ from typing import Optional
 
 import requests
 
-from ..config import PIECE_COUNT_PATTERN, SIZE_M_PATTERN
+from ..config import PIECE_COUNT_PATTERN, SIZE_M_PATTERN, UNRELIABLE_TITLE_PATTERN
 
 log = logging.getLogger(__name__)
 
@@ -61,6 +60,12 @@ def _extract_piece_count(name: str) -> Optional[int]:
 
 def _looks_like_size_m(name: str) -> bool:
     return re.search(SIZE_M_PATTERN, name) is not None
+
+
+def _looks_unreliable(name: str) -> bool:
+    """擋掉試用包、多尺寸片數擠在一起、箱購倍數這三種標題——
+    三個都是 UNRELIABLE_TITLE_PATTERN 開頭註解裡實際抓錯過的真實案例。"""
+    return re.search(UNRELIABLE_TITLE_PATTERN, name) is not None
 
 
 def fetch_brand(brand: str, query: Optional[str] = None,
@@ -112,6 +117,9 @@ def fetch_brand(brand: str, query: Optional[str] = None,
             skipped += 1
             continue
         if not _looks_like_size_m(str(name)):
+            skipped += 1
+            continue
+        if _looks_unreliable(str(name)):
             skipped += 1
             continue
         piece_count = _extract_piece_count(str(name))

@@ -95,6 +95,37 @@ def test_does_not_false_positive_on_m_inside_another_word():
     assert pchome.fetch_brand("滿意寶寶日本境內版", session=session) == []
 
 
+# --- 三個 2026-08-18 在 GitHub Actions 上真的抓錯過的案例 -----------------------
+#
+# 這三個不是抓不到、是**算出一個看起來合理但其實錯誤的單片價**——比抓不到更
+# 危險，因為不會觸發「查到 0 筆」的警告，錯誤資料會直接被當成報價收下。
+
+def test_rejects_trial_size_packs():
+    """真實案例：「2片/包 M-2XL(體驗包)」29 元算出 14.5 元/片——
+    試用包單價本來就貴，不是市售單位，混進來會讓「今日最便宜」失真。"""
+    payload = {"prods": [{"Id": "1",
+        "name": "零觸感瞬吸 褲型紙尿褲 2片/包 M-2XL(褲型/紙尿褲/尿布/體驗包)", "price": 29}]}
+    session = _FakeSession(_FakeResponse(payload))
+    assert pchome.fetch_brand("Aiwibi", session=session) == []
+
+
+def test_rejects_titles_that_list_multiple_sizes_piece_counts_together():
+    """真實案例：「(單包入48/44/40/36片)」規則會抓到最後一個數字「36」，
+    但完全不知道哪個數字才是對應 M 號——與其猜，不如整批跳過。"""
+    payload = {"prods": [{"Id": "1",
+        "name": "夜用甄柔瞬吸 褲型紙尿褲 M-XXL(單包入48/44/40/36片)", "price": 529}]}
+    session = _FakeSession(_FakeResponse(payload))
+    assert pchome.fetch_brand("Aiwibi", session=session) == []
+
+
+def test_rejects_box_purchases_with_a_pack_multiplier():
+    """真實案例：「奢寵幫 M 38片入*3包入(箱購)」1520 元只除以 38，
+    算出 40 元/片；沒乘以 3 包，正確單片價應接近 13 元。"""
+    payload = {"prods": [{"Id": "1", "name": "奢寵幫 M 38片入*3包入(箱購)", "price": 1520}]}
+    session = _FakeSession(_FakeResponse(payload))
+    assert pchome.fetch_brand("奢寵幫", session=session) == []
+
+
 def test_caps_results_per_brand():
     items = [{"Id": str(i), "name": f"滿意寶寶 日本境內版 M {60 + i}片", "price": 500 + i}
              for i in range(pchome.MAX_RESULTS_PER_BRAND + 5)]
