@@ -19,3 +19,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-08-17,8,TRMB,Trimble Inc.,39.05,41.2,moderate
 2026-08-17,9,MCHP,Microchip Technology,37.94,50.36,moderate
 2026-08-17,10,ZTS,Zoetis,36.79,79.26,extreme
+2026-08-18,1,APP,AppLovin,77.89,92.03,extreme
+2026-08-18,2,ORCL,Oracle Corporation,72.58,117.68,extreme
+2026-08-18,3,NRG,NRG Energy,63.93,86.04,extreme
+2026-08-18,4,MU,Micron Technology,59.66,122.44,extreme
+2026-08-18,5,VST,Vistra Corp.,57.47,93.55,extreme
+2026-08-18,6,CRH,CRH plc,47.96,43.49,moderate
+2026-08-18,7,ECHO,EchoStar,42.7,41.27,moderate
+2026-08-18,8,TRMB,Trimble Inc.,40.54,41.2,moderate
+2026-08-18,9,HONA,Honeywell Aerospace,40.15,58.14,high
+2026-08-18,10,MCHP,Microchip Technology,39.67,50.36,moderate

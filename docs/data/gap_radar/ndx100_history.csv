@@ -9,3 +9,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-08-17,8,PDD,PDD Holdings Inc.,37.63,77.73,moderate
 2026-08-17,9,CRWV,"CoreWeave, Inc.",36.1,184.28,extreme
 2026-08-17,10,HONA,Honeywell Aerospace,35.43,58.14,moderate
+2026-08-18,1,MSTR,Strategy Inc,147.59,141.88,extreme
+2026-08-18,2,APP,AppLovin,77.89,92.03,high
+2026-08-18,3,ALNY,"Alnylam Pharmaceuticals, Inc.",62.85,82.19,high
+2026-08-18,4,MU,Micron Technology,59.66,122.44,extreme
+2026-08-18,5,SPCX,Space Exploration Technologies Corp,55.39,149.51,extreme
+2026-08-18,6,CRWV,"CoreWeave, Inc.",53.76,184.28,extreme
+2026-08-18,7,RKLB,Rocket Lab Corporation,42.67,76.15,moderate
+2026-08-18,8,HONA,Honeywell Aerospace,40.15,58.14,moderate
+2026-08-18,9,MCHP,Microchip Technology,39.67,50.36,low
+2026-08-18,10,AVGO,Broadcom,38.92,86.97,high
