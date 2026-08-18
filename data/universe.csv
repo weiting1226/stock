@@ -115,6 +115,7 @@ ADAM,"Adamas Trust, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ADAMG,"Adamas Trust, Inc. - 9.125% Senior Notes Due 2030",NASDAQ,False,note,nasdaqtrader
 ADAMH,"Adamas Trust, Inc. - 9.875% Senior Notes Due 2030",NASDAQ,False,note,nasdaqtrader
 ADAMI,"Adamas Trust, Inc. - 9.125% Senior Notes Due 2029",NASDAQ,False,note,nasdaqtrader
+ADAMK,"Adamas Trust, Inc. - 9.600% Senior Notes Due 2031",NASDAQ,False,note,nasdaqtrader
 ADAML,"Adamas Trust, Inc. - 6.875% Series F Fixed-to-Floating Rate Cumulative Redeemable Preferred Stock, $0.01 par value per share",NASDAQ,False,preferred,nasdaqtrader
 ADAMM,"Adamas Trust, Inc. - 7.875% Series E Fixed-to-Floating Rate Cumulative Redeemable Preferred Stock",NASDAQ,False,preferred,nasdaqtrader
 ADAMN,"Adamas Trust, Inc. - 8.00% Series D Fixed-to-Floating Rate Cumulative Redeemable Preferred Stock",NASDAQ,False,preferred,nasdaqtrader
@@ -669,7 +670,6 @@ AVAH,Aveanna Healthcare Holdings Inc. - Common Stock,NASDAQ,False,common,nasdaqt
 AVAL,Grupo Aval Acciones y Valores S.A. ADR (Each representing 20 preferred shares),N,False,common,nasdaqtrader
 AVAT,Avalanche Treasury Corporation - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 AVAV,"AeroVironment, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-AVB,"AvalonBay Communities, Inc. Common Stock",N,False,common,nasdaqtrader
 AVBC,"Avidia Bancorp, Inc. Common Stock",N,False,common,nasdaqtrader
 AVBH,"Avidbank Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 AVBP,"ArriVent BioPharma, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -770,8 +770,7 @@ BB,BlackBerry Limited Common Stock,N,False,common,nasdaqtrader
 BBAI,"BigBear.ai, Inc. Common Stock",N,False,common,nasdaqtrader
 BBAI-W,"BigBear.ai, Inc. Redeemable Warrants, each exercisable for one share of Common Stock at an exercise price of $11.50 per share",N,False,warrant,nasdaqtrader
 BBAR,Banco BBVA Argentina S.A. ADS,N,False,common,nasdaqtrader
-BBBY,"Bed Bath & Beyond, Inc. Common Stock",N,False,common,nasdaqtrader
-BBBY-W,"Bed Bath & Beyond, Inc. Warrants to Purchase Common Stock",N,False,warrant,nasdaqtrader
+BBBYW,Bed Bath  - Warrant,NASDAQ,False,warrant,nasdaqtrader
 BBCP,"Concrete Pumping Holdings, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
 BBCQ,Bleichroeder Acquisition Corp. II - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 BBCQU,Bleichroeder Acquisition Corp. II - Units,NASDAQ,False,unit,nasdaqtrader
@@ -859,7 +858,7 @@ BEEP,Mobile Infrastructure Corporation - Common Stock,NASDAQ,False,common,nasdaq
 BEKE,KE Holdings Inc American Depositary Shares (each representing three Class A Ordinary Shares),N,False,common,nasdaqtrader
 BELFA,Bel Fuse Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 BELFB,Bel Fuse Inc. - Class B Common Stock,NASDAQ,False,common,nasdaqtrader
-BEN,"Franklin Resources, Inc. Common Stock",N,False,common,nasdaqtrader
+BEN,"Franklin Templeton, Inc. Common Stock",N,False,common,nasdaqtrader
 BENF,Beneficient - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 BENFW,Beneficient - Warrant,NASDAQ,False,warrant,nasdaqtrader
 BEP,Brookfield Renewable Partners L.P. Limited Partnership Units,N,False,common,nasdaqtrader
@@ -1412,7 +1411,9 @@ CGABL,The Carlyle Group Inc. - 4.625% Subordinated Notes due 2061,NASDAQ,False,n
 CGAU,Centerra Gold Inc. Common Shares,N,False,common,nasdaqtrader
 CGBD,"Carlyle Secured Lending, Inc. - Closed End Fund",NASDAQ,False,common,nasdaqtrader
 CGC,Canopy Growth Corporation - Common Shares,NASDAQ,False,common,nasdaqtrader
+CGCF,Cartesian Growth Corporation IV - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 CGCFU,Cartesian Growth Corporation IV - Units,NASDAQ,False,unit,nasdaqtrader
+CGCFW,Cartesian Growth Corporation IV - Warrants,NASDAQ,False,warrant,nasdaqtrader
 CGEM,"Cullinan Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 CGEN,Compugen Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 CGNT,Cognyte Software Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -2089,6 +2090,7 @@ DUK-PA,"Duke Energy Corporation Depositary Shares, each representing a 1/1,000th
 DUKB,Duke Energy Corporation 5.625% Junior Subordinated Debentures due 2078,N,False,note,nasdaqtrader
 DUKR,DUKE Robotics Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 DUKRW,DUKE Robotics Corp. - Warrant,NASDAQ,False,warrant,nasdaqtrader
+DUKU,Duke Energy Corporation Corporate Units,N,False,unit,nasdaqtrader
 DUO,Fangdd Network Group Ltd. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 DUOL,"Duolingo, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 DUOT,"Duos Technologies Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -3517,9 +3519,6 @@ IOTR,iOThree Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 IOVA,"Iovance Biotherapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 IP,International Paper Company Common Stock,N,False,common,nasdaqtrader
 IPAR,"Interparfums, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-IPCX,Inflection Point Acquisition Corp. III - Class A ordinary shares,NASDAQ,False,common,nasdaqtrader
-IPCXR,Inflection Point Acquisition Corp. III - Rights,NASDAQ,False,right,nasdaqtrader
-IPCXU,Inflection Point Acquisition Corp. III - Units,NASDAQ,False,unit,nasdaqtrader
 IPDN,"Professional Diversity Network, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 IPEX,Inflection Point Acquisition Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 IPEXR,Inflection Point Acquisition Corp. - Right,NASDAQ,False,right,nasdaqtrader
@@ -4411,7 +4410,9 @@ MQ,"Marqeta, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 MQY,"Blackrock MuniYield Quality Fund, Inc. Common Stock",N,False,common,nasdaqtrader
 MRAM,"Everspin Technologies, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 MRBK,Meridian Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
+MRCO,Mercator Acquisition Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 MRCOU,Mercator Acquisition Corp. - Units,NASDAQ,False,unit,nasdaqtrader
+MRCOW,Mercator Acquisition Corp. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 MRCY,Mercury Systems Inc - Common Stock,NASDAQ,False,common,nasdaqtrader
 MRDN,Meridian Holdings Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 MREO,Mereo BioPharma Group plc - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
@@ -4534,7 +4535,6 @@ MYO,Myomo Inc. Common Stock,A,False,common,nasdaqtrader
 MYPS,"PLAYSTUDIOS, Inc.  - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 MYRG,"MYR Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 MYSE,"Myseum.AI, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-MYSEW,"Myseum.AI, Inc. - Series A Warrant",NASDAQ,False,warrant,nasdaqtrader
 MYSZ,"My Size, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 MYX,Maywood Acquisition Corp. 2 - Class A Ordinary Share,NASDAQ,False,common,nasdaqtrader
 MYXXR,Maywood Acquisition Corp. 2 - Rights,NASDAQ,False,right,nasdaqtrader
@@ -4831,6 +4831,7 @@ NUAIW,"New Era Energy & Digital, Inc. - Warrants",NASDAQ,False,warrant,nasdaqtra
 NUCL,Eagle Nuclear Energy Corp. - Common stock,NASDAQ,False,common,nasdaqtrader
 NUCLW,Eagle Nuclear Energy Corp. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 NUE,Nucor Corporation Common Stock,N,False,common,nasdaqtrader
+NUR,Nuran Wireless Inc. - Common Shares,NASDAQ,False,common,nasdaqtrader
 NUS,"Nu Skin Enterprises, Inc. Common Stock",N,False,common,nasdaqtrader
 NUTX,Nutex Health Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 NUV,"Nuveen Municipal Value Fund, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -4881,6 +4882,7 @@ NXE,Nexgen Energy Ltd. Common Shares,N,False,common,nasdaqtrader
 NXG,NXG NextGen Infrastructure Income Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 NXGL,"NexGel, Inc - Common Stock",NASDAQ,False,common,nasdaqtrader
 NXGLW,"NexGel, Inc - Warrant",NASDAQ,False,warrant,nasdaqtrader
+NXH,Bed Bath  - Common Stock,NASDAQ,False,common,nasdaqtrader
 NXL,"Nexalin Technology, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 NXP,Nuveen Select Tax Free Income Portfolio Common Stock,N,False,common,nasdaqtrader
 NXPI,NXP Semiconductors N.V. - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -7165,6 +7167,7 @@ WALD,Waldencast plc - Class A Ordinary Share,NASDAQ,False,common,nasdaqtrader
 WALDW,Waldencast plc - Warrant,NASDAQ,False,warrant,nasdaqtrader
 WASH,"Washington Trust Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 WAT,Waters Corporation Common Stock,N,False,common,nasdaqtrader
+WATR,Air Water Ventures Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 WATT,Energous Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 WAVE,Eco Wave Power Global AB (publ) - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 WAY,Waystar Holding Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
