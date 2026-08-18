@@ -330,3 +330,28 @@ def test_load_all_prices_returns_manual_only_when_scraped_file_is_missing(tmp_pa
     df = pipeline.load_all_prices(str(manual), str(tmp_path / "does_not_exist.csv"))
     assert len(df) == 1
     assert df.iloc[0]["source"] == "人工"
+
+
+def test_rerunning_a_date_with_no_fresh_data_clears_its_stale_history_row(tmp_path):
+    """真實案例（2026-08-18）：爬蟲第一次跑抓錯資料，寫進了 history.csv；
+    修好過濾規則後重跑同一天，這次正確判定「沒有可信資料」——history.csv
+    裡那筆已知錯誤的資料也要跟著消失，不能因為「這次批次是空的」就留著不管。"""
+    manual = tmp_path / "manual.csv"
+    scraped = tmp_path / "scraped.csv"
+    history = tmp_path / "history.csv"
+    brand = BRANDS[0]
+
+    # 第一次執行：爬蟲抓到一筆（之後會被證實是錯的）資料
+    _write_manual_csv(scraped, [("2026-08-18", brand, "PChome24h購物", 40 * 64, 64)])
+    pipeline.build_report(as_of="2026-08-18", manual_path=str(manual), history_path=str(history),
+                           scraped_path=str(scraped))
+    hist = pd.read_csv(history, dtype={"date": str})
+    assert len(hist[(hist["date"] == "2026-08-18") & (hist["brand"] == brand)]) == 1
+
+    # 修好過濾規則後重跑同一天：這次爬蟲什麼都沒抓到（scraped.csv 清空）
+    _write_manual_csv(scraped, [])
+    pipeline.build_report(as_of="2026-08-18", manual_path=str(manual), history_path=str(history),
+                           scraped_path=str(scraped))
+    hist = pd.read_csv(history, dtype={"date": str})
+    assert hist[(hist["date"] == "2026-08-18") & (hist["brand"] == brand)].empty, \
+        f"上次的錯誤資料應該被清掉，但還在：{hist.to_dict('records')}"

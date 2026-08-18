@@ -97,14 +97,17 @@ def _load_history(path: str = HISTORY_PATH) -> pd.DataFrame:
     return pd.read_csv(p, dtype={"date": str})
 
 
-def _append_history(today_rows: pd.DataFrame, path: str = HISTORY_PATH) -> None:
-    if today_rows.empty:
-        return
+def _reconcile_history_for_date(as_of: str, today_rows: pd.DataFrame, path: str = HISTORY_PATH) -> None:
+    """把 `history.csv` 裡 `as_of` 這天的所有列，換成這次執行算出來的結果
+    （可能是空的）。跟 `storage.write_scraped_prices` 同一個理由：這次執行
+    對 `as_of` 這天來說是唯一權威結果，不能只挑「這次批次裡也有的品牌」去
+    覆蓋——某個品牌這次判定沒有貨真價實的今日資料時（例如上次是爬蟲抓錯、
+    這次過濾規則收緊後正確判定「沒有」），history 裡舊的那筆也要跟著清掉，
+    不能留著一筆已經知道是錯的資料繼續影響之後的近期平均
+    （2026-08-18 那次修正 PChome 過濾規則後才發現這個洞：舊的覆蓋邏輯只在
+    `today_rows` 非空時才動作，等於「重跑後沒抓到東西」永遠清不掉上次的錯誤資料）。"""
     hist = _load_history(path)
-    # 以 (date, brand) 為鍵：同一天重跑要覆蓋，不是疊加
-    keys = set(zip(today_rows["date"], today_rows["brand"]))
-    if not hist.empty:
-        hist = hist[~hist.apply(lambda r: (r["date"], r["brand"]) in keys, axis=1)]
+    hist = hist[hist["date"].astype(str) != str(as_of)]
     combined = pd.concat([hist, today_rows], ignore_index=True).sort_values(["brand", "date"])
     p = Path(path)
     p.parent.mkdir(parents=True, exist_ok=True)
@@ -222,8 +225,8 @@ def build_report(as_of: Optional[str] = None, manual_path: str = MANUAL_PRICES_P
             **summary,
         })
 
-    if today_rows_for_history:
-        _append_history(pd.DataFrame(today_rows_for_history, columns=HISTORY_COLUMNS), history_path)
+    _reconcile_history_for_date(
+        as_of, pd.DataFrame(today_rows_for_history, columns=HISTORY_COLUMNS), history_path)
 
     return {
         "as_of": as_of,
