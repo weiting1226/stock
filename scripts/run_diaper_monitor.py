@@ -6,11 +6,13 @@
     python3 scripts/run_diaper_monitor.py --skip-scrape
 
 資料以人工填入的 data/diaper_monitor/manual_prices.csv 為主（格式見同資料夾
-README.md），另外會先跑幾個自動查價來源（見 diaper_monitor/sources/：目前
-有 pchome.py 跟風險高得多的 shopee.py，兩邊開頭都寫了各自的假設跟限制）補
-人工沒查到的空檔，寫進 data/diaper_monitor/scraped_prices.csv——兩邊都有資料
-時人工的蓋過爬蟲的。爬蟲抓失敗（連線、逾時、格式對不上、被防爬機制擋下）
-不會中斷整支腳本，只會在 -v 模式下印出警告，那個平台當天就當作沒抓到。
+README.md），另外會先跑三個自動查價來源（見 diaper_monitor/sources/：
+pchome.py、風險高得多的 shopee.py、以及靠解析 HTML 而非 JSON API、
+不確定性又更高一層的 momo.py，三邊開頭都寫了各自的假設跟限制）補人工沒
+查到的空檔，寫進 data/diaper_monitor/scraped_prices.csv——人工資料永遠
+蓋過爬蟲的。爬蟲抓失敗（連線、逾時、格式對不上、被防爬機制擋下、頁面
+結構跟預期不同）不會中斷整支腳本，只會在 -v 模式下印出警告，那個平台
+當天就當作沒抓到。
 """
 from __future__ import annotations
 
@@ -30,7 +32,7 @@ from diaper_monitor.config import (  # noqa: E402
     MANUAL_PRICES_PATH,
     SCRAPED_PRICES_PATH,
 )
-from diaper_monitor.sources import pchome, shopee  # noqa: E402
+from diaper_monitor.sources import momo, pchome, shopee  # noqa: E402
 
 
 def main() -> int:
@@ -51,7 +53,7 @@ def main() -> int:
     if args.skip_scrape:
         scraped_path = None
     else:
-        sources = [("PChome", pchome), ("蝦皮", shopee)]
+        sources = [("PChome", pchome), ("蝦皮", shopee), ("momo", momo)]
         quotes: list[dict] = []
         for name, module in sources:
             found = module.fetch_all(BRANDS)
