@@ -12,6 +12,11 @@ GitHub Actions 上跑，證實連得到、JSON 結構（`prods` 陣列、`name`/
 `fetch_brand()` 對抓不到的欄位、格式對不上的回應、片數／M 號／上述三種
 不可靠標題比對不到的商品，一律記錄警告而不是拋例外或安靜略過，方便從
 workflow log 判斷到底是「PChome 真的沒有這個商品」還是程式碼的假設錯了。
+**2026-08-18 稍晚發現只記錄「查到 N 筆、略過 N 筆」這種總數，沒辦法回答
+「被略過的商品標題到底長怎樣、卡在哪一關」——於是補了逐筆的 `log.info`
+（用 `-v` 就看得到）：每一筆被略過的商品都會記下標題與確切原因（缺欄位／
+不是 M 號／標題不可靠／找不到片數／價格轉換失敗／單價超出合理範圍），
+不用再猜。
 
 **信任層級低於人工填寫**：見 `pipeline.load_all_prices` 的合併邏輯，
 同一天、同一品牌、同一平台，人工填的資料永遠蓋過這裡抓到的。
@@ -23,6 +28,7 @@ from typing import Optional
 
 import requests
 
+from ..config import PLAUSIBLE_PACK_PRICE_RANGE
 from ._common import (
     extract_piece_count,
     first,
@@ -95,30 +101,49 @@ def fetch_brand(brand: str, query: Optional[str] = None,
         item_id = first(item, "Id", "id")
         if not name or price is None:
             skipped += 1
+            log.info(
+                "PChome 來源：品牌 %s 略過一筆（缺少 name 或 price 欄位，原始資料鍵＝%s）",
+                brand, sorted(item.keys()),
+            )
             continue
-        if not looks_like_size_m(str(name)):
+        name_str = str(name)
+        if not looks_like_size_m(name_str):
             skipped += 1
+            log.info("PChome 來源：品牌 %s 略過「%s」（判定不是 M 號）", brand, name_str)
             continue
-        if looks_unreliable(str(name)):
+        if looks_unreliable(name_str):
             skipped += 1
+            log.info(
+                "PChome 來源：品牌 %s 略過「%s」（標題判定為不可靠：試用包／多尺寸混列／箱購倍數）",
+                brand, name_str,
+            )
             continue
-        piece_count = extract_piece_count(str(name))
+        piece_count = extract_piece_count(name_str)
         if piece_count is None:
             skipped += 1
+            log.info("PChome 來源：品牌 %s 略過「%s」（標題找不到片數）", brand, name_str)
             continue
         try:
             pack_price = float(price)
         except (TypeError, ValueError):
             skipped += 1
+            log.info(
+                "PChome 來源：品牌 %s 略過「%s」（price 欄位＝%r 無法轉成數字）",
+                brand, name_str, price,
+            )
             continue
         if not looks_like_a_plausible_pack_price(pack_price):
             skipped += 1
+            log.info(
+                "PChome 來源：品牌 %s 略過「%s」（換算後單價 %.2f 元超出合理範圍 %s）",
+                brand, name_str, pack_price, PLAUSIBLE_PACK_PRICE_RANGE,
+            )
             continue
 
         quotes.append({
             "brand": brand,
             "platform": PLATFORM_NAME,
-            "product_name": str(name),
+            "product_name": name_str,
             "pack_price": pack_price,
             "piece_count": piece_count,
             "url": f"https://24h.pchome.com.tw/prod/{item_id}" if item_id else "",
