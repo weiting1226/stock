@@ -1,35 +1,32 @@
 """momo購物網 的自動查價來源。
 
-**風險評估：三個來源裡最不確定的一個。** PChome 用的是公開 JSON 搜尋 API
-（已在 2026-08-18 驗證過連線與欄位假設可用，見 `pchome.py` 開頭）；蝦皮的
-API／欄位假設是對的，只是被邊緣防護擋在門外（HTTP 403，見 `shopee.py`
-開頭）——但 momo 沒有已知、公開、穩定的 JSON 搜尋 API，這裡改用直接解析
-HTML 搜尋結果頁。這代表多了一層前兩個來源都沒有的不確定性：不只是
-「連不連得到」，還有「頁面的 DOM 結構猜得對不對」，而 DOM 結構通常比
-JSON API 的欄位名稱更容易在改版時跑掉，而且完全沒有公開文件可以參考。
+**目前策略：headless browser。** 2026-08-18 實測證實：純用 `requests`
+打 `m.momoshop.com.tw/search.momo` 會被 302 導向桌機版的
+`www.momoshop.com.tw/search/<關鍵字>`——一個 Next.js 網站，伺服器只回
+應一個幾乎空的 HTML 殼（帶 `_next/static` 開頭的資源連結），完全沒有
+商品連結；真正的商品清單要瀏覽器執行 JS 之後才會被塞進 DOM（詳見下方
+「先前的失敗記錄」與 `_looks_like_client_rendered_shell`）。2026-08-19
+改用 Playwright 開一個真正的 headless Chromium 分頁載入搜尋頁、等 JS
+執行完，再把「JS 跑完之後」的 HTML（`page.content()`，不是原始回應）
+拿去餵給原本就寫好的 DOM 解析邏輯（`_parse_html`：商品詳情連結＋NT$
+價格文字這套結構特徵，見 `_candidate_blocks`）。
 
-請求打的是行動版 `m.momoshop.com.tw/search.momo`，但**實測證實**（見下）
-會被 302 導向桌機版的 `www.momoshop.com.tw/search/<關鍵字>`。
+**這個策略本身還沒有機會驗證過。** 「JS 執行完之後 `page.content()`
+裡看不看得到商品連結」只是一個合理的猜測，不是已驗證的結論——開發用的
+沙盒環境連 headless browser 都連不到 momoshop.com.tw（在 CONNECT 階段
+被沙盒自己的網路政策擋下，不是網站擋的：2026-08-19 實測一個真的
+Chromium 打這個網域直接收到 `net::ERR_TUNNEL_CONNECTION_FAILED`），要
+等下一次真實的 GitHub Actions 執行才會知道行不行。
 
-解析邏輯寫得比另外兩個來源更寬鬆：不依賴猜測的 CSS class 名稱（那種
-名稱完全沒公開文件可查，改版就跑掉），改用結構特徵——商品詳情連結
-（href 帶 `i_code=` 或走 `/goods.momo`）加上同一個區塊裡的 NT$ 價格文字
-——去找候選商品區塊。**但這套邏輯目前實測完全派不上用場**（見下）。
-另外，一個商品區塊裡常常不只一個價格（例如劃線的原價＋促銷價），這裡
-只取區塊文字裡第一個符合 `$數字` 樣式的價格，哪一個排在前面同樣沒有
-驗證過——不過這一段目前根本走不到，見下。
+**先前的失敗記錄（2026-08-18，純 requests 抓靜態 HTML）：** 三個品牌的
+查詢都拿到 `HTTP 200`、標題也正確對應搜尋關鍵字（代表搜尋本身、重新
+導向都正常），但回應的原始 HTML 裡總共 0 個 `<a href>` 連結，開頭片段
+看得出是 Next.js 的殼頁面。這證實了「純用 requests 抓靜態 HTML 這條
+路線，對現在的 momo 搜尋頁架構上就走不通」，不是 CSS 選擇器或網址猜錯
+——headless browser 是唯一可能修好這個問題的方向。
 
-**實測結果：2026-08-18 在 GitHub Actions 上證實這條路線走不通。** 三個
-品牌的查詢都拿到 `HTTP 200`、標題也正確對應搜尋關鍵字，代表請求本身、
-重新導向都正常；但回應的原始 HTML 裡總共 0 個 `<a href>` 連結，開頭
-片段看得出是 Next.js 的殼頁面（`_next/static/css`／`data-precedence=
-"next"` 這類標記）。也就是說 momo 現在的搜尋頁是用戶端渲染
-（client-side rendered）：伺服器只回一個幾乎空的 HTML 殼，商品清單要
-瀏覽器執行 JS 之後才會被塞進 DOM。純用 `requests` 抓靜態 HTML 這個做法
-對現在的 momo 搜尋頁**架構上就走不通**，不是 CSS 選擇器或 URL 猜錯（見
-`_looks_like_client_rendered_shell`／`fetch_brand` 裡對這個情況的專門
-判斷與 log 訊息）。要修好只有換成能執行 JS 的做法（例如 headless
-browser）一途，而目前沒有做——這支爬蟲短期內大概率抓不到任何資料。
+一個商品區塊裡常常不只一個價格（例如劃線的原價＋促銷價），這裡只取
+區塊文字裡第一個符合 `$數字` 樣式的價格，哪一個排在前面同樣沒有驗證過。
 
 **信任層級低於人工填寫**，跟另外兩個來源一樣：見 `pipeline.load_all_prices`
 的合併邏輯，同一天、同一品牌、同一平台，人工填的資料永遠蓋過這裡抓到的。
@@ -38,12 +35,12 @@ from __future__ import annotations
 
 import logging
 import re
-from typing import Optional
-from urllib.parse import urljoin
+from typing import Callable, Optional
+from urllib.parse import quote, urljoin
 
-import requests
 from bs4 import BeautifulSoup
 
+from ._browser import fetch_rendered_html, new_browser
 from ._common import (
     extract_piece_count,
     looks_like_a_plausible_pack_price,
@@ -56,10 +53,11 @@ log = logging.getLogger(__name__)
 PLATFORM_NAME = "momo購物網"
 SEARCH_URL = "https://m.momoshop.com.tw/search.momo"
 BASE_URL = "https://m.momoshop.com.tw"
-TIMEOUT_SECONDS = 10
 MAX_RESULTS_PER_BRAND = 5
 
 PRICE_PATTERN = re.compile(r"\$\s*([\d,]+)")
+
+NEXTJS_SHELL_MARKER = "_next/static"
 
 # 跟 pchome.py／shopee.py 同樣的理由：品牌全名直接搜尋常常搜不到，這裡用
 # 比較接近賣場實際下標題習慣的關鍵字。
@@ -68,6 +66,9 @@ SEARCH_QUERIES = {
     "Aiwibi": "Aiwibi 愛薇彼 M",
     "奢寵幫": "奢寵幫 M",
 }
+
+# 測試用替身的簽名：(網址) -> (html, 最終網址) 或 None。
+HtmlFetcher = Callable[[str], Optional[tuple[str, str]]]
 
 
 def _candidate_blocks(soup: BeautifulSoup) -> list[tuple]:
@@ -88,20 +89,20 @@ def _candidate_blocks(soup: BeautifulSoup) -> list[tuple]:
     return blocks
 
 
-NEXTJS_SHELL_MARKER = "_next/static"
-
-
 def _looks_like_client_rendered_shell(html: str) -> bool:
     """2026-08-18 實跑後證實：`m.momoshop.com.tw/search.momo` 會被 302
     重新導向到 `www.momoshop.com.tw/search/<關鍵字>`——一個 Next.js 網站。
     伺服器直接回應的 HTML 只有殼（帶 `_next/static` 開頭的 CSS／JS 資源
     連結），完全沒有商品連結；真正的商品清單要等瀏覽器執行 JS 之後才會
     被塞進 DOM。這代表拿到 0 個候選區塊不是「頁面結構猜錯」，而是「純
-    HTTP GET 解析靜態 HTML 這條路線，對現在的 momo 搜尋頁根本走不通」。"""
+    HTTP GET 解析靜態 HTML 這條路線，對現在的 momo 搜尋頁根本走不通」。
+    現在改用 headless browser 之後，`html` 應該已經是 JS 跑完的結果，
+    理論上不該再看到這個標記——如果還看到，代表 headless browser 這條
+    路線也沒能讓 JS 真的執行完就擷取內容。"""
     return NEXTJS_SHELL_MARKER in html
 
 
-def _diagnose(resp: requests.Response, soup: BeautifulSoup, html: str) -> str:
+def _diagnose(final_url: str, soup: BeautifulSoup, html: str) -> str:
     """在「找不到候選商品連結」時，把足夠診斷問題出在哪一層的線索塞進
     警告訊息：有沒有被重新導向、頁面標題（常常能看出是不是被導去搜尋結果
     以外的頁面，例如首頁或錯誤頁）、整份回應裡到底有沒有 <a href>（完全
@@ -112,60 +113,36 @@ def _diagnose(resp: requests.Response, soup: BeautifulSoup, html: str) -> str:
     total_links = len(soup.find_all("a", href=True))
     snippet = re.sub(r"\s+", " ", html[:500]).strip()
     return (
-        f"最終網址={resp.url}｜回應狀態={resp.status_code}｜頁面標題={title!r}｜"
+        f"最終網址={final_url}｜頁面標題={title!r}｜"
         f"HTML 長度={len(html)}｜總連結數={total_links}｜開頭片段={snippet!r}"
     )
 
 
-def fetch_brand(brand: str, query: Optional[str] = None,
-                 session: Optional[requests.Session] = None) -> list[dict]:
-    """查一個品牌在 momo 的報價，回傳與 manual_prices.csv 相同欄位的
-    dict 列表（date 欄位由呼叫端補上，這裡不知道「今天」是哪一天）。
-
-    任何一種失敗（連線、逾時、HTML 解析失敗、找不到符合條件的商品）都
-    回傳空 list 並記錄警告，絕不拋例外——一個品牌抓失敗不該讓其他品牌也
-    抓不到，整批失敗也不該讓 scripts/run_diaper_monitor.py 中斷。"""
-    query = query or SEARCH_QUERIES.get(brand)
-    if not query:
-        log.warning("momo 來源：品牌 %s 沒有設定搜尋關鍵字，略過", brand)
-        return []
-
-    http = session or requests
-    try:
-        resp = http.get(
-            SEARCH_URL,
-            params={"searchKeyword": query, "searchType": 1, "curPage": 1},
-            timeout=TIMEOUT_SECONDS,
-            headers={"User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)"},
-        )
-        resp.raise_for_status()
-        html = resp.text
-    except Exception as e:  # noqa: BLE001
-        log.warning("momo 來源：查詢「%s」失敗（%s: %s）", query, type(e).__name__, e)
-        return []
-
+def _parse_html(brand: str, query: str, html: str, final_url: str) -> list[dict]:
+    """把 momo 搜尋頁的 HTML（不管是從真的 headless browser 載入還是
+    測試餵進來的合成 HTML）轉成跟 manual_prices.csv 相同欄位的 dict
+    列表。純函式，不碰網路、不開瀏覽器，方便測試。"""
     try:
         soup = BeautifulSoup(html, "lxml")
     except Exception as e:  # noqa: BLE001
-        log.warning("momo 來源：查詢「%s」的回應無法解析為 HTML（%s: %s）", query, type(e).__name__, e)
+        log.warning("momo 來源：品牌 %s 的回應無法解析為 HTML（%s: %s）", brand, type(e).__name__, e)
         return []
 
     candidates = _candidate_blocks(soup)
     if not candidates:
         if _looks_like_client_rendered_shell(html):
             log.warning(
-                "momo 來源：品牌 %s（關鍵字「%s」）拿到的是 Next.js 用戶端渲染的空殼頁面"
+                "momo 來源：品牌 %s（關鍵字「%s」）拿到的還是 Next.js 用戶端渲染的空殼頁面"
                 "（HTML 裡看得到 %s 開頭的資源連結，但完全沒有商品連結）——"
-                "2026-08-18 實測證實這是目前 momo 搜尋頁的架構，商品清單要執行 JS 才會出現，"
-                "純解析靜態 HTML 這條路線走不通，不是解析規則猜錯，需要換成能執行 JS 的方式"
-                "（例如 headless browser）才有機會抓到資料。%s",
-                brand, query, NEXTJS_SHELL_MARKER, _diagnose(resp, soup, html),
+                "即使已經改用 headless browser，JS 似乎還是沒有真的執行完就被擷取內容，"
+                "可能要拉長等待時間或換一個「頁面穩定」的判斷方式。%s",
+                brand, query, NEXTJS_SHELL_MARKER, _diagnose(final_url, soup, html),
             )
         else:
             log.warning(
                 "momo 來源：品牌 %s（關鍵字「%s」）在回應裡找不到任何商品連結——"
                 "可能是頁面結構跟預期不同，或是被導去了別的頁面。%s",
-                brand, query, _diagnose(resp, soup, html),
+                brand, query, _diagnose(final_url, soup, html),
             )
         return []
 
@@ -206,7 +183,8 @@ def fetch_brand(brand: str, query: Optional[str] = None,
             "pack_price": pack_price,
             "piece_count": piece_count,
             "url": urljoin(BASE_URL, link["href"]),
-            "note": f"自動爬蟲（momo 搜尋頁 HTML 解析，關鍵字：{query}）；未經人工核對，正確性以商品頁面為準",
+            "note": f"自動爬蟲（momo 搜尋頁，headless browser 渲染後解析 HTML，"
+                    f"關鍵字：{query}）；未經人工核對，正確性以商品頁面為準",
         })
         if len(quotes) >= MAX_RESULTS_PER_BRAND:
             break
@@ -226,14 +204,62 @@ def fetch_brand(brand: str, query: Optional[str] = None,
     return quotes
 
 
-def fetch_all(brands: list[str], session: Optional[requests.Session] = None) -> list[dict]:
-    """對每個品牌各呼叫一次 `fetch_brand`，單一品牌出錯不影響其他品牌
-    （理由跟 `pchome.fetch_all` 完全一樣，見那邊的說明）。"""
+def fetch_brand(brand: str, query: Optional[str] = None,
+                 browser=None, html_fetcher: Optional[HtmlFetcher] = None) -> list[dict]:
+    """查一個品牌在 momo 的報價，回傳與 manual_prices.csv 相同欄位的
+    dict 列表（date 欄位由呼叫端補上，這裡不知道「今天」是哪一天）。
+
+    `browser` 是呼叫端（通常是 `fetch_all`）已經開好的 headless browser
+    執行個體，用來實際載入頁面、等 JS 執行完；`html_fetcher` 是測試用的
+    替身，簽名是 `(網址) -> Optional[(html, 最終網址)]`，有給就直接用它、
+    不會真的去開瀏覽器。任何一種失敗（瀏覽器啟動失敗、頁面載入逾時、
+    HTML 解析失敗、找不到符合條件的商品）都回傳空 list 並記錄警告，絕不
+    拋例外。"""
+    query = query or SEARCH_QUERIES.get(brand)
+    if not query:
+        log.warning("momo 來源：品牌 %s 沒有設定搜尋關鍵字，略過", brand)
+        return []
+
+    fetch = html_fetcher or (lambda url: fetch_rendered_html(browser, url))
+    url = f"{SEARCH_URL}?searchKeyword={quote(query)}&searchType=1&curPage=1"
+    result = fetch(url)
+    if result is None:
+        log.warning(
+            "momo 來源：品牌 %s（關鍵字「%s」）headless browser 載入頁面失敗（逾時或例外）",
+            brand, query,
+        )
+        return []
+    html, final_url = result
+    return _parse_html(brand, query, html, final_url)
+
+
+def fetch_all(brands: list[str], html_fetcher: Optional[HtmlFetcher] = None) -> list[dict]:
+    """對每個品牌各呼叫一次 `fetch_brand`，共用同一個 headless browser
+    執行個體（省掉每個品牌重複啟動瀏覽器的時間與開銷），單一品牌出錯
+    不影響其他品牌。`html_fetcher` 有給的話（測試場景）完全不會去開
+    真正的瀏覽器。"""
     quotes: list[dict] = []
-    for brand in brands:
-        try:
-            quotes.extend(fetch_brand(brand, session=session))
-        except Exception as e:  # noqa: BLE001
-            log.warning("momo 來源：品牌 %s 發生未預期的例外（%s: %s），跳過這個品牌",
-                        brand, type(e).__name__, e)
+
+    if html_fetcher is not None:
+        for brand in brands:
+            try:
+                quotes.extend(fetch_brand(brand, html_fetcher=html_fetcher))
+            except Exception as e:  # noqa: BLE001
+                log.warning("momo 來源：品牌 %s 發生未預期的例外（%s: %s），跳過這個品牌",
+                            brand, type(e).__name__, e)
+        return quotes
+
+    browser_handle = new_browser()
+    if browser_handle is None:
+        log.warning("momo 來源：headless browser 啟動失敗，這次整批略過")
+        return []
+    try:
+        for brand in brands:
+            try:
+                quotes.extend(fetch_brand(brand, browser=browser_handle.browser))
+            except Exception as e:  # noqa: BLE001
+                log.warning("momo 來源：品牌 %s 發生未預期的例外（%s: %s），跳過這個品牌",
+                            brand, type(e).__name__, e)
+    finally:
+        browser_handle.close()
     return quotes

@@ -57,34 +57,44 @@ Actions 上實跑，證實連線與回應格式的假設可用，但同一次也
 再補規則。目前查到的商品多半是箱購／組合包，還沒有一筆真的通過篩選，
 但至少證實了連線跟解析邏輯是對的。
 
-**蝦皮**是第二個接上的來源，同一次 GitHub Actions 執行**實測被擋下來
-了**：三個品牌的查詢全部收到 `HTTP 403 Forbidden`，是連線層級被拒，不是
-原本猜測的「HTTP 200 但回應包含 `error` 欄位」那種擋法（`fetch_brand()`
-兩種都有處理，程式碼沒有壞，是蝦皮真的直接擋下請求）。要繞過這層防護
-需要更進一步的手段（例如帶真實瀏覽器的 cookie／session），目前沒有做；
-這支爬蟲短期內大概率抓不到任何資料。價格欄位公開資料記載要除以 100000
-才是實際售價，這個換算係數本身也還沒機會驗證過。
+**蝦皮**是第二個接上的來源，2026-08-18 用 `requests` 直接打搜尋 API
+**實測被擋下來了**：三個品牌的查詢全部收到 `HTTP 403 Forbidden`，是連線
+層級被拒，不是原本猜測的「HTTP 200 但回應包含 `error` 欄位」那種擋法。
+2026-08-19 改用 headless browser（Playwright）：不再直接打 API，而是開一個
+真正的 Chromium 分頁載入蝦皮的搜尋頁，讓頁面自己的前端 JS 去呼叫這支
+API，再攔截那個回應的 JSON——原本的 JSON 解析邏輯完全沒動，只換掉「怎麼
+拿到這包 JSON」這一層。**這個新策略還沒有機會驗證過**，要等下一次真實的
+GitHub Actions 執行才知道行不行。價格欄位公開資料記載要除以 100000 才是
+實際售價，這個換算係數本身也還沒機會驗證過。
 
-**momo** 是第三個接上的來源，**實測證實這條路線走不通**：沒有已知的公開
-JSON 搜尋 API，原本改成直接解析 `m.momoshop.com.tw` 搜尋頁的 HTML，但
-2026-08-18 在 GitHub Actions 上實跑後發現，請求會被 302 導向桌機版的
+**momo** 是第三個接上的來源。2026-08-18 用 `requests` 抓靜態 HTML
+**實測證實這條路線走不通**：請求會被 302 導向桌機版的
 `www.momoshop.com.tw/search/<關鍵字>`，回應雖然是 `HTTP 200`、標題也正確
 對應搜尋關鍵字（代表搜尋本身沒問題），但原始 HTML 裡總共 0 個 `<a href>`
 連結，開頭片段看得出是 Next.js 的殼頁面（`_next/static/css` 這類資源
-連結）——也就是說商品清單要瀏覽器執行 JS 之後才會出現，伺服器直接回應的
-只是空殼。這不是 CSS 選擇器或網址猜錯可以修的問題，是「純用 `requests`
-抓靜態 HTML」這個做法對現在的 momo 搜尋頁架構上就走不通；要修好只有換成
-能執行 JS 的做法（例如 headless browser）一途，目前沒有做。
+連結）——商品清單要瀏覽器執行 JS 之後才會出現，伺服器直接回應的只是
+空殼。2026-08-19 改用 headless browser：開一個真正的 Chromium 分頁載入
+搜尋頁、等 JS 執行完，把渲染後的 HTML 餵給原本就寫好的 DOM 解析邏輯。
+**這個新策略還沒有機會驗證過。**
+
+**兩支 headless browser 策略共同的限制：** 開發用的沙盒環境連 headless
+browser 都連不到 shopee.tw／momoshop.com.tw（2026-08-19 實測一個真的
+Chromium 直接收到 `net::ERR_TUNNEL_CONNECTION_FAILED`，在 CONNECT 階段
+被沙盒自己的網路政策擋下，不是網站擋的）——跟純 requests 的狀況一樣，
+唯一能驗證這條路線行不行的地方是真實的 GitHub Actions 執行。CI 的
+workflow 多了一個 `playwright install --with-deps chromium` 的步驟，
+沒裝瀏覽器 `new_browser()` 會回傳 None、整批查價當作沒抓到，不會讓腳本
+中斷。
 
 三支爬蟲共用的 `config.PLAUSIBLE_PACK_PRICE_RANGE`（10～10000 元）是防
 「換算係數／解析邏輯整個猜錯、算出離譜價格」的保底防呆，不是精確驗證。
 
 如果儀表板上一直看不到某個來源的報價，先查
 `python3 scripts/run_diaper_monitor.py -v` 的警告訊息判斷卡在哪一層：
-完全連不上（環境網路限制、平台真的擋了爬蟲）、被防爬機制擋下（蝦皮的
-403 或 `error` 欄位）、找不到候選商品區塊（momo 的頁面結構問題）、還是
-抓到資料但解析不出來或被過濾規則擋下（需要照 log 裡的原始回應調整對應
-的 `sources/*.py`）。
+完全連不上／headless browser 啟動失敗、攔截不到目標回應（蝦皮的 API 或
+momo 渲染後的商品連結）、還是抓到資料但解析不出來或被過濾規則擋下
+（需要照 log 裡的原始回應調整對應的 `sources/*.py`）。`sources/pchome.py`
+額外把每一筆被過濾掉的商品標題與確切原因都記到 log 裡，不用再猜。
 
 新增其他平台的爬蟲時，一樣在 `diaper_monitor/sources/` 底下新增模組、
 輸出跟這份 CSV 相同的欄位（`pchome.fetch_all`／`shopee.fetch_all`／
