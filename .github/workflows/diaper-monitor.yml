@@ -38,6 +38,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Install Playwright Chromium
+        run: playwright install --with-deps chromium
+
       - name: Run diaper monitor
         run: |
           if [ -n "${{ github.event.inputs.as_of }}" ]; then
