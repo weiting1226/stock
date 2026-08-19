@@ -1,4 +1,18 @@
 {
+ "INDPRO@2026-07-01": {
+  "summary_zh": "2026年7月工業生產指數較上月成長0.2%，延續6月0.3%的成長,其中礦業與公用事業分別上升0.2%與0.5%，製造業產出成長0.2%。整體指數較去年同期成長1.1%，產能利用率小幅上升至76.3%，仍低於長期平均水準。",
+  "drivers": [
+   "礦業指數上升0.2%",
+   "公用事業指數上升0.5%",
+   "剔除汽車與零件後製造業產出增加0.4%",
+   "消費品產出下降0.4%"
+  ],
+  "evidence": "Industrial production (IP) and manufacturing production each grew 0.2 percent in July after growing 0.3 percent in June.",
+  "source_url": "https://www.federalreserve.gov/releases/g17/current/default.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-07-01",
+  "fred_id": "INDPRO"
+ },
  "INDPRO@2026-06-01": {
   "summary_zh": "2026年6月工業生產指數較上月上升0.1%，第二季以年率計成長4.0%。製造業產出持平，但礦業與公用事業指數各成長0.4%。產能利用率維持在76.1%，較長期平均值低3.3個百分點。",
   "drivers": [
