@@ -2,9 +2,6 @@ ticker,name,exchange,is_etf,security_type,source
 A,"Agilent Technologies, Inc. Common Stock",N,False,common,nasdaqtrader
 AA,Alcoa Corporation Common Stock,N,False,common,nasdaqtrader
 AAC-U,"Ares Acquisition Corporation III Units, each consisting of one Class A ordinary share and one-tenth of one redeemable warrant",N,False,warrant,nasdaqtrader
-AACB,Artius II Acquisition Inc. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-AACBR,Artius II Acquisition Inc. - Rights,NASDAQ,False,right,nasdaqtrader
-AACBU,Artius II Acquisition Inc. - Units,NASDAQ,False,unit,nasdaqtrader
 AACG,"ATA Creativity Global - American Depositary Shares, each representing two common shares",NASDAQ,False,common,nasdaqtrader
 AACI,Armada Acquisition Corp. III - Class A Ordinary Share,NASDAQ,False,common,nasdaqtrader
 AACIU,Armada Acquisition Corp. III - Units,NASDAQ,False,unit,nasdaqtrader
@@ -1161,6 +1158,7 @@ BTE,Baytex Energy Corp Common Shares,N,False,common,nasdaqtrader
 BTG,B2Gold Corp Common shares (Canada),A,False,common,nasdaqtrader
 BTGO,"BitGo Holdings, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 BTI,"British American Tobacco  Industries, p.l.c. Common Stock ADR",N,False,common,nasdaqtrader
+BTLN,"Brightline Interactive, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BTMD,Biote Corp. - Class A common stock,NASDAQ,False,common,nasdaqtrader
 BTO,John Hancock Financial Opportunities Fund Common Stock,N,False,common,nasdaqtrader
 BTOC,Armlogi Holding Corp. - common stock,NASDAQ,False,common,nasdaqtrader
@@ -1465,6 +1463,7 @@ CHSCP,CHS Inc - 8%  Cumulative Redeemable Preferred Stock,NASDAQ,False,preferred
 CHSN,Chanson International Holding - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 CHT,"Chunghwa Telecom Co., Ltd.",N,False,common,nasdaqtrader
 CHTR,"Charter Communications, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
+CHTRP,"Charter Communications, Inc. - Series A Cumulative Redeemable Preferred Stock",NASDAQ,False,preferred,nasdaqtrader
 CHW,Calamos Global Dynamic Income Fund - Closed End Fund,NASDAQ,False,common,nasdaqtrader
 CHWY,"Chewy, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 CHY,Calamos Convertible and High Income Fund - Closed End Fund,NASDAQ,False,common,nasdaqtrader
@@ -2439,6 +2438,7 @@ FAST,Fastenal Company - Common Stock,NASDAQ,False,common,nasdaqtrader
 FATE,"Fate Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 FATN,"FatPipe, Inc. - common stock",NASDAQ,False,common,nasdaqtrader
 FAX,"abrdn Asia-Pacific Income Fund, Inc. Common Stock",A,False,common,nasdaqtrader
+FBDT,First Breach Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 FBGL,FBS Global Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 FBIN,"Fortune Brands Innovations, Inc. Common Stock",N,False,common,nasdaqtrader
 FBIO,"Fortress Biotech, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -2842,7 +2842,6 @@ GGN,"GAMCO Global Gold, Natural Resources & Income Trust",A,False,common,nasdaqt
 GGN-PB,"GAMCO Global Gold, Natural Reources & Income Trust 5.00% Series B Cumulative 25.00 Liquidation Preference",A,False,preferred,nasdaqtrader
 GGR,Gogoro Inc. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 GGROW,Gogoro Inc. - Warrant,NASDAQ,False,warrant,nasdaqtrader
-GGRP,"The Glimpse Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 GGT,"Gabelli Multi-Media Trust, Inc. (The) Common Stock",N,False,common,nasdaqtrader
 GGT-PE,Gabelli Multi-Media Trust Inc. (The) 5.125% Series E Cumulative Preferred Stock,N,False,preferred,nasdaqtrader
 GGT-PG,Gabelli Multi-Media Trust Inc. (The) 5.125% Series G Cumulative Preferred Shares,N,False,preferred,nasdaqtrader
@@ -4499,7 +4498,6 @@ MTX,Minerals Technologies Inc. Common Stock,N,False,common,nasdaqtrader
 MTZ,"MasTec, Inc. Common Stock",N,False,common,nasdaqtrader
 MU,"Micron Technology, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 MUA,"Blackrock MuniAssets Fund, Inc Common Stock",N,False,common,nasdaqtrader
-MUA-R,"Blackrock MuniAssets Fund, Inc. Rights (expiring August 20, 2026) Rights",N,False,right,nasdaqtrader
 MUC,"Blackrock MuniHoldings California Quality Fund, Inc.  Common Stock",N,False,common,nasdaqtrader
 MUFG,"Mitsubishi UFJ Financial Group, Inc. Common Stock",N,False,common,nasdaqtrader
 MUJ,"Blackrock MuniHoldings New Jersey Quality Fund, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -5576,6 +5574,7 @@ QLEP-W,"Quantum Leap Acquisition Corp Warrants, each whole warrant exercisable f
 QLYS,"Qualys, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 QMCO,Quantum Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 QMLS,"QumulusAI, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+QNBC,QNB Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 QNC,Quantum eMotion Corp. Common Shares,A,False,common,nasdaqtrader
 QNCX,"Quince Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 QNME,"Quanome Technologies, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -6248,6 +6247,8 @@ SNSC,SunScout Holding Limited Class A Ordinary Shares,A,False,common,nasdaqtrade
 SNT,Senstar Technologies Corporation - Common Shares,NASDAQ,False,common,nasdaqtrader
 SNTG,Sentage Holdings Inc. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 SNTI,"Senti Biosciences Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+SNUS-PH,"Santander Holdings USA, Inc. Depositary Shares, Each Representing a 1/1,000th Interest in a Share of Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock, Series H",N,False,preferred,nasdaqtrader
+SNUS-PI,"Santander Holdings USA, Inc. Depositary Shares, Each Representing a 1/40th Interest in a Share of Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock, Series I",N,False,preferred,nasdaqtrader
 SNWV,"SANUWAVE Health, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SNX,TD SYNNEX Corporation Common Stock,N,False,common,nasdaqtrader
 SNY,Sanofi - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
@@ -6726,6 +6727,7 @@ TRAX,"First Tracks Biotherapeutics, Inc. - Ordinary Shares",NASDAQ,False,common,
 TRC,Tejon Ranch Co Common Stock,N,False,common,nasdaqtrader
 TRDA,"Entrada Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 TREE,"LendingTree, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+TREO,Tactical Resources Corp. - Common Shares,NASDAQ,False,common,nasdaqtrader
 TREX,"Trex Company, Inc. Common Stock",N,False,common,nasdaqtrader
 TRGP,"Targa Resources, Inc. Common Stock",N,False,common,nasdaqtrader
 TRGS,TRG Latin America Acquisitions Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -7173,9 +7175,6 @@ WAY,Waystar Holding Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 WB,Weibo Corporation - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 WBD,"Warner Bros. Discovery, Inc. - Series A Common Stock",NASDAQ,False,common,nasdaqtrader
 WBI,WaterBridge Infrastructure LLC Class A Shares Representing Limited Liability Company Interests,N,False,common,nasdaqtrader
-WBS,Webster Financial Corporation Common Stock,N,False,common,nasdaqtrader
-WBS-PF,"Webster Financial Corporation Depositary Shares, Each Representing 1/1,000th Interest in a Share of 5.25% Series F Non-Cumulative Perpetual Preferred Stock",N,False,preferred,nasdaqtrader
-WBS-PG,"Webster Financial Corporation Depositary Shares, each representing a 1/40th interest in a share of 6.50% Series G non-cumulative perpetual preferred stock",N,False,preferred,nasdaqtrader
 WBTN,WEBTOON Entertainment Inc. - Common stock,NASDAQ,False,common,nasdaqtrader
 WBUY,WEBUY GLOBAL LTD. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 WBX,Wallbox N.V. Class A Ordinary Shares,N,False,common,nasdaqtrader
@@ -7372,7 +7371,6 @@ XNDU,Xanadu Quantum Technologies Limited - Class B Subordinate Voting Shares,NAS
 XNET,Xunlei Limited - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 XOM,ExxonMobil Holdings Corporation Common Stock,N,False,common,nasdaqtrader
 XOS,"Xos, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-XOSWW,"Xos, Inc. - Warrants",NASDAQ,False,warrant,nasdaqtrader
 XP,XP Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 XPEL,"XPEL, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 XPER,Xperi Inc. Common Stock,N,False,common,nasdaqtrader
