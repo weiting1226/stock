@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-08-15",
+  "as_of": "2026-08-22",
   "constituents": [
     {
       "ticker": "MMM",
@@ -318,12 +318,6 @@
       "name": "AutoZone",
       "sector": "Consumer Discretionary",
       "sub_industry": "Automotive Retail"
-    },
-    {
-      "ticker": "AVB",
-      "name": "AvalonBay Communities",
-      "sector": "Real Estate",
-      "sub_industry": "Multi-Family Residential REITs"
     },
     {
       "ticker": "AVY",
@@ -1050,12 +1044,6 @@
       "name": "Equinix",
       "sector": "Real Estate",
       "sub_industry": "Data Center REITs"
-    },
-    {
-      "ticker": "EQR",
-      "name": "Equity Residential",
-      "sector": "Real Estate",
-      "sub_industry": "Multi-Family Residential REITs"
     },
     {
       "ticker": "ERIE",
@@ -2330,6 +2318,12 @@
       "sub_industry": "Investment Banking & Brokerage"
     },
     {
+      "ticker": "RDDT",
+      "name": "Reddit",
+      "sector": "Communication Services",
+      "sub_industry": "Interactive Media & Services"
+    },
+    {
       "ticker": "RTX",
       "name": "RTX Corporation",
       "sector": "Industrials",
@@ -2862,6 +2856,12 @@
       "name": "Vistra Corp.",
       "sector": "Utilities",
       "sub_industry": "Electric Utilities"
+    },
+    {
+      "ticker": "VMRK",
+      "name": "Vivmark Residential",
+      "sector": "Real Estate",
+      "sub_industry": "Multi-Family Residential REITs"
     },
     {
       "ticker": "VMC",
