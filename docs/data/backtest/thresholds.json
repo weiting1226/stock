@@ -1,8 +1,8 @@
 {
- "as_of": "2026-08-17",
+ "as_of": "2026-08-24",
  "objective": "sharpe",
  "period": {
-  "start": "2011-08-17",
+  "start": "2011-08-24",
   "end": "2026-08-10"
  },
  "candidates": 142,
@@ -13,13 +13,13 @@
   "buffer": 0.2,
   "metrics": {
    "total_return_pct": 8433.49,
-   "cagr_pct": 34.56,
-   "volatility_pct": 36.02,
+   "cagr_pct": 34.61,
+   "volatility_pct": 36.04,
    "sharpe": 1.008,
    "max_drawdown_pct": -41.78,
-   "win_rate_pct": 54.82,
-   "years": 14.98,
-   "days": 3765,
+   "win_rate_pct": 54.84,
+   "years": 14.96,
+   "days": 3760,
    "rebalances": 81
   },
   "warning": "在同一段歷史上挑出來的最佳值，必然偏樂觀，不可當成預期績效"
@@ -42,8 +42,8 @@
     "tqqq_center": 0.4,
     "sgov_center": -1.0,
     "buffer": 0.0,
-    "train_score": 1.158,
-    "train_cagr_pct": 45.02,
+    "train_score": 1.161,
+    "train_cagr_pct": 45.33,
     "test_return_pct": 0.84
    },
    {
@@ -52,8 +52,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -1.0,
     "buffer": 0.1,
-    "train_score": 1.027,
-    "train_cagr_pct": 23.2,
+    "train_score": 1.029,
+    "train_cagr_pct": 23.31,
     "test_return_pct": -12.99
    },
    {
@@ -62,8 +62,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -1.0,
     "buffer": 0.3,
-    "train_score": 0.806,
-    "train_cagr_pct": 19.11,
+    "train_score": 0.808,
+    "train_cagr_pct": 19.19,
     "test_return_pct": 94.1
    },
    {
@@ -72,8 +72,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -1.0,
     "buffer": 0.2,
-    "train_score": 1.103,
-    "train_cagr_pct": 24.5,
+    "train_score": 1.105,
+    "train_cagr_pct": 24.58,
     "test_return_pct": 16.25
    },
    {
@@ -82,8 +82,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -1.0,
     "buffer": 0.2,
-    "train_score": 1.084,
-    "train_cagr_pct": 24.18,
+    "train_score": 1.085,
+    "train_cagr_pct": 24.25,
     "test_return_pct": 20.21
    },
    {
@@ -92,8 +92,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -1.0,
     "buffer": 0.2,
-    "train_score": 1.099,
-    "train_cagr_pct": 23.7,
+    "train_score": 1.1,
+    "train_cagr_pct": 23.76,
     "test_return_pct": 45.07
    },
    {
@@ -102,8 +102,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -0.4,
     "buffer": 0.1,
-    "train_score": 1.179,
-    "train_cagr_pct": 29.09,
+    "train_score": 1.18,
+    "train_cagr_pct": 29.16,
     "test_return_pct": -1.33
    },
    {
@@ -112,8 +112,8 @@
     "tqqq_center": 0.2,
     "sgov_center": -0.4,
     "buffer": 0.1,
-    "train_score": 1.173,
-    "train_cagr_pct": 51.2,
+    "train_score": 1.174,
+    "train_cagr_pct": 51.31,
     "test_return_pct": -41.47
    },
    {
@@ -122,8 +122,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -0.2,
     "buffer": 0.3,
-    "train_score": 1.021,
-    "train_cagr_pct": 24.15,
+    "train_score": 1.022,
+    "train_cagr_pct": 24.19,
     "test_return_pct": 11.46
    },
    {
@@ -133,7 +133,7 @@
     "sgov_center": -0.2,
     "buffer": 0.3,
     "train_score": 1.016,
-    "train_cagr_pct": 23.08,
+    "train_cagr_pct": 23.12,
     "test_return_pct": 26.92
    },
    {
@@ -142,8 +142,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -0.2,
     "buffer": 0.3,
-    "train_score": 1.032,
-    "train_cagr_pct": 23.2,
+    "train_score": 1.033,
+    "train_cagr_pct": 23.24,
     "test_return_pct": 0.36
    },
    {
@@ -152,8 +152,8 @@
     "tqqq_center": 0.4,
     "sgov_center": -1.0,
     "buffer": 0.2,
-    "train_score": 0.988,
-    "train_cagr_pct": 33.39,
+    "train_score": 0.989,
+    "train_cagr_pct": 33.45,
     "test_return_pct": 36.65
    }
   ],
@@ -165,13 +165,13 @@
   "buffer": 0.15,
   "metrics": {
    "total_return_pct": 5789.21,
-   "cagr_pct": 31.27,
-   "volatility_pct": 35.32,
+   "cagr_pct": 31.32,
+   "volatility_pct": 35.35,
    "sharpe": 0.951,
    "max_drawdown_pct": -41.78,
-   "win_rate_pct": 55.3,
-   "years": 14.98,
-   "days": 3765,
+   "win_rate_pct": 55.32,
+   "years": 14.96,
+   "days": 3760,
    "rebalances": 91
   },
   "metrics_same_window_as_walk_forward": {
@@ -188,14 +188,14 @@
  },
  "qqq_buy_and_hold": {
   "metrics": {
-   "total_return_pct": 1245.41,
-   "cagr_pct": 18.95,
-   "volatility_pct": 20.78,
-   "sharpe": 0.94,
+   "total_return_pct": 1268.13,
+   "cagr_pct": 19.11,
+   "volatility_pct": 20.72,
+   "sharpe": 0.949,
    "max_drawdown_pct": -35.62,
    "win_rate_pct": 55.68,
-   "years": 14.98,
-   "days": 3766
+   "years": 14.96,
+   "days": 3761
   },
   "metrics_same_window_as_walk_forward": {
    "total_return_pct": 610.71,
@@ -215,11 +215,11 @@
  "plateau": {
   "best_score": 1.008,
   "median_score": 0.911,
-  "z_vs_all": 1.74,
+  "z_vs_all": 1.73,
   "expected_z_from_noise_alone": 3.15,
   "best_is_within_noise": true,
-  "score_spread": 0.297,
-  "score_sd": 0.0558,
+  "score_spread": 0.296,
+  "score_sd": 0.0557,
   "top_n": 10,
   "top_score_spread": 0.029,
   "top_params": [
@@ -246,14 +246,14 @@
    },
    {
     "label": "T+0.8/S-0.2/B0.30",
-    "score": 0.992,
+    "score": 0.993,
     "tqqq_center": 0.8,
     "sgov_center": -0.2,
     "buffer": 0.3
    },
    {
     "label": "T+0.8/S-1.0/B0.30",
-    "score": 0.986,
+    "score": 0.987,
     "tqqq_center": 0.8,
     "sgov_center": -1.0,
     "buffer": 0.3
@@ -274,14 +274,14 @@
    },
    {
     "label": "T+0.2/S-1.0/B0.20",
-    "score": 0.981,
+    "score": 0.982,
     "tqqq_center": 0.2,
     "sgov_center": -1.0,
     "buffer": 0.2
    },
    {
     "label": "T+0.8/S-0.6/B0.30",
-    "score": 0.981,
+    "score": 0.982,
     "tqqq_center": 0.8,
     "sgov_center": -0.6,
     "buffer": 0.3
