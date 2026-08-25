@@ -1,9 +1,9 @@
 {
-  "as_of": "2026-08-24",
-  "saved_at": "2026-08-24T21:53:02+00:00",
+  "as_of": "2026-08-25",
+  "saved_at": "2026-08-25T21:52:29+00:00",
   "state": {
     "active_veto": 0,
-    "clean_days": 10,
+    "clean_days": 11,
     "consec_inversion": 0
   }
 }
