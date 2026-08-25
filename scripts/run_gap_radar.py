@@ -6,7 +6,8 @@
 
 前提：對應的模組二報告已存在（先跑過 scripts/run_valuation.py，
 S&P 500 用 --universe sp500、Nasdaq-100 用 --universe ndx100）。
-本模組每週排程一次，非每日——詳見 .github/workflows/gap-radar.yml。
+排程綁在模組二跑完的事件上（不是固定時刻），因此每個交易日更新一次——
+詳見 .github/workflows/gap-radar.yml 裡的說明。
 """
 from __future__ import annotations
 

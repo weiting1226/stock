@@ -55,7 +55,27 @@ def _eligible(row: dict) -> bool:
     )
 
 
-def build_report(valuation_report: dict, top_n: int = TOP_N) -> dict:
+def source_staleness(valuation_as_of: Optional[str], run_date: Optional[str]) -> dict:
+    """模組九讀到的估值報告，比執行當天舊多少天。
+
+    本模組整份輸出都是模組二那份 latest.json 的再加工，自己不抓任何資料。
+    因此「模組二還沒跑」與「模組二跑完了」在這裡長得**一模一樣**：名單照樣
+    排得出來、風險分層照樣算得出來、頁面照樣顯示，只是整份是昨天的。
+    沒有例外、沒有空值，唯一的差別是 as_of 少了一天——所以那一天要被算出來。
+
+    不在這裡丟例外：估值報告本來就會在週末與假日落後，把它變成失敗只會讓
+    排程在每個週一以外的日子紅一片。判斷留給讀的人，數字則一定要在。
+    """
+    if not valuation_as_of or not run_date:
+        return {"source_as_of": valuation_as_of, "days": None}
+    days = (datetime.fromisoformat(run_date).date()
+            - datetime.fromisoformat(valuation_as_of).date()).days
+    return {"source_as_of": valuation_as_of, "days": days}
+
+
+def build_report(valuation_report: dict, top_n: int = TOP_N,
+                 run_date: Optional[str] = None) -> dict:
+    run_date = run_date or datetime.now(timezone.utc).date().isoformat()
     rows = valuation_report.get("rows", [])
     candidates = [r for r in rows if _eligible(r)]
 
@@ -104,6 +124,7 @@ def build_report(valuation_report: dict, top_n: int = TOP_N) -> dict:
         "generated_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         "universe": valuation_report.get("universe"),
         "source_generated_at": valuation_report.get("generated_at"),
+        "source_staleness": source_staleness(valuation_report.get("as_of"), run_date),
         "counts": {
             "universe": valuation_report.get("counts", {}).get("universe"),
             "candidates": len(candidates),
@@ -130,6 +151,7 @@ def load_valuation_report(path: str) -> dict:
     return json.loads(p.read_text())
 
 
-def run(valuation_path: str = "docs/data/valuation/latest.json", top_n: int = TOP_N) -> dict:
+def run(valuation_path: str = "docs/data/valuation/latest.json", top_n: int = TOP_N,
+        run_date: Optional[str] = None) -> dict:
     valuation_report = load_valuation_report(valuation_path)
-    return build_report(valuation_report, top_n=top_n)
+    return build_report(valuation_report, top_n=top_n, run_date=run_date)

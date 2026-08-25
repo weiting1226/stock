@@ -439,6 +439,41 @@ def test_module_ones_ladder_never_exceeds_the_hard_cap():
         assert parse_base_alloc(text)[0] <= TQQQ_HARD_CAP
 
 
+# --- base_alloc 的新鮮度 ----------------------------------------------------
+#
+# **這一段是補破網。** 排程註解從一開始就寫著「排在模組一之後」，但 cron 是
+# 21:30，模組一是 22:30——每天早一個小時。實測 2026-08-24 的報告：
+# as_of 是 08-24、base_alloc 卻來自 08-21，而 problems 是空的。
+#
+# 這種錯誤沒有例外可以攔：閘門照跑、配置照算、畫面照顯示，只是那個「主評分的
+# 結論」是上一個交易日的。排程已經修好，這裡守的是它再度飄移的時候。
+
+def test_a_base_alloc_from_an_earlier_day_is_reported_as_a_problem():
+    from tail_gate.report import stale_base_alloc_problems
+    problems = stale_base_alloc_problems("2026-08-21", "2026-08-24")
+    assert problems and "2026-08-21" in problems[0] and "排程" in problems[0]
+
+
+def test_a_same_day_base_alloc_is_silent():
+    """正確的先後之下兩者同一個 UTC 日期。這時候不能有雜訊，
+    否則警告會變成每天都在、然後被忽略。"""
+    from tail_gate.report import stale_base_alloc_problems
+    assert stale_base_alloc_problems("2026-08-24", "2026-08-24") == []
+
+
+def test_even_one_day_behind_is_flagged():
+    """門檻是 0 天，不是「落後一天算正常」。實際發生的排序錯誤天天**只**
+    落後一個交易日——把門檻放寬到一天，剛好就漏掉這裡真正發生的事。"""
+    from tail_gate.report import stale_base_alloc_problems
+    assert stale_base_alloc_problems("2026-08-20", "2026-08-21")
+
+
+def test_a_missing_source_date_is_reported_rather_than_assumed_fresh():
+    """沒有 as_of 就是無從判斷，不等於新鮮。"""
+    from tail_gate.report import stale_base_alloc_problems
+    assert stale_base_alloc_problems(None, "2026-08-24")
+
+
 def test_every_dashboard_page_links_to_all_six_modules():
     """六頁的導覽列必須一致。少一個連結，那一頁就成了死路——
     而新增模組時最容易漏掉的就是「其他五頁」。"""

@@ -1,10 +1,22 @@
-name: Weekly buy-rating gap radar
+name: Buy-rating gap radar
 
-# 模組九不重新抓資料，只從模組二當週已產出的估值報告裡篩選、彙整，
-# 所以排在模組二的 Tue 23:10 UTC 排程之後、每週一次即可（週二 UTC ≈ 美股週一收盤後）。
+# 模組九不抓任何資料，整份輸出都是模組二那份 latest.json 的再加工。
+# **所以它一定要跑在模組二之後**——跑在前面不會失敗，只會拿昨天的估值報告
+# 算出一份看起來完全正常的名單。
+#
+# 為什麼綁事件而不是「排在模組二後面 20 分鐘」：
+# 排程觸發的實際開始時間會延遲，而且延遲多久每天不一樣。實測模組二連五次的
+# 延遲是 19、22、24、21、20 分鐘，本身執行 6 分鐘出頭。原本兩者的 cron 只差
+# 20 分鐘——比延遲的變動範圍還小，先後根本保證不了：模組二延遲 24 分鐘、
+# 模組九延遲 0 分鐘的那天，模組九就跑在模組二前面。
+# 綁在「模組二跑完」這個事件上，先後就與延遲無關。
+#
+# 連帶效果：模組二排 Tue-Sat（對應美股 Mon-Fri 收盤後），模組九就跟著
+# 每個交易日更新一次，不再是每週一次。
 on:
-  schedule:
-    - cron: "30 23 * * 2"
+  workflow_run:
+    workflows: ["Daily analyst valuation scrape"]
+    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -16,11 +28,22 @@ concurrency:
 
 jobs:
   gap-radar:
+    # 模組二失敗時不跑：它失敗代表 latest.json 沒更新，這時候跑等於把昨天的
+    # 名單重存一次、附上今天的 generated_at，看起來像是今天算的。
+    if: >-
+      github.event_name != 'workflow_run'
+      || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # **workflow_run 一定要指定 ref。** 這個事件的 github.sha 是觸發它的
+          # 那次執行的 head commit——也就是模組二**開始跑之前**的 commit，
+          # 不含模組二剛推上來的估值資料。用預設值等於保證讀到舊資料，
+          # 正是這次改動要修掉的那件事。
+          ref: main
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -44,7 +67,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "no data changes"
           else
-            git commit -m "chore: weekly gap radar update"
+            git commit -m "chore: gap radar update"
             for attempt in 1 2 3 4; do
               git pull --rebase origin main && git push && exit 0
               echo "推送失敗，重試 $attempt"
