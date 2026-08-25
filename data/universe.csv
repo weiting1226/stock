@@ -2162,6 +2162,7 @@ EDSA,"Edesa Biotech, Inc. - Common Shares",NASDAQ,False,common,nasdaqtrader
 EDTK,Skillful Craftsman Education Technology Limited - Ordinary Share,NASDAQ,False,common,nasdaqtrader
 EDU,"New Oriental Education & Technology Group, Inc. Sponsored ADR representing 10 Ordinary Share (Cayman Islands)",N,False,common,nasdaqtrader
 EDUC,Educational Development Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
+EDVA,"Endovia Health Sciences, Inc. Common Stock",A,False,common,nasdaqtrader
 EE,"Excelerate Energy, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 EEA,"The European Equity Fund, Inc. Common Stock",N,False,common,nasdaqtrader
 EEFT,"Euronet Worldwide, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -2197,8 +2198,8 @@ EHGO,Eshallgo Inc. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 EHI,Western Asset Global High Income Fund Inc Common Stock,N,False,common,nasdaqtrader
 EHLD,Euroholdings Ltd. - Common Stock,NASDAQ,False,common,nasdaqtrader
 EHTH,"eHealth, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-EIC,Eagle Point Income Company Inc. Common Stock,N,False,common,nasdaqtrader
-EICA,Eagle Point Income Company Inc. 5.00% Series A Term Preferred Stock due 2026,N,False,preferred,nasdaqtrader
+EIC,Eagle Point Income Company Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
+EICA,Eagle Point Income Company 5.00% Series A Term Preferred Shares due 2026,N,False,preferred,nasdaqtrader
 EIG,Employers Holdings Inc Common Stock,N,False,common,nasdaqtrader
 EIIA,Eagle Point Institutional Income Fund 8.125% Series A Term Preferred Shares Due 2029,N,False,preferred,nasdaqtrader
 EIKN,"Eikon Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -3772,6 +3773,7 @@ KLRA,"Kailera Therapeutics, Inc. - Common stock",NASDAQ,False,common,nasdaqtrade
 KLRS,"Kalaris Therapeutics, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
 KLTR,"Kaltura, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 KLXE,"KLX Energy Services Holdings, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
+KLXER,"KLX Energy Services Holdings, Inc.  - Rights",NASDAQ,False,right,nasdaqtrader
 KMB,Kimberly-Clark Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 KMDA,Kamada Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 KMI,"Kinder Morgan, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -4287,7 +4289,9 @@ MHLA,"Maiden Holdings, Ltd. 6.625% Notes due 2046",N,False,note,nasdaqtrader
 MHNC,"Maiden Holdings North America, Ltd. 7.75% Notes due 2043",N,False,note,nasdaqtrader
 MHO,"M/I Homes, Inc. Common Stock",N,False,common,nasdaqtrader
 MI,NFT Limited Class A Ordinary Share,A,False,common,nasdaqtrader
+MIAC,Meridian3 Industrials Acquisition Corp - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 MIACU,Meridian3 Industrials Acquisition Corp - Units,NASDAQ,False,unit,nasdaqtrader
+MIACW,Meridian3 Industrials Acquisition Corp - Warrant,NASDAQ,False,warrant,nasdaqtrader
 MIAX,"Miami International Holdings, Inc. Common Stock",N,False,common,nasdaqtrader
 MICC,The Magnum Ice Cream Company N.V. Ordinary Shares,N,False,common,nasdaqtrader
 MIDD,The Middleby Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -4582,7 +4586,6 @@ NCDL,Nuveen Churchill Direct Lending Corp. Common Stock,N,False,common,nasdaqtra
 NCEL,NewcelX Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 NCEW,New Century Logistics (BVI) Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 NCI,Neo-Concept International Group Holdings Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-NCL,Northann Corp. Common Stock,A,False,common,nasdaqtrader
 NCLH,Norwegian Cruise Line Holdings Ltd. Ordinary Shares,N,False,common,nasdaqtrader
 NCMI,"National CineMedia, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 NCNA,NuCana plc - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
@@ -5684,7 +5687,7 @@ RDZN,"Roadzen, Inc. - Ordinary Shares",NASDAQ,False,common,nasdaqtrader
 RDZNW,"Roadzen, Inc. - Warrants",NASDAQ,False,warrant,nasdaqtrader
 REA,"Rare Earths Americas, Inc. Common Stock",A,False,common,nasdaqtrader
 REAL,"The RealReal, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-REAX,"The Real Brokerage, Inc. - Common Shares",NASDAQ,False,common,nasdaqtrader
+REAX,"The Real Brokerage, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 REBN,"Reborn Coffee, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 RECT,Rectitude Holdings Ltd - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 REED,"Reed's, Inc. Common Stock",A,False,common,nasdaqtrader
@@ -5823,7 +5826,6 @@ RNR-PG,"RenaissanceRe Holdings Ltd. Depositary Shares, each representing a 1/1,0
 RNST,Renasant Corporation Common Stock,N,False,common,nasdaqtrader
 RNTX,"Rein Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 RNW,ReNew Energy Global plc - Class A Shares,NASDAQ,False,common,nasdaqtrader
-RNWWW,ReNew Energy Global plc - Warrant,NASDAQ,False,warrant,nasdaqtrader
 RNXT,"RenovoRx, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ROAD,"Construction Partners, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ROC,Rank One Computing Corporation - Common stock,NASDAQ,False,common,nasdaqtrader
@@ -5970,7 +5972,6 @@ SBC,SBC Medical Group Holdings Incorporated - Common Stock,NASDAQ,False,common,n
 SBCF,Seacoast Banking Corporation of Florida - Common Stock,NASDAQ,False,common,nasdaqtrader
 SBCWW,SBC Medical Group Holdings Incorporated - Warrants,NASDAQ,False,warrant,nasdaqtrader
 SBET,"Sharplink, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-SBEV,"Splash Beverage Group, Inc. (NV) Common Stock",A,False,common,nasdaqtrader
 SBFG,"SB Financial Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SBFM,Sunshine Biopharma Inc. - Common stock,NASDAQ,False,common,nasdaqtrader
 SBFMW,Sunshine Biopharma Inc. - Warrant,NASDAQ,False,warrant,nasdaqtrader
