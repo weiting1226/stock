@@ -112,6 +112,41 @@ def test_universe_label_passes_through_from_the_source_report():
     assert built["universe"] == "Nasdaq-100 (TradingView constituents)"
 
 
+# --- 上游資料的新鮮度 -------------------------------------------------------
+#
+# 這個模組自己不抓資料，整份輸出都是模組二 latest.json 的再加工。於是
+# 「模組二今天還沒跑」與「跑完了」產出的東西**形狀完全一樣**：名單排得出來、
+# 分層算得出來、頁面照顯示，沒有例外也沒有空值，只有 as_of 少了一天。
+# 排程一旦飄移（原本是每週一次，而且與模組二只差 20 分鐘），沒有任何地方會叫。
+
+def test_staleness_is_measured_against_the_run_date_not_just_recorded():
+    """只把模組二的 as_of 抄過來是不夠的——讀的人得自己記得今天幾號才看得出
+    它是舊的。落後幾天要算出來。"""
+    report = _valuation_report([_row("AAA", 20, 40)])
+    report["as_of"] = "2026-08-18"
+    built = pipeline.build_report(report, run_date="2026-08-22")
+    assert built["source_staleness"]["days"] == 4
+    assert built["source_staleness"]["source_as_of"] == "2026-08-18"
+
+
+def test_a_same_day_run_reports_zero_staleness():
+    """排在模組二之後跑的正常情況：兩邊同一個 UTC 日期，落後 0 天。"""
+    report = _valuation_report([_row("AAA", 20, 40)])
+    report["as_of"] = "2026-08-22"
+    built = pipeline.build_report(report, run_date="2026-08-22")
+    assert built["source_staleness"]["days"] == 0
+
+
+def test_stale_source_still_produces_a_report_rather_than_failing():
+    """刻意不丟例外：估值報告本來就會在週末與假日落後，把它變成失敗只會讓
+    排程在大多數日子紅一片。數字要在，判斷留給讀的人。"""
+    report = _valuation_report([_row("AAA", 20, 40), _row("BBB", 10, 30)])
+    report["as_of"] = "2026-01-01"
+    built = pipeline.build_report(report, run_date="2026-08-22")
+    assert built["source_staleness"]["days"] > 200
+    assert len(built["top10"]) == 2
+
+
 # --- storage ---------------------------------------------------------------
 
 def _report(as_of, top10):

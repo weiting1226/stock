@@ -9,3 +9,4 @@ beautifulsoup4>=4.12
 playwright>=1.40    # 尿布監控模組：蝦皮／momo 爬蟲用 headless browser 繞過防爬／JS 渲染
 python-dateutil>=2.8
 openpyxl>=3.1        # FINRA 融資餘額歷史檔為 xlsx
+PyYAML>=6.0          # tests/test_workflows.py：排程的先後順序要用真的 YAML 解析來驗

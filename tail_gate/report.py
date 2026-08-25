@@ -73,6 +73,31 @@ def load_module_one_position(path: str = "docs/data/latest.json") -> tuple:
     return parse_base_alloc(text), {"as_of": d.get("as_of"), "text": text}
 
 
+def stale_base_alloc_problems(source_as_of: Optional[str], as_of: str) -> list:
+    """base_alloc 比本次執行舊多少天——超過一個交易日就要講出來。
+
+    **這一則是實測出來的。** 排程註解寫著「排在模組一之後」，但 cron 是
+    21:30，模組一是 22:30——每天早一個小時。於是 base_alloc 永遠是上一個
+    交易日的：2026-08-24 那份報告的 base_alloc 來自 08-21，而 problems 是空的。
+
+    這類錯誤不會丟例外。閘門照跑、配置照算、畫面照顯示，只是那個「主評分的
+    結論」是舊的。排程一旦再度飄移（延遲、失敗、有人改 cron），唯一會留下
+    痕跡的地方就是這裡。
+
+    **門檻是 0 天，不是「幾天以內都算正常」。** 兩者都排在同一個交易日收盤後、
+    同一個 UTC 日期內，正確的先後之下 as_of 應該完全相同。放寬到「落後一天
+    才算異常」剛好會漏掉這裡真正發生的事——它天天只落後一個交易日。
+    落後一天的另一個成因是模組一當天失敗了，那同樣需要被看見。
+    """
+    if not source_as_of:
+        return ["模組一的輸出沒有 as_of，無法判斷 base_alloc 是不是舊的"]
+    lag = (date.fromisoformat(as_of) - date.fromisoformat(source_as_of)).days
+    if lag <= 0:
+        return []
+    return [f"base_alloc 取自模組一 {source_as_of}，比本次執行（{as_of}）舊 {lag} 天"
+            f"——模組六應排在模組一之後執行，請檢查排程先後"]
+
+
 def build_report(as_of: Optional[str] = None, data_root: str = DATA_ROOT) -> dict:
     as_of = as_of or date.today().isoformat()
     start = (date.fromisoformat(as_of) - timedelta(days=HISTORY_DAYS)).isoformat()
@@ -80,6 +105,7 @@ def build_report(as_of: Optional[str] = None, data_root: str = DATA_ROOT) -> dic
     problems: list = []
 
     base_alloc, base_meta = load_module_one_position()
+    problems += stale_base_alloc_problems(base_meta.get("as_of"), as_of)
 
     vol_series, p1 = tdata.fetch_many_adjusted(VOL_TICKERS, start, end)
     credit_series, p2 = tdata.fetch_many_adjusted(CREDIT_PROXY_TICKERS, start, end)

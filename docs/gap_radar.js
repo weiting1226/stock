@@ -1,4 +1,5 @@
-// 模組九：買評缺口雷達。資料每週更新一次（見 .github/workflows/gap-radar.yml），
+// 模組九：買評缺口雷達。每個交易日更新一次（見 .github/workflows/gap-radar.yml，
+// 排程綁在模組二跑完的事件上，不是固定時刻），
 // 讀 docs/data/gap_radar/latest.json——那份資料本身是模組二報告的篩選結果，
 // 兩邊共用「上漲空間」「分歧度」的定義，見 gap_radar/pipeline.py 的說明。
 //
@@ -174,13 +175,24 @@ function renderTable(report) {
     "「較上次」比較的是本頁上一次快照的名次，非投資建議。";
 }
 
+// 這一頁的資料完全來自模組二，而「模組二今天還沒跑」與「跑完了」在畫面上
+// 長得一模一樣——名單、分層、統計全都算得出來，只是整份是舊的。
+// 落後天數由後端算好放進 source_staleness，這裡只負責讓它被看見。
+function staleness(report) {
+  const days = (report.source_staleness || {}).days;
+  if (typeof days !== "number" || days <= 1) return null;
+  return `本頁資料來自模組二 ${report.source_staleness.source_as_of} 的估值報告，`
+    + `比今天舊 ${days} 天——模組二可能尚未更新，名單並非最新股價下的結果。`;
+}
+
 function renderCaveats(report) {
   const items = [
     "目標價落差不是保證報酬，分析師普遍存在偏多傾向，且共識價會隨股價事後調整。",
     "分歧度＝（最高目標價－最低目標價）／目標價中位數，反映機構之間認知的分散程度，不是統計上的標準差；機構數越少，這個數字越容易被單一極端值放大。",
     "資料以模組二取得的共識目標價來源為主（詳見 valuation.html 頁尾），屬單一資料源快照。",
-    `資料基準日為 ${report.as_of}，每週更新一次，個股評等與目標價可能於財報季後快速變動。`,
-  ];
+    `資料基準日為 ${report.as_of}，每個交易日更新一次，個股評等與目標價可能於財報季後快速變動。`,
+    staleness(report),
+  ].filter(Boolean);
   document.getElementById("caveats-list").innerHTML = items.map((t) => `<li>${escapeHtml(t)}</li>`).join("");
 }
 
