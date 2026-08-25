@@ -19,3 +19,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-08-18,8,HONA,Honeywell Aerospace,40.15,58.14,moderate
 2026-08-18,9,MCHP,Microchip Technology,39.67,50.36,low
 2026-08-18,10,AVGO,Broadcom,38.92,86.97,high
+2026-08-25,1,MSTR,Strategy Inc,80.61,141.88,extreme
+2026-08-25,2,APP,AppLovin,69.51,88.34,high
+2026-08-25,3,RKLB,Rocket Lab Corporation,68.8,76.15,moderate
+2026-08-25,4,CRWV,"CoreWeave, Inc.",64.08,192.44,extreme
+2026-08-25,5,MU,Micron Technology,62.4,121.38,high
+2026-08-25,6,SPCX,Space Exploration Technologies Corp,56.82,173.34,extreme
+2026-08-25,7,ALNY,"Alnylam Pharmaceuticals, Inc.",54.2,82.66,high
+2026-08-25,8,MCHP,Microchip Technology,47.81,50.63,low
+2026-08-25,9,AVGO,Broadcom,47.53,87.24,high
+2026-08-25,10,WDC,Western Digital,47.51,94.75,high

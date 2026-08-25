@@ -29,3 +29,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-08-18,8,TRMB,Trimble Inc.,40.54,41.2,moderate
 2026-08-18,9,HONA,Honeywell Aerospace,40.15,58.14,high
 2026-08-18,10,MCHP,Microchip Technology,39.67,50.36,moderate
+2026-08-25,1,ORCL,Oracle Corporation,70.23,117.68,extreme
+2026-08-25,2,APP,AppLovin,69.51,88.34,extreme
+2026-08-25,3,NRG,NRG Energy,66.14,87.95,extreme
+2026-08-25,4,MU,Micron Technology,62.4,121.38,extreme
+2026-08-25,5,VST,Vistra Corp.,56.69,95.02,extreme
+2026-08-25,6,AKAM,Akamai Technologies,48.88,64.79,high
+2026-08-25,7,ON,ON Semiconductor,48.5,60.36,high
+2026-08-25,8,MCHP,Microchip Technology,47.81,50.63,moderate
+2026-08-25,9,AVGO,Broadcom,47.53,87.24,extreme
+2026-08-25,10,WDC,Western Digital,47.51,94.75,extreme
