@@ -88,6 +88,21 @@ def main() -> int:
             line += f"  近期資料不足（{b['baseline_points']} 筆），未判定"
         print(line)
     print(f"檔案：{out}")
+
+    # 斷料要讓排程變紅。**這是這次修正的重點。**
+    #
+    # 在此之前，人工填報停在 2026-08-15、三個爬蟲每天回 0 筆，儀表板連續十天
+    # 顯示同一組價格——而工作流程每天成功、每天 commit，因為 latest.json 的
+    # as_of 每天都真的變了（其餘一字未動）。綠燈十天，沒有任何地方叫過。
+    #
+    # 報表照樣寫出去（頁面要能顯示「這是幾天前的資料」），只是最後回非零。
+    health = report["data_health"]
+    if health["is_stale"]:
+        print(f"\n⚠ 資料斷料：{health['message']}", file=sys.stderr)
+        print(f"  門檻為 {health['stale_alert_days']} 天（config.STALE_ALERT_DAYS）。"
+              f"檢查 data/diaper_monitor/manual_prices.csv 是否有人在填，"
+              f"以及上面三個爬蟲的略過原因。", file=sys.stderr)
+        return 2
     return 0
 
 

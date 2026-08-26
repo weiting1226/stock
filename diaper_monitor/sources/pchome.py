@@ -24,18 +24,12 @@ workflow log 判斷到底是「PChome 真的沒有這個商品」還是程式碼
 from __future__ import annotations
 
 import logging
+from collections import Counter
 from typing import Optional
 
 import requests
 
-from ..config import PLAUSIBLE_PACK_PRICE_RANGE
-from ._common import (
-    extract_piece_count,
-    first,
-    looks_like_a_plausible_pack_price,
-    looks_like_size_m,
-    looks_unreliable,
-)
+from ._common import first, format_rejects, screen_listing
 
 log = logging.getLogger(__name__)
 
@@ -91,53 +85,25 @@ def fetch_brand(brand: str, query: Optional[str] = None,
         return []
 
     quotes: list[dict] = []
-    skipped = 0
+    rejects: Counter = Counter()
     for item in items:
         if not isinstance(item, dict):
-            skipped += 1
+            rejects["不是預期的資料格式"] += 1
             continue
         name = first(item, "name", "Name", "describe", "Describe")
         price = first(item, "price", "Price")
         item_id = first(item, "Id", "id")
-        if not name or price is None:
-            skipped += 1
-            log.info(
-                "PChome 來源：品牌 %s 略過一筆（缺少 name 或 price 欄位，原始資料鍵＝%s）",
-                brand, sorted(item.keys()),
-            )
-            continue
-        name_str = str(name)
-        if not looks_like_size_m(name_str):
-            skipped += 1
-            log.info("PChome 來源：品牌 %s 略過「%s」（判定不是 M 號）", brand, name_str)
-            continue
-        if looks_unreliable(name_str):
-            skipped += 1
-            log.info(
-                "PChome 來源：品牌 %s 略過「%s」（標題判定為不可靠：試用包／多尺寸混列／箱購倍數）",
-                brand, name_str,
-            )
-            continue
-        piece_count = extract_piece_count(name_str)
-        if piece_count is None:
-            skipped += 1
-            log.info("PChome 來源：品牌 %s 略過「%s」（標題找不到片數）", brand, name_str)
-            continue
+        name_str = str(name) if name else ""
         try:
-            pack_price = float(price)
+            pack_price = None if price is None else float(price)
         except (TypeError, ValueError):
-            skipped += 1
-            log.info(
-                "PChome 來源：品牌 %s 略過「%s」（price 欄位＝%r 無法轉成數字）",
-                brand, name_str, price,
-            )
-            continue
-        if not looks_like_a_plausible_pack_price(pack_price):
-            skipped += 1
-            log.info(
-                "PChome 來源：品牌 %s 略過「%s」（換算後單價 %.2f 元超出合理範圍 %s）",
-                brand, name_str, pack_price, PLAUSIBLE_PACK_PRICE_RANGE,
-            )
+            pack_price = None
+
+        piece_count, reason = screen_listing(name_str, pack_price)
+        if reason:
+            rejects[reason] += 1
+            log.info("PChome 來源：品牌 %s 略過「%s」（%s；price 欄位＝%r）",
+                     brand, name_str or "（無標題）", reason, price)
             continue
 
         quotes.append({
@@ -154,14 +120,14 @@ def fetch_brand(brand: str, query: Optional[str] = None,
 
     if not quotes:
         log.warning(
-            "PChome 來源：品牌 %s（關鍵字「%s」）查到 %d 筆結果，"
-            "但沒有一筆同時符合「M 號」與「標題找得到片數」，整批略過（跳過 %d 筆）",
-            brand, query, len(items), skipped,
+            "PChome 來源：品牌 %s（關鍵字「%s」）查到 %d 筆結果，但沒有一筆通過過濾，"
+            "整批略過。各關卡擋下的筆數：%s",
+            brand, query, len(items), format_rejects(rejects),
         )
     else:
         log.info(
-            "PChome 來源：品牌 %s 取得 %d 筆報價（原始 %d 筆，過濾掉 %d 筆）",
-            brand, len(quotes), len(items), skipped,
+            "PChome 來源：品牌 %s 取得 %d 筆報價（原始 %d 筆，過濾掉 %d 筆：%s）",
+            brand, len(quotes), len(items), sum(rejects.values()), format_rejects(rejects),
         )
     return quotes
 

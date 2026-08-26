@@ -7,6 +7,7 @@
 """
 from __future__ import annotations
 
+import pytest
 import requests
 
 from diaper_monitor.sources import pchome
@@ -118,12 +119,33 @@ def test_rejects_titles_that_list_multiple_sizes_piece_counts_together():
     assert pchome.fetch_brand("Aiwibi", session=session) == []
 
 
-def test_rejects_box_purchases_with_a_pack_multiplier():
-    """真實案例：「奢寵幫 M 38片入*3包入(箱購)」1520 元只除以 38，
-    算出 40 元/片；沒乘以 3 包，正確單片價應接近 13 元。"""
+def test_box_purchases_are_multiplied_out_rather_than_skipped():
+    """同一個真實案例，結論翻過來了。
+
+    「奢寵幫 M 38片入*3包入(箱購)」原本整批跳過，因為只抓到 38、沒乘以 3，
+    會算出 40 元/片而不是接近 13。但那個標題把兩個數字都寫清楚了——
+    38 片、3 包——乘起來是**算得出來的，不是猜的**。
+
+    2026-08-25 的實測讓這件事變得要緊：奢寵幫在 PChome 查到 4 筆，
+    只有這一筆同時標明 M 號與片數，擋掉它等於這個品牌完全沒有自動報價。"""
     payload = {"prods": [{"Id": "1", "name": "奢寵幫 M 38片入*3包入(箱購)", "price": 1520}]}
     session = _FakeSession(_FakeResponse(payload))
-    assert pchome.fetch_brand("奢寵幫", session=session) == []
+    quotes = pchome.fetch_brand("奢寵幫", session=session)
+    assert len(quotes) == 1
+    assert quotes[0]["piece_count"] == 114                      # 38 x 3
+    assert quotes[0]["pack_price"] / quotes[0]["piece_count"] == pytest.approx(13.33, abs=0.01)
+
+
+def test_a_box_purchase_whose_multiplier_is_wrong_is_caught_by_the_unit_price_guard():
+    """換算開了之後，「乘錯」就成了新的失敗方式——而且它不會拋例外，
+    只會產生一個看起來正常的單片價。所以最終單片價要再過一關。
+
+    這裡用同一個標題配一個明顯不對的售價：1520 元若真的只有 38 片，
+    單片價 40 元；片數若被誇大成 1140 片，單片價 1.33 元。兩端都要擋下。"""
+    high = {"prods": [{"Id": "1", "name": "奢寵幫 M 38片入(單包)", "price": 1520}]}
+    assert pchome.fetch_brand("奢寵幫", session=_FakeSession(_FakeResponse(high))) == []
+    low = {"prods": [{"Id": "2", "name": "奢寵幫 M 38片入*30包入(箱購)", "price": 1520}]}
+    assert pchome.fetch_brand("奢寵幫", session=_FakeSession(_FakeResponse(low))) == []
 
 
 # --- 逐筆略過的原因要記錄成 log，不能只留下總數 ------------------------------
@@ -145,7 +167,10 @@ def test_logs_the_title_and_reason_for_each_skipped_item(caplog):
     assert "L 54片" in caplog.text and "判定不是 M 號" in caplog.text
     assert "體驗包" in caplog.text and "不可靠" in caplog.text
     assert "箱購組合" in caplog.text and "找不到片數" in caplog.text
-    assert "62片" in caplog.text and "超出合理範圍" in caplog.text
+    assert "62片" in caplog.text and "不合理" in caplog.text
+    # 總結那行要說出「哪一關擋了幾筆」，不能只給總數
+    assert "各關卡擋下的筆數" in caplog.text
+    assert "判定不是 M 號 1" in caplog.text
 
 
 def test_logs_which_fields_are_missing_when_name_or_price_absent(caplog):
@@ -153,7 +178,7 @@ def test_logs_which_fields_are_missing_when_name_or_price_absent(caplog):
     session = _FakeSession(_FakeResponse(payload))
     with caplog.at_level("INFO"):
         assert pchome.fetch_brand("滿意寶寶日本境內版", session=session) == []
-    assert "缺少 name 或 price 欄位" in caplog.text
+    assert "沒有標題" in caplog.text and "price 欄位＝999" in caplog.text
 
 
 def test_caps_results_per_brand():

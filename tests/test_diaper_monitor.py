@@ -355,3 +355,75 @@ def test_rerunning_a_date_with_no_fresh_data_clears_its_stale_history_row(tmp_pa
     hist = pd.read_csv(history, dtype={"date": str})
     assert hist[(hist["date"] == "2026-08-18") & (hist["brand"] == brand)].empty, \
         f"上次的錯誤資料應該被清掉，但還在：{hist.to_dict('records')}"
+
+
+# --- 斷料要被看見 -----------------------------------------------------------
+#
+# **這一段是補破網。** 2026-08-15 之後人工沒再填、三個自動爬蟲每天都回 0 筆，
+# 儀表板連續十天顯示同一組 08-15 的價格。GitHub Actions 每天綠燈、每天 commit
+# ——因為每天真的有東西變：latest.json 的 as_of 從昨天改成今天，其餘一字未動。
+# 十天下來沒有任何一個地方叫過。
+#
+# 逐品牌的 is_stale 本來就有，但那是三個各自獨立的旗標，沒有任何地方把它們
+# 加總成一句「這個模組現在是不是活的」。
+
+def _brand(name, data_date, stale):
+    return {"brand": name, "has_data": data_date is not None,
+            "data_date": data_date, "is_stale": stale}
+
+
+def test_all_brands_stale_is_reported_as_a_drought():
+    health = pipeline.assess_data_health([
+        _brand("甲", "2026-08-15", True),
+        _brand("乙", "2026-08-15", True),
+        _brand("丙", "2026-08-15", True),
+    ], "2026-08-25")
+    assert health["is_stale"] is True
+    assert health["stale_days"] == 10
+    assert health["latest_data_date"] == "2026-08-15"
+    assert "2026-08-15" in health["message"]
+
+
+def test_one_fresh_brand_means_the_pipeline_is_still_alive():
+    """刻意看「最新的一筆」而不是「最舊的一筆」：只要還有一個品牌今天有資料，
+    查價流程就還在運作。三個全舊了才是斷料——否則某個品牌長期缺報價
+    會讓警告天天都在，然後被無視。"""
+    health = pipeline.assess_data_health([
+        _brand("甲", "2026-08-25", False),
+        _brand("乙", "2026-08-15", True),
+        _brand("丙", "2026-08-15", True),
+    ], "2026-08-25")
+    assert health["is_stale"] is False
+    assert health["message"] is None
+    assert health["fresh_brands"] == ["甲"]
+
+
+def test_a_weekend_sized_gap_does_not_alert():
+    """人工查價本來就可能週末跳過一兩天。天天紅燈的警告等於沒有警告。"""
+    health = pipeline.assess_data_health(
+        [_brand("甲", "2026-08-23", True)], "2026-08-25")
+    assert health["stale_days"] == 2 and health["is_stale"] is False
+
+
+def test_the_threshold_is_three_days_not_one():
+    """門檻剛好落在 3 天：2 天不叫、3 天要叫。實際發生的斷料是十天，
+    但把門檻放寬到「一週才算」就會重演一次同樣的沉默。"""
+    assert pipeline.assess_data_health(
+        [_brand("甲", "2026-08-22", True)], "2026-08-25")["is_stale"] is True
+
+
+def test_no_price_records_at_all_is_also_a_drought():
+    """完全沒有紀錄跟「有紀錄但很舊」都是斷料，不能因為算不出天數就當成正常。"""
+    health = pipeline.assess_data_health([_brand("甲", None, False)], "2026-08-25")
+    assert health["is_stale"] is True and health["stale_days"] is None
+
+
+def test_the_report_carries_data_health_so_the_page_can_show_it(tmp_path):
+    """後端算出來卻沒放進報表，等於前端拿不到——這一則守住那條線。"""
+    manual = tmp_path / "m.csv"
+    manual.write_text("date,brand,platform,product_name,pack_price,piece_count,url,note\n"
+                      "2026-08-15,滿意寶寶日本境內版,蝦皮,測試 M 62片,509,62,,\n", encoding="utf-8")
+    report = pipeline.build_report(as_of="2026-08-25", manual_path=str(manual),
+                                    history_path=str(tmp_path / "h.csv"))
+    assert report["data_health"]["is_stale"] is True
+    assert report["data_health"]["stale_days"] == 10

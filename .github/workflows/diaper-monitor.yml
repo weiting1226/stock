@@ -41,15 +41,26 @@ jobs:
       - name: Install Playwright Chromium
         run: playwright install --with-deps chromium
 
+      # 離開碼 2 = 斷料（見 scripts/run_diaper_monitor.py 結尾）。這裡先不讓步驟
+      # 當場失敗，因為含警示的 latest.json 還是要 commit 出去給頁面顯示——
+      # 直接失敗會連 commit 步驟一起跳過，變成「排程紅了但頁面上什麼都沒說」。
+      # 改成記下離開碼，存完檔之後最後一步才讓整個 job 變紅。
       - name: Run diaper monitor
+        id: monitor
         run: |
+          set +e
           if [ -n "${{ github.event.inputs.as_of }}" ]; then
             python3 scripts/run_diaper_monitor.py --as-of "${{ github.event.inputs.as_of }}" -v
           else
             python3 scripts/run_diaper_monitor.py -v
           fi
+          code=$?
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          # 2 是斷料，留到最後處理；其他非零是真的執行失敗，立刻停
+          if [ "$code" != "0" ] && [ "$code" != "2" ]; then exit "$code"; fi
 
       - name: Commit updated data
+        if: always() && steps.monitor.outputs.code != ''
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -61,3 +72,11 @@ jobs:
             git pull --rebase origin main
             git push
           fi
+
+      # 資料存完了才變紅。綠燈十天沒人發現，正是這次要修掉的東西。
+      - name: Fail if the price data has gone stale
+        if: always() && steps.monitor.outputs.code == '2'
+        run: |
+          echo "::error::尿布價格資料已斷料——人工填報與三個自動爬蟲都沒有新資料。" \
+               "詳情見上方「Run diaper monitor」步驟的輸出與各爬蟲的逐關過濾統計。"
+          exit 1

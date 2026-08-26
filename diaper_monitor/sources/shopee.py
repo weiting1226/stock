@@ -35,17 +35,12 @@ API 的回應，才會知道行不行。
 from __future__ import annotations
 
 import logging
+from collections import Counter
 from typing import Callable, Optional
 from urllib.parse import quote
 
 from ._browser import fetch_intercepted_json, new_browser
-from ._common import (
-    extract_piece_count,
-    first,
-    looks_like_a_plausible_pack_price,
-    looks_like_size_m,
-    looks_unreliable,
-)
+from ._common import first, format_rejects, screen_listing
 
 log = logging.getLogger(__name__)
 
@@ -101,10 +96,10 @@ def _parse_payload(brand: str, query: str, payload) -> list[dict]:
         return []
 
     quotes: list[dict] = []
-    skipped = 0
+    rejects: Counter = Counter()
     for entry in items:
         if not isinstance(entry, dict):
-            skipped += 1
+            rejects["不是預期的資料格式"] += 1
             continue
         # 舊版 API 把商品欄位包在 item_basic 底下，新版本有時直接攤平在
         # 最外層——兩種都試，不確定哪一種才是現在會拿到的格式
@@ -114,33 +109,24 @@ def _parse_payload(brand: str, query: str, payload) -> list[dict]:
         raw_price = first(item, "price", "price_min")
         item_id = first(item, "itemid")
         shop_id = first(item, "shopid")
-        if not name or raw_price is None:
-            skipped += 1
-            continue
-        if not looks_like_size_m(str(name)):
-            skipped += 1
-            continue
-        if looks_unreliable(str(name)):
-            skipped += 1
-            continue
-        piece_count = extract_piece_count(str(name))
-        if piece_count is None:
-            skipped += 1
-            continue
+        name_str = str(name) if name else ""
         try:
-            pack_price = float(raw_price) / PRICE_SCALE
+            pack_price = None if raw_price is None else float(raw_price) / PRICE_SCALE
         except (TypeError, ValueError):
-            skipped += 1
-            continue
-        if not looks_like_a_plausible_pack_price(pack_price):
-            skipped += 1
+            pack_price = None
+
+        piece_count, reason = screen_listing(name_str, pack_price)
+        if reason:
+            rejects[reason] += 1
+            log.info("蝦皮來源：品牌 %s 略過「%s」（%s；price 欄位＝%r）",
+                     brand, name_str or "（無標題）", reason, raw_price)
             continue
 
         url = f"https://shopee.tw/-i.{shop_id}.{item_id}" if shop_id and item_id else ""
         quotes.append({
             "brand": brand,
             "platform": PLATFORM_NAME,
-            "product_name": str(name),
+            "product_name": name_str,
             "pack_price": round(pack_price, 2),
             "piece_count": piece_count,
             "url": url,
@@ -152,14 +138,14 @@ def _parse_payload(brand: str, query: str, payload) -> list[dict]:
 
     if not quotes:
         log.warning(
-            "蝦皮來源：品牌 %s（關鍵字「%s」）查到 %d 筆結果，"
-            "但沒有一筆同時符合「M 號」「標題找得到片數」與「售價合理」，整批略過（跳過 %d 筆）",
-            brand, query, len(items), skipped,
+            "蝦皮來源：品牌 %s（關鍵字「%s」）查到 %d 筆結果，但沒有一筆通過過濾，"
+            "整批略過。各關卡擋下的筆數：%s",
+            brand, query, len(items), format_rejects(rejects),
         )
     else:
         log.info(
-            "蝦皮來源：品牌 %s 取得 %d 筆報價（原始 %d 筆，過濾掉 %d 筆）",
-            brand, len(quotes), len(items), skipped,
+            "蝦皮來源：品牌 %s 取得 %d 筆報價（原始 %d 筆，過濾掉 %d 筆：%s）",
+            brand, len(quotes), len(items), sum(rejects.values()), format_rejects(rejects),
         )
     return quotes
 

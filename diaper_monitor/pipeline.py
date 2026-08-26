@@ -23,6 +23,7 @@ from .config import (
     MIN_BASELINE_POINTS,
     SCRAPED_PRICES_PATH,
     SIZE,
+    STALE_ALERT_DAYS,
 )
 
 log = logging.getLogger(__name__)
@@ -231,12 +232,50 @@ def build_report(as_of: Optional[str] = None, manual_path: str = MANUAL_PRICES_P
     return {
         "as_of": as_of,
         "size": SIZE,
+        "data_health": assess_data_health(brands_out, as_of),
         "baseline_window_days": BASELINE_WINDOW_DAYS,
         "min_baseline_points": MIN_BASELINE_POINTS,
         "drop_threshold_pct": DROP_THRESHOLD_PCT,
         "brands": brands_out,
         "history": _history_for_chart(history_path),
         "notes": _notes(),
+    }
+
+
+def assess_data_health(brands_out: list, as_of: str) -> dict:
+    """整份資料到底有多舊，以及該不該有人來看一眼。
+
+    **這一段是補破網。** 2026-08-15 之後人工沒再填、三個自動爬蟲每天都回 0 筆，
+    儀表板連續十天顯示同一組 08-15 的價格——而 GitHub Actions 每天綠燈、
+    每天 commit，因為每天真的有東西變：latest.json 的 as_of 從昨天改成今天，
+    其餘一字未動。十天下來沒有任何一個地方叫過。
+
+    每個品牌本來就有 `is_stale`，但那是**逐品牌**的旗標，沒有任何地方把它們
+    加總成一句「這個模組現在是不是活的」。這裡就是那一句。
+
+    刻意用「最新的一筆」而不是「最舊的一筆」：只要還有一個品牌今天有資料，
+    查價的流程就還在運作，不該報警。三個全都舊了，才是斷料。
+    """
+    dates = [b["data_date"] for b in brands_out if b.get("data_date")]
+    fresh = [b["brand"] for b in brands_out if b.get("has_data") and not b.get("is_stale")]
+    if not dates:
+        return {"latest_data_date": None, "stale_days": None, "fresh_brands": [],
+                "stale_alert_days": STALE_ALERT_DAYS, "is_stale": True,
+                "message": "三個品牌都沒有任何價格紀錄——人工與自動爬蟲都沒有進料"}
+
+    latest = max(dates)
+    stale_days = (date_cls.fromisoformat(as_of) - date_cls.fromisoformat(latest)).days
+    alert = stale_days >= STALE_ALERT_DAYS
+    return {
+        "latest_data_date": latest,
+        "stale_days": stale_days,
+        "fresh_brands": fresh,
+        "stale_alert_days": STALE_ALERT_DAYS,
+        "is_stale": alert,
+        "message": (
+            f"最新的價格資料是 {latest}，距今 {stale_days} 天——"
+            f"人工填報（manual_prices.csv）與自動爬蟲都沒有新資料進來"
+        ) if alert else None,
     }
 
 
@@ -266,7 +305,7 @@ def _notes() -> list:
         f"「近期平均」為前 {BASELINE_WINDOW_DAYS} 天（不含當天）的「當日最便宜單價」平均，"
         f"歷史點數不足 {MIN_BASELINE_POINTS} 筆時不判定，避免用一兩筆資料誤判顯著下跌。",
         "資料以人工每日填入為主（見 data/diaper_monitor/manual_prices.csv），"
-        "目前另有 PChome 的自動爬蟲補人工沒查到的空檔（見 data/diaper_monitor/scraped_prices.csv）——"
+        "另有 PChome／蝦皮／momo 三個自動爬蟲補人工沒查到的空檔（見 data/diaper_monitor/scraped_prices.csv）——"
         "同一天、同一品牌、同一平台，人工填的資料永遠蓋過爬蟲抓到的；"
         "明細裡每一筆都標了「人工」或「自動爬蟲」的來源。",
         f"三個品牌／通路彼此不比較——「滿意寶寶日本境內版」「Aiwibi」「奢寵幫」不是同一件商品，"

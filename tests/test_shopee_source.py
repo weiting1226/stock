@@ -68,11 +68,16 @@ def test_rejects_trial_size_packs():
     assert shopee._parse_payload("Aiwibi", "q", payload) == []
 
 
-def test_rejects_box_purchases_with_a_pack_multiplier():
-    payload = {"items": [{
+def test_box_purchases_are_multiplied_out_rather_than_skipped():
+    """與 PChome 那則同一個真實案例、同一個結論：38 片、3 包兩個數字都在標題上，
+    乘起來是算得出來的。三個來源共用 `_common.screen_listing`，所以這裡驗的是
+    「蝦皮這一支也真的走同一套規則」——各複製一份邏輯正是這個模組要避免的事。"""
+    payload = {"items": [{"item_basic": {
         "name": "奢寵幫 M 38片入*3包入(箱購)", "price": 152000000, "itemid": 1, "shopid": 2,
-    }]}
-    assert shopee._parse_payload("奢寵幫", "q", payload) == []
+    }}]}
+    quotes = shopee._parse_payload("奢寵幫", "q", payload)
+    assert len(quotes) == 1
+    assert quotes[0]["piece_count"] == 114
 
 
 def test_rejects_implausible_prices():

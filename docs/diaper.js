@@ -133,6 +133,17 @@ function renderOffers(r) {
   document.getElementById("offers-slot").innerHTML = blocks.join("");
 }
 
+// 逐品牌已經有「非今日」的小標，但那是三個各自獨立的角標——三個全都舊了的時候，
+// 畫面上看起來仍然只是「今天剛好都沒更新」。實測連續十天都長這樣，沒有人發現。
+// 這一條是把三個角標加總成一句話，放在最上面。
+function renderStaleness(r) {
+  const h = r.data_health;
+  if (!h || !h.is_stale) return;
+  document.getElementById("error-slot").innerHTML =
+    `<div class="error-banner">${escapeHtml(h.message)}（門檻 ${h.stale_alert_days} 天）。`
+    + `以下顯示的是最後一次查到的價格，不是今天的行情。</div>`;
+}
+
 function renderNotes(r) {
   document.getElementById("notes-slot").innerHTML = (r.notes || []).map(escapeHtml).join("<br>");
 }
@@ -145,6 +156,7 @@ async function load() {
     state.report = r;
     document.getElementById("asof-label").textContent =
       `資料基準日 ${r.as_of}｜尺寸 ${r.size} 號｜跌幅達近${r.baseline_window_days}日均${r.drop_threshold_pct}%即顯著標示；本頁純資料呈現`;
+    renderStaleness(r);
     renderStats(r);
     renderChart(r);
     renderOffers(r);

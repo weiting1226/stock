@@ -84,9 +84,13 @@ def test_rejects_trial_size_packs():
     assert momo._parse_html("Aiwibi", "q", html, FINAL_URL) == []
 
 
-def test_rejects_box_purchases_with_a_pack_multiplier():
+def test_box_purchases_are_multiplied_out_rather_than_skipped():
+    """三個來源共用 `_common.screen_listing`，momo 這一支也要走同一套規則。
+    「38片入*3包入」乘開是 114 片，不是跳過。"""
     html = _page(_item("奢寵幫 M 38片入*3包入(箱購)", "1520"))
-    assert momo._parse_html("奢寵幫", "q", html, FINAL_URL) == []
+    quotes = momo._parse_html("奢寵幫", "q", html, FINAL_URL)
+    assert len(quotes) == 1
+    assert quotes[0]["piece_count"] == 114
 
 
 def test_rejects_implausible_prices():

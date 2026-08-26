@@ -34,6 +34,7 @@ Chromium 打這個網域直接收到 `net::ERR_TUNNEL_CONNECTION_FAILED`），�
 from __future__ import annotations
 
 import logging
+from collections import Counter
 import re
 from typing import Callable, Optional
 from urllib.parse import quote, urljoin
@@ -41,12 +42,7 @@ from urllib.parse import quote, urljoin
 from bs4 import BeautifulSoup
 
 from ._browser import fetch_rendered_html, new_browser
-from ._common import (
-    extract_piece_count,
-    looks_like_a_plausible_pack_price,
-    looks_like_size_m,
-    looks_unreliable,
-)
+from ._common import format_rejects, screen_listing
 
 log = logging.getLogger(__name__)
 
@@ -147,39 +143,30 @@ def _parse_html(brand: str, query: str, html: str, final_url: str) -> list[dict]
         return []
 
     quotes: list[dict] = []
-    skipped = 0
+    rejects: Counter = Counter()
     for link, block in candidates:
         name = link.get("title") or link.get_text(strip=True)
-        if not name:
-            skipped += 1
-            continue
+        name_str = str(name) if name else ""
         price_match = PRICE_PATTERN.search(block.get_text(" ", strip=True))
-        if not price_match:
-            skipped += 1
-            continue
-        if not looks_like_size_m(name):
-            skipped += 1
-            continue
-        if looks_unreliable(name):
-            skipped += 1
-            continue
-        piece_count = extract_piece_count(name)
-        if piece_count is None:
-            skipped += 1
-            continue
-        try:
-            pack_price = float(price_match.group(1).replace(",", ""))
-        except ValueError:
-            skipped += 1
-            continue
-        if not looks_like_a_plausible_pack_price(pack_price):
-            skipped += 1
+        pack_price = None
+        if price_match:
+            try:
+                pack_price = float(price_match.group(1).replace(",", ""))
+            except ValueError:
+                pack_price = None
+
+        piece_count, reason = screen_listing(name_str, pack_price)
+        if reason:
+            rejects[reason] += 1
+            log.info("momo 來源：品牌 %s 略過「%s」（%s；抓到的價格字串＝%r）",
+                     brand, name_str or "（無標題）", reason,
+                     price_match.group(1) if price_match else None)
             continue
 
         quotes.append({
             "brand": brand,
             "platform": PLATFORM_NAME,
-            "product_name": name,
+            "product_name": name_str,
             "pack_price": pack_price,
             "piece_count": piece_count,
             "url": urljoin(BASE_URL, link["href"]),
@@ -192,14 +179,13 @@ def _parse_html(brand: str, query: str, html: str, final_url: str) -> list[dict]
     if not quotes:
         log.warning(
             "momo 來源：品牌 %s（關鍵字「%s」）找到 %d 個候選商品區塊，"
-            "但沒有一個同時符合「M 號」「標題找得到片數」「找得到價格」與「售價合理」，"
-            "整批略過（跳過 %d 個）",
-            brand, query, len(candidates), skipped,
+            "但沒有一個通過過濾，整批略過。各關卡擋下的筆數：%s",
+            brand, query, len(candidates), format_rejects(rejects),
         )
     else:
         log.info(
-            "momo 來源：品牌 %s 取得 %d 筆報價（候選 %d 個，過濾掉 %d 個）",
-            brand, len(quotes), len(candidates), skipped,
+            "momo 來源：品牌 %s 取得 %d 筆報價（候選 %d 個，過濾掉 %d 個：%s）",
+            brand, len(quotes), len(candidates), sum(rejects.values()), format_rejects(rejects),
         )
     return quotes
 
