@@ -1,7 +1,9 @@
 ticker,name,exchange,is_etf,security_type,source
 A,"Agilent Technologies, Inc. Common Stock",N,False,common,nasdaqtrader
 AA,Alcoa Corporation Common Stock,N,False,common,nasdaqtrader
+AAC,Ares Acquisition Corporation III Class A Ordinary Shares,N,False,common,nasdaqtrader
 AAC-U,"Ares Acquisition Corporation III Units, each consisting of one Class A ordinary share and one-tenth of one redeemable warrant",N,False,warrant,nasdaqtrader
+AAC-W,"Ares Acquisition Corporation III Redeemable warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50",N,False,warrant,nasdaqtrader
 AACG,"ATA Creativity Global - American Depositary Shares, each representing two common shares",NASDAQ,False,common,nasdaqtrader
 AACI,Armada Acquisition Corp. III - Class A Ordinary Share,NASDAQ,False,common,nasdaqtrader
 AACIU,Armada Acquisition Corp. III - Units,NASDAQ,False,unit,nasdaqtrader
@@ -251,7 +253,6 @@ AIFC,AI Financial Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 AIFF,"Firefly Neuroscience, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
 AIFU,AIFU Inc. - Class A Ordinary Share,NASDAQ,False,common,nasdaqtrader
 AIG,"American International Group, Inc. New Common Stock",N,False,common,nasdaqtrader
-AIHS,Senmiao Technology Limited - Common Stock,NASDAQ,False,common,nasdaqtrader
 AII,"American Integrity Insurance Group, Inc. Common Stock",N,False,common,nasdaqtrader
 AIIA,AI Infrastructure Acquisition Corp. Class A Ordinary Shares,N,False,common,nasdaqtrader
 AIIA-R,"AI Infrastructure Acquisition Corp. Rights, each entitling the holder to receive one-fifth (1/5) of one Class A Ordinary Share",N,False,right,nasdaqtrader
@@ -1125,7 +1126,6 @@ BRT,BRT Apartments Corp. (MD) Common Stock,N,False,common,nasdaqtrader
 BRTMU,B&R Technology Merger Corp. - Units,NASDAQ,False,unit,nasdaqtrader
 BRTX,"BioRestorative Therapies, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BRUN,Boost Run Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
-BRUNW,Boost Run Inc. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 BRVE,"Braveheart Bio, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BRW,Saba Capital Income & Opportunities Fund SBI,N,False,common,nasdaqtrader
 BRX,Brixmor Property Group Inc. Common Stock,N,False,common,nasdaqtrader
@@ -1555,9 +1555,6 @@ CMDB,Costamare Bulkers Holdings Limited Common Stock,N,False,common,nasdaqtrader
 CME,CME Group Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 CMG,"Chipotle Mexican Grill, Inc. Common Stock",N,False,common,nasdaqtrader
 CMI,Cummins Inc. Common Stock,N,False,common,nasdaqtrader
-CMII,Columbus Circle Capital Corp II - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-CMIIU,Columbus Circle Capital Corp II - Unit,NASDAQ,False,unit,nasdaqtrader
-CMIIW,Columbus Circle Capital Corp II - Warrant,NASDAQ,False,warrant,nasdaqtrader
 CMMB,Chemomab Therapeutics Ltd.  - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 CMND,Clearmind Medicine Inc. - Common Shares,NASDAQ,False,common,nasdaqtrader
 CMP,Compass Minerals Intl Inc Common Stock,N,False,common,nasdaqtrader
@@ -2588,7 +2585,6 @@ FLYE,"Fly-E Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 FLYW,Flywire Corporation - Voting Common Stock,NASDAQ,False,common,nasdaqtrader
 FLYX,"flyExclusive, Inc. Class A Common Stock",A,False,common,nasdaqtrader
 FLYX-W,"flyExclusive, Inc. Redeemable warrants, each whole warrant exercisable for one Class A common stock at an exercise price of $11.50 per share",A,False,warrant,nasdaqtrader
-FLZH,"Flash Sports & Media Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 FMAC,Future Money Acquisition Corporation - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 FMACR,Future Money Acquisition Corporation - Rights,NASDAQ,False,right,nasdaqtrader
 FMACU,Future Money Acquisition Corporation - Units,NASDAQ,False,unit,nasdaqtrader
@@ -2789,7 +2785,6 @@ GD,General Dynamics Corporation Common Stock,N,False,common,nasdaqtrader
 GDC,GD Culture Group Limited - Common Stock,NASDAQ,False,common,nasdaqtrader
 GDDY,GoDaddy Inc. Class A Common Stock,N,False,common,nasdaqtrader
 GDEV,GDEV Inc. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-GDEVW,GDEV Inc. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 GDHG,Golden Heaven Group Holdings Ltd.  - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 GDL,"GDL Fund, The Common Shares of Beneficial Interest",N,False,common,nasdaqtrader
 GDO,Western Asset Global Corporate Opportunity Fund Inc. Common Stock,N,False,common,nasdaqtrader
@@ -3291,7 +3286,6 @@ HUHU,HUHUTECH International Group Inc. - Ordinary Shares,NASDAQ,False,common,nas
 HUIZ,Huize Holding Limited - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 HUM,Humana Inc. Common Stock,N,False,common,nasdaqtrader
 HUMA,"Humacyte, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-HUMAW,"Humacyte, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
 HUN,Huntsman Corporation Common Stock,N,False,common,nasdaqtrader
 HURA,"TuHURA Biosciences, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 HURC,"Hurco Companies, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -3537,6 +3531,9 @@ IPVVW,"InterPrivate Investment Partners V, Inc. - Warrants",NASDAQ,False,warrant
 IPW,iPower Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 IPWR,Ideal Power Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 IPX,IperionX Limited - American Depositary Share,NASDAQ,False,common,nasdaqtrader
+IPXG,Inection Point Acquisition Corp. VII  - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+IPXGU,Inection Point Acquisition Corp. VII  - Unit,NASDAQ,False,unit,nasdaqtrader
+IPXGW,Inection Point Acquisition Corp. VII  - Warrant,NASDAQ,False,warrant,nasdaqtrader
 IQ,"iQIYI, Inc. - American Depositary Shares",NASDAQ,False,common,nasdaqtrader
 IQI,Invesco Quality Municipal Income Trust Common Stock,N,False,common,nasdaqtrader
 IQMX,IQM Quantum Computers Oyj - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
@@ -3686,6 +3683,7 @@ JSM,"Navient Corporation - 6% Senior Notes due December 15, 2043",NASDAQ,False,n
 JSPR,"Jasper Therapeutics, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 JSPRW,"Jasper Therapeutics, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
 JTAI,Jet.AI Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
+JTTT,JATT III Acquisition Corp - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 JUNS,"Jupiter Neurosciences, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 JVA,"Coffee Holding Co., Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 JWEL,Jowell Global Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -3919,7 +3917,6 @@ LEA,Lear Corporation Common Stock,N,False,common,nasdaqtrader
 LECO,"Lincoln Electric Holdings, Inc. - Common Shares",NASDAQ,False,common,nasdaqtrader
 LEDS,SemiLEDS Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 LEE,"Lee Enterprises, Incorporated - Common Stock",NASDAQ,False,common,nasdaqtrader
-LEG,"Leggett & Platt, Incorporated Common Stock",N,False,common,nasdaqtrader
 LEGH,Legacy Housing Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 LEGN,Legend Biotech Corporation - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 LEGO,Legato Merger Corp. IV Ordinary Shares,A,False,common,nasdaqtrader
@@ -4822,7 +4819,6 @@ NTWK,NETSOL Technologies Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 NTWO,Newbury Street II Acquisition Corp - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 NTWOU,Newbury Street II Acquisition Corp - Unit,NASDAQ,False,unit,nasdaqtrader
 NTWOW,Newbury Street II Acquisition Corp - Warrant,NASDAQ,False,warrant,nasdaqtrader
-NTZ,"Natuzzi, S.p.A.",N,False,common,nasdaqtrader
 NU,Nu Holdings Ltd. Class A Ordinary Shares,N,False,common,nasdaqtrader
 NUAI,"New Era Energy & Digital, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 NUAIW,"New Era Energy & Digital, Inc. - Warrants",NASDAQ,False,warrant,nasdaqtrader
@@ -5070,8 +5066,6 @@ OSPN,OneSpan Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 OSPR,Osprey Acquisition Corp. III - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 OSPRU,Osprey Acquisition Corp. III - Units,NASDAQ,False,unit,nasdaqtrader
 OSPRW,Osprey Acquisition Corp. III - Warrants,NASDAQ,False,warrant,nasdaqtrader
-OSRH,"OSR Health, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-OSRHW,"OSR Health, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
 OSS,"One Stop Systems, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 OST,"Ostin Technology Group Co., Ltd. - Class A Ordinary Shares",NASDAQ,False,common,nasdaqtrader
 OSTX,OS Therapies Incorporated Common Stock,A,False,common,nasdaqtrader
@@ -5962,6 +5956,7 @@ SATA,"Strive, Inc. - Variable Rate Series A Perpetual Preferred Stock",NASDAQ,Fa
 SATL,Satellogic Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 SATLW,Satellogic Inc. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 SAV,Saratoga Investment Corp 7.50% Notes due 2031,N,False,note,nasdaqtrader
+SAX,Saratoga Investment Corp 8.00% Notes due 2031,N,False,note,nasdaqtrader
 SAY,Saratoga Investment Corp 8.125% Notes due 2027,N,False,note,nasdaqtrader
 SAZ,Saratoga Investment Corp 8.50% Notes due 2028,N,False,note,nasdaqtrader
 SB,"Safe Bulkers, Inc Common Stock ($0.001 par value)",N,False,common,nasdaqtrader
@@ -5994,6 +5989,7 @@ SBXE-U,"SilverBox Corp V Units, each consisting of one Class A Ordinary Share an
 SBXE-W,"SilverBox Corp V Redeemable warrants, each whole warrant exercisable for one Class A Ordinary Share at an exercise price of $11.50",N,False,warrant,nasdaqtrader
 SCAG,Scage Future - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 SCAGW,Scage Future - Warrants,NASDAQ,False,warrant,nasdaqtrader
+SCATU,Southern Cross Acquisition II Corp. - Units,NASDAQ,False,unit,nasdaqtrader
 SCCD,Sachem Capital Corp. 6.00% Notes due 2026,A,False,note,nasdaqtrader
 SCCE,Sachem Capital Corp. 6.00% Notes due 2027,A,False,note,nasdaqtrader
 SCCF,Sachem Capital Corp. 7.125% Notes due 2027,A,False,note,nasdaqtrader
@@ -6979,6 +6975,7 @@ VAC,Marriott Vacations Worldwide Corporation Common Stock,N,False,common,nasdaqt
 VACI,Viking Acquisition Corp. I Class A Ordinary Shares,N,False,common,nasdaqtrader
 VACI-U,"Viking Acquisition Corp. I Units, each consisting of one Class A ordinary share and one-third of one Warrant",N,False,warrant,nasdaqtrader
 VACI-W,Viking Acquisition Corp. I Warrants to purchase one Class A Ordinary Share,N,False,warrant,nasdaqtrader
+VAI,Valor Energy Incorporated - Common Stock,NASDAQ,False,common,nasdaqtrader
 VAL,Valaris Limited Common Shares,N,False,common,nasdaqtrader
 VAL-W,Valaris Limited Warrants,N,False,warrant,nasdaqtrader
 VALE,VALE S.A.  American Depositary Shares Each Representing one common share,N,False,common,nasdaqtrader
@@ -7233,7 +7230,6 @@ WHR,Whirlpool Corporation Common Stock,N,False,common,nasdaqtrader
 WHR-PA,"Whirlpool Corporation Depositary Shares, each representing a 1/20th interest in a share of 8.50% Series A Mandatory Convertible Preferred Stock",N,False,preferred,nasdaqtrader
 WHWK,"Whitehawk Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 WIA,Western Asset Inflation-Linked Income Fund,N,False,common,nasdaqtrader
-WILC,"G. Willi-Food International,  Ltd. - Ordinary Shares",NASDAQ,False,common,nasdaqtrader
 WIMI,WiMi Hologram Cloud Inc. - Class B Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 WINA,Winmark Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 WING,Wingstop Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
