@@ -340,7 +340,6 @@ ALMS,Alumis Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 ALMU,"Aeluma, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ALNT,Allient Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 ALNY,"Alnylam Pharmaceuticals, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-ALOT,"AstroNova, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ALOV,"Aldabra 4 Liquidity Opportunity Vehicle, Inc. - Class A Ordinary Shares",NASDAQ,False,common,nasdaqtrader
 ALOVU,"Aldabra 4 Liquidity Opportunity Vehicle, Inc. - Units",NASDAQ,False,unit,nasdaqtrader
 ALOVW,"Aldabra 4 Liquidity Opportunity Vehicle, Inc. - Warrants",NASDAQ,False,warrant,nasdaqtrader
@@ -771,9 +770,6 @@ BBAI-W,"BigBear.ai, Inc. Redeemable Warrants, each exercisable for one share of 
 BBAR,Banco BBVA Argentina S.A. ADS,N,False,common,nasdaqtrader
 BBBYW,"Neighborhood Intelligence, Inc.  - Warrant",NASDAQ,False,warrant,nasdaqtrader
 BBCP,"Concrete Pumping Holdings, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
-BBCQ,Bleichroeder Acquisition Corp. II - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-BBCQU,Bleichroeder Acquisition Corp. II - Units,NASDAQ,False,unit,nasdaqtrader
-BBCQW,Bleichroeder Acquisition Corp. II - Warrants,NASDAQ,False,warrant,nasdaqtrader
 BBD,Banco Bradesco Sa American Depositary Shares,N,False,common,nasdaqtrader
 BBDC,"Barings BDC, Inc. Common Stock",N,False,common,nasdaqtrader
 BBDO,Banco Bradesco Sa American Depositary Shares (each representing one Common Share),N,False,common,nasdaqtrader
@@ -795,9 +791,6 @@ BC,Brunswick Corporation Common Stock,N,False,common,nasdaqtrader
 BC-PC,Brunswick Corporation 6.375% Notes due 2049,N,False,preferred,nasdaqtrader
 BCAB,"BioAtla, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BCAL,California BanCorp - Common Stock,NASDAQ,False,common,nasdaqtrader
-BCAR,D. Boral ARC Acquisition I Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-BCARU,D. Boral ARC Acquisition I Corp. - Units,NASDAQ,False,unit,nasdaqtrader
-BCARW,D. Boral ARC Acquisition I Corp. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 BCAT,BlackRock Capital Allocation Term Trust Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 BCAX,Bicara Therapeutics Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 BCBP,"BCB Bancorp, Inc. (NJ) - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -892,7 +885,6 @@ BGB,Blackstone Strategic Credit 2027 Term Fund Common Shares of Beneficial Inter
 BGC,"BGC Group, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 BGDE,"Big Digital Energy, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BGH,Barings Global Short Duration High Yield Fund Common Shares of Beneficial Interests,N,False,common,nasdaqtrader
-BGI,Birks Group Inc. Common Stock,A,False,common,nasdaqtrader
 BGIN,Bgin Blockchain Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 BGL,Blue Gold Limited - Class A ordinary shares,NASDAQ,False,common,nasdaqtrader
 BGLC,BioNexus Gene Lab Corp - Common stock,NASDAQ,False,common,nasdaqtrader
@@ -2450,7 +2442,6 @@ FBNC,First Bancorp - Common Stock,NASDAQ,False,common,nasdaqtrader
 FBP,First BanCorp. New Common Stock,N,False,common,nasdaqtrader
 FBRT,"Franklin BSP Realty Trust, Inc. Common Stock",N,False,common,nasdaqtrader
 FBRT-PE,"Franklin BSP Realty Trust, Inc. 7.50% Series E Cumulative Redeemable Preferred Stock",N,False,preferred,nasdaqtrader
-FBRX,"Forte Biosciences, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
 FBYD,"Falcon's Beyond Global, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 FBYDP,"Falcon's Beyond Global, Inc. - 11% Series B Cumulative Convertible Preferred Stock",NASDAQ,False,preferred,nasdaqtrader
 FBYDW,"Falcon's Beyond Global, Inc. - Warrants",NASDAQ,False,warrant,nasdaqtrader
@@ -3521,6 +3512,7 @@ IPFXU,Inflection Point Acquisition Corp. VI - Units,NASDAQ,False,unit,nasdaqtrad
 IPFXW,Inflection Point Acquisition Corp. VI - Warrant,NASDAQ,False,warrant,nasdaqtrader
 IPGP,IPG Photonics Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 IPHA,Innate Pharma S.A. - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
+IPHXU,Inflection Point Acquisition Corp. VIII - Unit,NASDAQ,False,unit,nasdaqtrader
 IPI,"Intrepid Potash, Inc Common Stock",N,False,common,nasdaqtrader
 IPM,Intelligent Protection Management Corp.  - Common Stock,NASDAQ,False,common,nasdaqtrader
 IPSC,"Century Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -4218,7 +4210,7 @@ MEC,"Mayville Engineering Company, Inc. Common Stock",N,False,common,nasdaqtrade
 MED,MEDIFAST INC Common Stock,N,False,common,nasdaqtrader
 MEDP,"Medpace Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 MEDS,"DataMeds AI, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-MEGI,NYLI CBRE Global Infrastructure Megatrends Term Fund Common Shares,N,False,common,nasdaqtrader
+MEGI,NYLIM CBRE Global Infrastructure Megatrends Term Fund Common Shares,N,False,common,nasdaqtrader
 MEGL,Magic Empire Global Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 MEI,"Methode Electronics, Inc. Common Stock",N,False,common,nasdaqtrader
 MELI,"MercadoLibre, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -4342,7 +4334,7 @@ MLSS,"Milestone Scientific, Inc. Common Stock",A,False,common,nasdaqtrader
 MLTX,MoonLake Immunotherapeutics - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 MLYS,"Mineralys Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 MMA,Mixed Martial Arts Group Limited Ordinary Shares,A,False,common,nasdaqtrader
-MMD,NYLI MacKay DefinedTerm Muni Opportunities Fund Common Shares,N,False,common,nasdaqtrader
+MMD,NYLIM MacKay DefinedTerm Muni Opportunities Fund Common Shares,N,False,common,nasdaqtrader
 MMED,"MiniMed Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 MMI,"Marcus & Millichap, Inc. Common Stock",N,False,common,nasdaqtrader
 MMLP,Martin Midstream Partners L.P. - Common Units Representing Limited Partnership Interests,NASDAQ,False,common,nasdaqtrader
@@ -5506,6 +5498,8 @@ PSNYW,Polestar Automotive Holding UK Limited - Class C-1 ADS (ADW),NASDAQ,False,
 PSO,"Pearson, Plc Common Stock",N,False,common,nasdaqtrader
 PSQH,"PSQ Holdings, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 PSQH-W,"PSQ Holdings, Inc. Warrants, each exercisable for one share of Class A common stock at an exercise price of $11.50 per share",N,False,warrant,nasdaqtrader
+PSQL,Pasqal Holding SA - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+PSQLW,Pasqal Holding SA - Warrant,NASDAQ,False,warrant,nasdaqtrader
 PSTL,"Postal Realty Trust, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 PSUS,"Pershing Square USA, Ltd. Common Shares",N,False,common,nasdaqtrader
 PSX,Phillips 66 Common Stock,N,False,common,nasdaqtrader
@@ -5771,6 +5765,7 @@ RITM-PF,Rithm Capital Corp. 8.750% Series F Fixed-Rate Reset Cumulative Redeemab
 RITR,Reitar Logtech Holdings Limited - Ordinary shares,NASDAQ,False,common,nasdaqtrader
 RIV,"RiverNorth Opportunities Fund, Inc. Common Stock",N,False,common,nasdaqtrader
 RIV-PA,"RiverNorth Opportunities Fund, Inc. 6.00% Series A Perpetual Preferred Stock",N,False,preferred,nasdaqtrader
+RIV-V,"RiverNorth Opportunities Fund, Inc. Rights (expiring September 23, 2026) Rights when issued",N,False,right,nasdaqtrader
 RIVN,"Rivian Automotive, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 RJET,Republic Airways Holdings Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 RJF,"Raymond James Financial, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -5807,6 +5802,7 @@ RMT,"Royce Micro-Cap Trust, Inc. Common Stock",N,False,common,nasdaqtrader
 RMTI,"Rockwell Medical, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 RNA,"Atrium Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 RNAC,"Cartesian Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+RNAQU,Rainier Acquisition Corporation - Units,NASDAQ,False,unit,nasdaqtrader
 RNAZ,"TransCode Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 RNG,"RingCentral, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 RNGR,"Ranger Energy Services, Inc. Class A Common Stock",N,False,common,nasdaqtrader
@@ -7358,6 +7354,8 @@ XHLD,"TEN Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 XHR,"Xenia Hotels & Resorts, Inc. Common Stock",N,False,common,nasdaqtrader
 XIFR,"XPLR Infrastructure, LP Common Units representing limited partner interests",N,False,common,nasdaqtrader
 XIIIU,Churchill Capital Corp XIII - Units,NASDAQ,False,unit,nasdaqtrader
+XLAB,Exascale Labs Holdings Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
+XLABW,Exascale Labs Holdings Inc. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 XLO,"Xilio Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 XMAX,"XMAX, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 XMTR,"Xometry, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -7373,7 +7371,7 @@ XPEV,"XPeng Inc. American depositary shares, each representing two Class A ordin
 XPL,Solitario Resources Corp. Common Stock,A,False,common,nasdaqtrader
 XPO,"XPO, Inc. Common Stock",N,False,common,nasdaqtrader
 XPOF,"Xponential Fitness, Inc. Class A Common Stock",N,False,common,nasdaqtrader
-XPON,Expion360 Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
+XPON,"Expion Energy, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 XPRO,Expro Ltd Ordinary Shares,N,False,common,nasdaqtrader
 XRAY,DENTSPLY SIRONA Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 XRN,Chiron Real Estate Inc. Common Stock,N,False,common,nasdaqtrader
@@ -7388,7 +7386,9 @@ XRXDW,Xerox Holdings Corporation - Warrants,NASDAQ,False,warrant,nasdaqtrader
 XSLL,Xsolla SPAC 1 - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 XSLLU,Xsolla SPAC 1 - Units,NASDAQ,False,unit,nasdaqtrader
 XSLLW,Xsolla SPAC 1 - Warrants,NASDAQ,False,warrant,nasdaqtrader
+XTER,Karman Line Acquisition Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 XTERU,Karman Line Acquisition Corp. - Units,NASDAQ,False,unit,nasdaqtrader
+XTERW,Karman Line Acquisition Corp. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 XTIA,"XTI Aerospace, Inc. Common Stock  - Common Stock",NASDAQ,False,common,nasdaqtrader
 XTLB,XTL Biopharmaceuticals Ltd. - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 XTNT,"Xtant Medical Holdings, Inc. Common Stock",A,False,common,nasdaqtrader
