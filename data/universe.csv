@@ -524,7 +524,6 @@ ARDT,"Ardent Health, Inc. Common Stock",N,False,common,nasdaqtrader
 ARDX,"Ardelyx, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ARE,"Alexandria Real Estate Equities, Inc. Common Stock",N,False,common,nasdaqtrader
 AREC,American Resources Corporation - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
-AREN,"The Arena Group Holdings, Inc. Common Stock",A,False,common,nasdaqtrader
 ARES,Ares Management Corporation Class A Common Stock,N,False,common,nasdaqtrader
 ARES-PB,Ares Management Corporation 6.75% Series B Mandatory Convertible Preferred Stock,N,False,preferred,nasdaqtrader
 ARGX,argenx SE - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
@@ -629,6 +628,10 @@ ATLCL,Atlanticus Holdings Corporation - 6.125% Senior Notes due 2026,NASDAQ,Fals
 ATLCP,"Atlanticus Holdings Corporation - 7.625% Series B Cumulative Perpetual Preferred Stock, no par value per share",NASDAQ,False,preferred,nasdaqtrader
 ATLCZ,Atlanticus Holdings Corporation - 9.25% Senior Notes due 2029,NASDAQ,False,note,nasdaqtrader
 ATLO,Ames National Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
+ATLQ,JAB Acquisition Corp I - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+ATLQR,JAB Acquisition Corp I - Rights,NASDAQ,False,right,nasdaqtrader
+ATLQU,JAB Acquisition Corp I - Units,NASDAQ,False,unit,nasdaqtrader
+ATLQW,JAB Acquisition Corp I - Warrants,NASDAQ,False,warrant,nasdaqtrader
 ATLX,Atlas Lithium Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 ATMP,iPath Select MLP ETN,Z,False,common,nasdaqtrader
 ATMU,Atmus Filtration Technologies Inc. Common Stock,N,False,common,nasdaqtrader
@@ -789,7 +792,6 @@ BBWI,"Bath & Body Works, Inc.",N,False,common,nasdaqtrader
 BBY,"Best Buy Co., Inc. Common Stock",N,False,common,nasdaqtrader
 BC,Brunswick Corporation Common Stock,N,False,common,nasdaqtrader
 BC-PC,Brunswick Corporation 6.375% Notes due 2049,N,False,preferred,nasdaqtrader
-BCAB,"BioAtla, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BCAL,California BanCorp - Common Stock,NASDAQ,False,common,nasdaqtrader
 BCAT,BlackRock Capital Allocation Term Trust Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 BCAX,Bicara Therapeutics Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -3589,10 +3591,6 @@ IXHL,Incannex Healthcare Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 IZEA,"IZEA Worldwide, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 IZM,ICZOOM Group Inc. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 J,Jacobs Solutions Inc. Common Stock,N,False,common,nasdaqtrader
-JAB,JAB Acquisition Corp I - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-JABRR,JAB Acquisition Corp I - Rights,NASDAQ,False,right,nasdaqtrader
-JABRU,JAB Acquisition Corp I - Units,NASDAQ,False,unit,nasdaqtrader
-JABRW,JAB Acquisition Corp I - Warrants,NASDAQ,False,warrant,nasdaqtrader
 JACK,Jack In The Box Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 JACS,Jackson Acquisition Company II Class A Ordinary Shares,N,False,common,nasdaqtrader
 JACS-R,"Jackson Acquisition Company II Rights, each right to acquire one-tenth (1/10) of one Class A ordinary share",N,False,right,nasdaqtrader
@@ -4143,7 +4141,7 @@ MAX,"MediaAlpha, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 MAYS,"J. W. Mays, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 MAZE,"Maze Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 MB,MasterBeef Group - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-MBAI,Check-Cap Ltd. - Ordinary Share,NASDAQ,False,common,nasdaqtrader
+MBAI,MBody AI Ltd. - Ordinary Share,NASDAQ,False,common,nasdaqtrader
 MBBC,"Marathon Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 MBC,"MasterBrand, Inc. Common Stock",N,False,common,nasdaqtrader
 MBGL,Mobility Global Inc. Common Stock,N,False,common,nasdaqtrader
@@ -5003,7 +5001,7 @@ ONON,On Holding AG Class A Ordinary Shares,N,False,common,nasdaqtrader
 ONT,"Onterris, Inc. Common Stock",N,False,common,nasdaqtrader
 ONTO,Onto Innovation Inc. Common Stock,N,False,common,nasdaqtrader
 OOMA,"Ooma, Inc. Common Stock",N,False,common,nasdaqtrader
-OPAD,Offerpad Solutions Inc. Class A Common Stock,N,False,common,nasdaqtrader
+OPAD,Offerpad Solutions Inc.  - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 OPAL,OPAL Fuels Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 OPBK,OP Bancorp - Common Stock,NASDAQ,False,common,nasdaqtrader
 OPCH,"Option Care Health, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -5111,6 +5109,7 @@ PAA,"Plains All American Pipeline, L.P. - Common Units representing Limited Part
 PAAC,Proem Acquisition Corp I - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 PAACU,Proem Acquisition Corp I - Units,NASDAQ,False,unit,nasdaqtrader
 PAACW,Proem Acquisition Corp I - Warrants,NASDAQ,False,warrant,nasdaqtrader
+PAAI,"Paradium.AI, Inc. Common Stock",A,False,common,nasdaqtrader
 PAAS,Pan American Silver Corp. Common Stock,N,False,common,nasdaqtrader
 PAC,"Grupo Aeroportuario Del Pacifico, S.A. B. de C.V. Grupo Aeroportuario Del Pacifico, S.A. de C.V. (each representing 10 Series B shares)",N,False,common,nasdaqtrader
 PACB,"Pacific Biosciences of California, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -5939,7 +5938,9 @@ SAIL,"SailPoint, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SAJ,Saratoga Investment Corp 8.00% Notes due 2027,N,False,note,nasdaqtrader
 SAM,"Boston Beer Company, Inc. (The) Common Stock",N,False,common,nasdaqtrader
 SAMG,Silvercrest Asset Management Group Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
+SAMO,Samos Energy Acquisition Corporation Class A Ordinary Shares,N,False,common,nasdaqtrader
 SAMO-U,"Samos Energy Acquisition Corporation Units, each consisting of one Class A Ordinary Share and one-half of one Warrant",N,False,warrant,nasdaqtrader
+SAMO-W,"Samos Energy Acquisition Corporation Warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50 per share",N,False,warrant,nasdaqtrader
 SAN,"Banco Santander, S.A. Sponsored ADR (Spain)",N,False,common,nasdaqtrader
 SANA,"Sana Biotechnology, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SANG,Sangoma Technologies Corporation - Common Shares,NASDAQ,False,common,nasdaqtrader
@@ -6453,7 +6454,7 @@ SVM,Silvercorp Metals Inc. Common Shares,A,False,common,nasdaqtrader
 SVRA,"Savara, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SVRE,SaverOne 2014 Ltd. - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 SVREW,SaverOne 2014 Ltd. - Warrant,NASDAQ,False,warrant,nasdaqtrader
-SVRN,OceanPal Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
+SVRN,"SVRN, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SVV,"Savers Value Village, Inc. Common Stock",N,False,common,nasdaqtrader
 SW,Smurfit WestRock plc Ordinary Shares,N,False,common,nasdaqtrader
 SWAG,"Stran & Company, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -6716,6 +6717,7 @@ TRAD-U,"APEX Tech Acquisition Inc. Units, each consisting of one Class A ordinar
 TRAK,"ReposiTrak, Inc. Common Stock",N,False,common,nasdaqtrader
 TRAW,"Traws Pharma, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 TRAX,"First Tracks Biotherapeutics, Inc. - Ordinary Shares",NASDAQ,False,common,nasdaqtrader
+TRBG,TurboGen Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 TRC,Tejon Ranch Co Common Stock,N,False,common,nasdaqtrader
 TRDA,"Entrada Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 TREE,"LendingTree, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
