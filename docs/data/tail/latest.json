@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-09-01",
+  "as_of": "2026-09-02",
   "mode": "shadow",
   "shadow_note": "影子運行：只記錄、不下單。慢閘門檻未經真實資料校準，快閘的危機型事件樣本 n=1。",
   "base_alloc": {
@@ -7,33 +7,33 @@
     "qqq": 1.0,
     "sgov": 0.0,
     "source": {
-      "as_of": "2026-09-01",
+      "as_of": "2026-09-02",
       "text": "100% QQQ"
     }
   },
   "out_alloc": {
     "tqqq": 0.0,
-    "qqq": 0.75,
-    "sgov": 0.25
+    "qqq": 1.0,
+    "sgov": 0.0
   },
-  "changed": true,
-  "equity_ceiling": 0.75,
+  "changed": false,
+  "equity_ceiling": 1.0,
   "tqqq_hard_cap": 0.5,
   "slow": {
     "gate": "CreditProxyGate",
-    "regime": "WATCH",
-    "score": 27.17,
-    "equity_ceiling": 0.75,
+    "regime": "EXPANSION",
+    "score": 21.22,
+    "equity_ceiling": 1.0,
     "detail": {
-      "beta": 0.4659,
+      "beta": 0.4442,
       "beta_source": "rolling",
-      "stress_level": 0.0057,
-      "chg250_pctile": 16.4,
-      "hyg_lqd_chg60": 0.02672,
-      "index_last": 114.253,
+      "stress_level": 0.0022,
+      "chg250_pctile": 32.0,
+      "hyg_lqd_chg60": 0.02562,
+      "index_last": 114.71,
       "components": {
-        "stress": 2.09,
-        "chg_pctile": 25.08,
+        "stress": 0.82,
+        "chg_pctile": 20.4,
         "quality_dispersion": 0.0
       },
       "uncalibrated": true
@@ -44,27 +44,27 @@
     "gated_veto": 0,
     "n_categories": 0,
     "curve_inverted": false,
-    "vix9d": 14.33,
-    "vix": 16.34,
-    "vix3m": 18.33,
+    "vix9d": 12.57,
+    "vix": 15.2,
+    "vix3m": 17.73,
     "detail": {
       "triggered": [],
       "missing": [],
-      "vvix_pctile": 21.6,
-      "hy_chg20_bp": -14.999999999999991,
-      "threshold_shift": -5.205,
-      "vvix_trigger": 74.795,
-      "hy_trigger_bp": 69.795,
+      "vvix_pctile": 5.2,
+      "hy_chg20_bp": -8.000000000000007,
+      "threshold_shift": -5.1,
+      "vvix_trigger": 74.9,
+      "hy_trigger_bp": 69.9,
       "sample_size_note": "危機型事件樣本 n=1（2020），等級不代表統計信心"
     }
   },
   "crowding": {
-    "score": 76.03,
-    "threshold_shift": -5.205,
+    "score": 75.5,
+    "threshold_shift": -5.1,
     "detail": {
       "components": {
-        "low_vol": 0.696,
-        "trailing_gain": 0.824
+        "low_vol": 0.714,
+        "trailing_gain": 0.796
       },
       "missing": [
         "cftc_jpy_net_short",
@@ -76,14 +76,14 @@
   },
   "state": {
     "active_veto": 0,
-    "clean_days": 16,
+    "clean_days": 17,
     "consec_inversion": 0
   },
   "state_meta": {
     "found": true,
     "as_of": "2026-09-01",
-    "saved_at": "2026-09-01T00:42:45+00:00",
-    "staleness_days": 0
+    "saved_at": "2026-09-01T23:27:28+00:00",
+    "staleness_days": 1
   },
   "controller": {
     "raw_veto": 0,
@@ -91,7 +91,7 @@
     "effective_categories": [],
     "persist_days": 4,
     "reentry_clean_days": 0,
-    "slow_ceiling": 0.75,
+    "slow_ceiling": 1.0,
     "veto_ceiling": 1.0,
     "tqqq_hard_cap": 0.5
   },
@@ -468,18 +468,18 @@
   },
   "log_sources": {
     "backfill": 2513,
-    "live": 13
+    "live": 14
   },
   "calibration": {
     "n_obs": 615,
-    "beta": 0.4659,
-    "corr_level_dd_vs_oas": 0.7886,
-    "corr_change_60d": -0.9024,
-    "regime_agreement_rank": 0.4161,
-    "regime_agreement_absolute": 0.2567,
-    "regime_agreement": 0.4161,
-    "regime_agreement_expected": 0.5354,
-    "regime_agreement_shortfall": -0.1193,
+    "beta": 0.4442,
+    "corr_level_dd_vs_oas": 0.7868,
+    "corr_change_60d": -0.8996,
+    "regime_agreement_rank": 0.406,
+    "regime_agreement_absolute": 0.2584,
+    "regime_agreement": 0.406,
+    "regime_agreement_expected": 0.5341,
+    "regime_agreement_shortfall": -0.1281,
     "corr_needed_for_agreement_target": 0.928,
     "targets_are_mutually_consistent": false,
     "targets": {
@@ -499,7 +499,6 @@
   "problems": [],
   "history": {
     "dates": [
-      "2025-12-11",
       "2025-12-12",
       "2025-12-15",
       "2025-12-16",
@@ -678,11 +677,11 @@
       "2026-08-27",
       "2026-08-28",
       "2026-08-29",
-      "2026-09-01"
+      "2026-09-01",
+      "2026-09-02"
     ],
     "series": {
       "cp_score": [
-        27.237,
         27.552,
         26.009,
         27.234,
@@ -861,7 +860,8 @@
         22.92,
         21.72,
         18.48,
-        27.168
+        27.168,
+        21.223
       ],
       "state_active_veto": [
         0.0,
@@ -885,7 +885,6 @@
         0.0,
         0.0,
         0.0,
-        0.0,
         1.0,
         0.0,
         0.0,
@@ -1021,6 +1020,7 @@
         0.0,
         0.0,
         1.0,
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -1067,7 +1067,6 @@
         0.0,
         0.0,
         0.0,
-        0.0,
         1.0,
         0.0,
         0.0,
@@ -1203,6 +1202,7 @@
         0.0,
         0.0,
         1.0,
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -1229,7 +1229,6 @@
       ],
       "out_w_tqqq": [
         0.1875,
-        0.1875,
         0.0,
         0.1875,
         0.0,
@@ -1395,6 +1394,7 @@
         0.25,
         0.25,
         0.25,
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -1411,7 +1411,6 @@
       ],
       "base_w_tqqq": [
         0.25,
-        0.25,
         0.0,
         0.25,
         0.0,
@@ -1577,6 +1576,7 @@
         0.25,
         0.25,
         0.25,
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -1592,7 +1592,6 @@
         0.0
       ],
       "cr_score": [
-        53.85,
         51.92,
         49.14,
         47.68,
@@ -1771,7 +1770,8 @@
         53.47,
         62.78,
         63.19,
-        76.03
+        76.03,
+        75.5
       ]
     }
   },
