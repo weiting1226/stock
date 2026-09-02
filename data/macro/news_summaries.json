@@ -176,6 +176,17 @@
   "reference_date": "2026-07-01",
   "fred_id": "CIVPART"
  },
+ "JTSJOL@2026-07-01": {
+  "summary_zh": "2026年7月職缺數約為730萬個，與前月相比變動不大，職缺率維持在4.4%。文件指出，耐久財製造業職缺增加7.6萬個。整體而言，僱用與離職人數也都變動不大。",
+  "drivers": [
+   "耐久財製造業職缺增加(+76,000)"
+  ],
+  "evidence": "The number and rate of job openings were little changed at 7.3 million and 4.4 percent, respectively, in July. Job openings increased in durable goods manufacturing (+76,000).",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/jolts.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-07-01",
+  "fred_id": "JTSJOL"
+ },
  "JTSJOL@2026-06-01": {
   "summary_zh": "2026年6月職缺數約為740萬個,較上月變動不大,職缺率維持在4.4%。分產業來看,運輸倉儲及公用事業(+97,000)與聯邦政府(+39,000)職缺增加,而批發貿易(-74,000)、非耐久品製造業(-55,000)及採礦與伐木業(-9,000)職缺則減少。",
   "drivers": [
