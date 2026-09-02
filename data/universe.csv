@@ -2864,6 +2864,7 @@ GIW,GigCapital8 Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 GIWWR,GigCapital8 Corp. - Rights,NASDAQ,False,right,nasdaqtrader
 GIWWU,GigCapital8 Corp. - Units,NASDAQ,False,unit,nasdaqtrader
 GIX,GigCapital9 Corp. - Class A Ordinary Share,NASDAQ,False,common,nasdaqtrader
+GIXI,Gix Internet Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 GIXXR,GigCapital9 Corp. - Rights,NASDAQ,False,right,nasdaqtrader
 GIXXU,GigCapital9 Corp. - Units,NASDAQ,False,unit,nasdaqtrader
 GJH,Synthetic Fixed-Income Securities Inc 6.375% (STRATS) Cl A-1,N,False,common,nasdaqtrader
@@ -6082,6 +6083,7 @@ SGC,"Superior Group of Companies, Inc. - Common Stock",NASDAQ,False,common,nasda
 SGHC,Super Group (SGHC) Limited Ordinary Shares,N,False,common,nasdaqtrader
 SGHT,"Sight Sciences, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SGI,Somnigroup International Inc. Common Stock,N,False,common,nasdaqtrader
+SGLD,Scorpio Gold Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 SGLY,Singularity Future Technology Ltd. - Common Stock,NASDAQ,False,common,nasdaqtrader
 SGML,Sigma Lithium Corporation - common shares,NASDAQ,False,common,nasdaqtrader
 SGMT,Sagimet Biosciences Inc. - Series A Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -6636,6 +6638,7 @@ TKLF,"Tokyo Lifestyle Co., Ltd. - American Depositary Shares",NASDAQ,False,commo
 TKNO,"Alpha Teknova, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 TKO,"TKO Group Holdings, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 TKR,Timken Company (The) Common Stock,N,False,common,nasdaqtrader
+TLACU,Three Lions Acquisition Corp. - Units,NASDAQ,False,unit,nasdaqtrader
 TLF,"Tandy Leather Factory, Inc. - common stock",NASDAQ,False,common,nasdaqtrader
 TLIH,Ten-League International Holdings Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 TLK,"PT Telekomunikasi Indonesia, Tbk",N,False,common,nasdaqtrader
@@ -7478,7 +7481,7 @@ ZLAB,Zai Lab Limited - American Depositary Shares,NASDAQ,False,common,nasdaqtrad
 ZM,"Zoom Communications, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 ZNB,Zeta Network Group - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ZNTL,"Zentalis Pharmaceuticals, Inc. - common stock",NASDAQ,False,common,nasdaqtrader
-ZONE,CleanCore Solutions Inc. Class B Common Stock,A,False,common,nasdaqtrader
+ZONE,Zone Frontier Inc. Class B Common Stock,A,False,common,nasdaqtrader
 ZOOZ,ZOOZ Strategy Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ZOOZW,ZOOZ Strategy Ltd. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 ZS,"Zscaler, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
