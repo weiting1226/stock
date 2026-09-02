@@ -29,3 +29,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-08-25,8,MCHP,Microchip Technology,47.81,50.63,low
 2026-08-25,9,AVGO,Broadcom,47.53,87.24,high
 2026-08-25,10,WDC,Western Digital,47.51,94.75,high
+2026-09-02,1,MSTR,Strategy Inc,80.29,137.69,extreme
+2026-09-02,2,RKLB,Rocket Lab Corporation,80.12,76.34,moderate
+2026-09-02,3,CRWV,"CoreWeave, Inc.",76.49,192.44,extreme
+2026-09-02,4,APP,AppLovin,67.54,89.03,high
+2026-09-02,5,MU,Micron Technology,62.13,121.51,high
+2026-09-02,6,SPCX,Space Exploration Technologies Corp,55.2,150.86,extreme
+2026-09-02,7,MCHP,Microchip Technology,52.14,50.63,low
+2026-09-02,8,ALNY,"Alnylam Pharmaceuticals, Inc.",50.42,82.66,high
+2026-09-02,9,MPWR,Monolithic Power Systems,50.3,28.49,low
+2026-09-02,10,NVDA,Nvidia,48.74,103.58,high

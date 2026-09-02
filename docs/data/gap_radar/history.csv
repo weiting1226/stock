@@ -39,3 +39,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-08-25,8,MCHP,Microchip Technology,47.81,50.63,moderate
 2026-08-25,9,AVGO,Broadcom,47.53,87.24,extreme
 2026-08-25,10,WDC,Western Digital,47.51,94.75,extreme
+2026-09-02,1,ORCL,Oracle Corporation,72.74,118.8,extreme
+2026-09-02,2,NRG,NRG Energy,72.36,87.95,extreme
+2026-09-02,3,APP,AppLovin,67.54,89.03,extreme
+2026-09-02,4,MU,Micron Technology,62.13,121.51,extreme
+2026-09-02,5,PCG,PG&E Corporation,58.03,27.0,low
+2026-09-02,6,VST,Vistra Corp.,57.46,91.53,extreme
+2026-09-02,7,CIEN,Ciena,54.66,80.75,extreme
+2026-09-02,8,UAL,United Airlines Holdings,54.27,66.91,high
+2026-09-02,9,Q,Qnity Electronics,53.04,22.07,low
+2026-09-02,10,COHR,Coherent Corp.,52.96,52.87,moderate
