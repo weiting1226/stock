@@ -1,7 +1,7 @@
 {
- "as_of": "2026-09-02",
+ "as_of": "2026-09-03",
  "close_date": "2026-09-01",
- "generated_at": "2026-09-02T00:26:29Z",
+ "generated_at": "2026-09-03T00:32:58Z",
  "benchmark": {
   "ticker": "SPY",
   "returns": {
@@ -39,7 +39,7 @@
    "rs_ratio": 98.91,
    "rs_momentum": 0.116,
    "quadrant": "改善",
-   "history_days": 276,
+   "history_days": 275,
    "rank": {
     "1d": 10,
     "1w": 2,
@@ -71,7 +71,7 @@
    "rs_ratio": 101.22,
    "rs_momentum": -1.775,
    "quadrant": "轉弱",
-   "history_days": 276,
+   "history_days": 275,
    "rank": {
     "1d": 7,
     "1w": 5,
@@ -103,7 +103,7 @@
    "rs_ratio": 104.68,
    "rs_momentum": -0.196,
    "quadrant": "轉弱",
-   "history_days": 276,
+   "history_days": 275,
    "rank": {
     "1d": 3,
     "1w": 7,
@@ -135,7 +135,7 @@
    "rs_ratio": 97.41,
    "rs_momentum": -0.171,
    "quadrant": "落後",
-   "history_days": 276,
+   "history_days": 275,
    "rank": {
     "1d": 11,
     "1w": 9,
@@ -167,7 +167,7 @@
    "rs_ratio": 99.19,
    "rs_momentum": 2.034,
    "quadrant": "改善",
-   "history_days": 276,
+   "history_days": 275,
    "rank": {
     "1d": 6,
     "1w": 6,
@@ -199,7 +199,7 @@
    "rs_ratio": 94.48,
    "rs_momentum": -5.375,
    "quadrant": "落後",
-   "history_days": 276,
+   "history_days": 275,
    "rank": {
     "1d": 9,
     "1w": 11,
@@ -231,7 +231,7 @@
    "rs_ratio": 99.32,
    "rs_momentum": 0.37,
    "quadrant": "改善",
-   "history_days": 276,
+   "history_days": 275,
    "rank": {
     "1d": 4,
     "1w": 3,
@@ -263,7 +263,7 @@
    "rs_ratio": 109.98,
    "rs_momentum": 1.482,
    "quadrant": "領漲",
-   "history_days": 276,
+   "history_days": 275,
    "rank": {
     "1d": 1,
     "1w": 1,
@@ -295,7 +295,7 @@
    "rs_ratio": 94.34,
    "rs_momentum": -1.762,
    "quadrant": "落後",
-   "history_days": 276,
+   "history_days": 275,
    "rank": {
     "1d": 2,
     "1w": 4,
@@ -327,7 +327,7 @@
    "rs_ratio": 97.04,
    "rs_momentum": -0.459,
    "quadrant": "落後",
-   "history_days": 276,
+   "history_days": 275,
    "rank": {
     "1d": 5,
     "1w": 10,
@@ -359,7 +359,7 @@
    "rs_ratio": 99.53,
    "rs_momentum": 0.913,
    "quadrant": "改善",
-   "history_days": 276,
+   "history_days": 275,
    "rank": {
     "1d": 8,
     "1w": 8,
@@ -420,80 +420,80 @@
  },
  "rank_changes": [
   {
-   "ticker": "XLP",
-   "sector_zh": "必需消費",
-   "rank_now": 3,
-   "rank_before": 11,
-   "change": 8
-  },
-  {
-   "ticker": "XLY",
-   "sector_zh": "非必需消費",
-   "rank_now": 9,
-   "rank_before": 5,
-   "change": -4
-  },
-  {
-   "ticker": "XLI",
-   "sector_zh": "工業",
-   "rank_now": 11,
-   "rank_before": 7,
-   "change": -4
-  },
-  {
-   "ticker": "XLU",
-   "sector_zh": "公用事業",
-   "rank_now": 4,
-   "rank_before": 8,
-   "change": 4
-  },
-  {
-   "ticker": "XLC",
-   "sector_zh": "通訊服務",
-   "rank_now": 6,
-   "rank_before": 3,
-   "change": -3
-  },
-  {
-   "ticker": "XLV",
-   "sector_zh": "醫療保健",
-   "rank_now": 7,
-   "rank_before": 9,
-   "change": 2
-  },
-  {
-   "ticker": "XLB",
-   "sector_zh": "原物料",
-   "rank_now": 8,
-   "rank_before": 6,
-   "change": -2
-  },
-  {
    "ticker": "XLK",
    "sector_zh": "資訊科技",
    "rank_now": 2,
-   "rank_before": 1,
-   "change": -1
+   "rank_before": 2,
+   "change": 0
   },
   {
    "ticker": "XLF",
    "sector_zh": "金融",
    "rank_now": 5,
-   "rank_before": 4,
-   "change": -1
+   "rank_before": 5,
+   "change": 0
+  },
+  {
+   "ticker": "XLV",
+   "sector_zh": "醫療保健",
+   "rank_now": 7,
+   "rank_before": 7,
+   "change": 0
+  },
+  {
+   "ticker": "XLY",
+   "sector_zh": "非必需消費",
+   "rank_now": 9,
+   "rank_before": 9,
+   "change": 0
+  },
+  {
+   "ticker": "XLC",
+   "sector_zh": "通訊服務",
+   "rank_now": 6,
+   "rank_before": 6,
+   "change": 0
+  },
+  {
+   "ticker": "XLI",
+   "sector_zh": "工業",
+   "rank_now": 11,
+   "rank_before": 11,
+   "change": 0
+  },
+  {
+   "ticker": "XLP",
+   "sector_zh": "必需消費",
+   "rank_now": 3,
+   "rank_before": 3,
+   "change": 0
   },
   {
    "ticker": "XLE",
    "sector_zh": "能源",
    "rank_now": 1,
-   "rank_before": 2,
-   "change": 1
+   "rank_before": 1,
+   "change": 0
+  },
+  {
+   "ticker": "XLU",
+   "sector_zh": "公用事業",
+   "rank_now": 4,
+   "rank_before": 4,
+   "change": 0
   },
   {
    "ticker": "XLRE",
    "sector_zh": "房地產",
    "rank_now": 10,
    "rank_before": 10,
+   "change": 0
+  },
+  {
+   "ticker": "XLB",
+   "sector_zh": "原物料",
+   "rank_now": 8,
+   "rank_before": 8,
    "change": 0
   }
  ],
@@ -2934,7 +2934,7 @@
     ]
    }
   },
-  "days": 246,
+  "days": 245,
   "note": "由價格回溯重建：報酬、相對強弱、動能、象限、名次都只需要價格。**資金流不在其中**——它需要當時的逐日流通股數與淨資產快照，沒有任何來源提供回溯查詢，因此資金流仍從部署當日起累積。"
  },
  "flow_note": "資金流未採計：9 檔的淨資產與前一次觀測完全相同、但收盤價已變動——持有股票的基金不可能如此，研判為來源的淨資產欄位未更新",
