@@ -1723,7 +1723,6 @@ CRMLW,Critical Metals Corp. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 CRMT,"America's Car-Mart, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 CRNC,Cerence Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 CRNT,Ceragon Networks Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-CRNX,"Crinetics Pharmaceuticals, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 CRON,Cronos Group Inc. - Common Share,NASDAQ,False,common,nasdaqtrader
 CROX,"Crocs, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 CRS,Carpenter Technology Corporation Common Stock,N,False,common,nasdaqtrader
@@ -3186,7 +3185,6 @@ HLN,Haleon plc American Depositary Shares (Each representing two Ordinary Shares
 HLNE,Hamilton Lane Incorporated - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 HLP,Hongli Group Inc. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 HLT,Hilton Worldwide Holdings Inc. Common Stock,N,False,common,nasdaqtrader
-HLX,"Helix Energy Solutions Group, Inc. Common Stock",N,False,common,nasdaqtrader
 HLXC,Helix Acquisition Corp. III - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 HMC,"Honda Motor Company, Ltd. Common Stock",N,False,common,nasdaqtrader
 HMH,HMH Holding Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -3209,6 +3207,7 @@ HON,Honeywell International Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 HONA,Honeywell Aerospace Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 HOOD,"Robinhood Markets, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 HOPE,"Hope Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+HOS,"Hornbeck Offshore Services, Inc. Common Stock",N,False,common,nasdaqtrader
 HOUR,"Hour Loop, Inc. - common stock",NASDAQ,False,common,nasdaqtrader
 HOV,"Hovnanian Enterprises, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 HOVNP,Hovnanian Enterprises Inc - Depositary Share representing 1/1000th of 7.625% Series A Preferred Stock,NASDAQ,False,preferred,nasdaqtrader
@@ -4586,7 +4585,6 @@ NCOOW,Southern Cross Acquisition I Corp. - Warrants,NASDAQ,False,warrant,nasdaqt
 NCPL,Netcapital Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 NCPLW,Netcapital Inc. - warrants,NASDAQ,False,warrant,nasdaqtrader
 NCRA,"Nocera, Inc. - common stock",NASDAQ,False,common,nasdaqtrader
-NCSM,"NCS Multistage Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 NCT,Intercont (Cayman) Limited - Class A Ordinary shares,NASDAQ,False,common,nasdaqtrader
 NCTY,The9 Limited - American Depository Shares,NASDAQ,False,common,nasdaqtrader
 NCV,Virtus Convertible & Income Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
@@ -4775,7 +4773,10 @@ NRT,North European Oil Royality Trust Common Stock,N,False,common,nasdaqtrader
 NRUC,National Rural Utilities Cooperative Finance Corporation 5.500% Subordinated Notes due 2064 (Subordinated Deferrable Interest Notes),N,False,note,nasdaqtrader
 NRXP,"NRX Pharmaceuticals, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 NRXS,"Neuraxis, Inc. Common Stock",A,False,common,nasdaqtrader
+NSAI,NorthStrive Acquisition Corp I. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+NSAIR,NorthStrive Acquisition Corp I. - Rights,NASDAQ,False,right,nasdaqtrader
 NSAIU,NorthStrive Acquisition Corp I. - Units,NASDAQ,False,unit,nasdaqtrader
+NSAIW,NorthStrive Acquisition Corp I. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 NSC,Norfolk Southern Corporation Common Stock,N,False,common,nasdaqtrader
 NSIT,"Insight Enterprises, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 NSLR,Neostellar Capital Corp. - Closed End Fund,NASDAQ,False,common,nasdaqtrader
@@ -7419,6 +7420,7 @@ YDKG,Yueda Digital Holding - Class A Ordinary Share,NASDAQ,False,common,nasdaqtr
 YELP,Yelp Inc. Common Stock,N,False,common,nasdaqtrader
 YETI,"YETI Holdings, Inc. Common Stock",N,False,common,nasdaqtrader
 YEXT,"Yext, Inc. Common Stock",N,False,common,nasdaqtrader
+YFOR,YYForce Inc. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 YHC,LQR House Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 YHGJ,Yunhong Green CTI Ltd. - Common Stock,NASDAQ,False,common,nasdaqtrader
 YHNA,YHN Acquisition I Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -7448,7 +7450,6 @@ YUM,"Yum! Brands, Inc.",N,False,common,nasdaqtrader
 YUMC,"Yum China Holdings, Inc. Common Stock",N,False,common,nasdaqtrader
 YXT,YXT.COM GROUP HOLDING LIMITED - American Depository Shares,NASDAQ,False,common,nasdaqtrader
 YYAI,AiRWA Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
-YYGH,YY Group Holding Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 Z,"Zillow Group, Inc. - Class C Capital Stock",NASDAQ,False,common,nasdaqtrader
 ZBAO,Zhibao Technology Inc. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ZBH,"Zimmer Biomet Holdings, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -7487,7 +7488,6 @@ ZOOZW,ZOOZ Strategy Ltd. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 ZS,"Zscaler, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ZSQR,Z Squared Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 ZSTK,ZeroStack Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
-ZTEK,Zentek Ltd. - common stock,NASDAQ,False,common,nasdaqtrader
 ZTG,Zenta Group Company Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ZTO,"ZTO Express (Cayman) Inc. American Depositary Shares, each representing one Class A ordinary share.",N,False,common,nasdaqtrader
 ZTR,Virtus Total Return Fund Inc.,N,False,common,nasdaqtrader
