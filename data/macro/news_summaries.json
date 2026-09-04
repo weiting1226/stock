@@ -61,6 +61,18 @@
   "reference_date": "2026-06-01",
   "fred_id": "HOUST"
  },
+ "MORTGAGE30US@2026-09-03": {
+  "summary_zh": "截至2026年9月3日,30年期固定利率房貸平均為6.71%,較前一週的6.66%上升。15年期固定利率房貸平均為6.04%,同樣較前一週的5.98%上升。文件指出購屋需求維持相對穩定,顯示買方在適應不斷變化的市場條件下仍保持穩定興趣。",
+  "drivers": [
+   "購屋需求相對穩定",
+   "買方適應不斷變化的市場條件"
+  ],
+  "evidence": "The 30-year fixed-rate mortgage averaged 6.71% as of September 3, 2026, up from last week when it averaged 6.66%.",
+  "source_url": "https://www.freddiemac.com/pmms",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-09-03",
+  "fred_id": "MORTGAGE30US"
+ },
  "MORTGAGE30US@2026-08-27": {
   "summary_zh": "截至2026年8月27日當週，30年期固定房貸利率平均為6.66%，較前一週的6.65%略為上升，較去年同期的6.56%亦有增加。文件指出房貸利率本週變動不大，經濟表現仍具韌性，消費支出穩定且家庭收入上升。市場上待售房屋增加、部分地區房價成長趨緩，使買方有更多選擇，市場趨於平衡。",
   "drivers": [
@@ -136,6 +148,20 @@
   "reference_date": "2026-06-01",
   "fred_id": "RSAFS"
  },
+ "UNRATE@2026-08-01": {
+  "summary_zh": "根據文件，2026年8月失業率維持在4.1%，與上月持平，失業人數小幅變動至700萬人，且與去年同期相比變化不大。青少年失業率略升至14.1%，主要抵銷前一個月的下降，而亞裔失業率則降至3.2%。",
+  "drivers": [
+   "食品服務與飲酒場所就業增加",
+   "地方政府教育就業增加",
+   "資訊產業就業減少",
+   "製造業就業持續上升趨勢"
+  ],
+  "evidence": "The unemployment rate was unchanged at 4.1 percent in August, and the number of unemployed people changed little at 7.0 million. Both measures changed little over the year.",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/empsit.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-08-01",
+  "fred_id": "UNRATE"
+ },
  "UNRATE@2026-07-01": {
   "summary_zh": "2026年7月失業率為4.1%，較上月變動不大，失業人數約690萬人，同樣變動不大。青少年與西裔失業率下降，而暫時性解僱人數增加15.3萬人，長期失業人數則略微下降。",
   "drivers": [
@@ -150,6 +176,20 @@
   "reference_date": "2026-07-01",
   "fred_id": "UNRATE"
  },
+ "PAYEMS@2026-08-01": {
+  "summary_zh": "2026年8月非農就業人數增加16.2萬人，高於過去12個月平均月增3.1萬人的水準，失業率維持在4.1%不變。就業成長主要來自餐飲業及地方政府教育部門，資訊業則出現就業流失。6月與7月的就業數據合計上修5.5萬人。",
+  "drivers": [
+   "食品服務與飲品場所業增加59,000人",
+   "地方政府教育業增加42,000人",
+   "製造業持續上升趨勢(+16,000)",
+   "資訊業減少23,000人"
+  ],
+  "evidence": "Total nonfarm payroll employment rose by 162,000 in August, higher than the average monthly gain of 31,000 over the prior 12 months.",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/empsit.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-08-01",
+  "fred_id": "PAYEMS"
+ },
  "PAYEMS@2026-07-01": {
   "summary_zh": "2026年7月非農就業人數變動甚小，減少2.3萬人，前12個月平均月增為3.4萬人。地方政府教育業與零售業就業下降，健康照護業則持續呈上升趨勢。此外，5月與6月數據均遭大幅下修，兩月合計比先前公布數字低10.3萬人。",
   "drivers": [
@@ -163,6 +203,15 @@
   "model": "claude-sonnet-5",
   "reference_date": "2026-07-01",
   "fred_id": "PAYEMS"
+ },
+ "CIVPART@2026-08-01": {
+  "summary_zh": "2026年8月勞動參與率微升至61.6%，但自今年1月以來已下降0.5個百分點。同期就業人口比率為59.1%，較上月及自1月以來均變化不大。",
+  "drivers": [],
+  "evidence": "The labor force participation rate edged up to 61.6 percent in August but is down by 0.5 percentage point since January.",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/empsit.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-08-01",
+  "fred_id": "CIVPART"
  },
  "CIVPART@2026-07-01": {
   "summary_zh": "2026年7月勞動參與率為61.4%，本月變動不大。文件指出自1月以來，勞動參與率已下降0.7個百分點，同期就業人口比率下降0.5個百分點。",
