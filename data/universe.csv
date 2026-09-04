@@ -542,7 +542,6 @@ AROC,"Archrock, Inc. Common Stock",N,False,common,nasdaqtrader
 AROW,Arrow Financial Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 ARQ,"Arq, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ARQQ,Arqit Quantum Inc. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-ARQQW,Arqit Quantum Inc. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 ARQT,"Arcutis Biotherapeutics, Inc. - Common stock",NASDAQ,False,common,nasdaqtrader
 ARR,"ARMOUR Residential REIT, Inc.",N,False,common,nasdaqtrader
 ARR-PC,"ARMOUR Residential REIT, Inc. 7% Series C Cumulative Redeemable Preferred Stock (liquidation preference $25.00 per share)",N,False,preferred,nasdaqtrader
@@ -3653,6 +3652,8 @@ JOB,GEE Group Inc. Common Stock,A,False,common,nasdaqtrader
 JOBY,"Joby Aviation, Inc. Common Stock",N,False,common,nasdaqtrader
 JOE,St. Joe Company (The) Common Stock,N,False,common,nasdaqtrader
 JOF,Japan Smaller Capitalization Fund Inc Common Stock,N,False,common,nasdaqtrader
+JONE,Jones Ventures INTL Acquisition1 Corp - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+JONER,Jones Ventures INTL Acquisition1 Corp - Rights,NASDAQ,False,right,nasdaqtrader
 JONEU,Jones Ventures INTL Acquisition1 Corp - Units,NASDAQ,False,unit,nasdaqtrader
 JOUT,Johnson Outdoors Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 JOYY,JOYY Inc. - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
@@ -5646,7 +5647,6 @@ RCEL,"Avita Medical, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 RCG,"RENN Fund, Inc Common Stock",A,False,common,nasdaqtrader
 RCI,"Rogers Communication, Inc. Common Stock",N,False,common,nasdaqtrader
 RCKT,"Rocket Pharmaceuticals, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-RCKTW,"Rocket Pharmaceuticals, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
 RCKY,"Rocky Brands, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 RCL,Royal Caribbean Cruises Ltd. Common Stock,N,False,common,nasdaqtrader
 RCMT,"RCM Technologies, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
