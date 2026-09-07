@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-09-04",
+  "as_of": "2026-09-07",
   "close_date": "2026-09-04",
   "benchmark": {
     "ticker": "SPY",
@@ -27,7 +27,7 @@
         {
           "ticker": "XLK",
           "close": 187.28,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": 1.05,
             "3m": 4.0,
@@ -60,7 +60,7 @@
         {
           "ticker": "VGT",
           "close": 121.27,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": 1.4,
             "3m": 5.32,
@@ -93,7 +93,7 @@
         {
           "ticker": "IYW",
           "close": 253.31,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": 1.09,
             "3m": 5.03,
@@ -135,7 +135,7 @@
         {
           "ticker": "XLF",
           "close": 58.1,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": 0.5,
             "3m": 11.48,
@@ -168,7 +168,7 @@
         {
           "ticker": "VFH",
           "close": 142.05,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": 0.47,
             "3m": 11.62,
@@ -201,7 +201,7 @@
         {
           "ticker": "KRE",
           "close": 75.27,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": -1.59,
             "3m": 7.9,
@@ -243,7 +243,7 @@
         {
           "ticker": "XLV",
           "close": 171.45,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": 4.26,
             "3m": 12.55,
@@ -276,7 +276,7 @@
         {
           "ticker": "VHT",
           "close": 321.66,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": 4.09,
             "3m": 13.6,
@@ -309,7 +309,7 @@
         {
           "ticker": "XBI",
           "close": 163.81,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": 6.03,
             "3m": 27.44,
@@ -351,7 +351,7 @@
         {
           "ticker": "XLY",
           "close": 114.91,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": -2.7,
             "3m": 0.24,
@@ -384,7 +384,7 @@
         {
           "ticker": "VCR",
           "close": 387.34,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": -2.53,
             "3m": 1.18,
@@ -417,7 +417,7 @@
         {
           "ticker": "XRT",
           "close": 87.59,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": -2.52,
             "3m": 6.23,
@@ -459,7 +459,7 @@
         {
           "ticker": "XLC",
           "close": 112.03,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": 0.76,
             "3m": 0.58,
@@ -492,7 +492,7 @@
         {
           "ticker": "VOX",
           "close": 188.93,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": 1.4,
             "3m": 0.46,
@@ -534,7 +534,7 @@
         {
           "ticker": "XLI",
           "close": 175.27,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": -5.14,
             "3m": 0.87,
@@ -567,7 +567,7 @@
         {
           "ticker": "VIS",
           "close": 336.71,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": -5.27,
             "3m": -0.76,
@@ -600,7 +600,7 @@
         {
           "ticker": "XAR",
           "close": 252.92,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": -10.6,
             "3m": -7.19,
@@ -642,7 +642,7 @@
         {
           "ticker": "XLP",
           "close": 84.58,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": -0.62,
             "3m": 2.07,
@@ -675,7 +675,7 @@
         {
           "ticker": "VDC",
           "close": 228.34,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": -1.06,
             "3m": 1.69,
@@ -717,7 +717,7 @@
         {
           "ticker": "XLE",
           "close": 64.06,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": 10.14,
             "3m": 11.88,
@@ -750,7 +750,7 @@
         {
           "ticker": "VDE",
           "close": 180.58,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": 10.03,
             "3m": 11.97,
@@ -783,7 +783,7 @@
         {
           "ticker": "XOP",
           "close": 190.71,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": 14.16,
             "3m": 15.46,
@@ -825,7 +825,7 @@
         {
           "ticker": "XLU",
           "close": 43.08,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": -0.69,
             "3m": -2.24,
@@ -858,7 +858,7 @@
         {
           "ticker": "VPU",
           "close": 186.35,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": -0.69,
             "3m": -2.48,
@@ -900,7 +900,7 @@
         {
           "ticker": "XLRE",
           "close": 43.93,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": -1.96,
             "3m": -0.86,
@@ -933,7 +933,7 @@
         {
           "ticker": "VNQ",
           "close": 96.02,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": -2.06,
             "3m": 0.08,
@@ -975,7 +975,7 @@
         {
           "ticker": "XLB",
           "close": 52.44,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": 0.52,
             "3m": 3.96,
@@ -1008,7 +1008,7 @@
         {
           "ticker": "VAW",
           "close": 235.46,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": 1.07,
             "3m": 3.7,
@@ -1041,7 +1041,7 @@
         {
           "ticker": "XME",
           "close": 118.62,
-          "history_days": 825,
+          "history_days": 822,
           "returns": {
             "1m": 7.49,
             "3m": 0.09,
@@ -1081,7 +1081,7 @@
     {
       "ticker": "SMH",
       "close": 567.01,
-      "history_days": 825,
+      "history_days": 822,
       "returns": {
         "1m": -0.78,
         "3m": -0.47,
@@ -1112,7 +1112,7 @@
     {
       "ticker": "IGV",
       "close": 104.57,
-      "history_days": 825,
+      "history_days": 822,
       "returns": {
         "1m": 5.18,
         "3m": 9.12,
@@ -1143,7 +1143,7 @@
     {
       "ticker": "ITB",
       "close": 93.91,
-      "history_days": 825,
+      "history_days": 822,
       "returns": {
         "1m": -4.63,
         "3m": 1.25,
@@ -1174,7 +1174,7 @@
     {
       "ticker": "JETS",
       "close": 28.8,
-      "history_days": 825,
+      "history_days": 822,
       "returns": {
         "1m": -11.76,
         "3m": 3.08,
@@ -1414,7 +1414,7 @@
         101.341,
         103.525,
         104.388,
-        103.667,
+        103.666,
         106.527,
         107.161,
         106.312,
@@ -1533,9 +1533,9 @@
         140.596,
         138.254,
         140.396,
-        142.585,
+        142.584,
         141.01,
-        142.8
+        142.799
       ]
     },
     "XLF": {
@@ -2035,7 +2035,7 @@
         110.456,
         112.218,
         109.957,
-        109.741,
+        109.742,
         113.802,
         114.963,
         114.606,
@@ -2774,7 +2774,7 @@
         102.135,
         102.38,
         101.506,
-        104.467,
+        104.466,
         103.976,
         101.685,
         103.228,
@@ -3807,7 +3807,7 @@
         100.119,
         99.407,
         100.973,
-        100.404,
+        100.403,
         99.763,
         99.335,
         100.452,
@@ -3823,7 +3823,7 @@
         101.289,
         101.648,
         102.222,
-        97.224,
+        97.223,
         97.821,
         97.917,
         97.415,
@@ -3911,7 +3911,7 @@
         110.225,
         108.604,
         109.758,
-        109.415,
+        109.414,
         111.526,
         110.986,
         110.372,
@@ -4333,7 +4333,7 @@
       ],
       "values": [
         100.0,
-        100.647,
+        100.648,
         100.402,
         100.198,
         100.742,
@@ -4360,7 +4360,7 @@
         105.392,
         104.623,
         106.36,
-        106.662,
+        106.663,
         104.875,
         103.026,
         101.847,
@@ -4447,7 +4447,7 @@
         116.974,
         117.76,
         116.17,
-        116.313,
+        116.314,
         114.798,
         117.563,
         121.387,
