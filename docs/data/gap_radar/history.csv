@@ -49,3 +49,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-09-02,8,UAL,United Airlines Holdings,54.27,66.91,high
 2026-09-02,9,Q,Qnity Electronics,53.04,22.07,low
 2026-09-02,10,COHR,Coherent Corp.,52.96,52.87,moderate
+2026-09-09,1,APP,AppLovin,60.5,90.38,extreme
+2026-09-09,2,NRG,NRG Energy,58.59,87.95,extreme
+2026-09-09,3,CIEN,Ciena,57.05,66.45,high
+2026-09-09,4,FICO,Fair Isaac,57.02,72.0,high
+2026-09-09,5,ORCL,Oracle Corporation,52.05,120.12,extreme
+2026-09-09,6,GNRC,Generac,51.52,44.39,moderate
+2026-09-09,7,MPWR,Monolithic Power Systems,50.33,28.54,low
+2026-09-09,8,CCL,Carnival Corporation,50.13,40.51,low
+2026-09-09,9,AVGO,Broadcom,49.04,93.57,extreme
+2026-09-09,10,MU,Micron Technology,48.84,121.54,extreme

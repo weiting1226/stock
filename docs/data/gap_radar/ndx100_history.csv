@@ -39,3 +39,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-09-02,8,ALNY,"Alnylam Pharmaceuticals, Inc.",50.42,82.66,high
 2026-09-02,9,MPWR,Monolithic Power Systems,50.3,28.49,low
 2026-09-02,10,NVDA,Nvidia,48.74,103.58,high
+2026-09-09,1,RKLB,Rocket Lab Corporation,72.74,77.48,moderate
+2026-09-09,2,CRWV,"CoreWeave, Inc.",61.66,192.44,extreme
+2026-09-09,3,APP,AppLovin,60.5,90.38,high
+2026-09-09,4,MSTR,Strategy Inc,58.22,137.21,extreme
+2026-09-09,5,MPWR,Monolithic Power Systems,50.33,28.54,low
+2026-09-09,6,SPCX,Space Exploration Technologies Corp,50.26,149.79,extreme
+2026-09-09,7,AVGO,Broadcom,49.04,93.57,high
+2026-09-09,8,MU,Micron Technology,48.84,121.54,extreme
+2026-09-09,9,MCHP,Microchip Technology,46.47,50.63,low
+2026-09-09,10,ADSK,Autodesk,44.73,74.67,moderate
