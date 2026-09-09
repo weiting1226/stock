@@ -344,7 +344,7 @@ ALOV,"Aldabra 4 Liquidity Opportunity Vehicle, Inc. - Class A Ordinary Shares",N
 ALOVU,"Aldabra 4 Liquidity Opportunity Vehicle, Inc. - Units",NASDAQ,False,unit,nasdaqtrader
 ALOVW,"Aldabra 4 Liquidity Opportunity Vehicle, Inc. - Warrants",NASDAQ,False,warrant,nasdaqtrader
 ALOY,REalloys Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
-ALP,Alpha Compute Corp  - Common Stock,NASDAQ,False,common,nasdaqtrader
+ALP,Alpha Compute Corp  - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ALPS,ALPS Group Inc - Ordinary Share,NASDAQ,False,common,nasdaqtrader
 ALPX,Alpex Acquisition Corporation - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ALPXR,Alpex Acquisition Corporation - Rights,NASDAQ,False,right,nasdaqtrader
@@ -368,7 +368,9 @@ ALX,"Alexander's, Inc. Common Stock",N,False,common,nasdaqtrader
 ALXO,ALX Oncology Holdings Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 ALZN,"Alzamend Neuro, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 AM,Antero Midstream Corporation Common Stock,N,False,common,nasdaqtrader
+AMAC,AMR Resources Acquisition Corp - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 AMACU,AMR Resources Acquisition Corp - Units,NASDAQ,False,unit,nasdaqtrader
+AMACW,AMR Resources Acquisition Corp - Warrants,NASDAQ,False,warrant,nasdaqtrader
 AMAL,Amalgamated Financial Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 AMAN,Amanat Acquisition Corp - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 AMAT,"Applied Materials, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -664,6 +666,7 @@ AUROW,"Aurora Innovation, Inc.  - Warrant",NASDAQ,False,warrant,nasdaqtrader
 AUST,Austin Gold Corp. Common Shares,A,False,common,nasdaqtrader
 AUTL,Autolus Therapeutics plc - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 AUUD,Auddia Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
+AUXX,Gold X2 Mining Inc. Common Shares,A,False,common,nasdaqtrader
 AVA,Avista Corporation Common Stock,N,False,common,nasdaqtrader
 AVAH,Aveanna Healthcare Holdings Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 AVAL,Grupo Aval Acciones y Valores S.A. ADR (Each representing 20 preferred shares),N,False,common,nasdaqtrader
@@ -1140,7 +1143,6 @@ BSTZ,BlackRock Science and Technology Term Trust Common Shares of Beneficial Int
 BSVN,Bank7 Corp. - Common stock,NASDAQ,False,common,nasdaqtrader
 BSX,Boston Scientific Corporation Common Stock,N,False,common,nasdaqtrader
 BSY,"Bentley Systems, Incorporated - Class B Common Stock",NASDAQ,False,common,nasdaqtrader
-BTAI,"BioXcel Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BTBD,"BT Brands, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BTBDW,"BT Brands, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
 BTBT,"Bit Digital, Inc. - Ordinary Share",NASDAQ,False,common,nasdaqtrader
@@ -1413,6 +1415,7 @@ CGON,"CG Oncology, Inc. - Common stock",NASDAQ,False,common,nasdaqtrader
 CGTL,Creative Global Technology Holdings Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 CGTX,"Cognition Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 CHA,"Chagee Holdings Limited - American Depositary Shares, each representing 1 Class A ordinary share",NASDAQ,False,common,nasdaqtrader
+CHAD,DeFi Development Corp. - Variable Rate Series C Perpetual Preferred Stock,NASDAQ,False,preferred,nasdaqtrader
 CHAI,"Core AI Holdings, Inc. - Common Shares",NASDAQ,False,common,nasdaqtrader
 CHAR,Charlton Aria Acquisition Corporation - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 CHARR,Charlton Aria Acquisition Corporation - Rights,NASDAQ,False,right,nasdaqtrader
@@ -2853,7 +2856,6 @@ GIL,"Gildan Activewear, Inc. Class A Sub. Vot. Common Stock",N,False,common,nasd
 GILD,"Gilead Sciences, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 GILT,Gilat Satellite Networks Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 GIPR,Generation Income Properties Inc. - Common stock,NASDAQ,False,common,nasdaqtrader
-GIPRW,Generation Income Properties Inc. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 GIS,"General Mills, Inc. Common Stock",N,False,common,nasdaqtrader
 GITS,"Global Interactive Technologies, Inc. Common Stock - Common Stock",NASDAQ,False,common,nasdaqtrader
 GIW,GigCapital8 Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -4030,7 +4032,6 @@ LPCVW,Launchpad Cadenza Acquisition Corp I - Warrant,NASDAQ,False,warrant,nasdaq
 LPG,Dorian LPG Ltd. Common Stock,N,False,common,nasdaqtrader
 LPL,"LG Display Co, Ltd AMERICAN DEPOSITORY SHARES",N,False,common,nasdaqtrader
 LPLA,LPL Financial Holdings Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
-LPSN,"LivePerson, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 LPTH,"LightPath Technologies, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 LPX,Louisiana-Pacific Corporation Common Stock,N,False,common,nasdaqtrader
 LQDA,Liquidia Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
