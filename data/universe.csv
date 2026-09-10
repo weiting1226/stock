@@ -566,8 +566,8 @@ ASB,Associated Banc-Corp Common Stock,N,False,common,nasdaqtrader
 ASB-PE,"Associated Banc-Corp Depositary Shares, each representing a 1/40th interest in a share of 5.875% Non-Cumulative Perpetual Preferred Stock, Series E",N,False,preferred,nasdaqtrader
 ASB-PF,"Associated Banc-Corp Depositary Shares, each representing a 1/40th interest in a share of Associated Banc-Corp 5.625% Non-Cumulative Perpetual Preferred Stock, Series F",N,False,preferred,nasdaqtrader
 ASBA,Associated Banc-Corp 6.625% Fixed-Rate Reset Subordinated Notes due 2033,N,False,note,nasdaqtrader
-ASBP,"Aspire Biopharma Holdings, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
-ASBPW,"Aspire Biopharma Holdings, Inc.  - Warrant",NASDAQ,False,warrant,nasdaqtrader
+ASBP,"Aspire-Lakewood Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+ASBPW,"Aspire-Lakewood Holdings, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
 ASC,Ardmore Shipping Corporation Common Stock,N,False,common,nasdaqtrader
 ASG,"Liberty All-Star Growth Fund, Inc.",N,False,common,nasdaqtrader
 ASGI,abrdn Global Infrastructure Income Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
@@ -1109,7 +1109,6 @@ BRLS,Borealis Foods Inc. - Class A Common Shares,NASDAQ,False,common,nasdaqtrade
 BRLSW,Borealis Foods Inc. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 BRLT,"Brilliant Earth Group, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 BRN,"Barnwell Industries, Inc. Common Stock",A,False,common,nasdaqtrader
-BRNS,Barinthus Biotherapeutics plc - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 BRNX,BrenX Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 BRO,"Brown & Brown, Inc. Common Stock",N,False,common,nasdaqtrader
 BROS,Dutch Bros Inc. Class A Common Stock,N,False,common,nasdaqtrader
@@ -1842,7 +1841,6 @@ CXM,"Sprinklr, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 CXT,"Crane NXT, Co. Common Stock",N,False,common,nasdaqtrader
 CXW,"CoreCivic, Inc. Common Stock",N,False,common,nasdaqtrader
 CYAB,"Cyabra, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-CYCN,"Cyclerion Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 CYCU,"Cycurion, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 CYCUW,"Cycurion, Inc. - Warrants",NASDAQ,False,warrant,nasdaqtrader
 CYD,China Yuchai International Limited Common Stock,N,False,common,nasdaqtrader
@@ -3815,6 +3813,7 @@ KRO,Kronos Worldwide Inc Common Stock,N,False,common,nasdaqtrader
 KROS,"Keros Therapeutics, Inc. - common stock",NASDAQ,False,common,nasdaqtrader
 KRP,Kimbell Royalty Partners Common Units Representing Limited Partner Interests,N,False,common,nasdaqtrader
 KRRO,"Korro Bio, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+KRSA,"Korsana Biosciences, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 KRSP,Rice Acquisition Corporation 3 Class A Ordinary Shares,N,False,common,nasdaqtrader
 KRSP-U,"Rice Acquisition Corporation 3 Units, each consisting of one Class A ordinary share, and one-sixth of one redeemable warrant",N,False,warrant,nasdaqtrader
 KRSP-W,"Rice Acquisition Corporation 3 Redeemable warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50",N,False,warrant,nasdaqtrader
@@ -3842,8 +3841,6 @@ KUST,"Kustom Entertainment, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrade
 KVHI,"KVH Industries, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 KVUE,Kenvue Inc. Common Stock,N,False,common,nasdaqtrader
 KVYO,"Klaviyo, Inc. Series A Common Stock",N,False,common,nasdaqtrader
-KWM,"K Wave Media, Ltd. - Ordinary Shares",NASDAQ,False,common,nasdaqtrader
-KWMWW,"K Wave Media, Ltd. - Warrant",NASDAQ,False,warrant,nasdaqtrader
 KWR,Quaker Houghton Common Stock,N,False,common,nasdaqtrader
 KWY,Kingsway Corporation Common Stock,N,False,common,nasdaqtrader
 KXIN,Kaixin Holdings - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -4859,6 +4856,8 @@ NWS,News Corporation - Class B Common Stock,NASDAQ,False,common,nasdaqtrader
 NWSA,News Corporation - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 NWTG,"Newton Golf Company, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 NX,Quanex Building Products Corporation Common Stock,N,False,common,nasdaqtrader
+NXAT,Nexus Advanced Technologies Inc. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+NXATW,Nexus Advanced Technologies Inc. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 NXB,NextBoat Inc. Common Stcok,A,False,common,nasdaqtrader
 NXDR,"Nextdoor Holdings, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 NXDT,NexPoint Diversified Real Estate Trust Common Stock,N,False,common,nasdaqtrader
@@ -5283,7 +5282,7 @@ PH,Parker-Hannifin Corporation Common Stock,N,False,common,nasdaqtrader
 PHAR,"Pharming Group N.V. - ADS, each representing 10 ordinary shares",NASDAQ,False,common,nasdaqtrader
 PHAT,"Phathom Pharmaceuticals, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PHG,Koninklijke Philips N.V. NY Registry Shares,N,False,common,nasdaqtrader
-PHGE,BiomX Inc. COmmon Stock,A,False,common,nasdaqtrader
+PHGE,BiomX Inc. Common Stock,A,False,common,nasdaqtrader
 PHI,PLDT Inc. Sponsored ADR,N,False,common,nasdaqtrader
 PHIN,PHINIA Inc. Common Stock,N,False,common,nasdaqtrader
 PHIO,Phio Pharmaceuticals Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -5791,6 +5790,7 @@ RMCOW,Royalty Management Holding Corporation - Warrant,NASDAQ,False,warrant,nasd
 RMD,ResMed Inc. Common Stock,N,False,common,nasdaqtrader
 RMI,"RiverNorth Opportunistic Municipal Income Fund, Inc. Common Stock",N,False,common,nasdaqtrader
 RMIX,"Suncrete, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
+RML,Resolution Minerals Ltd - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 RMM,"RiverNorth Managed Duration Municipal Income Fund, Inc. Common Stock",N,False,common,nasdaqtrader
 RMMZ,"RiverNorth Managed Duration Municipal Income Fund II, Inc. Common Stock",N,False,common,nasdaqtrader
 RMNI,"Rimini Street, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
