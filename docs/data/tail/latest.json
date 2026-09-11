@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-09-10",
+  "as_of": "2026-09-11",
   "mode": "shadow",
   "shadow_note": "影子運行：只記錄、不下單。慢閘門檻未經真實資料校準，快閘的危機型事件樣本 n=1。",
   "base_alloc": {
@@ -7,7 +7,7 @@
     "qqq": 1.0,
     "sgov": 0.0,
     "source": {
-      "as_of": "2026-09-10",
+      "as_of": "2026-09-11",
       "text": "100% QQQ"
     }
   },
@@ -22,18 +22,18 @@
   "slow": {
     "gate": "CreditProxyGate",
     "regime": "EXPANSION",
-    "score": 22.48,
+    "score": 21.78,
     "equity_ceiling": 1.0,
     "detail": {
-      "beta": 0.4617,
+      "beta": 0.4615,
       "beta_source": "rolling",
-      "stress_level": 0.0034,
-      "chg250_pctile": 29.2,
-      "hyg_lqd_chg60": 0.02883,
-      "index_last": 114.141,
+      "stress_level": 0.0028,
+      "chg250_pctile": 30.8,
+      "hyg_lqd_chg60": 0.03032,
+      "index_last": 114.211,
       "components": {
-        "stress": 1.24,
-        "chg_pctile": 21.24,
+        "stress": 1.02,
+        "chg_pctile": 20.76,
         "quality_dispersion": 0.0
       },
       "uncalibrated": true
@@ -44,27 +44,27 @@
     "gated_veto": 0,
     "n_categories": 0,
     "curve_inverted": false,
-    "vix9d": 17.7,
-    "vix": 17.84,
-    "vix3m": 19.73,
+    "vix9d": 14.47,
+    "vix": 15.84,
+    "vix3m": 18.6,
     "detail": {
       "triggered": [],
       "missing": [],
-      "vvix_pctile": 70.0,
-      "hy_chg20_bp": 0.0,
-      "threshold_shift": -4.362,
-      "vvix_trigger": 75.638,
-      "hy_trigger_bp": 70.638,
+      "vvix_pctile": 24.4,
+      "hy_chg20_bp": -0.9999999999999787,
+      "threshold_shift": -4.73,
+      "vvix_trigger": 75.27,
+      "hy_trigger_bp": 70.27,
       "sample_size_note": "危機型事件樣本 n=1（2020），等級不代表統計信心"
     }
   },
   "crowding": {
-    "score": 71.81,
-    "threshold_shift": -4.362,
+    "score": 73.65,
+    "threshold_shift": -4.73,
     "detail": {
       "components": {
-        "low_vol": 0.706,
-        "trailing_gain": 0.731
+        "low_vol": 0.725,
+        "trailing_gain": 0.748
       },
       "missing": [
         "cftc_jpy_net_short",
@@ -76,13 +76,13 @@
   },
   "state": {
     "active_veto": 0,
-    "clean_days": 23,
+    "clean_days": 24,
     "consec_inversion": 0
   },
   "state_meta": {
     "found": true,
-    "as_of": "2026-09-09",
-    "saved_at": "2026-09-09T23:24:55+00:00",
+    "as_of": "2026-09-10",
+    "saved_at": "2026-09-10T23:18:51+00:00",
     "staleness_days": 1
   },
   "controller": {
@@ -468,18 +468,18 @@
   },
   "log_sources": {
     "backfill": 2513,
-    "live": 20
+    "live": 21
   },
   "calibration": {
-    "n_obs": 616,
-    "beta": 0.4617,
-    "corr_level_dd_vs_oas": 0.7836,
-    "corr_change_60d": -0.9019,
-    "regime_agreement_rank": 0.4121,
-    "regime_agreement_absolute": 0.268,
-    "regime_agreement": 0.4121,
-    "regime_agreement_expected": 0.5319,
-    "regime_agreement_shortfall": -0.1198,
+    "n_obs": 617,
+    "beta": 0.4615,
+    "corr_level_dd_vs_oas": 0.7831,
+    "corr_change_60d": -0.9018,
+    "regime_agreement_rank": 0.4064,
+    "regime_agreement_absolute": 0.2508,
+    "regime_agreement": 0.4064,
+    "regime_agreement_expected": 0.5315,
+    "regime_agreement_shortfall": -0.1251,
     "corr_needed_for_agreement_target": 0.928,
     "targets_are_mutually_consistent": false,
     "targets": {
@@ -499,7 +499,6 @@
   "problems": [],
   "history": {
     "dates": [
-      "2025-12-22",
       "2025-12-23",
       "2025-12-24",
       "2025-12-26",
@@ -678,11 +677,11 @@
       "2026-09-07",
       "2026-09-08",
       "2026-09-09",
-      "2026-09-10"
+      "2026-09-10",
+      "2026-09-11"
     ],
     "series": {
       "cp_score": [
-        22.32,
         20.16,
         21.48,
         23.896,
@@ -861,7 +860,8 @@
         17.027,
         17.049,
         16.852,
-        22.478
+        22.478,
+        21.776
       ],
       "state_active_veto": [
         0.0,
@@ -878,7 +878,6 @@
         0.0,
         0.0,
         0.0,
-        0.0,
         1.0,
         0.0,
         0.0,
@@ -1014,6 +1013,7 @@
         0.0,
         0.0,
         1.0,
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -1060,7 +1060,6 @@
         0.0,
         0.0,
         0.0,
-        0.0,
         1.0,
         0.0,
         0.0,
@@ -1196,6 +1195,7 @@
         0.0,
         0.0,
         1.0,
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -1234,7 +1234,6 @@
         0.25,
         0.25,
         0.25,
-        0.25,
         0.0,
         0.0,
         0.0,
@@ -1388,6 +1387,7 @@
         0.25,
         0.25,
         0.25,
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -1416,7 +1416,6 @@
         0.25,
         0.25,
         0.25,
-        0.25,
         0.0,
         0.0,
         0.0,
@@ -1570,6 +1569,7 @@
         0.25,
         0.25,
         0.25,
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -1592,7 +1592,6 @@
         0.0
       ],
       "cr_score": [
-        59.54,
         65.67,
         63.87,
         64.84,
@@ -1771,7 +1770,8 @@
         77.05,
         76.4,
         75.79,
-        71.81
+        71.81,
+        73.65
       ]
     }
   },
