@@ -61,6 +61,15 @@
   "reference_date": "2026-06-01",
   "fred_id": "HOUST"
  },
+ "MORTGAGE30US@2026-09-10": {
+  "summary_zh": "截至2026年9月10日這一週，30年期固定利率房貸平均為6.76%，較前一週的6.71%上升，也高於去年同期的6.35%。同時，15年期固定利率房貸平均為6.09%，較前一週的6.04%上升，並高於去年同期的5.50%。",
+  "drivers": [],
+  "evidence": "The 30-year fixed-rate mortgage averaged 6.76% as of September 10, 2026, up from last week when it averaged 6.71%.",
+  "source_url": "https://www.freddiemac.com/pmms",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-09-10",
+  "fred_id": "MORTGAGE30US"
+ },
  "MORTGAGE30US@2026-09-03": {
   "summary_zh": "截至2026年9月3日,30年期固定利率房貸平均為6.71%,較前一週的6.66%上升。15年期固定利率房貸平均為6.04%,同樣較前一週的5.98%上升。文件指出購屋需求維持相對穩定,顯示買方在適應不斷變化的市場條件下仍保持穩定興趣。",
   "drivers": [
@@ -250,6 +259,20 @@
   "reference_date": "2026-06-01",
   "fred_id": "JTSJOL"
  },
+ "CPILFESL@2026-08-01": {
+  "summary_zh": "核心CPI（不含食物與能源）在2026年8月季調後上升0.3%，高於7月的0.2%漲幅。過去12個月核心CPI上漲2.4%，較7月止的12個月2.5%漲幅略有放緩。通訊、外宿住宿、機票、教育及中古車與卡車價格上漲，而醫療保健與汽車保險價格則下滑，抵銷部分漲勢。",
+  "drivers": [
+   "communication",
+   "lodging away from home",
+   "airline fares",
+   "used cars and trucks"
+  ],
+  "evidence": "The index for all items less food and energy rose 0.3 percent after increasing 0.2 percent in July. Indexes that increased over the month include communication, lodging away from home, airline fares, education, and used cars and trucks.",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/cpi.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-08-01",
+  "fred_id": "CPILFESL"
+ },
  "CPILFESL@2026-07-01": {
   "summary_zh": "核心CPI（不含食物與能源）在7月上升0.2%，此前6月持平。上漲主要來自醫療保健、機票、通訊、教育及休閒等項目，而汽車保險指數則下降，抵銷部分漲幅。過去12個月核心CPI上升2.5%，較6月的2.6%略為放緩。",
   "drivers": [
@@ -291,6 +314,20 @@
   "model": "claude-sonnet-5",
   "reference_date": "2026-07-01",
   "fred_id": "FEDFUNDS"
+ },
+ "CPIAUCSL@2026-08-01": {
+  "summary_zh": "2026年8月美國CPI季調後上升0.4%，較7月的0.1%漲幅擴大，過去12個月未季調漲幅為3.4%。汽油與能源價格大幅上漲是本月漲幅的主要來源，住宅指數亦持續上升；核心指數（扣除食品與能源）上升0.3%，其中通訊、機票、教育及二手車價格上漲，但醫療保健與汽車保險價格下跌，部分抵銷漲幅。",
+  "drivers": [
+   "汽油指數上升3.9%",
+   "能源指數上升2.1%",
+   "住宅指數上升0.3%",
+   "醫療保健與汽車保險指數下跌"
+  ],
+  "evidence": "The index for gasoline rose 3.9 percent in August, accounting for over one third of the monthly all items increase.",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/cpi.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-08-01",
+  "fred_id": "CPIAUCSL"
  },
  "CPIAUCSL@2026-07-01": {
   "summary_zh": "2026年6月消費者物價指數季調後較上月下降0.4%，為2020年4月以來最大單月跌幅，主要受能源指數大幅下滑5.7%所拖累，超過房租與食品價格上漲的影響。過去12個月物價指數上升3.5%，低於前一個月止12個月的4.2%漲幅，核心指數(不含食品與能源)當月則持平，年增率為2.6%。",
