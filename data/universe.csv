@@ -647,6 +647,7 @@ ATRC,"AtriCure, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ATRO,Astronics Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 ATS,ATS Corporation Common Shares,N,False,common,nasdaqtrader
 ATTO,"Attovia Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+ATTT,Atlas Trinity Tech Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ATXG,Addentax Group Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 ATYR,"aTyr Pharma, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 AU,AngloGold Ashanti PLC Ordinary Shares,N,False,common,nasdaqtrader
@@ -1117,7 +1118,9 @@ BRRWW,"ProCap Financial, Inc. - Warrant.",NASDAQ,False,warrant,nasdaqtrader
 BRSL,"Brightstar Lottery PLC Trading under the Legal Name to begin at the market open on July 21, 2025. Ordinary Shares",N,False,common,nasdaqtrader
 BRSP,"BrightSpire Capital, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 BRT,BRT Apartments Corp. (MD) Common Stock,N,False,common,nasdaqtrader
+BRTM,B&R Technology Merger Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 BRTMU,B&R Technology Merger Corp. - Units,NASDAQ,False,unit,nasdaqtrader
+BRTMW,B&R Technology Merger Corp. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 BRTX,"BioRestorative Therapies, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BRUN,Boost Run Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 BRVE,"Braveheart Bio, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -2261,6 +2264,7 @@ ENTX,Entera Bio Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ENVA,"Enova International, Inc. Common Stock",N,False,common,nasdaqtrader
 ENVB,"Enveric Biosciences, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
 ENVX,Enovix Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
+EOCN,Eocene Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 EOD,Allspring Global Dividend Opportunity Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 EOG,"EOG Resources, Inc. Common Stock",N,False,common,nasdaqtrader
 EOI,Eaton Vance Enhance Equity Income Fund Eaton Vance Enhanced Equity Income Fund Shares of Beneficial Interest,N,False,common,nasdaqtrader
@@ -2883,7 +2887,6 @@ GLED-R,GalaxyEdge Acquisition Corporation Rights to receive one-fourth (1/4) of 
 GLED-U,"GalaxyEdge Acquisition Corporation Units, each consisting of one Ordinary Share and one Right entitling the holder to receive 1/4th of one ordinary share",N,False,unit,nasdaqtrader
 GLIBA,Liberty Capital Corporation - Series A GCI Group Common Stock,NASDAQ,False,common,nasdaqtrader
 GLIBK,Liberty Capital Corporation - Series C GCI Group Common Stock,NASDAQ,False,common,nasdaqtrader
-GLMD,Galmed Pharmaceuticals Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 GLND,Greenland Energy Company - Common Stock,NASDAQ,False,common,nasdaqtrader
 GLNDW,Greenland Energy Company - Warrant,NASDAQ,False,warrant,nasdaqtrader
 GLNG,Golar LNG Limited - Common Shares,NASDAQ,False,common,nasdaqtrader
@@ -4692,7 +4695,7 @@ NMAD,"Nomad Power Solutions, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrad
 NMAI,Nuveen Multi-Asset Income Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 NMAX,"Newsmax, Inc. Class B Common Stock",N,False,common,nasdaqtrader
 NMCO,Nuveen Municipal Credit Opportunities Fund Common Shares,N,False,common,nasdaqtrader
-NMCO-V,"Nuveen Municipal Credit Opportunities Fund Rights (expiring October 7, 2026) Rights when issued",N,False,right,nasdaqtrader
+NMCO-R,"Nuveen Municipal Credit Opportunities Fund Rights (expiring October 7, 2026) Rights",N,False,right,nasdaqtrader
 NMFC,New Mountain Finance Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 NMFCZ,New Mountain Finance Corporation - 8.250% Notes due 2028,NASDAQ,False,note,nasdaqtrader
 NMG,Nouveau Monde Graphite Inc. Common Shares,N,False,common,nasdaqtrader
@@ -5350,7 +5353,7 @@ PLX,"Protalix BioTherapeutics, Inc. (DE) Common Stock",A,False,common,nasdaqtrad
 PLXS,Plexus Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 PLYX,"Polaryx Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PM,Philip Morris International Inc Common Stock,N,False,common,nasdaqtrader
-PMA,Ming Shing Group Holdings Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+PMA,PMA Graphene Technology Group Inc. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 PMAX,Powell Max Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 PMCB,"PharmaCyte  Biotech, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PMEC,Primech Holdings Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -5623,7 +5626,6 @@ RANI,"Rani Therapeutics Holdings, Inc. - Class A Common Stock",NASDAQ,False,comm
 RAPP,"Rapport Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 RARE,Ultragenyx Pharmaceutical Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 RAVE,"Rave Restaurant Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-RAY,Raytech Holding Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 RAYA,Erayak Power Solution Group Inc. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 RBA,"RB Global, Inc. Common Stock",N,False,common,nasdaqtrader
 RBB,RBB Bancorp - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -6467,6 +6469,7 @@ SWK,"Stanley Black & Decker, Inc. Common Stock",N,False,common,nasdaqtrader
 SWKHL,SWK Holdings Corporation - 9.00% Senior Notes due 2027,NASDAQ,False,note,nasdaqtrader
 SWKS,"Skyworks Solutions, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SWMR,"Swarmer, Inc - common stock",NASDAQ,False,common,nasdaqtrader
+SWRD,Stewards Inc - Common Stock,NASDAQ,False,common,nasdaqtrader
 SWVL,Swvl Holdings Corp - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 SWVLW,Swvl Holdings Corp - Warrant,NASDAQ,False,warrant,nasdaqtrader
 SWX,"Southwest Gas Holdings, Inc. Common Stock (DE)",N,False,common,nasdaqtrader
@@ -6658,7 +6661,6 @@ TM,Toyota Motor Corporation Common Stock,N,False,common,nasdaqtrader
 TMC,TMC the metals company Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 TMCI,"Treace Medical Concepts, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 TMCR,The Metals Royalty Company Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
-TMCWW,TMC the metals company Inc. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 TMDE,TMD Energy Limited Ordinary Shares,A,False,common,nasdaqtrader
 TMDX,"TransMedics Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 TME,"Tencent Music Entertainment Group American Depositary Shares, each representing two Class A Ordinary Shares",N,False,common,nasdaqtrader
