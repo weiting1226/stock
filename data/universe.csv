@@ -3184,6 +3184,7 @@ HLMN,Hillman Solutions Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 HLN,Haleon plc American Depositary Shares (Each representing two Ordinary Shares),N,False,common,nasdaqtrader
 HLNE,Hamilton Lane Incorporated - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 HLP,Hongli Group Inc. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+HLSQ,Tessera Defense and Homeland Security Inc. Common Stock,A,False,common,nasdaqtrader
 HLT,Hilton Worldwide Holdings Inc. Common Stock,N,False,common,nasdaqtrader
 HLXC,Helix Acquisition Corp. III - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 HMC,"Honda Motor Company, Ltd. Common Stock",N,False,common,nasdaqtrader
@@ -4916,7 +4917,10 @@ OCCIN,"OFS Credit Company, Inc. - 5.25% Series E Term Preferred Stock Due 2026",
 OCFC,OceanFirst Financial Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 OCG,Oriental Culture Holding LTD - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 OCGN,"Ocugen, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+OCLT,OceanLight Acquisition Corporation - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+OCLTR,OceanLight Acquisition Corporation - Rights,NASDAQ,False,right,nasdaqtrader
 OCLTU,OceanLight Acquisition Corporation - Units,NASDAQ,False,unit,nasdaqtrader
+OCLTW,OceanLight Acquisition Corporation - Warrants,NASDAQ,False,warrant,nasdaqtrader
 OCS,Oculis Holding AG - Ordinary shares,NASDAQ,False,common,nasdaqtrader
 OCSAW,Oculis Holding AG - Warrants,NASDAQ,False,warrant,nasdaqtrader
 OCSL,Oaktree Specialty Lending Corporation - Closed End Fund,NASDAQ,False,common,nasdaqtrader
@@ -5285,7 +5289,6 @@ PH,Parker-Hannifin Corporation Common Stock,N,False,common,nasdaqtrader
 PHAR,"Pharming Group N.V. - ADS, each representing 10 ordinary shares",NASDAQ,False,common,nasdaqtrader
 PHAT,"Phathom Pharmaceuticals, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PHG,Koninklijke Philips N.V. NY Registry Shares,N,False,common,nasdaqtrader
-PHGE,BiomX Inc. Common Stock,A,False,common,nasdaqtrader
 PHI,PLDT Inc. Sponsored ADR,N,False,common,nasdaqtrader
 PHIN,PHINIA Inc. Common Stock,N,False,common,nasdaqtrader
 PHIO,Phio Pharmaceuticals Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
