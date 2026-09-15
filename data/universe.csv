@@ -601,7 +601,6 @@ ASTS,"AST SpaceMobile, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtr
 ASUR,Asure Software Inc - Common Stock,NASDAQ,False,common,nasdaqtrader
 ASX,"ASE Technology Holding Co., Ltd. American Depositary Shares (each representing Two Common Shares)",N,False,common,nasdaqtrader
 ASYS,"Amtech Systems, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-ATAI,AtaiBeckley Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 ATAT,Atour Lifestyle Holdings Limited - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 ATCH,"AtlasClear Holdings, Inc. Common Stock",A,False,common,nasdaqtrader
 ATCX,Atlas Critical Minerals Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -1174,6 +1173,7 @@ BULL,Webull Corporation - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrad
 BULLW,Webull Corporation - Warrants,NASDAQ,False,warrant,nasdaqtrader
 BUR,Burford Capital Limited Ordinary Shares,N,False,common,nasdaqtrader
 BURL,"Burlington Stores, Inc. Common Stock",N,False,common,nasdaqtrader
+BURU,"Nuburu, Inc. Common Stock",A,False,common,nasdaqtrader
 BUSE,First Busey Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 BUSEP,"First Busey Corporation - Depositary Shares, Each Representing a 1/40th Interest in a Share of 8.25% Fixed-Rate Series B Non-Cumulative Perpetual Preferred Stock, $0.001 par value",NASDAQ,False,preferred,nasdaqtrader
 BUUU,BUUU Group Limited - Class A Ordinary Share,NASDAQ,False,common,nasdaqtrader
@@ -2822,7 +2822,6 @@ GFF,Griffon Corporation Common Stock,N,False,common,nasdaqtrader
 GFI,Gold Fields Limited American Depositary Shares,N,False,common,nasdaqtrader
 GFL,"GFL Environmental Inc. Subordinate voting shares, no par value",N,False,common,nasdaqtrader
 GFR,Greenfire Resources Ltd. Common Shares,N,False,common,nasdaqtrader
-GFR-R,"Greenfire Resources Ltd. Rights (expiring September 15, 2026) Rights",N,False,right,nasdaqtrader
 GFS,GlobalFoundries Inc. - Ordinary Share,NASDAQ,False,common,nasdaqtrader
 GFUZ,General Fusion Group Ltd. - Common Shares,NASDAQ,False,common,nasdaqtrader
 GFUZW,General Fusion Group Ltd. - Warrant,NASDAQ,False,warrant,nasdaqtrader
@@ -3740,7 +3739,7 @@ KG,"Kestrel Group, Ltd. - Common Stock",NASDAQ,False,common,nasdaqtrader
 KGC,Kinross Gold Corporation Common Stock,N,False,common,nasdaqtrader
 KGEI,Kolibri Global Energy Inc. - Common stock,NASDAQ,False,common,nasdaqtrader
 KGS,"Kodiak Gas Services, Inc. Common Stock",N,False,common,nasdaqtrader
-KHC,The Kraft Heinz Company - Common Stock,NASDAQ,False,common,nasdaqtrader
+KHC,The Kraft Heinz Company Common Stock,N,False,common,nasdaqtrader
 KIDS,OrthoPediatrics Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 KIDZ,KIDZ AI Inc. - Class B Common Stock,NASDAQ,False,common,nasdaqtrader
 KIDZW,KIDZ AI Inc. - Warrants,NASDAQ,False,warrant,nasdaqtrader
@@ -4636,6 +4635,7 @@ NEXR,Nexera Technologies Ltd - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 NEXRW,Nexera Technologies Ltd - Warrant,NASDAQ,False,warrant,nasdaqtrader
 NEXT,NextDecade Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 NFE,New Fortress Energy Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
+NFEGP,New Fortress Energy Inc. - Series A Mandatorily Convertible Preferred Stock,NASDAQ,False,preferred,nasdaqtrader
 NFG,National Fuel Gas Company Common Stock,N,False,common,nasdaqtrader
 NFGC,New Found Gold Corp Common Shares,A,False,common,nasdaqtrader
 NFJ,"Virtus Dividend, Interest & Premium Strategy Fund Common Shares of Beneficial Interest",N,False,common,nasdaqtrader
@@ -6588,7 +6588,7 @@ TENB,"Tenable Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 TENX,"Tenax Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 TEO,Telecom Argentina SA,N,False,common,nasdaqtrader
 TER,"Teradyne, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-TEVA,Teva Pharmaceutical Industries Limited American Depositary Shares,N,False,common,nasdaqtrader
+TEVA,Teva Pharmaceutical Industries Limited Ordinary Shares,N,False,common,nasdaqtrader
 TEX,Terex Corporation Common Stock,N,False,common,nasdaqtrader
 TFC,Truist Financial Corporation Common Stock,N,False,common,nasdaqtrader
 TFC-PI,Truist Financial Corporation Depositary Shares,N,False,preferred,nasdaqtrader
