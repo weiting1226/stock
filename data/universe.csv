@@ -75,7 +75,6 @@ ACGLO,"Arch Capital Group Ltd. - Depositary Shares Each Representing 1/1,000th I
 ACH,"Accendra Health, Inc. Common Stock",N,False,common,nasdaqtrader
 ACHC,"Acadia Healthcare Company, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ACHR,Archer Aviation Inc. Class A Common Stock,N,False,common,nasdaqtrader
-ACHR-W,"Archer Aviation Inc. Redeemable Warrants, each whole warrant exercisable for one Class A common stock at an exercise price of $11.50",N,False,warrant,nasdaqtrader
 ACHV,"Achieve Life Sciences, Inc.  - Common Shares",NASDAQ,False,common,nasdaqtrader
 ACI,"Albertsons Companies, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 ACIC,American Coastal Insurance Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -5806,7 +5805,9 @@ RMT,"Royce Micro-Cap Trust, Inc. Common Stock",N,False,common,nasdaqtrader
 RMTI,"Rockwell Medical, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 RNA,"Atrium Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 RNAC,"Cartesian Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+RNAQ,Rainier Acquisition Corporation - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 RNAQU,Rainier Acquisition Corporation - Units,NASDAQ,False,unit,nasdaqtrader
+RNAQW,Rainier Acquisition Corporation - Warrants,NASDAQ,False,warrant,nasdaqtrader
 RNAZ,"TransCode Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 RNG,"RingCentral, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 RNGR,"Ranger Energy Services, Inc. Class A Common Stock",N,False,common,nasdaqtrader
