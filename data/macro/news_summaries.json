@@ -134,6 +134,15 @@
   "reference_date": "2026-08-06",
   "fred_id": "MORTGAGE30US"
  },
+ "RSAFS@2026-08-01": {
+  "summary_zh": "2026年8月美國零售暨餐飲服務銷售額為7,739億美元，較上月成長1.2%，較去年同期成長6.0%。文件並指出6月至8月期間銷售較去年同期成長6.0%，且6月至7月的變動幅度由原公布的下降0.6%修正為下降0.5%。",
+  "drivers": [],
+  "evidence": "were $773.9 billion, up 1.2 percent (&plusmn;0.4 percent) from the previous month, and up 6.0 percent (&plusmn;0.5 percent) from August 2025.",
+  "source_url": "https://www.census.gov/retail/sales.html",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-08-01",
+  "fred_id": "RSAFS"
+ },
  "RSAFS@2026-07-01": {
   "summary_zh": "2026年7月美國零售及餐飲服務銷售額為7,636億美元，較前一個月下降0.6%，但較去年同期上升5.0%。5月至7月三個月的銷售總額較去年同期成長6.3%，而5月至6月的月變動維持上升0.2%未修正。",
   "drivers": [
