@@ -49,3 +49,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-09-09,8,MU,Micron Technology,48.84,121.54,extreme
 2026-09-09,9,MCHP,Microchip Technology,46.47,50.63,low
 2026-09-09,10,ADSK,Autodesk,44.73,74.67,moderate
+2026-09-16,1,RKLB,Rocket Lab Corporation,74.85,78.63,moderate
+2026-09-16,2,CRWV,"CoreWeave, Inc.",74.09,192.44,extreme
+2026-09-16,3,MSTR,Strategy Inc,66.89,130.83,extreme
+2026-09-16,4,MU,Micron Technology,63.75,121.54,extreme
+2026-09-16,5,MPWR,Monolithic Power Systems,60.93,28.54,low
+2026-09-16,6,NVDA,Nvidia,55.79,101.93,high
+2026-09-16,7,WDC,Western Digital,55.74,94.75,high
+2026-09-16,8,AVGO,Broadcom,54.28,93.85,high
+2026-09-16,9,MCHP,Microchip Technology,51.99,50.63,low
+2026-09-16,10,ALAB,"Astera Labs, Inc.",51.71,79.5,moderate

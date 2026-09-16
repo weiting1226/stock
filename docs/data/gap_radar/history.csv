@@ -59,3 +59,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-09-09,8,CCL,Carnival Corporation,50.13,40.51,low
 2026-09-09,9,AVGO,Broadcom,49.04,93.57,extreme
 2026-09-09,10,MU,Micron Technology,48.84,121.54,extreme
+2026-09-16,1,NRG,NRG Energy,74.01,87.95,extreme
+2026-09-16,2,ORCL,Oracle Corporation,65.07,121.34,extreme
+2026-09-16,3,MU,Micron Technology,63.75,121.54,extreme
+2026-09-16,4,MPWR,Monolithic Power Systems,60.93,28.54,low
+2026-09-16,5,CCL,Carnival Corporation,55.94,40.65,moderate
+2026-09-16,6,COHR,Coherent Corp.,55.86,52.97,moderate
+2026-09-16,7,NVDA,Nvidia,55.79,101.93,extreme
+2026-09-16,8,WDC,Western Digital,55.74,94.75,extreme
+2026-09-16,9,CIEN,Ciena,55.55,67.38,high
+2026-09-16,10,VST,Vistra Corp.,54.5,91.53,extreme
