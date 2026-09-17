@@ -36,6 +36,20 @@
   "reference_date": "2026-06-01",
   "fred_id": "PCEPI"
  },
+ "HOUST@2026-08-01": {
+  "summary_zh": "2026年8月新屋開工季調後年率為127.5萬戶，較7月修正後的130.9萬戶下降2.6%，也較2025年8月的129.1萬戶下降1.2%。其中單戶住宅開工上升7.6%至91.8萬戶，而五戶以上建築的開工率為34.4萬戶。",
+  "drivers": [
+   "單戶住宅開工上升7.6%",
+   "五戶以上建築開工率為34.4萬戶",
+   "整體開工較7月下降2.6%",
+   "整體開工較去年同期下降1.2%"
+  ],
+  "evidence": "This is 2.6 percent (&plusmn;12.0 percent)* below the revised July estimate of 1,309,000",
+  "source_url": "https://www.census.gov/construction/nrc/current/index.html",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-08-01",
+  "fred_id": "HOUST"
+ },
  "HOUST@2026-07-01": {
   "summary_zh": "2026年7月新屋開工經季節調整年率為123.9萬戶，較6月修正後的141.5萬戶下降12.4%，較2025年7月的143.2萬戶下降13.5%。其中單戶住宅開工為80.8萬戶，較6月的89.7萬戶下降9.9%。",
   "drivers": [
@@ -60,6 +74,19 @@
   "model": "claude-sonnet-5",
   "reference_date": "2026-06-01",
   "fred_id": "HOUST"
+ },
+ "MORTGAGE30US@2026-09-17": {
+  "summary_zh": "截至2026年9月17日，30年期固定利率房貸平均為6.95%，較前一週的6.76%上升；與一年前同期的6.26%相比也有所提高。文件說明30年期固定利率房貸持續因市場評估經濟數據而波動。",
+  "drivers": [
+   "市場評估經濟數據",
+   "前一週利率為6.76%",
+   "一年前同期利率為6.26%"
+  ],
+  "evidence": "The 30-year fixed-rate mortgage continues to fluctuate as markets assess economic data.",
+  "source_url": "https://www.freddiemac.com/pmms",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-09-17",
+  "fred_id": "MORTGAGE30US"
  },
  "MORTGAGE30US@2026-09-10": {
   "summary_zh": "截至2026年9月10日這一週，30年期固定利率房貸平均為6.76%，較前一週的6.71%上升，也高於去年同期的6.35%。同時，15年期固定利率房貸平均為6.09%，較前一週的6.04%上升，並高於去年同期的5.50%。",
@@ -119,19 +146,6 @@
   "source_url": "https://www.freddiemac.com/pmms",
   "model": "claude-sonnet-5",
   "reference_date": "2026-08-13",
-  "fred_id": "MORTGAGE30US"
- },
- "MORTGAGE30US@2026-08-06": {
-  "summary_zh": "截至2026年8月6日,30年期固定房貸利率平均為6.69%,較前一週的6.66%小幅上升,亦高於去年同期的6.63%。文件指出,雖然房貸利率持續影響負擔能力,但房市正呈現調整跡象,包括上市房價略低於去年同期水準,且待售庫存較近年的緊縮狀況有所改善。",
-  "drivers": [
-   "房貸利率持續影響負擔能力",
-   "上市房價略低於去年同期水準",
-   "待售庫存從近年的有限供給中改善"
-  ],
-  "evidence": "While mortgage rates continue to influence affordability, the housing market is showing signs of adjustment, with listing prices modestly below year-ago levels and for-sale inventory improving from the limited supply seen in recent years.",
-  "source_url": "https://www.freddiemac.com/pmms",
-  "model": "claude-sonnet-5",
-  "reference_date": "2026-08-06",
   "fred_id": "MORTGAGE30US"
  },
  "RSAFS@2026-08-01": {
