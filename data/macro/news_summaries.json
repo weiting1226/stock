@@ -1,4 +1,18 @@
 {
+ "INDPRO@2026-08-01": {
+  "summary_zh": "2026年8月工業生產指數(IP)較上月持平,前一個月(7月)則成長0.2%。其中製造業產出下降0.3%,礦業指數微幅上升0.1%,公用事業指數則上升1.8%。以2017年為基期100計算,8月總指數為103.1,較去年同期高出1.4%。產能利用率維持不變,為76.3%。",
+  "drivers": [
+   "Manufacturing output decreased 0.3 percent in August",
+   "The index for mining ticked up 0.1 percent",
+   "The index for utilities increased 1.8 percent",
+   "Capacity utilization was unchanged at 76.3 percent"
+  ],
+  "evidence": "At 103.1 percent of its 2017 average, total IP in August was 1.4 percent above its year-earlier level.",
+  "source_url": "https://www.federalreserve.gov/releases/g17/current/default.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-08-01",
+  "fred_id": "INDPRO"
+ },
  "INDPRO@2026-07-01": {
   "summary_zh": "2026年7月工業生產指數較上月成長0.2%，延續6月0.3%的成長,其中礦業與公用事業分別上升0.2%與0.5%，製造業產出成長0.2%。整體指數較去年同期成長1.1%，產能利用率小幅上升至76.3%，仍低於長期平均水準。",
   "drivers": [
