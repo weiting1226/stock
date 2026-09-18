@@ -447,7 +447,6 @@ ANRO,"Alto Neuroscience, Inc. Common Stock",N,False,common,nasdaqtrader
 ANTA,Antalpha Platform Holding Company - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ANTX,"AN2 Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ANVS,"Annovis Bio, Inc. Common Stock",N,False,common,nasdaqtrader
-ANY,Sphere 3D Corp. - Common Shares,NASDAQ,False,common,nasdaqtrader
 AOD,abrdn Total Dynamic Dividend Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 AOMD,"Angel Oak Mortgage REIT, Inc. 9.750% Senior Notes due 2030",N,False,note,nasdaqtrader
 AOMN,"Angel Oak Mortgage REIT, Inc. 9.500% Senior Notes due 2029",N,False,note,nasdaqtrader
@@ -1273,6 +1272,8 @@ CASS,"Cass Information Systems, Inc - Common Stock",NASDAQ,False,common,nasdaqtr
 CAST,"FreeCast, Inc. - Class A common stock",NASDAQ,False,common,nasdaqtrader
 CASY,"Caseys General Stores, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 CAT,"Caterpillar, Inc. Common Stock",N,False,common,nasdaqtrader
+CATL,Catalyst Acquisition Corp. - Class A Ordinary Share,NASDAQ,False,common,nasdaqtrader
+CATLR,Catalyst Acquisition Corp. - Rights,NASDAQ,False,right,nasdaqtrader
 CATLU,Catalyst Acquisition Corp. - Units,NASDAQ,False,unit,nasdaqtrader
 CATO,Cato Corporation (The) Class A Common Stock,N,False,common,nasdaqtrader
 CATX,"Perspective Therapeutics, Inc. Common Stock",A,False,common,nasdaqtrader
@@ -2035,6 +2036,7 @@ DRDBW,Roman DBDR Acquisition Corp. II - Warrants,NASDAQ,False,warrant,nasdaqtrad
 DRH,Diamondrock Hospitality Company - Common Stock,NASDAQ,False,common,nasdaqtrader
 DRI,"Darden Restaurants, Inc. Common Stock",N,False,common,nasdaqtrader
 DRIO,DarioHealth Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
+DRK,DarkHorse Technologies Inc. - Common Shares,NASDAQ,False,common,nasdaqtrader
 DRMA,"Dermata Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 DRS,"Leonardo DRS, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 DRTS,Alpha Tau Medical Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -3301,6 +3303,7 @@ HWM,Howmet Aerospace Inc. Common Stock,N,False,common,nasdaqtrader
 HXHX,Haoxin Holdings Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 HXL,Hexcel Corporation Common Stock,N,False,common,nasdaqtrader
 HY,"Hyster-Yale, Inc. Class A common stock",N,False,common,nasdaqtrader
+HYAC-U,"Haymaker Acquisition Corp V Units, each consisting of one Class A ordinary share and one-third of one redeemable warrant",N,False,warrant,nasdaqtrader
 HYFM,"Hydrofarm Holdings Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 HYFT,MindWalk Holdings Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 HYI,Western Asset High Yield Opportunity Fund Inc. Common Stock,N,False,common,nasdaqtrader
@@ -3729,9 +3732,9 @@ KEYYU,Keystone Acquisition Corp. - Unit,NASDAQ,False,unit,nasdaqtrader
 KEYYW,Keystone Acquisition Corp. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 KF,"Korea Fund, Inc. (The) New Common Stock",N,False,common,nasdaqtrader
 KFFB,Kentucky First Federal Bancorp - Common Stock,NASDAQ,False,common,nasdaqtrader
-KFII,K - Class A Ordinary shares,NASDAQ,False,common,nasdaqtrader
-KFIIR,K - Rights,NASDAQ,False,right,nasdaqtrader
-KFIIU,K - Unit,NASDAQ,False,unit,nasdaqtrader
+KFII,K&F Growth Acquisition Corp. II - Class A Ordinary shares,NASDAQ,False,common,nasdaqtrader
+KFIIR,K&F Growth Acquisition Corp. II - Rights,NASDAQ,False,right,nasdaqtrader
+KFIIU,K&F Growth Acquisition Corp. II - Unit,NASDAQ,False,unit,nasdaqtrader
 KFRC,"Kforce, Inc. Common Stock",N,False,common,nasdaqtrader
 KFY,Korn Ferry Common Stock,N,False,common,nasdaqtrader
 KG,"Kestrel Group, Ltd. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -3833,7 +3836,6 @@ KTH,Structures Products Cp 8% CorTS Issued by Peco Energy Cap Tr II Preferred St
 KTN,Structured Products Corp 8.205% CorTS 8.205% Corporate Backed Trust Securities (CorTS),N,False,common,nasdaqtrader
 KTOS,"Kratos Defense & Security Solutions, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 KTTA,Pasithea Therapeutics Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
-KTTAW,Pasithea Therapeutics Corp. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 KTWO,K2 Capital Acquisition Corporation - Class A Ordinary Share,NASDAQ,False,common,nasdaqtrader
 KTWOR,K2 Capital Acquisition Corporation - Rights,NASDAQ,False,right,nasdaqtrader
 KTWOU,K2 Capital Acquisition Corporation - Units,NASDAQ,False,unit,nasdaqtrader
@@ -4449,7 +4451,9 @@ MSS,Maison Solutions Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrade
 MSTR,Strategy Inc - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 MT,Arcelor Mittal NY Registry Shares NEW,N,False,common,nasdaqtrader
 MTA,Metalla Royalty & Streaming Ltd. Common Shares,A,False,common,nasdaqtrader
+MTAK,Market Technology Acquisition Corp - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 MTAKU,Market Technology Acquisition Corp - Unit,NASDAQ,False,unit,nasdaqtrader
+MTAKW,Market Technology Acquisition Corp - Warrants,NASDAQ,False,warrant,nasdaqtrader
 MTAL,Metals Acquisition Corp. II Class A Ordinary Shares,N,False,common,nasdaqtrader
 MTAL-U,"Metals Acquisition Corp. II Units, each consisting of one Class A ordinary share and one-third of one redeemable warrant",N,False,warrant,nasdaqtrader
 MTAL-W,"Metals Acquisition Corp. II Warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50 per share",N,False,warrant,nasdaqtrader
@@ -5764,7 +5768,6 @@ RITM-PC,Rithm Capital Corp. 6.375% Series C Fixed-to-Floating Rate Cumulative Re
 RITM-PD,Rithm Capital Corp. 7.00% Fixed-Rate Reset Series D Cumulative Redeemable Preferred Stock,N,False,preferred,nasdaqtrader
 RITM-PE,Rithm Capital Corp. 8.75% Series E Fixed-Rate Cumulative Redeemable Preferred Stock,N,False,preferred,nasdaqtrader
 RITM-PF,Rithm Capital Corp. 8.750% Series F Fixed-Rate Reset Cumulative Redeemable Preferred Stock,N,False,preferred,nasdaqtrader
-RITR,Reitar Logtech Holdings Limited - Ordinary shares,NASDAQ,False,common,nasdaqtrader
 RIV,"RiverNorth Opportunities Fund, Inc. Common Stock",N,False,common,nasdaqtrader
 RIV-PA,"RiverNorth Opportunities Fund, Inc. 6.00% Series A Perpetual Preferred Stock",N,False,preferred,nasdaqtrader
 RIV-R,"RiverNorth Opportunities Fund, Inc. Rights (expiring September 23, 2026) Rights",N,False,right,nasdaqtrader
@@ -6644,7 +6647,9 @@ TKLF,"Tokyo Lifestyle Co., Ltd. - American Depositary Shares",NASDAQ,False,commo
 TKNO,"Alpha Teknova, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 TKO,"TKO Group Holdings, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 TKR,Timken Company (The) Common Stock,N,False,common,nasdaqtrader
+TLAC,Three Lions Acquisition Corp. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 TLACU,Three Lions Acquisition Corp. - Units,NASDAQ,False,unit,nasdaqtrader
+TLACW,Three Lions Acquisition Corp. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 TLF,"Tandy Leather Factory, Inc. - common stock",NASDAQ,False,common,nasdaqtrader
 TLIH,Ten-League International Holdings Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 TLK,"PT Telekomunikasi Indonesia, Tbk",N,False,common,nasdaqtrader
