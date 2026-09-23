@@ -69,3 +69,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-09-16,8,WDC,Western Digital,55.74,94.75,extreme
 2026-09-16,9,CIEN,Ciena,55.55,67.38,high
 2026-09-16,10,VST,Vistra Corp.,54.5,91.53,extreme
+2026-09-23,1,NRG,NRG Energy,82.57,88.03,extreme
+2026-09-23,2,ORCL,Oracle Corporation,60.19,121.86,extreme
+2026-09-23,3,WYNN,Wynn Resorts,58.43,21.21,low
+2026-09-23,4,AXON,Axon Enterprise,55.75,55.39,high
+2026-09-23,5,FICO,Fair Isaac,55.2,73.45,high
+2026-09-23,6,CCL,Carnival Corporation,54.93,41.37,moderate
+2026-09-23,7,VST,Vistra Corp.,54.55,91.46,extreme
+2026-09-23,8,CRH,CRH plc,54.17,44.66,moderate
+2026-09-23,9,APTV,Aptiv,52.88,34.53,low
+2026-09-23,10,ALB,Albemarle Corporation,51.93,82.6,extreme
