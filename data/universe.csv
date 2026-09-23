@@ -1112,8 +1112,6 @@ BRN,"Barnwell Industries, Inc. Common Stock",A,False,common,nasdaqtrader
 BRNX,BrenX Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 BRO,"Brown & Brown, Inc. Common Stock",N,False,common,nasdaqtrader
 BROS,Dutch Bros Inc. Class A Common Stock,N,False,common,nasdaqtrader
-BRR,"ProCap Financial, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-BRRWW,"ProCap Financial, Inc. - Warrant.",NASDAQ,False,warrant,nasdaqtrader
 BRSL,"Brightstar Lottery PLC Trading under the Legal Name to begin at the market open on July 21, 2025. Ordinary Shares",N,False,common,nasdaqtrader
 BRSP,"BrightSpire Capital, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 BRT,BRT Apartments Corp. (MD) Common Stock,N,False,common,nasdaqtrader
@@ -2333,6 +2331,7 @@ ESRT,"Empire State Realty Trust, Inc. Class A Common Stock",N,False,common,nasda
 ESS,"Essex Property Trust, Inc. Common Stock",N,False,common,nasdaqtrader
 ESTA,Establishment Labs Holdings Inc. - Common Shares,NASDAQ,False,common,nasdaqtrader
 ESTC,Elastic N.V. Ordinary Shares,N,False,common,nasdaqtrader
+ESYN,EnerSyn Global Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 ET,Energy Transfer LP Common Units,N,False,common,nasdaqtrader
 ET-PI,Energy Transfer L.P. Series I Fixed Rate Perpetual Preferred Units,N,False,preferred,nasdaqtrader
 ETB,Eaton Vance Tax-Managed Buy-Write Income Fund Eaton Vance Tax-Managed Buy-Write Income Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
@@ -3298,7 +3297,6 @@ HVT-A,"Haverty Furniture Companies, Inc. Common Stock",N,False,common,nasdaqtrad
 HWBK,"Hawthorn Bancshares, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 HWC,Hancock Whitney Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 HWCPZ,Hancock Whitney Corporation - 6.25% Subordinated Notes due 2060,NASDAQ,False,note,nasdaqtrader
-HWH,HWH International Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 HWKN,"Hawkins, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 HWM,Howmet Aerospace Inc. Common Stock,N,False,common,nasdaqtrader
 HXHX,Haoxin Holdings Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -4657,9 +4655,6 @@ NGVC,"Natural Grocers by Vitamin Cottage, Inc. Common Stock",N,False,common,nasd
 NGVT,Ingevity Corporation Common Stock,N,False,common,nasdaqtrader
 NHC,National HealthCare Corporation Common Stock,A,False,common,nasdaqtrader
 NHI,"National Health Investors, Inc. Common Stock",N,False,common,nasdaqtrader
-NHIC,NewHold Investment Corp III - Class A Ordinary shares,NASDAQ,False,common,nasdaqtrader
-NHICU,NewHold Investment Corp III - Units,NASDAQ,False,unit,nasdaqtrader
-NHICW,NewHold Investment Corp III - Warrants,NASDAQ,False,warrant,nasdaqtrader
 NHIV,NewHold Investment Corp IV - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 NHIVU,NewHold Investment Corp IV - Units,NASDAQ,False,unit,nasdaqtrader
 NHIVW,NewHold Investment Corp IV - Warrants,NASDAQ,False,warrant,nasdaqtrader
@@ -4854,6 +4849,8 @@ NWAX,New America Acquisition I Corp. Class A Common Stock,N,False,common,nasdaqt
 NWAX-U,"New America Acquisition I Corp. Units, each consisting of one share of Class A Common Stock and one-half of one redeemable warrant",N,False,warrant,nasdaqtrader
 NWAX-W,"New America Acquisition I Corp. Warrants, each whole warrant is exercisable to purchase one share of Class A common stock",N,False,warrant,nasdaqtrader
 NWBI,"Northwest Bancshares, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+NWCL,newcleo plc - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+NWCLW,newcleo plc - Warrants,NASDAQ,False,warrant,nasdaqtrader
 NWE,"NorthWestern Energy Group, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
 NWFL,Norwood Financial Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 NWG,"NatWest Group plc American Depositary Shares, (each representing two (2) Ordinary Shares)",N,False,common,nasdaqtrader
@@ -6458,6 +6455,8 @@ SVCC,Stellar V Capital Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasda
 SVCCU,Stellar V Capital Corp. - Unit,NASDAQ,False,unit,nasdaqtrader
 SVCCW,Stellar V Capital Corp. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 SVCO,"Silvaco Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+SVIA,"Silvia, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+SVIAW,"Silvia, Inc. - Warrant.",NASDAQ,False,warrant,nasdaqtrader
 SVIV,Spring Valley Acquisition Corp. IV - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 SVIVU,Spring Valley Acquisition Corp. IV - Units,NASDAQ,False,unit,nasdaqtrader
 SVIVW,Spring Valley Acquisition Corp. IV - Warrants,NASDAQ,False,warrant,nasdaqtrader
