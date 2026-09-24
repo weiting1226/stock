@@ -3490,7 +3490,7 @@ INTZ,Intrusion Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 INUV,"Inuvo, Inc.",A,False,common,nasdaqtrader
 INV,"Innventure, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 INVA,"Innoviva, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-INVE,"Identiv, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+INVE,"INVE Technologies, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 INVH,Invitation Homes Inc. Common Stock,N,False,common,nasdaqtrader
 INVX,"Innovex International, Inc. Common Stock",N,False,common,nasdaqtrader
 INVZ,Innoviz Technologies Ltd. - Ordinary shares,NASDAQ,False,common,nasdaqtrader
@@ -4018,6 +4018,7 @@ LOPE,"Grand Canyon Education, Inc. - Common Stock",NASDAQ,False,common,nasdaqtra
 LOT,Lotus Technology Inc. - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 LOTWW,Lotus Technology Inc. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 LOVE,The Lovesac Company - Common Stock,NASDAQ,False,common,nasdaqtrader
+LOVIU,Live Oak Acquisition Corp. VI - Units,NASDAQ,False,unit,nasdaqtrader
 LOW,"Lowe's Companies, Inc. Common Stock",N,False,common,nasdaqtrader
 LPA,Logistic Properties of the Americas Ordinary Shares,A,False,common,nasdaqtrader
 LPAA,Launch One Acquisition Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -5347,7 +5348,6 @@ PLSE,"Pulse Biosciences, Inc - Common Stock",NASDAQ,False,common,nasdaqtrader
 PLSM,Pulsenmore Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 PLTK,Playtika Holding Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 PLTR,Palantir Technologies Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
-PLTS,Platinum Analytics Cayman Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 PLUG,"Plug Power, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PLUN,Plutonian Acquisition Corp II Class A Ordinary Shares,N,False,common,nasdaqtrader
 PLUN-R,"Plutonian Acquisition Corp II Rights, each entitling the holder to receive one-fourth of one Class A Ordinary Share",N,False,right,nasdaqtrader
@@ -5770,7 +5770,6 @@ RITM-PE,Rithm Capital Corp. 8.75% Series E Fixed-Rate Cumulative Redeemable Pref
 RITM-PF,Rithm Capital Corp. 8.750% Series F Fixed-Rate Reset Cumulative Redeemable Preferred Stock,N,False,preferred,nasdaqtrader
 RIV,"RiverNorth Opportunities Fund, Inc. Common Stock",N,False,common,nasdaqtrader
 RIV-PA,"RiverNorth Opportunities Fund, Inc. 6.00% Series A Perpetual Preferred Stock",N,False,preferred,nasdaqtrader
-RIV-R,"RiverNorth Opportunities Fund, Inc. Rights (expiring September 23, 2026) Rights",N,False,right,nasdaqtrader
 RIVN,"Rivian Automotive, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 RJET,Republic Airways Holdings Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 RJF,"Raymond James Financial, Inc. Common Stock",N,False,common,nasdaqtrader
