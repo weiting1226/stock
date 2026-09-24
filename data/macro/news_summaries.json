@@ -89,6 +89,18 @@
   "reference_date": "2026-06-01",
   "fred_id": "HOUST"
  },
+ "MORTGAGE30US@2026-09-24": {
+  "summary_zh": "截至2026年9月24日,30年期固定房貸利率平均為7.03%,較前一週的6.95%上升。文件指出,房市持續受到穩健就業市場與經濟健康成長的支撐。與去年同期的6.30%相比,利率也呈現上升。",
+  "drivers": [
+   "solid labor market",
+   "economy that is growing at a healthy rate"
+  ],
+  "evidence": "The 30-year fixed-rate mortgage averaged 7.03% as of September 24, 2026, up from last week when it averaged 6.95%.",
+  "source_url": "https://www.freddiemac.com/pmms",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-09-24",
+  "fred_id": "MORTGAGE30US"
+ },
  "MORTGAGE30US@2026-09-17": {
   "summary_zh": "截至2026年9月17日，30年期固定利率房貸平均為6.95%，較前一週的6.76%上升；與一年前同期的6.26%相比也有所提高。文件說明30年期固定利率房貸持續因市場評估經濟數據而波動。",
   "drivers": [
@@ -147,19 +159,6 @@
   "source_url": "https://www.freddiemac.com/pmms",
   "model": "claude-sonnet-5",
   "reference_date": "2026-08-20",
-  "fred_id": "MORTGAGE30US"
- },
- "MORTGAGE30US@2026-08-13": {
-  "summary_zh": "截至2026年8月13日,30年期固定房貸利率平均為6.67%,較前一週的6.69%略降,但仍高於去年同期的6.58%。文件指出房貸利率本週維持相對穩定,同時房屋可負擔性較去年同期改善,購屋與再融資申請的增加顯示借款人仍對房貸利率的細微變化有所反應。",
-  "drivers": [
-   "房屋可負擔性較去年同期改善",
-   "購屋與再融資申請增加",
-   "借款人對房貸利率細微變化的反應"
-  ],
-  "evidence": "Mortgage rates remained relatively stable this week at 6.67%. Housing affordability has improved from a year ago, and recent increases in purchase and refinance applications suggest that borrowers continue to respond to even modest changes in mortgage rates.",
-  "source_url": "https://www.freddiemac.com/pmms",
-  "model": "claude-sonnet-5",
-  "reference_date": "2026-08-13",
   "fred_id": "MORTGAGE30US"
  },
  "RSAFS@2026-08-01": {
