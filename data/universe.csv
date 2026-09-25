@@ -570,7 +570,7 @@ ASBPW,"Aspire-Lakewood Holdings, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrad
 ASC,Ardmore Shipping Corporation Common Stock,N,False,common,nasdaqtrader
 ASG,"Liberty All-Star Growth Fund, Inc.",N,False,common,nasdaqtrader
 ASGI,abrdn Global Infrastructure Income Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
-ASGI-V,"abrdn Global Infrastructure Income Fund Rights (expiring October 15, 2026) Rights when issued",N,False,right,nasdaqtrader
+ASGI-R,"abrdn Global Infrastructure Income Fund Rights (expiring October 15, 2026) Rights",N,False,right,nasdaqtrader
 ASH,Ashland Inc. Common Stock,N,False,common,nasdaqtrader
 ASIC,Ategrity Specialty Insurance Company Holdings Common Stock,N,False,common,nasdaqtrader
 ASIX,AdvanSix Inc. Common Stock,N,False,common,nasdaqtrader
@@ -795,6 +795,7 @@ BC,Brunswick Corporation Common Stock,N,False,common,nasdaqtrader
 BC-PC,Brunswick Corporation 6.375% Notes due 2049,N,False,preferred,nasdaqtrader
 BCAL,California BanCorp - Common Stock,NASDAQ,False,common,nasdaqtrader
 BCAT,BlackRock Capital Allocation Term Trust Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
+BCAT-V,"BlackRock Capital Allocation Term Trust Rights (expiring October 21, 2026) Rights when issued",N,False,right,nasdaqtrader
 BCAX,Bicara Therapeutics Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 BCBP,"BCB Bancorp, Inc. (NJ) - Common Stock",NASDAQ,False,common,nasdaqtrader
 BCC,"Boise Cascade, L.L.C. Common Stock",N,False,common,nasdaqtrader
@@ -2012,7 +2013,6 @@ DOCU,"DocuSign, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 DOGZ,Dogness (International) Corporation - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 DOLE,Dole plc Ordinary Shares,N,False,common,nasdaqtrader
 DOMH,Dominari Holdings Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
-DOMO,"Domo, Inc. - Class B Common Stock",NASDAQ,False,common,nasdaqtrader
 DOO,BRP Inc. - Common Subordinate Voting Shares,NASDAQ,False,common,nasdaqtrader
 DORM,"Dorman Products, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 DOUG,Douglas Elliman Inc. Common Stock,N,False,common,nasdaqtrader
@@ -2550,7 +2550,10 @@ FIVE,"Five Below, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 FIVN,"Five9, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 FIX,"Comfort Systems USA, Inc. Common Stock",N,False,common,nasdaqtrader
 FIZZ,National Beverage Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
+FJDI,ARC Group Securities Acquisition I - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+FJDIR,ARC Group Securities Acquisition I - Rights,NASDAQ,False,right,nasdaqtrader
 FJDIU,ARC Group Securities Acquisition I - Units,NASDAQ,False,unit,nasdaqtrader
+FJDIW,ARC Group Securities Acquisition I - Warrants,NASDAQ,False,warrant,nasdaqtrader
 FJET,"Starfighters Space, Inc. Common Stock",A,False,common,nasdaqtrader
 FKWL,Franklin Wireless Corp. - common stock,NASDAQ,False,common,nasdaqtrader
 FLC,Flaherty & Crumrine Total Return Fund Inc Common Stock,N,False,common,nasdaqtrader
@@ -3275,6 +3278,7 @@ HUBCW,Hub Cyber Security Ltd. - Warrant expiring 2/27/28,NASDAQ,False,warrant,na
 HUBCZ,Hub Cyber Security Ltd. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 HUBG,"Hub Group, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 HUBS,"HubSpot, Inc. Common Stock",N,False,common,nasdaqtrader
+HUCK,"Huckleberry.ai, Inc. - Class B Common Stock",NASDAQ,False,common,nasdaqtrader
 HUDI,"Huadi International Group Co., Ltd. - Ordinary Shares",NASDAQ,False,common,nasdaqtrader
 HUHU,HUHUTECH International Group Inc. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 HUIZ,Huize Holding Limited - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
@@ -3286,9 +3290,6 @@ HURC,"Hurco Companies, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 HURN,Huron Consulting Group Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 HUT,Hut 8 Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 HUYA,"HUYA Inc. American depositary shares, each  representing one Class A ordinary share",N,False,common,nasdaqtrader
-HVII,Hennessy Capital Investment Corp. VII - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-HVIIR,Hennessy Capital Investment Corp. VII - Rights,NASDAQ,False,right,nasdaqtrader
-HVIIU,Hennessy Capital Investment Corp. VII - Unit,NASDAQ,False,unit,nasdaqtrader
 HVMC,Highview Merger Corp. - Class A Ordinary Share,NASDAQ,False,common,nasdaqtrader
 HVMCU,Highview Merger Corp. - Units,NASDAQ,False,unit,nasdaqtrader
 HVMCW,Highview Merger Corp. - Warrants,NASDAQ,False,warrant,nasdaqtrader
@@ -5001,6 +5002,7 @@ ONCO,"Onconetix, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
 ONCY,Oncolytics Biotech Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 ONDS,Ondas Inc - Common Stock,NASDAQ,False,common,nasdaqtrader
 ONEG,OneConstruction Group Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+ONEN,ONE Nuclear Energy Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 ONEW,OneWater Marine Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 ONFO,Onfolio Holdings Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 ONFOW,Onfolio Holdings Inc. - Warrant,NASDAQ,False,warrant,nasdaqtrader
@@ -6536,7 +6538,6 @@ TBI,"TrueBlue, Inc. Common Stock",N,False,common,nasdaqtrader
 TBLA,Taboola.com Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 TBLD,Thornburg Income Builder Opportunities Trust - Closed End Fund,NASDAQ,False,common,nasdaqtrader
 TBN,Tamboran Resources Corporation Common stock,N,False,common,nasdaqtrader
-TBPH,"Theravance Biopharma, Inc. - Ordinary Shares",NASDAQ,False,common,nasdaqtrader
 TC,Token Cat Limited - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 TCBI,"Texas Capital Bancshares, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 TCBIO,"Texas Capital Bancshares, Inc. - Depositary Shares 5.75% Fixed Rate Non-Cumulative Perpetual Preferred Stock Series B",NASDAQ,False,preferred,nasdaqtrader
