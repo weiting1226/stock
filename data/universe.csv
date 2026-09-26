@@ -134,6 +134,7 @@ ADMA,ADMA Biologics Inc - Common Stock,NASDAQ,False,common,nasdaqtrader
 ADNT,Adient plc Ordinary Shares,N,False,common,nasdaqtrader
 ADP,"Automatic Data Processing, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ADPT,Adaptive Biotechnologies Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
+ADRX,"ADARx Pharmaceuticals, Inc. - Common stock",NASDAQ,False,common,nasdaqtrader
 ADSE,ADS-TEC ENERGY PLC - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ADSEW,ADS-TEC ENERGY PLC - Warrant,NASDAQ,False,common,nasdaqtrader
 ADSK,"Autodesk, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -1113,6 +1114,7 @@ BRN,"Barnwell Industries, Inc. Common Stock",A,False,common,nasdaqtrader
 BRNX,BrenX Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 BRO,"Brown & Brown, Inc. Common Stock",N,False,common,nasdaqtrader
 BROS,Dutch Bros Inc. Class A Common Stock,N,False,common,nasdaqtrader
+BRRKU,Bluerock Acquisition Corp. II - Units,NASDAQ,False,unit,nasdaqtrader
 BRSL,"Brightstar Lottery PLC Trading under the Legal Name to begin at the market open on July 21, 2025. Ordinary Shares",N,False,common,nasdaqtrader
 BRSP,"BrightSpire Capital, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 BRT,BRT Apartments Corp. (MD) Common Stock,N,False,common,nasdaqtrader
@@ -3674,7 +3676,6 @@ JRSH,"Jerash Holdings (US), Inc. - Common Stock",NASDAQ,False,common,nasdaqtrade
 JRVR,"James River Group Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 JSM,"Navient Corporation - 6% Senior Notes due December 15, 2043",NASDAQ,False,note,nasdaqtrader
 JSPR,"Jasper Therapeutics, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
-JSPRW,"Jasper Therapeutics, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
 JTAI,Jet.AI Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 JTTT,JATT III Acquisition Corp - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 JUNS,"Jupiter Neurosciences, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -3765,7 +3766,6 @@ KLRA,"Kailera Therapeutics, Inc. - Common stock",NASDAQ,False,common,nasdaqtrade
 KLRS,"Kalaris Therapeutics, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
 KLTR,"Kaltura, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 KLXE,"KLX Energy Services Holdings, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
-KLXER,"KLX Energy Services Holdings, Inc.  - Rights",NASDAQ,False,right,nasdaqtrader
 KMB,Kimberly-Clark Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 KMDA,Kamada Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 KMI,"Kinder Morgan, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -5383,6 +5383,8 @@ PMTV,PennyMac Mortgage Investment Trust 9.00% Senior Notes due 2030,N,False,note
 PMTW,PennyMac Mortgage Investment Trust 9.00% Senior Notes due 2030,N,False,note,nasdaqtrader
 PMVP,"PMV Pharmaceuticals, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PN,PN Smart Energy Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+PNAQ,Pinnacle Acquisition Corporation Class A Ordinary Shares,N,False,common,nasdaqtrader
+PNAQ-R,"Pinnacle Acquisition Corporation Rights, each right entitling the holder to receive one-eighth (1/8) of one Class A ordinary share",N,False,right,nasdaqtrader
 PNAQ-U,"Pinnacle Acquisition Corporation Units, each consisting of one Class A ordinary share and one right",N,False,unit,nasdaqtrader
 PNBK,Patriot National Bancorp Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 PNC,"PNC Financial Services Group, Inc. (The) Common Stock",N,False,common,nasdaqtrader
