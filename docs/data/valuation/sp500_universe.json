@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-09-19",
+  "as_of": "2026-09-26",
   "constituents": [
     {
       "ticker": "MMM",
@@ -404,6 +404,12 @@
       "sub_industry": "Transaction & Payment Processing Services"
     },
     {
+      "ticker": "BE",
+      "name": "Bloom Energy",
+      "sector": "Industrials",
+      "sub_industry": "Electrical Components & Equipment"
+    },
+    {
       "ticker": "BNY",
       "name": "BNY Mellon",
       "sector": "Financials",
@@ -456,12 +462,6 @@
       "name": "Brown–Forman",
       "sector": "Consumer Staples",
       "sub_industry": "Distillers & Vintners"
-    },
-    {
-      "ticker": "BLDR",
-      "name": "Builders FirstSource",
-      "sector": "Industrials",
-      "sub_industry": "Building Products"
     },
     {
       "ticker": "BG",
@@ -1076,6 +1076,12 @@
       "sub_industry": "Electric Utilities"
     },
     {
+      "ticker": "P",
+      "name": "Everpure",
+      "sector": "Information Technology",
+      "sub_industry": "Technology Hardware, Storage & Peripherals"
+    },
+    {
       "ticker": "ES",
       "name": "Eversource Energy",
       "sector": "Utilities",
@@ -1482,6 +1488,12 @@
       "name": "Illinois Tool Works",
       "sector": "Industrials",
       "sub_industry": "Industrial Machinery & Supplies & Components"
+    },
+    {
+      "ticker": "ILMN",
+      "name": "Illumina, Inc.",
+      "sector": "Health Care",
+      "sub_industry": "Life Sciences Tools & Services"
     },
     {
       "ticker": "INCY",
@@ -1902,12 +1914,6 @@
       "name": "Moderna",
       "sector": "Health Care",
       "sub_industry": "Biotechnology"
-    },
-    {
-      "ticker": "TAP",
-      "name": "Molson Coors Beverage Company",
-      "sector": "Consumer Staples",
-      "sub_industry": "Brewers"
     },
     {
       "ticker": "MDLZ",
@@ -2664,12 +2670,6 @@
       "name": "TKO Group Holdings",
       "sector": "Communication Services",
       "sub_industry": "Movies & Entertainment"
-    },
-    {
-      "ticker": "TTD",
-      "name": "Trade Desk (The)",
-      "sector": "Communication Services",
-      "sub_industry": "Advertising"
     },
     {
       "ticker": "TSCO",
