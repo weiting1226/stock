@@ -2507,6 +2507,8 @@ FFIV,"F5, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 FG,"F&G Annuities & Life, Inc. Common Stock",N,False,common,nasdaqtrader
 FGBI,"First Guaranty Bancshares, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 FGBIP,"First Guaranty Bancshares, Inc. - 6.75% Series A Fixed-Rate Non-Cumulative Perpetual Preferred Stock",NASDAQ,False,preferred,nasdaqtrader
+FGC,FG Communities Holdings Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
+FGCPP,FG Communities Holdings Inc. - 8.00% Cumulative Series A Preferred Stock,NASDAQ,False,preferred,nasdaqtrader
 FGI,FGI Industries Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 FGII,FG Imperii Acquisition Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 FGIIU,FG Imperii Acquisition Corp. - Units,NASDAQ,False,unit,nasdaqtrader
@@ -2514,8 +2516,6 @@ FGIIW,FG Imperii Acquisition Corp. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 FGIWW,FGI Industries Ltd. - warrant,NASDAQ,False,warrant,nasdaqtrader
 FGL,Founder Group Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 FGN,"F&G Annuities & Life, Inc. 7.950% Senior Notes due 2053",N,False,note,nasdaqtrader
-FGNX,FG Nexus Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
-FGNXP,FG Nexus Inc. - 8.00% Cumulative Series A Preferred Stock,NASDAQ,False,preferred,nasdaqtrader
 FGSN,"F&G Annuities & Life, Inc. 7.300% Junior Subordinated Notes due 2065",N,False,note,nasdaqtrader
 FHB,"First Hawaiian, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 FHI,"Federated Hermes, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -2960,6 +2960,7 @@ GORO,Goldgroup Mining Inc. Common Shares,A,False,common,nasdaqtrader
 GOSS,"Gossamer Bio, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 GOTU,Gaotu Techedu Inc. American Depositary Shares,N,False,common,nasdaqtrader
 GOVX,"GeoVax Labs, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+GOW,GOWell Energy Technology - Ordinary shares,NASDAQ,False,common,nasdaqtrader
 GP,GreenPower Motor Company Inc. - Common Shares,NASDAQ,False,common,nasdaqtrader
 GPAC,General Purpose Acquisition Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 GPACU,General Purpose Acquisition Corp. - Units,NASDAQ,False,unit,nasdaqtrader
@@ -3510,9 +3511,6 @@ IOVA,"Iovance Biotherapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtr
 IP,International Paper Company Common Stock,N,False,common,nasdaqtrader
 IPAR,"Interparfums, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 IPDN,"Professional Diversity Network, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-IPEX,Inflection Point Acquisition Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-IPEXR,Inflection Point Acquisition Corp. - Right,NASDAQ,False,right,nasdaqtrader
-IPEXU,Inflection Point Acquisition Corp. - Unit,NASDAQ,False,unit,nasdaqtrader
 IPFX,Inflection Point Acquisition Corp. VI - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 IPFXU,Inflection Point Acquisition Corp. VI - Units,NASDAQ,False,unit,nasdaqtrader
 IPFXW,Inflection Point Acquisition Corp. VI - Warrant,NASDAQ,False,warrant,nasdaqtrader
@@ -5231,7 +5229,6 @@ PDSB,PDS Biotechnology Corporation - Common Stock,NASDAQ,False,common,nasdaqtrad
 PDT,John Hancock Premium Dividend Fund,N,False,common,nasdaqtrader
 PDX,PIMCO Dynamic Income Strategy Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 PDYN,Palladyne AI Corp. - Common stock,NASDAQ,False,common,nasdaqtrader
-PDYNW,Palladyne AI Corp. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 PEB,Pebblebrook Hotel Trust Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 PEB-PE,Pebblebrook Hotel Trust 6.375% Series E Cumulative Redeemable Preferred Shares of Beneficial Interest,N,False,preferred,nasdaqtrader
 PEB-PF,Pebblebrook Hotel Trust 6.3% Series F Cumulative Redeemable Preferred Shares of Beneficial Interest,N,False,preferred,nasdaqtrader
@@ -5989,9 +5986,6 @@ SBS,Companhia de saneamento Basico Do Estado De Sao Paulo - Sabesp American Depo
 SBSI,"Southside Bancshares, Inc. Common Stock",N,False,common,nasdaqtrader
 SBSW,D/B/A Sibanye-Stillwater Limited ADS,N,False,common,nasdaqtrader
 SBUX,Starbucks Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
-SBXD,SilverBox Corp IV Class A Ordinary Shares,N,False,common,nasdaqtrader
-SBXD-U,"SilverBox Corp IV Units, each consisting of one Class A ordinary share and one-third of one redeemable warrant",N,False,warrant,nasdaqtrader
-SBXD-W,"SilverBox Corp IV Redeemable warrants, each whole warrant exercisable for one Class A Ordinary Share at an exercise price of $11.50",N,False,warrant,nasdaqtrader
 SBXE,SilverBox Corp V Class A Ordinary Shares,N,False,common,nasdaqtrader
 SBXE-U,"SilverBox Corp V Units, each consisting of one Class A Ordinary Share and one-third of one redeemable warrant",N,False,warrant,nasdaqtrader
 SBXE-W,"SilverBox Corp V Redeemable warrants, each whole warrant exercisable for one Class A Ordinary Share at an exercise price of $11.50",N,False,warrant,nasdaqtrader
@@ -6629,6 +6623,7 @@ THM,"International Tower Hill Mines, Ltd. Ordinary Shares (Canada)",A,False,comm
 THO,"Thor Industries, Inc. Common Stock",N,False,common,nasdaqtrader
 THQ,abrdn Healthcare Opportunities Fund Shares of Beneficial Interest,N,False,common,nasdaqtrader
 THRM,Gentherm Inc - Common Stock,NASDAQ,False,common,nasdaqtrader
+THRMV,Gentherm Inc - Gentherm Inc Common Stock When-Issued,NASDAQ,False,common,nasdaqtrader
 THRY,"Thryv Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 THW,abrdn World Healthcare Fund Shares of Beneficial Interest,N,False,common,nasdaqtrader
 TIC,"TIC Solutions, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -6839,9 +6834,6 @@ TWLV,Twelve Seas Investment Company III - Class A Ordinary Shares,NASDAQ,False,c
 TWLVR,Twelve Seas Investment Company III - Rights,NASDAQ,False,right,nasdaqtrader
 TWLVU,Twelve Seas Investment Company III - Units,NASDAQ,False,unit,nasdaqtrader
 TWN,"Taiwan Fund, Inc. (The) Common Stock",N,False,common,nasdaqtrader
-TWO-PA,Two Harbors Investments Corp 8.125% Series A Fixed-to-Floating Rate Cumulative Redeemable Preferred Stock ($25.00 liquidation preference per share),N,False,preferred,nasdaqtrader
-TWO-PB,Two Harbors Investments Corp 7.625% Series B Fixed-to-Floating Rate Cumulative Redeemable Preferred Stock,N,False,preferred,nasdaqtrader
-TWO-PC,Two Harbors Investments Corp 7.25% Series C Fixed-to-Floating Rate Cumulative Redeemable Preferred Stock,N,False,preferred,nasdaqtrader
 TWOD,Two Harbors Investments Corp 9.375% Senior Notes due 2030,N,False,note,nasdaqtrader
 TWST,Twist Bioscience Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 TX,"Ternium S.A. Ternium S.A. American Depositary Shares (each representing ten shares, USD1.00 par value)",N,False,common,nasdaqtrader
