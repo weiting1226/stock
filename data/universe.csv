@@ -2765,7 +2765,6 @@ GBDC,"Golub Capital BDC, Inc. - Closed End Fund",NASDAQ,False,common,nasdaqtrade
 GBFH,GBank Financial Holdings Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 GBLI,"Global Indemnity Group, LLC - Class A Common Shares",NASDAQ,False,common,nasdaqtrader
 GBR,"New Concept Energy, Inc Common Stock",A,False,common,nasdaqtrader
-GBTG,"Global Business Travel Group, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 GBX,"Greenbrier Companies, Inc. (The) Common Stock",N,False,common,nasdaqtrader
 GCBC,"Greene County Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 GCDT,Green Circle Decarbonize Technology Limited Class A Ordinary Shares,A,False,common,nasdaqtrader
@@ -3500,7 +3499,6 @@ INVX,"Innovex International, Inc. Common Stock",N,False,common,nasdaqtrader
 INVZ,Innoviz Technologies Ltd. - Ordinary shares,NASDAQ,False,common,nasdaqtrader
 IOND,Ionic Digital Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 IONQ,"IonQ, Inc. Common Stock",N,False,common,nasdaqtrader
-IONQ-W,"IonQ, Inc. Redeemable warrants, each whole warrant exercisable for one share of Common Stock, each at an exercise price of $11.50 per share",N,False,warrant,nasdaqtrader
 IONR,ioneer Ltd - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 IONS,"Ionis Pharmaceuticals, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 IOR,"Income Opportunity Realty Investors, Inc. Common Stock",A,False,common,nasdaqtrader
@@ -5755,7 +5753,6 @@ RIGL,"Rigel Pharmaceuticals, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrad
 RILY,"BRC Group Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 RILYG,"BRC Group Holdings, Inc. - 5.00% Senior Notes due 2026",NASDAQ,False,note,nasdaqtrader
 RILYL,"BRC Group Holdings, Inc. - Depositary Shares, each representing a 1/1000th fractional interest in a share of Series B Cumulative Perpetual Preferred Stock",NASDAQ,False,preferred,nasdaqtrader
-RILYN,"BRC Group Holdings, Inc. - 6.50% Senior Notes Due 2026",NASDAQ,False,note,nasdaqtrader
 RILYP,"BRC Group Holdings, Inc. - Depositary Shares, each representing a 1/1000th fractional interest in a share of Series A Cumulative Perpetual Preferred Stock",NASDAQ,False,preferred,nasdaqtrader
 RILYT,"BRC Group Holdings, Inc. - 6.00% Senior Notes Due 2028",NASDAQ,False,note,nasdaqtrader
 RILYZ,"BRC Group Holdings, Inc. - 5.25% Senior Notes due 2028",NASDAQ,False,note,nasdaqtrader
@@ -5912,6 +5909,7 @@ RYN,Rayonier Inc. REIT Common Stock,N,False,common,nasdaqtrader
 RYOJ,"rYojbaba Co., Ltd. - Common Shares",NASDAQ,False,common,nasdaqtrader
 RYTM,"Rhythm Pharmaceuticals, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 RYZ,Ryerson Holding Corporation Common Stock,N,False,common,nasdaqtrader
+RZAI,Roze AI Inc. - Common Shares,NASDAQ,False,common,nasdaqtrader
 RZC,"Reinsurance Group of America, Incorporated 7.125% Fixed-Rate Reset Subordinated Debentures due 2052",N,False,note,nasdaqtrader
 RZLT,"Rezolute, Inc. - Common Stock (NV)",NASDAQ,False,common,nasdaqtrader
 RZLV,Rezolve AI PLC - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -6702,7 +6700,7 @@ TOON,"Kartoon Studios, Inc. Common Stock",A,False,common,nasdaqtrader
 TOP,TOP Financial Group Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 TOPP,Toppoint Holdings Inc. Common Stock,A,False,common,nasdaqtrader
 TOPS,"TOP Ships, Inc. Common Stock",A,False,common,nasdaqtrader
-TORO,Toro Corp. - Common stock,NASDAQ,False,common,nasdaqtrader
+TORO,Toro Corp. - Common Shares,NASDAQ,False,common,nasdaqtrader
 TOST,"Toast, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 TOUR,Tuniu Corporation - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 TOVX,"Theriva Biologics, Inc. Common Stock",A,False,common,nasdaqtrader
