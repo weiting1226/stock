@@ -79,3 +79,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-09-23,8,CRH,CRH plc,54.17,44.66,moderate
 2026-09-23,9,APTV,Aptiv,52.88,34.53,low
 2026-09-23,10,ALB,Albemarle Corporation,51.93,82.6,extreme
+2026-09-30,1,FICO,Fair Isaac,117.06,78.59,extreme
+2026-09-30,2,NRG,NRG Energy,94.05,88.03,extreme
+2026-09-30,3,ORCL,Oracle Corporation,72.71,121.86,extreme
+2026-09-30,4,WYNN,Wynn Resorts,68.74,21.21,low
+2026-09-30,5,AXON,Axon Enterprise,67.81,55.39,moderate
+2026-09-30,6,APP,AppLovin,62.61,93.55,extreme
+2026-09-30,7,ALB,Albemarle Corporation,59.42,82.6,extreme
+2026-09-30,8,PCG,PG&E Corporation,57.79,52.03,moderate
+2026-09-30,9,CRH,CRH plc,57.54,45.06,moderate
+2026-09-30,10,MGM,MGM Resorts,56.51,34.46,low
