@@ -89,6 +89,18 @@
   "reference_date": "2026-06-01",
   "fred_id": "HOUST"
  },
+ "MORTGAGE30US@2026-10-01": {
+  "summary_zh": "截至2026年10月1日，30年期固定房貸利率平均為7.28%，較前一週的7.03%上升，也高於去年同期的6.34%。15年期固定房貸利率平均為6.60%，同樣較前一週的6.42%上升。文件指出，隨著房貸利率維持目前走勢，房市持續受到有利經濟條件的支撐。",
+  "drivers": [
+   "目前利率走勢",
+   "有利的經濟條件"
+  ],
+  "evidence": "With mortgage rates on their current trajectory, the housing market continues to be supported by favorable economic conditions.",
+  "source_url": "https://www.freddiemac.com/pmms",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-10-01",
+  "fred_id": "MORTGAGE30US"
+ },
  "MORTGAGE30US@2026-09-24": {
   "summary_zh": "截至2026年9月24日,30年期固定房貸利率平均為7.03%,較前一週的6.95%上升。文件指出,房市持續受到穩健就業市場與經濟健康成長的支撐。與去年同期的6.30%相比,利率也呈現上升。",
   "drivers": [
@@ -147,18 +159,6 @@
   "source_url": "https://www.freddiemac.com/pmms",
   "model": "claude-sonnet-5",
   "reference_date": "2026-08-27",
-  "fred_id": "MORTGAGE30US"
- },
- "MORTGAGE30US@2026-08-20": {
-  "summary_zh": "截至2026年8月20日,30年期固定利率房貸平均為6.65%,較前一週的6.67%下降,為連續第二週下滑。去年同期該利率為6.58%。文件指出利率下降為購屋者帶來些許緩解。",
-  "drivers": [
-   "連續第二週利率下降",
-   "較前一週6.67%下降"
-  ],
-  "evidence": "The 30-year fixed-rate mortgage averaged 6.65% as of August 20, 2026, down from last week when it averaged 6.67%.",
-  "source_url": "https://www.freddiemac.com/pmms",
-  "model": "claude-sonnet-5",
-  "reference_date": "2026-08-20",
   "fred_id": "MORTGAGE30US"
  },
  "RSAFS@2026-08-01": {
