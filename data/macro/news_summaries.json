@@ -193,6 +193,20 @@
   "reference_date": "2026-06-01",
   "fred_id": "RSAFS"
  },
+ "UNRATE@2026-09-01": {
+  "summary_zh": "2026年9月失業率為4.2%，較上期變動不大，失業人數約710萬人，三個月變化為0.0。失業率自3月以來一直維持在4.1%至4.3%的窄幅區間內。黑人失業率上升至7.0%，但其他主要群體（成年男性、女性、青少年、白人、亞裔、西裔）失業率變動不大。",
+  "drivers": [
+   "黑人失業率上升至7.0%",
+   "長期失業人數（失業27週以上）變動不大，約190萬人",
+   "勞動力參與率及就業人口比率變動不大",
+   "非自願性部分工時就業人數變動不大，約450萬人"
+  ],
+  "evidence": "Both the unemployment rate, at 4.2 percent, and the number of unemployed people, at 7.1 million, changed little in September. The unemployment rate has remained in a narrow range of 4.1 percent to 4.3 percent since March.",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/empsit.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-09-01",
+  "fred_id": "UNRATE"
+ },
  "UNRATE@2026-08-01": {
   "summary_zh": "根據文件，2026年8月失業率維持在4.1%，與上月持平，失業人數小幅變動至700萬人，且與去年同期相比變化不大。青少年失業率略升至14.1%，主要抵銷前一個月的下降，而亞裔失業率則降至3.2%。",
   "drivers": [
@@ -221,6 +235,20 @@
   "reference_date": "2026-07-01",
   "fred_id": "UNRATE"
  },
+ "PAYEMS@2026-09-01": {
+  "summary_zh": "2026年9月非農就業人數增加2.9萬人，變動不大，所有主要產業就業情況也都變化不大。醫療保健業持續成長但增速放緩，營建業小幅增加，製造業變動不大，金融業則略為減少。",
+  "drivers": [
+   "健康照護業 (+17,000)",
+   "營建業 (+11,000)",
+   "製造業 (+9,000)",
+   "金融活動業 (-7,000)"
+  ],
+  "evidence": "Both nonfarm payroll employment (+29,000) and the unemployment rate (4.2 percent) changed little in September",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/empsit.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-09-01",
+  "fred_id": "PAYEMS"
+ },
  "PAYEMS@2026-08-01": {
   "summary_zh": "2026年8月非農就業人數增加16.2萬人，高於過去12個月平均月增3.1萬人的水準，失業率維持在4.1%不變。就業成長主要來自餐飲業及地方政府教育部門，資訊業則出現就業流失。6月與7月的就業數據合計上修5.5萬人。",
   "drivers": [
@@ -248,6 +276,15 @@
   "model": "claude-sonnet-5",
   "reference_date": "2026-07-01",
   "fred_id": "PAYEMS"
+ },
+ "CIVPART@2026-09-01": {
+  "summary_zh": "2026年9月勞動參與率為61.8%，與前月相比變動不大，且自今年1月以來一直呈現小幅變動的情況，文件並未提及三個月變化的具體原因。",
+  "drivers": [],
+  "evidence": "Both the labor force participation rate, at 61.8 percent, and the employment-population ratio, at 59.2 percent, changed little in September.",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/empsit.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-09-01",
+  "fred_id": "CIVPART"
  },
  "CIVPART@2026-08-01": {
   "summary_zh": "2026年8月勞動參與率微升至61.6%，但自今年1月以來已下降0.5個百分點。同期就業人口比率為59.1%，較上月及自1月以來均變化不大。",
@@ -350,6 +387,20 @@
   "model": "claude-sonnet-5",
   "reference_date": "2026-06-01",
   "fred_id": "CPILFESL"
+ },
+ "FEDFUNDS@2026-09-01": {
+  "summary_zh": "聯邦公開市場委員會決議將聯邦資金利率目標區間上調1/4個百分點至3.75%至4%，以支持充分就業與物價穩定的雙重目標。文件指出經濟活動正以穩健步調擴張，就業增長與勞動力同步，失業率變化不大，但通膨仍處於偏高水準。此次升息旨在促使通膨更快回到2%目標。",
+  "drivers": [
+   "經濟活動以穩健步調擴張",
+   "國內支出保持韌性",
+   "生產力成長強勁、資本投資穩健",
+   "通膨仍處於偏高水準"
+  ],
+  "evidence": "The Committee decided to raise the target range for the federal funds rate by 1/4 percentage point to 3-3/4 to 4 percent",
+  "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-09-01",
+  "fred_id": "FEDFUNDS"
  },
  "FEDFUNDS@2026-07-01": {
   "summary_zh": "聯邦公開市場委員會決議維持聯邦資金利率目標區間於3.50%至3.75%不變，以支持雙重使命。文件指出經濟活動雖面臨中東衝突帶來的不確定性,仍以穩健步伐擴張,通膨相對於2%目標仍偏高，部分反映能源等部門的供給衝擊。三名委員投票反對，主張應升息1/4個百分點。",
