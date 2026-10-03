@@ -1634,9 +1634,6 @@ COHR,Coherent Corp. Common Stock,N,False,common,nasdaqtrader
 COHU,"Cohu, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 COIN,"Coinbase Global, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 COKE,"Coca-Cola Consolidated, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-COLA,Columbus Acquisition Corp - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-COLAR,Columbus Acquisition Corp - Rights,NASDAQ,False,right,nasdaqtrader
-COLAU,Columbus Acquisition Corp - Unit,NASDAQ,False,unit,nasdaqtrader
 COLB,"Columbia Banking System, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 COLD,"Americold Realty Trust, Inc. Common Stock",N,False,common,nasdaqtrader
 COLL,"Collegium Pharmaceutical, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -2093,6 +2090,7 @@ DWSN,Dawson Geophysical Company - Common Stock,NASDAQ,False,common,nasdaqtrader
 DWTX,"Dogwood Therapeutics, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
 DX,"Dynex Capital, Inc. Common Stock",N,False,common,nasdaqtrader
 DX-PC,"Dynex Capital, Inc. 6.900% Series C Fixed-to-Floating Rate Cumulative Redeemable Preferred Stock",N,False,preferred,nasdaqtrader
+DX-PD,"Dynex Capital, Inc. 9.375% Series D Fixed-Rate Cumulative Redeemable Preferred Stock",N,False,preferred,nasdaqtrader
 DXC,DXC Technology Company Common Stock,N,False,common,nasdaqtrader
 DXCM,"DexCom, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 DXF,"Eason Technology Limited American Depositary Shares (each representing sixty-thousand (60,000) Ordinary Shares)",A,False,common,nasdaqtrader
@@ -2661,7 +2659,6 @@ FRVO,Fervo Energy Company - Class A common stock,NASDAQ,False,common,nasdaqtrade
 FSBC,Five Star Bancorp - Common Stock,NASDAQ,False,common,nasdaqtrader
 FSBW,"FS Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 FSCO,FS Credit Opportunities Corp. Common Stock,N,False,common,nasdaqtrader
-FSEA,"First Seacoast Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 FSHP,Flag Ship Acquisition Corp. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 FSHPR,Flag Ship Acquisition Corp. - Right,NASDAQ,False,right,nasdaqtrader
 FSHPU,Flag Ship Acquisition Corp. - Unit,NASDAQ,False,unit,nasdaqtrader
@@ -2821,7 +2818,6 @@ GEV,GE Vernova Inc. Common Stock,N,False,common,nasdaqtrader
 GEVO,"Gevo, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 GF,"New Germany Fund, Inc. (The) Common Stock",N,False,common,nasdaqtrader
 GFAI,"Guardforce AI Co., Limited - Ordinary Shares",NASDAQ,False,common,nasdaqtrader
-GFAIW,"Guardforce AI Co., Limited - Warrant",NASDAQ,False,warrant,nasdaqtrader
 GFF,Griffon Corporation Common Stock,N,False,common,nasdaqtrader
 GFI,Gold Fields Limited American Depositary Shares,N,False,common,nasdaqtrader
 GFL,"GFL Environmental Inc. Subordinate voting shares, no par value",N,False,common,nasdaqtrader
@@ -4782,7 +4778,8 @@ NSP,"Insperity, Inc. Common Stock",N,False,common,nasdaqtrader
 NSPR,InspireMD Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 NSRX,Nasus Pharma Ltd. Ordinary Shares,A,False,common,nasdaqtrader
 NSSC,"NAPCO Security Technologies, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-NSTS,"NSTS Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+NSTR,"NorthStar Earth & Space Enterprises, Inc. Common Shares",A,False,common,nasdaqtrader
+NSTR-W,"NorthStar Earth & Space Enterprises, Inc. Warrants",A,False,warrant,nasdaqtrader
 NSYS,Nortech Systems Incorporated - Common Stock,NASDAQ,False,common,nasdaqtrader
 NTAP,"NetApp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 NTB,Bank of N.T. Butterfield & Son Limited (The) Voting Ordinary Shares,N,False,common,nasdaqtrader
@@ -5533,7 +5530,7 @@ PUK,Prudential Public Limited Company Common Stock,N,False,common,nasdaqtrader
 PULM,"Pulmatrix, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PUMP,ProPetro Holding Corp. Common Stock,N,False,common,nasdaqtrader
 PURR,Hyperliquid Strategies Inc - Common Stock,NASDAQ,False,common,nasdaqtrader
-PUSA,Aureus Greenway Holdings Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
+PUSA,Powerus Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 PVH,PVH Corp. Common Stock,N,False,common,nasdaqtrader
 PVL,Permianville Royalty Trust Units of Beneficial Interest,N,False,unit,nasdaqtrader
 PVLA,"Palvella Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -5942,6 +5939,7 @@ SAIC,Science Applications International Corporation - Common Stock,NASDAQ,False,
 SAIH,SAIHEAT Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 SAIHW,SAIHEAT Limited - Warrant,NASDAQ,False,warrant,nasdaqtrader
 SAIL,"SailPoint, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+SAIQ,WISeSat.Space Holdings Corp. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 SAJ,Saratoga Investment Corp 8.00% Notes due 2027,N,False,note,nasdaqtrader
 SAM,"Boston Beer Company, Inc. (The) Common Stock",N,False,common,nasdaqtrader
 SAMG,Silvercrest Asset Management Group Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -6621,7 +6619,6 @@ THM,"International Tower Hill Mines, Ltd. Ordinary Shares (Canada)",A,False,comm
 THO,"Thor Industries, Inc. Common Stock",N,False,common,nasdaqtrader
 THQ,abrdn Healthcare Opportunities Fund Shares of Beneficial Interest,N,False,common,nasdaqtrader
 THRM,Gentherm Inc - Common Stock,NASDAQ,False,common,nasdaqtrader
-THRMV,Gentherm Inc - Gentherm Inc Common Stock When-Issued,NASDAQ,False,common,nasdaqtrader
 THRY,"Thryv Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 THW,abrdn World Healthcare Fund Shares of Beneficial Interest,N,False,common,nasdaqtrader
 TIC,"TIC Solutions, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -6976,9 +6973,6 @@ UZX,Linkage Global Inc - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrade
 V,Visa Inc.,N,False,common,nasdaqtrader
 VABK,Virginia National Bankshares Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 VAC,Marriott Vacations Worldwide Corporation Common Stock,N,False,common,nasdaqtrader
-VACI,Viking Acquisition Corp. I Class A Ordinary Shares,N,False,common,nasdaqtrader
-VACI-U,"Viking Acquisition Corp. I Units, each consisting of one Class A ordinary share and one-third of one Warrant",N,False,warrant,nasdaqtrader
-VACI-W,Viking Acquisition Corp. I Warrants to purchase one Class A Ordinary Share,N,False,warrant,nasdaqtrader
 VAI,Valor Energy Incorporated - Common Stock,NASDAQ,False,common,nasdaqtrader
 VAL,Valaris Limited Common Shares,N,False,common,nasdaqtrader
 VAL-W,Valaris Limited Warrants,N,False,warrant,nasdaqtrader
