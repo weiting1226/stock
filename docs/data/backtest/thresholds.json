@@ -1,8 +1,8 @@
 {
- "as_of": "2026-09-28",
+ "as_of": "2026-10-05",
  "objective": "sharpe",
  "period": {
-  "start": "2011-09-28",
+  "start": "2011-10-05",
   "end": "2026-08-10"
  },
  "candidates": 142,
@@ -13,13 +13,13 @@
   "buffer": 0.2,
   "metrics": {
    "total_return_pct": 9009.86,
-   "cagr_pct": 35.47,
-   "volatility_pct": 36.13,
-   "sharpe": 1.024,
+   "cagr_pct": 35.52,
+   "volatility_pct": 36.15,
+   "sharpe": 1.025,
    "max_drawdown_pct": -41.78,
-   "win_rate_pct": 55.06,
-   "years": 14.86,
-   "days": 3736,
+   "win_rate_pct": 55.13,
+   "years": 14.84,
+   "days": 3731,
    "rebalances": 79
   },
   "warning": "在同一段歷史上挑出來的最佳值，必然偏樂觀，不可當成預期績效"
@@ -42,8 +42,8 @@
     "tqqq_center": 0.4,
     "sgov_center": -1.0,
     "buffer": 0.0,
-    "train_score": 1.231,
-    "train_cagr_pct": 49.91,
+    "train_score": 1.235,
+    "train_cagr_pct": 50.27,
     "test_return_pct": 0.84
    },
    {
@@ -52,8 +52,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -1.0,
     "buffer": 0.1,
-    "train_score": 1.064,
-    "train_cagr_pct": 24.57,
+    "train_score": 1.067,
+    "train_cagr_pct": 24.69,
     "test_return_pct": -12.99
    },
    {
@@ -62,8 +62,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -1.0,
     "buffer": 0.3,
-    "train_score": 0.831,
-    "train_cagr_pct": 20.06,
+    "train_score": 0.832,
+    "train_cagr_pct": 20.14,
     "test_return_pct": 94.1
    },
    {
@@ -72,8 +72,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -1.0,
     "buffer": 0.2,
-    "train_score": 1.13,
-    "train_cagr_pct": 25.46,
+    "train_score": 1.132,
+    "train_cagr_pct": 25.55,
     "test_return_pct": 16.25
    },
    {
@@ -82,8 +82,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -1.0,
     "buffer": 0.2,
-    "train_score": 1.107,
-    "train_cagr_pct": 25.0,
+    "train_score": 1.108,
+    "train_cagr_pct": 25.07,
     "test_return_pct": 20.21
    },
    {
@@ -92,8 +92,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -1.0,
     "buffer": 0.2,
-    "train_score": 1.12,
-    "train_cagr_pct": 24.42,
+    "train_score": 1.121,
+    "train_cagr_pct": 24.48,
     "test_return_pct": 45.07
    },
    {
@@ -102,8 +102,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -0.4,
     "buffer": 0.1,
-    "train_score": 1.197,
-    "train_cagr_pct": 29.82,
+    "train_score": 1.198,
+    "train_cagr_pct": 29.89,
     "test_return_pct": -1.33
    },
    {
@@ -112,8 +112,8 @@
     "tqqq_center": 0.2,
     "sgov_center": -0.4,
     "buffer": 0.1,
-    "train_score": 1.195,
-    "train_cagr_pct": 52.87,
+    "train_score": 1.196,
+    "train_cagr_pct": 52.99,
     "test_return_pct": -41.47
    },
    {
@@ -122,8 +122,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -0.2,
     "buffer": 0.3,
-    "train_score": 1.034,
-    "train_cagr_pct": 24.66,
+    "train_score": 1.035,
+    "train_cagr_pct": 24.7,
     "test_return_pct": 11.46
    },
    {
@@ -132,8 +132,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -0.2,
     "buffer": 0.3,
-    "train_score": 1.028,
-    "train_cagr_pct": 23.54,
+    "train_score": 1.029,
+    "train_cagr_pct": 23.58,
     "test_return_pct": 26.92
    },
    {
@@ -142,8 +142,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -0.2,
     "buffer": 0.3,
-    "train_score": 1.044,
-    "train_cagr_pct": 23.62,
+    "train_score": 1.045,
+    "train_cagr_pct": 23.66,
     "test_return_pct": 0.36
    },
    {
@@ -153,7 +153,7 @@
     "sgov_center": -1.0,
     "buffer": 0.2,
     "train_score": 1.006,
-    "train_cagr_pct": 34.32,
+    "train_cagr_pct": 34.37,
     "test_return_pct": 36.65
    }
   ],
@@ -165,13 +165,13 @@
   "buffer": 0.15,
   "metrics": {
    "total_return_pct": 6186.98,
-   "cagr_pct": 32.13,
-   "volatility_pct": 35.43,
-   "sharpe": 0.967,
+   "cagr_pct": 32.18,
+   "volatility_pct": 35.45,
+   "sharpe": 0.968,
    "max_drawdown_pct": -41.78,
-   "win_rate_pct": 55.54,
-   "years": 14.86,
-   "days": 3736,
+   "win_rate_pct": 55.62,
+   "years": 14.84,
+   "days": 3731,
    "rebalances": 89
   },
   "metrics_same_window_as_walk_forward": {
@@ -188,14 +188,14 @@
  },
  "qqq_buy_and_hold": {
   "metrics": {
-   "total_return_pct": 1221.97,
-   "cagr_pct": 18.96,
-   "volatility_pct": 20.68,
-   "sharpe": 0.944,
+   "total_return_pct": 1246.67,
+   "cagr_pct": 19.14,
+   "volatility_pct": 20.65,
+   "sharpe": 0.952,
    "max_drawdown_pct": -35.62,
-   "win_rate_pct": 55.63,
-   "years": 14.87,
-   "days": 3737
+   "win_rate_pct": 55.65,
+   "years": 14.85,
+   "days": 3732
   },
   "metrics_same_window_as_walk_forward": {
    "total_return_pct": 610.71,
@@ -213,64 +213,71 @@
   "note": "逐年前進需留訓練期，樣本外從第 5 年才開始；同期欄位才可直接比較"
  },
  "plateau": {
-  "best_score": 1.024,
-  "median_score": 0.926,
-  "z_vs_all": 1.72,
+  "best_score": 1.025,
+  "median_score": 0.927,
+  "z_vs_all": 1.73,
   "expected_z_from_noise_alone": 3.15,
   "best_is_within_noise": true,
   "score_spread": 0.303,
   "score_sd": 0.0569,
   "top_n": 10,
-  "top_score_spread": 0.031,
+  "top_score_spread": 0.032,
   "top_params": [
    {
     "label": "T+0.4/S-1.0/B0.20",
-    "score": 1.024,
+    "score": 1.025,
     "tqqq_center": 0.4,
     "sgov_center": -1.0,
     "buffer": 0.2
    },
    {
     "label": "T+0.4/S-0.8/B0.20",
-    "score": 1.019,
+    "score": 1.02,
     "tqqq_center": 0.4,
     "sgov_center": -0.8,
     "buffer": 0.2
    },
    {
     "label": "T+0.4/S-0.6/B0.20",
-    "score": 1.016,
+    "score": 1.017,
     "tqqq_center": 0.4,
     "sgov_center": -0.6,
     "buffer": 0.2
    },
    {
     "label": "T+0.8/S-0.2/B0.30",
-    "score": 1.002,
+    "score": 1.003,
     "tqqq_center": 0.8,
     "sgov_center": -0.2,
     "buffer": 0.3
    },
    {
     "label": "T+0.4/S-1.0/B0.15",
-    "score": 0.999,
+    "score": 1.0,
     "tqqq_center": 0.4,
     "sgov_center": -1.0,
     "buffer": 0.15
    },
    {
     "label": "T+0.2/S-1.0/B0.20",
-    "score": 0.996,
+    "score": 0.997,
     "tqqq_center": 0.2,
     "sgov_center": -1.0,
     "buffer": 0.2
    },
    {
     "label": "T+0.8/S-1.0/B0.30",
-    "score": 0.996,
+    "score": 0.997,
     "tqqq_center": 0.8,
     "sgov_center": -1.0,
     "buffer": 0.3
+   },
+   {
+    "label": "T+0.4/S-0.6/B0.15",
+    "score": 0.996,
+    "tqqq_center": 0.4,
+    "sgov_center": -0.6,
+    "buffer": 0.15
    },
    {
     "label": "T+0.8/S-0.8/B0.30",
@@ -278,13 +285,6 @@
     "tqqq_center": 0.8,
     "sgov_center": -0.8,
     "buffer": 0.3
-   },
-   {
-    "label": "T+0.4/S-0.6/B0.15",
-    "score": 0.995,
-    "tqqq_center": 0.4,
-    "sgov_center": -0.6,
-    "buffer": 0.15
    },
    {
     "label": "T+0.6/S-1.0/B0.15",
