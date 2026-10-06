@@ -795,7 +795,7 @@ BC,Brunswick Corporation Common Stock,N,False,common,nasdaqtrader
 BC-PC,Brunswick Corporation 6.375% Notes due 2049,N,False,preferred,nasdaqtrader
 BCAL,California BanCorp - Common Stock,NASDAQ,False,common,nasdaqtrader
 BCAT,BlackRock Capital Allocation Term Trust Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
-BCAT-V,"BlackRock Capital Allocation Term Trust Rights (expiring October 21, 2026) Rights when issued",N,False,right,nasdaqtrader
+BCAT-R,"BlackRock Capital Allocation Term Trust Rights (expiring October 21, 2026) Rights",N,False,right,nasdaqtrader
 BCAX,Bicara Therapeutics Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 BCBP,"BCB Bancorp, Inc. (NJ) - Common Stock",NASDAQ,False,common,nasdaqtrader
 BCC,"Boise Cascade, L.L.C. Common Stock",N,False,common,nasdaqtrader
@@ -1766,9 +1766,7 @@ CTAAU,ClearThink 1 Acquisition Corp. - Units,NASDAQ,False,unit,nasdaqtrader
 CTAS,Cintas Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 CTBI,"Community Trust Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 CTEV,Claritev Corporation Class A Common Stock,N,False,common,nasdaqtrader
-CTGG,Qwest Corporation 6.500% Senior Notes due 2051 (denominations of $25),N,False,note,nasdaqtrader
 CTGO,Contango Silver & Gold Inc. Common Stock,A,False,common,nasdaqtrader
-CTHH,Qwest Corporation 6.750% Senior Notes due 2052 (denominations of $25),N,False,note,nasdaqtrader
 CTKB,"Cytek Biosciences, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 CTM,"Castellum, Inc. Common Stock",A,False,common,nasdaqtrader
 CTMX,"CytomX Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -1881,9 +1879,6 @@ DBD,Diebold Nixdorf Incorporated Common stock,N,False,common,nasdaqtrader
 DBGI,"Digital Brands Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 DBI,Designer Brands Inc. Class A Common Stock,N,False,common,nasdaqtrader
 DBL,DoubleLine Opportunistic Credit Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
-DBRG-PH,"DigitalBridge Group, Inc. 7.125% Series H",N,False,preferred,nasdaqtrader
-DBRG-PI,"DigitalBridge Group, Inc. 7.15% Series I",N,False,preferred,nasdaqtrader
-DBRG-PJ,"DigitalBridge Group, Inc. 7.125% Series J",N,False,preferred,nasdaqtrader
 DBVT,DBV Technologies S.A. - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 DBX,"Dropbox, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 DC,Dakota Gold Corp. Common Stock,A,False,common,nasdaqtrader
@@ -1904,8 +1899,8 @@ DDD,3D Systems Corporation Common Stock,N,False,common,nasdaqtrader
 DDI,"DoubleDown Interactive Co., Ltd. - American Depository Shares",NASDAQ,False,common,nasdaqtrader
 DDL,Dingdong (Cayman) Limited American Depositary Shares (each two representing three Ordinary Shares),N,False,common,nasdaqtrader
 DDOG,"Datadog, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
-DDS,"Dillard's, Inc. Common Stock",N,False,common,nasdaqtrader
-DDT,Dillard's Capital Trust I,N,False,common,nasdaqtrader
+DDS,"Dillard's, Inc. Common Stock",F,False,common,nasdaqtrader
+DDT,Dillard's Capital Trust I,F,False,common,nasdaqtrader
 DE,Deere & Company Common Stock,N,False,common,nasdaqtrader
 DEA,"Easterly Government Properties, Inc. Common Stock",N,False,common,nasdaqtrader
 DEC,Diversified Energy Company Common Stock,N,False,common,nasdaqtrader
@@ -2024,7 +2019,6 @@ DPRO,Draganfly Inc. - Common Shares,NASDAQ,False,common,nasdaqtrader
 DPU,Top KingWin Ltd - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 DPZ,Domino's Pizza Inc - Common Stock,NASDAQ,False,common,nasdaqtrader
 DQ,"DAQO New Energy Corp. American Depositary Shares, each representing five ordinary shares",N,False,common,nasdaqtrader
-DRCT,"Direct Digital Holdings, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 DRD,DRDGOLD Limited American Depositary Shares,N,False,common,nasdaqtrader
 DRDB,Roman DBDR Acquisition Corp. II - Ordinary shares,NASDAQ,False,common,nasdaqtrader
 DRDBU,Roman DBDR Acquisition Corp. II - Unit,NASDAQ,False,unit,nasdaqtrader
@@ -2331,8 +2325,8 @@ ESS,"Essex Property Trust, Inc. Common Stock",N,False,common,nasdaqtrader
 ESTA,Establishment Labs Holdings Inc. - Common Shares,NASDAQ,False,common,nasdaqtrader
 ESTC,Elastic N.V. Ordinary Shares,N,False,common,nasdaqtrader
 ESYN,EnerSyn Global Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
-ET,Energy Transfer LP Common Units,N,False,common,nasdaqtrader
-ET-PI,Energy Transfer L.P. Series I Fixed Rate Perpetual Preferred Units,N,False,preferred,nasdaqtrader
+ET,Energy Transfer LP Common Units,F,False,common,nasdaqtrader
+ET-PI,Energy Transfer L.P. Series I Fixed Rate Perpetual Preferred Units,F,False,preferred,nasdaqtrader
 ETB,Eaton Vance Tax-Managed Buy-Write Income Fund Eaton Vance Tax-Managed Buy-Write Income Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 ETD,Ethan Allen Interiors Inc. Common Stock,N,False,common,nasdaqtrader
 ETG,Eaton Vance Tax-Advantaged Global Dividend Income Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
@@ -3064,7 +3058,6 @@ GUTS,"Fractyl Health, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 GVA,Granite Construction Incorporated Common Stock,N,False,common,nasdaqtrader
 GVH,Globavend Holdings Limited - Ord Shares,NASDAQ,False,common,nasdaqtrader
 GWAV,"Greenwave Technology Solutions, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-GWH,"ESS Tech, Inc. Common Stock",N,False,common,nasdaqtrader
 GWRE,"Guidewire Software, Inc. Common Stock",N,False,common,nasdaqtrader
 GWRS,"Global Water Resources, Inc. - common stock",NASDAQ,False,common,nasdaqtrader
 GWW,"W.W. Grainger, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -3509,7 +3502,9 @@ IPFXU,Inflection Point Acquisition Corp. VI - Units,NASDAQ,False,unit,nasdaqtrad
 IPFXW,Inflection Point Acquisition Corp. VI - Warrant,NASDAQ,False,warrant,nasdaqtrader
 IPGP,IPG Photonics Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 IPHA,Innate Pharma S.A. - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
+IPHX,Inflection Point Acquisition Corp. VIII - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 IPHXU,Inflection Point Acquisition Corp. VIII - Unit,NASDAQ,False,unit,nasdaqtrader
+IPHXW,Inflection Point Acquisition Corp. VIII - Warrant,NASDAQ,False,warrant,nasdaqtrader
 IPI,"Intrepid Potash, Inc Common Stock",N,False,common,nasdaqtrader
 IPM,Intelligent Protection Management Corp.  - Common Stock,NASDAQ,False,common,nasdaqtrader
 IPSC,"Century Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -3910,7 +3905,6 @@ LEN,Lennar Corporation Class A Common Stock,N,False,common,nasdaqtrader
 LEN-B,Lennar Corporation Class B,N,False,common,nasdaqtrader
 LENZ,"LENZ Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 LEO,"BNY Mellon Strategic Municipals, Inc. Common Stock",N,False,common,nasdaqtrader
-LESL,"Leslie's, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 LEU,Centrus Energy Corp. Class A Common Stock,N,False,common,nasdaqtrader
 LEVI,Levi Strauss & Co Class A Common Stock,N,False,common,nasdaqtrader
 LEXX,Lexaria Bioscience Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -4062,7 +4056,6 @@ LUCY,"Innovative Eyewear, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 LUCYW,"Innovative Eyewear, Inc. - Warrants",NASDAQ,False,warrant,nasdaqtrader
 LUD,Luda Technology Group Limited Ordinary Shares,A,False,common,nasdaqtrader
 LULU,lululemon athletica inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
-LUMN,"Lumen Technologies, Inc. Common Stock",N,False,common,nasdaqtrader
 LUNG,Pulmonx Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 LUNR,"Intuitive Machines, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 LUV,Southwest Airlines Company Common Stock,N,False,common,nasdaqtrader
@@ -4653,7 +4646,6 @@ NHIV,NewHold Investment Corp IV - Class A Ordinary Shares,NASDAQ,False,common,na
 NHIVU,NewHold Investment Corp IV - Units,NASDAQ,False,unit,nasdaqtrader
 NHIVW,NewHold Investment Corp IV - Warrants,NASDAQ,False,warrant,nasdaqtrader
 NHP,"National Healthcare Properties, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
-NHPBP,"National Healthcare Properties, Inc. - 7.125% Series B Cumulative Redeemable Perpetual Preferred Stock",NASDAQ,False,preferred,nasdaqtrader
 NHS,Neuberger High Yield Strategies Fund Inc. Common Stock,A,False,common,nasdaqtrader
 NHTC,Natural Health Trends Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 NI,NiSource Inc Common Stock,N,False,common,nasdaqtrader
@@ -5493,7 +5485,6 @@ PSFE,Paysafe Limited Common Shares,N,False,common,nasdaqtrader
 PSHG,Performance Shipping Inc. - Common Shares,NASDAQ,False,common,nasdaqtrader
 PSIG,PS International Group Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 PSIX,"Power Solutions International, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-PSKY,Paramount Skydance Corporation - Class B Common Stock,NASDAQ,False,common,nasdaqtrader
 PSMT,"PriceSmart, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PSN,Parsons Corporation Common Stock,N,False,common,nasdaqtrader
 PSNL,"Personalis, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -5582,7 +5573,6 @@ QRED,QuasarEdge Acquisition Corporation Ordinary Shares,N,False,common,nasdaqtra
 QRED-R,QuasarEdge Acquisition Corporation Rights to receive one-fourth (1/4) of one Ordinary Share,N,False,right,nasdaqtrader
 QRED-U,"QuasarEdge Acquisition Corporation Units, each consisting of one Ordinary Share and one right entitling the holder to receive one-fourth (1/4) of one Ordinary Share",N,False,unit,nasdaqtrader
 QRHC,Quest Resource Holding Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
-QRVO,"Qorvo, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 QS,QuantumScape Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 QSEA,Quartzsea Acquisition Corporation - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 QSEAR,Quartzsea Acquisition Corporation - Rights,NASDAQ,False,right,nasdaqtrader
@@ -5884,6 +5874,7 @@ RVTY,"Revvity, Inc. Common Stock",N,False,common,nasdaqtrader
 RWAY,Runway Growth Finance Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 RWAYI,Runway Growth Finance Corp. - 7.25% Notes due 2031,NASDAQ,False,note,nasdaqtrader
 RWAYL,Runway Growth Finance Corp. - 7.50% Notes due 2027,NASDAQ,False,note,nasdaqtrader
+RWAYM,Runway Growth Finance Corp. - 7.75% Notes Due 2031,NASDAQ,False,note,nasdaqtrader
 RWT,"Redwood Trust, Inc. Common Stock",N,False,common,nasdaqtrader
 RWT-PA,"Redwood Trust, Inc. 10.00% Series A Fixed-Rate Reset Cumulative Redeemable Preferred Stock",N,False,preferred,nasdaqtrader
 RWTN,"Redwood Trust, Inc. 9.125% Senior Notes Due 2029",N,False,note,nasdaqtrader
@@ -6156,6 +6147,7 @@ SKWD,"Skyward Specialty Insurance Group, Inc. - Common Stock",NASDAQ,False,commo
 SKY,"Champion Homes, Inc. Common Stock",N,False,common,nasdaqtrader
 SKYA,"SkyAI, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SKYAW,"SkyAI, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
+SKYD,Skydance Corporation Class B Common Stock,N,False,common,nasdaqtrader
 SKYE,"Skye Bioscience, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SKYH,Sky Harbour Group Corporation Class A Common Stock,N,False,common,nasdaqtrader
 SKYH-W,"Sky Harbour Group Corporation Warrants, each whole warrant exercisable for one share of Class A common stock at an exercise price of $11.50 per share",N,False,warrant,nasdaqtrader
@@ -6429,9 +6421,9 @@ SUJA,"Suja Life, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 SUMA,SUMA Acquisition Corporation - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 SUMAR,SUMA Acquisition Corporation - Rights,NASDAQ,False,right,nasdaqtrader
 SUMAU,SUMA Acquisition Corporation - Units,NASDAQ,False,unit,nasdaqtrader
-SUN,Sunoco LP Common Units representing limited partner interests,N,False,common,nasdaqtrader
+SUN,Sunoco LP Common Units representing limited partner interests,F,False,common,nasdaqtrader
 SUNB,"Sunbelt Rentals Holdings, Inc. Common Stock",N,False,common,nasdaqtrader
-SUNC,"SunocoCorp LLC Common Units, representing limited liability company interests",N,False,common,nasdaqtrader
+SUNC,"SunocoCorp LLC Common Units, representing limited liability company interests",F,False,common,nasdaqtrader
 SUNE,"SUNation Energy, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SUNS,"Sunrise Realty Trust, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SUPN,"Supernus Pharmaceuticals, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -6525,7 +6517,9 @@ TBB,AT&T Inc. 5.350% Global Notes due 2066,N,False,note,nasdaqtrader
 TBBB,BBB Foods Inc. Class A Common Shares,N,False,common,nasdaqtrader
 TBBK,"The Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 TBCH,Turtle Beach Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
+TBCV,"Thunder Bridge Capital Partners V, Ltd. - Class A Ordinary Shares",NASDAQ,False,common,nasdaqtrader
 TBCVU,"Thunder Bridge Capital Partners V, Ltd. - Units",NASDAQ,False,unit,nasdaqtrader
+TBCVW,"Thunder Bridge Capital Partners V, Ltd. - Warrants",NASDAQ,False,warrant,nasdaqtrader
 TBI,"TrueBlue, Inc. Common Stock",N,False,common,nasdaqtrader
 TBLA,Taboola.com Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 TBLD,Thornburg Income Builder Opportunities Trust - Closed End Fund,NASDAQ,False,common,nasdaqtrader
@@ -6829,7 +6823,6 @@ TWLV,Twelve Seas Investment Company III - Class A Ordinary Shares,NASDAQ,False,c
 TWLVR,Twelve Seas Investment Company III - Rights,NASDAQ,False,right,nasdaqtrader
 TWLVU,Twelve Seas Investment Company III - Units,NASDAQ,False,unit,nasdaqtrader
 TWN,"Taiwan Fund, Inc. (The) Common Stock",N,False,common,nasdaqtrader
-TWOD,Two Harbors Investments Corp 9.375% Senior Notes due 2030,N,False,note,nasdaqtrader
 TWST,Twist Bioscience Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 TX,"Ternium S.A. Ternium S.A. American Depositary Shares (each representing ten shares, USD1.00 par value)",N,False,common,nasdaqtrader
 TXG,"10x Genomics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -6925,7 +6918,7 @@ URGN,UroGen Pharma Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 URI,"United Rentals, Inc. Common Stock",N,False,common,nasdaqtrader
 UROY,Uranium Royalty Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 USA,Liberty All-Star Equity Fund Common Stock,N,False,common,nasdaqtrader
-USAC,"USA Compression Partners, LP Common Units Representing Limited Partner Interests",N,False,common,nasdaqtrader
+USAC,"USA Compression Partners, LP Common Units Representing Limited Partner Interests",F,False,common,nasdaqtrader
 USAR,"USA Rare Earth, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 USAS,"Americas Gold and Silver Corporation Common Shares, no par value",A,False,common,nasdaqtrader
 USAU,U.S. Gold Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -6961,7 +6954,6 @@ UVE,UNIVERSAL INSURANCE HOLDINGS INC Common Stock,N,False,common,nasdaqtrader
 UVSP,Univest Financial Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 UVV,Universal Corporation Common Stock,N,False,common,nasdaqtrader
 UWMC,UWM Holdings Corporation Class A Common Stock,N,False,common,nasdaqtrader
-UWMC-V,"UWM Holdings Corporation Rights (November 12, 2026) Rights when issued",N,False,right,nasdaqtrader
 UXIN,Uxin Limited - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 UYSC,UY Scuti Acquisition Corp. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 UYSCR,UY Scuti Acquisition Corp. - Rights,NASDAQ,False,right,nasdaqtrader
@@ -7049,6 +7041,7 @@ VIV,Telefonica Brasil S.A. American Depositary Shares (Each representing One Com
 VIVK,"Vivakor, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 VIVO,VivoPower PLC - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 VIVS,"VivoSim Labs, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+VJET,"Flyte Aviation, Inc. Common Stock",A,False,common,nasdaqtrader
 VKI,Invesco Advantage Municipal Income Trust II Common Shares of Beneficial Interest (DE),A,False,common,nasdaqtrader
 VKQ,Invesco Municipal Trust Common Stock,N,False,common,nasdaqtrader
 VKTX,"Viking Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -7124,7 +7117,6 @@ VST,Vistra Corp. Common Stock,N,False,common,nasdaqtrader
 VSTM,"Verastem, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 VSTS,Vestis Corporation Common Stock,N,False,common,nasdaqtrader
 VSXY,Victorias Secret & Co. Common Stock,N,False,common,nasdaqtrader
-VTAK,"Catheter Precision, Inc. Common Stock",A,False,common,nasdaqtrader
 VTEX,VTEX Class A Common Shares,N,False,common,nasdaqtrader
 VTGN,"Vistagen Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 VTIX,Virtuix Holdings Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -7158,8 +7150,6 @@ WAFDP,"WaFd, Inc. - Depositary Shares",NASDAQ,False,preferred,nasdaqtrader
 WAFU,Wah Fu Education Group Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 WAL,Western Alliance Bancorporation Common Stock (DE),N,False,common,nasdaqtrader
 WAL-PA,"Western Alliance Bancorporation Depositary Shares, Each Representing a 1/400th Interest in a Share of 4.250% Fixed-Rate Non-Cumulative Perpetual Preferred Stock, Series A",N,False,preferred,nasdaqtrader
-WALD,Waldencast plc - Class A Ordinary Share,NASDAQ,False,common,nasdaqtrader
-WALDW,Waldencast plc - Warrant,NASDAQ,False,warrant,nasdaqtrader
 WASH,"Washington Trust Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 WAT,Waters Corporation Common Stock,N,False,common,nasdaqtrader
 WATR,Air Water Ventures Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -7237,7 +7227,6 @@ WIW,Western Asset Inflation-Linked Opportunities & Income Fund,N,False,common,na
 WIX,Wix.com Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 WK,Workiva Inc. Class A Common Stock,N,False,common,nasdaqtrader
 WKC,World Kinect Corporation Common Stock,N,False,common,nasdaqtrader
-WKEY,WISeKey International Holding Ltd - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 WKHS,"Workhorse Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 WKSP,"Worksport, Ltd. - Common Stock",NASDAQ,False,common,nasdaqtrader
 WLCO,Wilco 63 Corporation - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -7275,6 +7264,7 @@ WPC,W. P. Carey Inc. REIT,N,False,common,nasdaqtrader
 WPM,Wheaton Precious Metals Corp Common Shares (Canada),N,False,common,nasdaqtrader
 WPP,WPP plc American Depositary Shares,N,False,common,nasdaqtrader
 WPRT,Westport Fuel Systems Inc - Common Shares,NASDAQ,False,common,nasdaqtrader
+WQEY,WISeQey Corp - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 WRAP,"Wrap Technologies, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 WRB,W.R. Berkley Corporation Common Stock,N,False,common,nasdaqtrader
 WRB-PE,W.R. Berkley Corporation 5.70% Subordinated Debentures due 2058,N,False,preferred,nasdaqtrader
