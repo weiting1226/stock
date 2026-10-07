@@ -505,7 +505,6 @@ ARAI,Arrive AI Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 ARAY,Accuray Incorporated - Common Stock,NASDAQ,False,common,nasdaqtrader
 ARBB,ARB IOT Group Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ARBE,Arbe Robotics Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-ARBEW,Arbe Robotics Ltd. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 ARBK,Argo Blockchain plc - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 ARCB,ArcBest Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 ARCC,Ares Capital Corporation - Closed End Fund,NASDAQ,False,common,nasdaqtrader
@@ -772,7 +771,6 @@ BB,BlackBerry Limited Common Stock,N,False,common,nasdaqtrader
 BBAI,"BigBear.ai, Inc. Common Stock",N,False,common,nasdaqtrader
 BBAI-W,"BigBear.ai, Inc. Redeemable Warrants, each exercisable for one share of Common Stock at an exercise price of $11.50 per share",N,False,warrant,nasdaqtrader
 BBAR,Banco BBVA Argentina S.A. ADS,N,False,common,nasdaqtrader
-BBBYW,"Neighborhood Intelligence, Inc.  - Warrant",NASDAQ,False,warrant,nasdaqtrader
 BBCP,"Concrete Pumping Holdings, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
 BBD,Banco Bradesco Sa American Depositary Shares,N,False,common,nasdaqtrader
 BBDC,"Barings BDC, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -984,7 +982,6 @@ BLBD,Blue Bird Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 BLCO,Bausch + Lomb Corporation Common Shares,N,False,common,nasdaqtrader
 BLDP,"Ballard Power Systems, Inc. - Common Shares",NASDAQ,False,common,nasdaqtrader
 BLDR,"Builders FirstSource, Inc. Common Stock",N,False,common,nasdaqtrader
-BLFS,"BioLife Solutions, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BLIN,"Bridgeline Digital, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BLIV,BeLive Holdings - ordinary shares,NASDAQ,False,common,nasdaqtrader
 BLK,"BlackRock, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -1766,7 +1763,9 @@ CTAAU,ClearThink 1 Acquisition Corp. - Units,NASDAQ,False,unit,nasdaqtrader
 CTAS,Cintas Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 CTBI,"Community Trust Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 CTEV,Claritev Corporation Class A Common Stock,N,False,common,nasdaqtrader
+CTGG,Qwest Corporation - 6.500% Notes due 2051,NASDAQ,False,note,nasdaqtrader
 CTGO,Contango Silver & Gold Inc. Common Stock,A,False,common,nasdaqtrader
+CTHH,Qwest Corporation - 6.750% Notes due 2052,NASDAQ,False,note,nasdaqtrader
 CTKB,"Cytek Biosciences, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 CTM,"Castellum, Inc. Common Stock",A,False,common,nasdaqtrader
 CTMX,"CytomX Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -3393,8 +3392,6 @@ IIPR,"Innovative Industrial Properties, Inc. Common Stock",N,False,common,nasdaq
 IIPR-PA,"Innovative Industrial Properties, Inc. 9.00% Series A Cumulative Redeemable Preferred Stock",N,False,preferred,nasdaqtrader
 IKT,"Inhibikase Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ILAG,Intelligent Living Application Group Inc. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-ILLR,Triller Group Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
-ILLRW,Triller Group Inc. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 ILLU,Illumination Acquisition Corp I - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ILLUU,Illumination Acquisition Corp I - Units,NASDAQ,False,unit,nasdaqtrader
 ILLUW,Illumination Acquisition Corp I - Warrant,NASDAQ,False,warrant,nasdaqtrader
@@ -4056,6 +4053,7 @@ LUCY,"Innovative Eyewear, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 LUCYW,"Innovative Eyewear, Inc. - Warrants",NASDAQ,False,warrant,nasdaqtrader
 LUD,Luda Technology Group Limited Ordinary Shares,A,False,common,nasdaqtrader
 LULU,lululemon athletica inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
+LUMN,"Lumen Technologies, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
 LUNG,Pulmonx Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 LUNR,"Intuitive Machines, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 LUV,Southwest Airlines Company Common Stock,N,False,common,nasdaqtrader
@@ -4681,7 +4679,6 @@ NMAD,"Nomad Power Solutions, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrad
 NMAI,Nuveen Multi-Asset Income Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 NMAX,"Newsmax, Inc. Class B Common Stock",N,False,common,nasdaqtrader
 NMCO,Nuveen Municipal Credit Opportunities Fund Common Shares,N,False,common,nasdaqtrader
-NMCO-R,"Nuveen Municipal Credit Opportunities Fund Rights (expiring October 7, 2026) Rights",N,False,right,nasdaqtrader
 NMFC,New Mountain Finance Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 NMFCZ,New Mountain Finance Corporation - 8.250% Notes due 2028,NASDAQ,False,note,nasdaqtrader
 NMG,Nouveau Monde Graphite Inc. Common Shares,N,False,common,nasdaqtrader
@@ -5145,6 +5142,7 @@ PATK,"Patrick Industries, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PAVM,PAVmed Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 PAVS,Paranovus Entertainment Technology Ltd. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 PAX,Patria Investments Limited - Class A Common Shares,NASDAQ,False,common,nasdaqtrader
+PAXGU,Pine Tree Acquisition Corp. - Units,NASDAQ,False,unit,nasdaqtrader
 PAXS,PIMCO Access Income Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 PAY,"Paymentus Holdings, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 PAYC,"Paycom Software, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -6178,7 +6176,6 @@ SLND-W,"Southland Holdings, Inc. Warrants",A,False,warrant,nasdaqtrader
 SLNG,"Stabilis Solutions, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SLNH,"Soluna Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SLNHP,"Soluna Holdings, Inc. - 9.0% Series A Cumulative Perpetual Preferred Stock",NASDAQ,False,preferred,nasdaqtrader
-SLP,"Simulations Plus, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SLQT,"SelectQuote, Inc. Common Stock",N,False,common,nasdaqtrader
 SLRC,SLR Investment Corp. - Closed End Fund,NASDAQ,False,common,nasdaqtrader
 SLS,"SELLAS Life Sciences Group, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -6293,9 +6290,6 @@ SPH,"Suburban Propane Partners, L.P. Common Stock",N,False,common,nasdaqtrader
 SPHL,Springview Holdings Ltd - Ordinary shares,NASDAQ,False,common,nasdaqtrader
 SPHR,Sphere Entertainment Co. Class A Common Stock,N,False,common,nasdaqtrader
 SPIR,"Spire Global, Inc. Class A Common Stock",N,False,common,nasdaqtrader
-SPKL,Spark I Acquisition Corp. - Class A Ordinary Share,NASDAQ,False,common,nasdaqtrader
-SPKLU,Spark I Acquisition Corp. - Unit,NASDAQ,False,unit,nasdaqtrader
-SPKLW,Spark I Acquisition Corp. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 SPMA,"Sound Point Meridian Capital, Inc. 8.00% Series A Preferred Shares Due 2029",N,False,preferred,nasdaqtrader
 SPMC,"Sound Point Meridian Capital, Inc. Common Stock",N,False,common,nasdaqtrader
 SPME,"Sound Point Meridian Capital, Inc. 7.875% Series B Preferred Shares due 2030",N,False,preferred,nasdaqtrader
@@ -7157,7 +7151,6 @@ WATT,Energous Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 WAVE,Eco Wave Power Global AB (publ) - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 WAY,Waystar Holding Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 WB,Weibo Corporation - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
-WBD,"Warner Bros. Discovery, Inc. - Series A Common Stock",NASDAQ,False,common,nasdaqtrader
 WBI,WaterBridge Infrastructure LLC Class A Shares Representing Limited Liability Company Interests,N,False,common,nasdaqtrader
 WBTN,WEBTOON Entertainment Inc. - Common stock,NASDAQ,False,common,nasdaqtrader
 WBUY,WEBUY GLOBAL LTD. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
