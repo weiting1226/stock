@@ -89,3 +89,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-09-30,8,PCG,PG&E Corporation,57.79,52.03,moderate
 2026-09-30,9,CRH,CRH plc,57.54,45.06,moderate
 2026-09-30,10,MGM,MGM Resorts,56.51,34.46,low
+2026-10-07,1,NRG,NRG Energy,79.05,89.49,extreme
+2026-10-07,2,APP,AppLovin,77.82,93.8,extreme
+2026-10-07,3,WYNN,Wynn Resorts,72.15,21.23,low
+2026-10-07,4,AXON,Axon Enterprise,68.2,55.39,moderate
+2026-10-07,5,ORCL,Oracle Corporation,64.38,121.86,extreme
+2026-10-07,6,LVS,Las Vegas Sands,62.68,41.48,moderate
+2026-10-07,7,WDC,Western Digital,62.17,94.51,extreme
+2026-10-07,8,MGM,MGM Resorts,61.53,34.46,low
+2026-10-07,9,WY,Weyerhaeuser,60.8,56.84,high
+2026-10-07,10,FICO,Fair Isaac,60.71,112.73,extreme

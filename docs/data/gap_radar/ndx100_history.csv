@@ -79,3 +79,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-09-30,8,TMUS,T-Mobile US,49.42,53.79,moderate
 2026-09-30,9,MSTR,Strategy Inc,48.62,130.08,extreme
 2026-09-30,10,PDD,PDD Holdings Inc.,47.89,56.84,moderate
+2026-10-07,1,APP,AppLovin,77.82,93.8,high
+2026-10-07,2,AXON,Axon Enterprise,68.2,55.39,moderate
+2026-10-07,3,ALNY,"Alnylam Pharmaceuticals, Inc.",65.72,75.45,moderate
+2026-10-07,4,WDC,Western Digital,62.17,94.51,high
+2026-10-07,5,CRWV,"CoreWeave, Inc.",53.24,170.04,extreme
+2026-10-07,6,BKNG,Booking Holdings,51.0,47.47,low
+2026-10-07,7,MU,Micron Technology,46.87,119.76,extreme
+2026-10-07,8,PDD,PDD Holdings Inc.,46.41,56.84,moderate
+2026-10-07,9,RKLB,Rocket Lab Corporation,45.42,78.79,moderate
+2026-10-07,10,CPRT,Copart,45.41,76.92,moderate
