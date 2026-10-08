@@ -771,6 +771,8 @@ BB,BlackBerry Limited Common Stock,N,False,common,nasdaqtrader
 BBAI,"BigBear.ai, Inc. Common Stock",N,False,common,nasdaqtrader
 BBAI-W,"BigBear.ai, Inc. Redeemable Warrants, each exercisable for one share of Common Stock at an exercise price of $11.50 per share",N,False,warrant,nasdaqtrader
 BBAR,Banco BBVA Argentina S.A. ADS,N,False,common,nasdaqtrader
+BBCI,Bradbury Capital Inc. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+BBCIW,Bradbury Capital Inc. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 BBCP,"Concrete Pumping Holdings, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
 BBD,Banco Bradesco Sa American Depositary Shares,N,False,common,nasdaqtrader
 BBDC,"Barings BDC, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -6519,8 +6521,8 @@ TBLA,Taboola.com Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 TBLD,Thornburg Income Builder Opportunities Trust - Closed End Fund,NASDAQ,False,common,nasdaqtrader
 TBN,Tamboran Resources Corporation Common stock,N,False,common,nasdaqtrader
 TC,Token Cat Limited - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
-TCBI,"Texas Capital Bancshares, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-TCBIO,"Texas Capital Bancshares, Inc. - Depositary Shares 5.75% Fixed Rate Non-Cumulative Perpetual Preferred Stock Series B",NASDAQ,False,preferred,nasdaqtrader
+TCBI,"Texas Capital Bancshares, Inc. Common Stock",F,False,common,nasdaqtrader
+TCBI-PB,"Texas Capital Bancshares, Inc. Depositary Shares 5.75% Fixed Rate Non-Cumulative Perpetual Preferred Stock Series B",F,False,preferred,nasdaqtrader
 TCBK,TriCo Bancshares - Common Stock,NASDAQ,False,common,nasdaqtrader
 TCBS,"Texas Community Bancshares, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 TCBX,"Third Coast Bancshares, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -7250,6 +7252,7 @@ WOK,WORK Medical Technology Group LTD - Class A Ordinary Shares,NASDAQ,False,com
 WOLF,"Wolfspeed, Inc. Common Stock New",N,False,common,nasdaqtrader
 WOOF,"Petco Health and Wellness Company, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 WOR,"Worthington Enterprises, Inc. Common Shares",N,False,common,nasdaqtrader
+WORX,SCWorx Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 WPAC,White Pearl Acquisition Corp. Class A Ordinary Shares,N,False,common,nasdaqtrader
 WPAC-R,"White Pearl Acquisition Corp. Rights, each right entitles the holder to receive one-fifth of one Class A ordinary share upon consummation of the initial business combination",N,False,right,nasdaqtrader
 WPAC-U,"White Pearl Acquisition Corp. Units, each consisting of one Class A ordinary share and one right to receive one-fifth (1/5) of one Class A ordinary share",N,False,unit,nasdaqtrader
