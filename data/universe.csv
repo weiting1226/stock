@@ -266,6 +266,7 @@ AIMD,"Ainos, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 AIMDW,"Ainos, Inc. - warrants",NASDAQ,False,warrant,nasdaqtrader
 AIN,Albany International Corporation Common Stock,N,False,common,nasdaqtrader
 AIO,Virtus Artificial Intelligence & Technology Opportunities Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
+AIOK,AI OKTO CORP. - Common Stock,NASDAQ,False,common,nasdaqtrader
 AIOS,AIOS Tech Inc. - Class A Common Shares,NASDAQ,False,common,nasdaqtrader
 AIOT,"PowerFleet, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 AIP,"Arteris, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -5850,6 +5851,7 @@ RTACU,Renatus Tactical Acquisition Corp I - Unit,NASDAQ,False,unit,nasdaqtrader
 RTACW,Renatus Tactical Acquisition Corp I - Warrant,NASDAQ,False,warrant,nasdaqtrader
 RTB,"RTB Digital, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 RTO,Rentokil Initial plc American Depositary Shares (each representing five (5) Ordinary Shares),N,False,common,nasdaqtrader
+RTSN,"Retension Pharmaceuticals, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 RTX,RTX Corporation Common Stock,N,False,common,nasdaqtrader
 RUBI,Rubico Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 RUM,RUM Group Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -6761,6 +6763,7 @@ TRV,"The Travelers Companies, Inc. Common Stock",N,False,common,nasdaqtrader
 TRVG,trivago N.V. - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 TRVI,"Trevi Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 TRX,TRX Gold Corporation Common Stock,A,False,common,nasdaqtrader
+TRXB,"TRex Bio, Inc. - Common stock",NASDAQ,False,common,nasdaqtrader
 TS,Tenaris S.A. American Depositary Shares,N,False,common,nasdaqtrader
 TSAT,Telesat Corporation - Class A Common Shares and Class B Variable Voting Shares,NASDAQ,False,common,nasdaqtrader
 TSBK,"Timberland Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
