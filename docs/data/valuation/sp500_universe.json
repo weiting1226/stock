@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-03",
+  "as_of": "2026-10-10",
   "constituents": [
     {
       "ticker": "MMM",
@@ -768,12 +768,6 @@
       "name": "Corpay",
       "sector": "Financials",
       "sub_industry": "Transaction & Payment Processing Services"
-    },
-    {
-      "ticker": "CTVA",
-      "name": "Corteva",
-      "sector": "Materials",
-      "sub_industry": "Fertilizers & Agricultural Chemicals"
     },
     {
       "ticker": "CSGP",
@@ -2150,12 +2144,6 @@
       "sub_industry": "Systems Software"
     },
     {
-      "ticker": "PSKY",
-      "name": "Paramount Skydance Corporation",
-      "sector": "Communication Services",
-      "sub_industry": "Movies & Entertainment"
-    },
-    {
       "ticker": "PH",
       "name": "Parker Hannifin",
       "sector": "Industrials",
@@ -2474,6 +2462,12 @@
       "sub_industry": "Retail REITs"
     },
     {
+      "ticker": "SKYD",
+      "name": "Skydance Corporation",
+      "sector": "Communication Services",
+      "sub_industry": "Movies & Entertainment"
+    },
+    {
       "ticker": "SWKS",
       "name": "Skyworks Solutions",
       "sector": "Information Technology",
@@ -2708,6 +2702,12 @@
       "sub_industry": "Diversified Banks"
     },
     {
+      "ticker": "TWLO",
+      "name": "Twilio",
+      "sector": "Information Technology",
+      "sub_industry": "Systems Software"
+    },
+    {
       "ticker": "TYL",
       "name": "Tyler Technologies",
       "sector": "Information Technology",
@@ -2870,6 +2870,12 @@
       "sub_industry": "Construction Materials"
     },
     {
+      "ticker": "VYLR",
+      "name": "Vylor",
+      "sector": "Consumer Staples",
+      "sub_industry": "Agricultural Products & Services"
+    },
+    {
       "ticker": "WRB",
       "name": "W. R. Berkley Corporation",
       "sector": "Financials",
@@ -2898,12 +2904,6 @@
       "name": "Walt Disney Company (The)",
       "sector": "Communication Services",
       "sub_industry": "Movies & Entertainment"
-    },
-    {
-      "ticker": "WBD",
-      "name": "Warner Bros. Discovery",
-      "sector": "Communication Services",
-      "sub_industry": "Broadcasting"
     },
     {
       "ticker": "WM",
