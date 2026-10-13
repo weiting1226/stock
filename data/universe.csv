@@ -706,6 +706,7 @@ AXIL,"AXIL Brands, Inc. Common Stock",A,False,common,nasdaqtrader
 AXIN,Axiom Intelligence Acquisition Corp 1 - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 AXINR,Axiom Intelligence Acquisition Corp 1 - Right,NASDAQ,False,right,nasdaqtrader
 AXINU,Axiom Intelligence Acquisition Corp 1 - Units,NASDAQ,False,unit,nasdaqtrader
+AXNX,Axonex AI Group Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 AXON,"Axon Enterprise, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 AXP,American Express Company Common Stock,N,False,common,nasdaqtrader
 AXR,AMREP Corporation Common Stock,N,False,common,nasdaqtrader
@@ -781,7 +782,6 @@ BBDO,Banco Bradesco Sa American Depositary Shares (each representing one Common 
 BBGI,"Beasley Broadcast Group, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 BBIO,"BridgeBio Pharma, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BBLG,Bone Biologics Corp - Common Stock,NASDAQ,False,common,nasdaqtrader
-BBLGW,Bone Biologics Corp - warrants,NASDAQ,False,warrant,nasdaqtrader
 BBN,BlackRock Taxable Municipal Bond Trust Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 BBNX,"Beta Bionics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BBOT,"BridgeBio Oncology Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -2984,7 +2984,6 @@ GRC,Gorman-Rupp Company (The) Common Stock,N,False,common,nasdaqtrader
 GRCE,"Grace Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 GRDN,"Guardian Pharmacy Services, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 GRDX,GridAI Technologies Corp.  - Common Stock,NASDAQ,False,common,nasdaqtrader
-GREEL,Vulcan Infrastructure and Power Inc. - 8.50% Senior Notes due 2026,NASDAQ,False,note,nasdaqtrader
 GRF,"Eagle Capital Growth Fund, Inc. Common Stock",A,False,common,nasdaqtrader
 GRFS,"Grifols, S.A. - American Depositary Shares",NASDAQ,False,common,nasdaqtrader
 GRI,"GRI Bio, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -4270,7 +4269,6 @@ MIACW,Meridian3 Industrials Acquisition Corp - Warrant,NASDAQ,False,warrant,nasd
 MIAX,"Miami International Holdings, Inc. Common Stock",N,False,common,nasdaqtrader
 MICC,The Magnum Ice Cream Company N.V. Ordinary Shares,N,False,common,nasdaqtrader
 MIDD,The Middleby Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
-MIMI,Mint Incorporation Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 MIN,Aberdeen Intermediate Income Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 MIND,"MIND Technology, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 MINE,Mayfair Gold Corp. Common Shares,A,False,common,nasdaqtrader
@@ -4887,7 +4885,7 @@ OBAWW,Oxley Bridge Acquisition Limited - Warrants,NASDAQ,False,warrant,nasdaqtra
 OBDC,Blue Owl Capital Corporation Common Stock,N,False,common,nasdaqtrader
 OBE,Obsidian Energy Ltd. Common Shares,A,False,common,nasdaqtrader
 OBIO,"Orchestra BioMed Holdings, Inc. - Ordinary Shares",NASDAQ,False,common,nasdaqtrader
-OBK,"Origin Bancorp, Inc. Common Stock",N,False,common,nasdaqtrader
+OBK,"Origin Bancorp, Inc. Common Stock",F,False,common,nasdaqtrader
 OBT,"Orange County Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 OBX,"Obsidian Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 OC,Owens Corning Inc Common Stock New,N,False,common,nasdaqtrader
@@ -5805,6 +5803,7 @@ RNR-PF,"RenaissanceRe Holdings Ltd. Depositary Shares, each Representing a 1/1,0
 RNR-PG,"RenaissanceRe Holdings Ltd. Depositary Shares, each representing a 1/1,000th interest in a share of 4.20% Series G Preference Shares",N,False,preferred,nasdaqtrader
 RNST,Renasant Corporation Common Stock,N,False,common,nasdaqtrader
 RNTX,"Rein Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+RNTZ,Rantizo - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 RNW,ReNew Energy Global plc - Class A Shares,NASDAQ,False,common,nasdaqtrader
 RNXT,"RenovoRx, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ROAD,"Construction Partners, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -6142,7 +6141,6 @@ SKE,Skeena Resources Limited Common Shares,N,False,common,nasdaqtrader
 SKHY,SK hynix Inc. - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 SKIL,Skillsoft Corp. Class A Common Stock,N,False,common,nasdaqtrader
 SKIN,SkinHealth Systems Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
-SKK,SKK Holdings Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 SKM,"SK Telecom Co., Ltd. Common Stock",N,False,common,nasdaqtrader
 SKT,Tanger Inc. Common Stock,N,False,common,nasdaqtrader
 SKWD,"Skyward Specialty Insurance Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -6150,6 +6148,7 @@ SKY,"Champion Homes, Inc. Common Stock",N,False,common,nasdaqtrader
 SKYA,"SkyAI, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SKYAW,"SkyAI, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
 SKYD,Skydance Corporation Class B Common Stock,N,False,common,nasdaqtrader
+SKYD-V,Skydance Corporation Warrants to Purchase Class B Common Stock When-Issued,N,False,warrant,nasdaqtrader
 SKYE,"Skye Bioscience, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SKYH,Sky Harbour Group Corporation Class A Common Stock,N,False,common,nasdaqtrader
 SKYH-W,"Sky Harbour Group Corporation Warrants, each whole warrant exercisable for one share of Class A common stock at an exercise price of $11.50 per share",N,False,warrant,nasdaqtrader
@@ -7371,6 +7370,8 @@ XRAY,DENTSPLY SIRONA Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 XRN,Chiron Real Estate Inc. Common Stock,N,False,common,nasdaqtrader
 XRN-PA,Chiron Real Estate Inc. Series A Cumulative Redeemable Preferred Stock,N,False,preferred,nasdaqtrader
 XRN-PB,"Chiron Real Estate Inc. 8.00% Series B Cumulative Redeemable Preferred Stock, $0.001 par value per share",N,False,preferred,nasdaqtrader
+XRPN,Evernorth Holdings Inc. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+XRPNW,Evernorth Holdings Inc. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 XRTX,XORTX Therapeutics Inc. - Common Shares,NASDAQ,False,common,nasdaqtrader
 XRX,Xerox Holdings Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 XRXDW,Xerox Holdings Corporation - Warrants,NASDAQ,False,warrant,nasdaqtrader
