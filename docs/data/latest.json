@@ -1,13 +1,13 @@
 {
-  "as_of": "2026-10-10",
-  "generated_at": "2026-10-10T01:50:29.374575Z",
+  "as_of": "2026-10-13",
+  "generated_at": "2026-10-13T03:06:00.626440Z",
   "items": {
     "fed_bs_3m_chg": {
       "key": "fed_bs_3m_chg",
       "label": "Fed資產負債表年增率之3個月變化(pp)",
-      "raw_value": 1.1012607706764266,
+      "raw_value": 0.8959727489612712,
       "score": 1,
-      "data_date": "2026-10-10",
+      "data_date": "2026-10-13",
       "source": "FRED WALCL",
       "confidence": "高",
       "note": ""
@@ -17,7 +17,7 @@
       "label": "ON RRP 12個月百分位",
       "raw_value": null,
       "score": 0,
-      "data_date": "2026-10-10",
+      "data_date": "2026-10-13",
       "source": "FRED RRPONTSYD",
       "confidence": "高",
       "note": "結構性休眠(12個月皆<$100B)"
@@ -27,7 +27,7 @@
       "label": "M2年增率之3個月變化(pp)",
       "raw_value": 0.316332783630191,
       "score": 0,
-      "data_date": "2026-10-10",
+      "data_date": "2026-10-13",
       "source": "FRED M2SL",
       "confidence": "中",
       "note": "月頻，已套用約4週發布時滯"
@@ -35,9 +35,9 @@
     "hy_oas_level": {
       "key": "hy_oas_level",
       "label": "HY OAS 水準(%)",
-      "raw_value": 3.09,
+      "raw_value": 3.15,
       "score": 1,
-      "data_date": "2026-10-10",
+      "data_date": "2026-10-13",
       "source": "FRED BAMLH0A0HYM2",
       "confidence": "高",
       "note": ""
@@ -45,9 +45,9 @@
     "hy_oas_20d_chg": {
       "key": "hy_oas_20d_chg",
       "label": "HY OAS 20日變化(bp)",
-      "raw_value": 37.999999999999986,
+      "raw_value": 50.0,
       "score": -1,
-      "data_date": "2026-10-10",
+      "data_date": "2026-10-13",
       "source": "FRED BAMLH0A0HYM2",
       "confidence": "高",
       "note": ""
@@ -55,9 +55,9 @@
     "t2s10s_bp": {
       "key": "t2s10s_bp",
       "label": "2Y-10Y公債利差(bp)",
-      "raw_value": 51.00000000000007,
+      "raw_value": 46.99999999999997,
       "score": 1,
-      "data_date": "2026-10-10",
+      "data_date": "2026-10-13",
       "source": "FRED DGS10/DGS2",
       "confidence": "高",
       "note": ""
@@ -65,9 +65,9 @@
     "sofr_iorb_bp": {
       "key": "sofr_iorb_bp",
       "label": "SOFR-IORB利差(bp)",
-      "raw_value": -2.0000000000000018,
+      "raw_value": -2.9999999999999805,
       "score": 1,
-      "data_date": "2026-10-10",
+      "data_date": "2026-10-13",
       "source": "FRED SOFR/IORB",
       "confidence": "高",
       "note": ""
@@ -75,9 +75,9 @@
     "move_index": {
       "key": "move_index",
       "label": "MOVE指數",
-      "raw_value": 98.47350311279297,
+      "raw_value": 98.47000122070312,
       "score": 0,
-      "data_date": "2026-10-10",
+      "data_date": "2026-10-13",
       "source": "Yahoo Finance ^MOVE",
       "confidence": "高",
       "note": ""
@@ -85,19 +85,19 @@
     "ndx_breadth_200d": {
       "key": "ndx_breadth_200d",
       "label": "NDX站上200日線比例(%)",
-      "raw_value": 61.62,
+      "raw_value": 62.63,
       "score": 0,
-      "data_date": "2026-10-10",
+      "data_date": "2026-10-13",
       "source": "TradingView NDX 成分股",
       "confidence": "中",
-      "note": "101 檔成分股；站上50日線 48.51%、20日線 64.36%；以目前成分股清單回推，非時點正確(look-back bias)"
+      "note": "101 檔成分股；站上50日線 50.5%、20日線 57.43%；以目前成分股清單回推，非時點正確(look-back bias)"
     },
     "vix_level": {
       "key": "vix_level",
       "label": "VIX",
-      "raw_value": 14.84000015258789,
-      "score": 1,
-      "data_date": "2026-10-10",
+      "raw_value": 15.210000038146973,
+      "score": 0,
+      "data_date": "2026-10-13",
       "source": "Yahoo Finance ^VIX",
       "confidence": "高",
       "note": ""
@@ -105,9 +105,9 @@
     "ivts": {
       "key": "ivts",
       "label": "VIX/VIX3M期限結構",
-      "raw_value": 0.8351153500451559,
+      "raw_value": 0.8482989280126427,
       "score": 2,
-      "data_date": "2026-10-10",
+      "data_date": "2026-10-13",
       "source": "Yahoo Finance ^VIX / ^VIX3M",
       "confidence": "高",
       "note": ""
@@ -117,7 +117,7 @@
       "label": "融資餘額年增率(%)",
       "raw_value": 37.18981280957383,
       "score": 0,
-      "data_date": "2026-10-10",
+      "data_date": "2026-10-13",
       "source": "FINRA margin statistics",
       "confidence": "中",
       "note": "月頻，已套用文件規定之2個月發布時滯"
@@ -125,9 +125,9 @@
     "dxy_1m_chg": {
       "key": "dxy_1m_chg",
       "label": "DXY美元指數月變動(%)",
-      "raw_value": 3.1698522412049845,
+      "raw_value": 3.3040696183771034,
       "score": -2,
-      "data_date": "2026-10-10",
+      "data_date": "2026-10-13",
       "source": "Yahoo Finance DX-Y.NYB",
       "confidence": "高",
       "note": ""
@@ -135,9 +135,9 @@
     "usdjpy_20d_chg": {
       "key": "usdjpy_20d_chg",
       "label": "USD/JPY 20日變化(%)",
-      "raw_value": 2.4365348061443637,
+      "raw_value": 2.3180752680822314,
       "score": 0,
-      "data_date": "2026-10-10",
+      "data_date": "2026-10-13",
       "source": "Yahoo Finance JPY=X",
       "confidence": "高",
       "note": ""
@@ -155,7 +155,7 @@
     "fomc_decision": {
       "key": "fomc_decision",
       "label": "FOMC決議偏向",
-      "raw_value": "無異議；目標區間上緣 4.0%→4.0%｜AI摘要：此文件僅為聯準會發布2026年9月15-16日FOMC會議紀要的新聞稿公告，並未包含會後聲明的具體決議內容、利率變動幅度或投票反對意見等實質資訊。由於原文缺乏決策細節，無法從中擷取具體的利率決定或異議情況。",
+      "raw_value": "無異議；目標區間上緣 4.0%→4.0%｜AI摘要：此文件僅為聯準會發布2026年9月15-16日FOMC會議紀錄的新聞稿連結頁面，並未包含會後聲明的實際內容，無法得知利率決議、反對票或聲明語氣等具體資訊。",
       "score": 0,
       "data_date": "2026-10-07",
       "source": "federalreserve.gov 聲明 + AI 分類（claude-sonnet-5）",
@@ -165,29 +165,29 @@
     "fedwatch_path": {
       "key": "fedwatch_path",
       "label": "市場隱含12個月路徑(CME FedWatch)",
-      "raw_value": 54.5,
+      "raw_value": 56.5,
       "score": -1,
-      "data_date": "2026-10-10",
+      "data_date": "2026-10-13",
       "source": "1年期公債殖利率近似（非 FedWatch）",
       "confidence": "低",
-      "note": "1年期公債 4.42% vs 目前 3.88%（+54bp）｜以一年期公債殖利率近似，含期限溢酬，非 FedWatch 的市場隱含機率；近似法精度不足以區分 1 碼與 2 碼（期限溢酬與一碼同量級），分數由 -2 保守調整為 -1｜FedWatch 未採用：CME FedWatch 頁面無法取得；已嘗試 —— cme-fedwatch-tool.html: HTTP 403（可能是 Cloudflare 或需登入）｜countdown-to-fomc.html: HTTP 403（可能是 Cloudflare 或需登入）"
+      "note": "1年期公債 4.44% vs 目前 3.88%（+56bp）｜以一年期公債殖利率近似，含期限溢酬，非 FedWatch 的市場隱含機率；近似法精度不足以區分 1 碼與 2 碼（期限溢酬與一碼同量級），分數由 -2 保守調整為 -1｜FedWatch 未採用：CME FedWatch 頁面無法取得；已嘗試 —— cme-fedwatch-tool.html: HTTP 403（可能是 Cloudflare 或需登入）｜countdown-to-fomc.html: HTTP 403（可能是 Cloudflare 或需登入）"
     },
     "yield30y_60d_momentum": {
       "key": "yield30y_60d_momentum",
       "label": "30Y殖利率60日動能",
-      "raw_value": 58.999999999999986,
+      "raw_value": 54.0,
       "score": -2,
-      "data_date": "2026-10-10",
+      "data_date": "2026-10-13",
       "source": "FRED DGS30",
       "confidence": "高",
-      "note": "創10年新高"
+      "note": ""
     }
   },
   "category_scores": {
     "① 總體貨幣流動性": 0.3333,
     "② 資金成本與信用": 0.5,
     "③ 市場微觀結構": 0.0,
-    "④ 風險偏好情緒": 1.0,
+    "④ 風險偏好情緒": 0.6667,
     "⑤ 跨資產資金流向": -1.0,
     "⑥ 政策方向": -1.0
   },
@@ -199,7 +199,7 @@
     "⑤ 跨資產資金流向": 0.15,
     "⑥ 政策方向": 0.3
   },
-  "composite_score": -0.1667,
+  "composite_score": -0.2167,
   "light": "🟡 黃",
   "structural_warnings": {
     "dominance": null,
@@ -208,25 +208,25 @@
   "gate_a": {
     "status": "未觸發：無上限",
     "cap": null,
-    "detail": "NDX(30883.1) > 200日線(27625.8) 且200日線上彎"
+    "detail": "NDX(30664.7) > 200日線(27651.2) 且200日線上彎"
   },
   "gate_b": {
     "checks": {
       "margin_debt_yoy": {
-        "triggered": "True",
-        "percentile": 85.04,
+        "triggered": "False",
+        "percentile": 84.97,
         "value": 37.18981280957383,
         "approx": false
       },
       "hy_oas": {
         "triggered": "False",
-        "percentile": 53.66,
-        "value": 3.09,
+        "percentile": 61.75,
+        "value": 3.15,
         "approx": false
       },
       "margin_debt_gdp": {
         "triggered": "True",
-        "percentile": 98.89,
+        "percentile": 98.81,
         "value": 4.464670517454918,
         "approx": false
       },
@@ -237,8 +237,8 @@
       },
       "vix_low_skew_high": {
         "triggered": "False",
-        "vix_percentile": 32.06,
-        "skew_percentile": 93.21,
+        "vix_percentile": 35.0,
+        "skew_percentile": 93.93,
         "approx": false
       }
     },
@@ -273,23 +273,23 @@
   },
   "ndx_breadth_detail": {
     "constituents": 101,
-    "pct_above_200dma": 61.62,
+    "pct_above_200dma": 62.63,
     "pct_above_200dma_sample": 99,
-    "pct_above_50dma": 48.51,
+    "pct_above_50dma": 50.5,
     "pct_above_50dma_sample": 101,
-    "pct_above_20dma": 64.36,
+    "pct_above_20dma": 57.43,
     "pct_above_20dma_sample": 101,
-    "advancers": 66,
-    "decliners": 35,
-    "advance_decline_ratio": 1.89,
-    "median_rsi": 52.44,
-    "overbought_rsi70": 6,
-    "oversold_rsi30": 5,
-    "near_52w_high": 27,
-    "near_52w_low": 15,
-    "top10_market_cap_pct": 68.87,
+    "advancers": 47,
+    "decliners": 54,
+    "advance_decline_ratio": 0.87,
+    "median_rsi": 50.88,
+    "overbought_rsi70": 3,
+    "oversold_rsi30": 3,
+    "near_52w_high": 25,
+    "near_52w_low": 14,
+    "top10_market_cap_pct": 69.18,
     "source": "tradingview",
-    "as_of": "2026-10-10"
+    "as_of": "2026-10-13"
   },
   "missing_or_low_confidence_count": 2
 }
