@@ -341,6 +341,20 @@
   "reference_date": "2026-06-01",
   "fred_id": "JTSJOL"
  },
+ "CPILFESL@2026-09-01": {
+  "summary_zh": "2026年9月核心CPI（不含食物與能源）季調後月增0.3%，與8月增幅相同；以未季調方式計算，過去12個月上漲2.6%，較8月年增率2.4%略為擴大。住房、休閒、二手車、教育、機票與醫療保健等項目價格上漲，而通訊價格下跌。",
+  "drivers": [
+   "住房（shelter）上漲0.4%",
+   "休閒（recreation）上漲0.5%",
+   "二手車與卡車（used cars and trucks）上漲0.7%",
+   "通訊（communication）下跌0.2%"
+  ],
+  "evidence": "The index for all items less food and energy rose 0.3 percent in September, as it did in August.",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/cpi.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-09-01",
+  "fred_id": "CPILFESL"
+ },
  "CPILFESL@2026-08-01": {
   "summary_zh": "核心CPI（不含食物與能源）在2026年8月季調後上升0.3%，高於7月的0.2%漲幅。過去12個月核心CPI上漲2.4%，較7月止的12個月2.5%漲幅略有放緩。通訊、外宿住宿、機票、教育及中古車與卡車價格上漲，而醫療保健與汽車保險價格則下滑，抵銷部分漲勢。",
   "drivers": [
@@ -410,6 +424,20 @@
   "model": "claude-sonnet-5",
   "reference_date": "2026-07-01",
   "fred_id": "FEDFUNDS"
+ },
+ "CPIAUCSL@2026-09-01": {
+  "summary_zh": "2026年9月CPI季調後較上月上升0.6%，高於8月的0.4%漲幅；未經季調下，過去12個月整體物價上漲3.7%，較8月公布的3.4%擴大。能源價格大幅上漲是主要推升力道，其中汽油價格單月上漲9.1%，佔整體月增幅逾一半；扣除食品與能源後的核心指數月增0.3%，與8月持平。",
+  "drivers": [
+   "汽油價格上漲9.1%",
+   "能源指數上漲5.2%",
+   "居住類指數上漲0.4%",
+   "休閒、二手車卡車、教育、機票等核心項目上漲"
+  ],
+  "evidence": "The index for gasoline rose 9.1 percent in September, accounting for over half of the monthly all items increase. The energy index increased 5.2 percent over the month",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/cpi.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-09-01",
+  "fred_id": "CPIAUCSL"
  },
  "CPIAUCSL@2026-08-01": {
   "summary_zh": "2026年8月美國CPI季調後上升0.4%，較7月的0.1%漲幅擴大，過去12個月未季調漲幅為3.4%。汽油與能源價格大幅上漲是本月漲幅的主要來源，住宅指數亦持續上升；核心指數（扣除食品與能源）上升0.3%，其中通訊、機票、教育及二手車價格上漲，但醫療保健與汽車保險價格下跌，部分抵銷漲幅。",
