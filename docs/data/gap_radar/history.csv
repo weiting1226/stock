@@ -99,3 +99,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-10-07,8,MGM,MGM Resorts,61.53,34.46,low
 2026-10-07,9,WY,Weyerhaeuser,60.8,56.84,high
 2026-10-07,10,FICO,Fair Isaac,60.71,112.73,extreme
+2026-10-14,1,APP,AppLovin,77.68,96.12,extreme
+2026-10-14,2,WDC,Western Digital,75.59,94.24,extreme
+2026-10-14,3,NRG,NRG Energy,73.07,89.49,extreme
+2026-10-14,4,WYNN,Wynn Resorts,69.76,32.68,low
+2026-10-14,5,ALB,Albemarle Corporation,68.69,86.03,extreme
+2026-10-14,6,AXON,Axon Enterprise,68.69,55.93,moderate
+2026-10-14,7,ORCL,Oracle Corporation,66.18,121.86,extreme
+2026-10-14,8,MU,Micron Technology,63.72,169.11,extreme
+2026-10-14,9,AKAM,Akamai Technologies,58.98,83.09,extreme
+2026-10-14,10,MGM,MGM Resorts,58.49,57.95,high

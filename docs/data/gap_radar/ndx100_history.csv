@@ -89,3 +89,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-10-07,8,PDD,PDD Holdings Inc.,46.41,56.84,moderate
 2026-10-07,9,RKLB,Rocket Lab Corporation,45.42,78.79,moderate
 2026-10-07,10,CPRT,Copart,45.41,76.92,moderate
+2026-10-14,1,CRWV,"CoreWeave, Inc.",81.82,168.94,extreme
+2026-10-14,2,APP,AppLovin,77.68,96.12,high
+2026-10-14,3,WDC,Western Digital,75.59,94.24,high
+2026-10-14,4,AXON,Axon Enterprise,68.69,55.93,moderate
+2026-10-14,5,ALNY,"Alnylam Pharmaceuticals, Inc.",65.56,75.56,moderate
+2026-10-14,6,MU,Micron Technology,63.72,169.11,extreme
+2026-10-14,7,RKLB,Rocket Lab Corporation,63.58,81.86,high
+2026-10-14,8,MSTR,Strategy Inc,56.26,113.54,high
+2026-10-14,9,TMUS,T-Mobile US,54.06,53.62,low
+2026-10-14,10,STX,Seagate Technology,52.35,79.06,moderate
