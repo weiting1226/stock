@@ -89,6 +89,15 @@
   "reference_date": "2026-06-01",
   "fred_id": "HOUST"
  },
+ "MORTGAGE30US@2026-10-15": {
+  "summary_zh": "截至2026年10月15日,30年期固定房貸利率平均為7.40%,與前一週持平。相較於去年同期的6.27%有所上升。15年期固定房貸利率則為6.71%,較前一週的6.73%略降。",
+  "drivers": [],
+  "evidence": "The 30-year fixed-rate mortgage averaged 7.40% as of October 15, 2026, unchanged from last week.",
+  "source_url": "https://www.freddiemac.com/pmms",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-10-15",
+  "fred_id": "MORTGAGE30US"
+ },
  "MORTGAGE30US@2026-10-08": {
   "summary_zh": "截至2026年10月8日,30年期固定利率房貸平均為7.40%,較前一週的7.28%上升。一年前同期為6.30%。15年期固定利率房貸平均為6.73%,較前一週的6.60%上升,一年前同期為5.53%。",
   "drivers": [],
@@ -144,17 +153,14 @@
   "reference_date": "2026-09-10",
   "fred_id": "MORTGAGE30US"
  },
- "MORTGAGE30US@2026-09-03": {
-  "summary_zh": "截至2026年9月3日,30年期固定利率房貸平均為6.71%,較前一週的6.66%上升。15年期固定利率房貸平均為6.04%,同樣較前一週的5.98%上升。文件指出購屋需求維持相對穩定,顯示買方在適應不斷變化的市場條件下仍保持穩定興趣。",
-  "drivers": [
-   "購屋需求相對穩定",
-   "買方適應不斷變化的市場條件"
-  ],
-  "evidence": "The 30-year fixed-rate mortgage averaged 6.71% as of September 3, 2026, up from last week when it averaged 6.66%.",
-  "source_url": "https://www.freddiemac.com/pmms",
+ "RSAFS@2026-09-01": {
+  "summary_zh": "2026年9月美國零售與餐飲服務業銷售額為7450億美元，較上月成長0.8%，較去年同期成長6.3%。文件並指出2026年7至9月總銷售額較去年同期成長5.5%，而7月至8月的變動率由原先上修至1.3%。",
+  "drivers": [],
+  "evidence": "up 0.8 percent (&plusmn;0.4 percent) from the previous month, and up 6.3 percent (&plusmn;0.5 percent) from September 2025.",
+  "source_url": "https://www.census.gov/retail/sales.html",
   "model": "claude-sonnet-5",
-  "reference_date": "2026-09-03",
-  "fred_id": "MORTGAGE30US"
+  "reference_date": "2026-09-01",
+  "fred_id": "RSAFS"
  },
  "RSAFS@2026-08-01": {
   "summary_zh": "2026年8月美國零售暨餐飲服務銷售額為7,739億美元，較上月成長1.2%，較去年同期成長6.0%。文件並指出6月至8月期間銷售較去年同期成長6.0%，且6月至7月的變動幅度由原公布的下降0.6%修正為下降0.5%。",
