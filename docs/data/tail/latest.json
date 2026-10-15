@@ -7,7 +7,7 @@
     "qqq": 1.0,
     "sgov": 0.0,
     "source": {
-      "as_of": "2026-10-14",
+      "as_of": "2026-10-15",
       "text": "100% QQQ"
     }
   },
@@ -22,18 +22,18 @@
   "slow": {
     "gate": "CreditProxyGate",
     "regime": "WATCH",
-    "score": 26.78,
+    "score": 29.49,
     "equity_ceiling": 0.75,
     "detail": {
-      "beta": 0.5047,
+      "beta": 0.5159,
       "beta_source": "rolling",
-      "stress_level": 0.0105,
-      "chg250_pctile": 23.6,
-      "hyg_lqd_chg60": 0.01285,
-      "index_last": 112.153,
+      "stress_level": 0.0143,
+      "chg250_pctile": 19.2,
+      "hyg_lqd_chg60": 0.00159,
+      "index_last": 111.604,
       "components": {
-        "stress": 3.86,
-        "chg_pctile": 22.92,
+        "stress": 5.25,
+        "chg_pctile": 24.24,
         "quality_dispersion": 0.0
       },
       "uncalibrated": true
@@ -44,27 +44,27 @@
     "gated_veto": 0,
     "n_categories": 0,
     "curve_inverted": false,
-    "vix9d": 14.59,
-    "vix": 16.87,
-    "vix3m": 18.79,
+    "vix9d": 13.97,
+    "vix": 16.46,
+    "vix3m": 18.49,
     "detail": {
       "triggered": [],
       "missing": [],
-      "vvix_pctile": 43.2,
-      "hy_chg20_bp": 40.000000000000036,
-      "threshold_shift": -3.986,
-      "vvix_trigger": 76.014,
-      "hy_trigger_bp": 71.014,
+      "vvix_pctile": 37.6,
+      "hy_chg20_bp": 54.999999999999986,
+      "threshold_shift": -2.413,
+      "vvix_trigger": 77.587,
+      "hy_trigger_bp": 72.587,
       "sample_size_note": "危機型事件樣本 n=1（2020），等級不代表統計信心"
     }
   },
   "crowding": {
-    "score": 69.93,
-    "threshold_shift": -3.986,
+    "score": 62.07,
+    "threshold_shift": -2.413,
     "detail": {
       "components": {
-        "low_vol": 0.568,
-        "trailing_gain": 0.831
+        "low_vol": 0.511,
+        "trailing_gain": 0.73
       },
       "missing": [
         "cftc_jpy_net_short",
@@ -76,14 +76,14 @@
   },
   "state": {
     "active_veto": 0,
-    "clean_days": 47,
+    "clean_days": 48,
     "consec_inversion": 0
   },
   "state_meta": {
     "found": true,
-    "as_of": "2026-10-14",
-    "saved_at": "2026-10-14T00:26:57+00:00",
-    "staleness_days": 1
+    "as_of": "2026-10-15",
+    "saved_at": "2026-10-15T00:00:31+00:00",
+    "staleness_days": 0
   },
   "controller": {
     "raw_veto": 0,
@@ -471,15 +471,15 @@
     "live": 43
   },
   "calibration": {
-    "n_obs": 616,
-    "beta": 0.5047,
-    "corr_level_dd_vs_oas": 0.8002,
-    "corr_change_60d": -0.9078,
-    "regime_agreement_rank": 0.397,
-    "regime_agreement_absolute": 0.2596,
-    "regime_agreement": 0.397,
-    "regime_agreement_expected": 0.5435,
-    "regime_agreement_shortfall": -0.1465,
+    "n_obs": 617,
+    "beta": 0.5159,
+    "corr_level_dd_vs_oas": 0.8023,
+    "corr_change_60d": -0.9079,
+    "regime_agreement_rank": 0.3913,
+    "regime_agreement_absolute": 0.2592,
+    "regime_agreement": 0.3913,
+    "regime_agreement_expected": 0.5454,
+    "regime_agreement_shortfall": -0.1541,
     "corr_needed_for_agreement_target": 0.928,
     "targets_are_mutually_consistent": false,
     "targets": {
@@ -861,7 +861,7 @@
         30.432,
         19.6,
         19.6,
-        26.784
+        29.485
       ],
       "state_active_veto": [
         0.0,
@@ -1771,7 +1771,7 @@
         65.43,
         68.61,
         68.61,
-        69.93
+        62.07
       ]
     }
   },
