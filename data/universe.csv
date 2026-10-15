@@ -972,7 +972,6 @@ BKHA,Black Hawk Acquisition Corporation - Class A Ordinary Shares,NASDAQ,False,c
 BKHAR,Black Hawk Acquisition Corporation - Rights,NASDAQ,False,right,nasdaqtrader
 BKHAU,Black Hawk Acquisition Corporation - Units,NASDAQ,False,unit,nasdaqtrader
 BKKT,"Bakkt, Inc. Class A Common Stock",N,False,common,nasdaqtrader
-BKKT-W,"Bakkt, Inc. Warrants to purchase Class A Common Stock, each Warrant entitles a holder to purchase 1/25th of a share of Class A common stock at an exercise price of $287.50 for one share",N,False,warrant,nasdaqtrader
 BKNG,Booking Holdings Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 BKR,Baker Hughes Company - Common Stock,NASDAQ,False,common,nasdaqtrader
 BKSY,BlackSky Technology Inc. Class A Common Stock,N,False,common,nasdaqtrader
@@ -1140,6 +1139,7 @@ BSL,Blackstone Senior Floating Rate 2027 Term Fund Common Shares of Beneficial I
 BSM,"Black Stone Minerals, L.P. Common units representing limited partner interests",N,False,common,nasdaqtrader
 BSP,Bending Spoons S.p.A. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 BSRR,Sierra Bancorp - Common Stock,NASDAQ,False,common,nasdaqtrader
+BSRT,BSR Real Estate Investment Trust Units,N,False,unit,nasdaqtrader
 BST,BlackRock Science and Technology Trust Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 BSTZ,BlackRock Science and Technology Term Trust Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 BSVN,Bank7 Corp. - Common stock,NASDAQ,False,common,nasdaqtrader
@@ -1333,7 +1333,6 @@ CCLD,"CareCloud, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 CCM,Concord Medical Services Holdings Limited American Depositary Shares (Each represents thirty (30) Class A ordinary shares),N,False,common,nasdaqtrader
 CCNE,CNB Financial Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 CCNEP,"CNB Financial Corporation - Depositary shares, each representing a 1/40th ownership interest in a share of 7.125% Series A Fixed- Rate Non-Cumulative Perpetual Preferred Stock",NASDAQ,False,preferred,nasdaqtrader
-CCO,"Clear Channel Outdoor Holdings, Inc. Common Stock",N,False,common,nasdaqtrader
 CCOI,"Cogent Communications Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 CCS,"Century Communities, Inc. Common Stock",N,False,common,nasdaqtrader
 CCSI,"Consensus Cloud Solutions, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -2570,6 +2569,7 @@ FLO,"Flowers Foods, Inc. Common Stock",N,False,common,nasdaqtrader
 FLOC,Flowco Holdings Inc. Class A Common Stock,N,False,common,nasdaqtrader
 FLR,Fluor Corporation Common Stock,N,False,common,nasdaqtrader
 FLS,Flowserve Corporation Common Stock,N,False,common,nasdaqtrader
+FLSC,Frazier Life Sciences Acquisition Corp. II - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 FLUT,Flutter Entertainment plc Ordinary Shares,N,False,common,nasdaqtrader
 FLUX,"Flux Power Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 FLWS,"1-800-FLOWERS.COM, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -3312,7 +3312,6 @@ IACOW,Idea Acquisition Corp. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 IACQ,Irenic Acquisition Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 IACQU,Irenic Acquisition Corp. - Unit,NASDAQ,False,unit,nasdaqtrader
 IACQW,Irenic Acquisition Corp. - Warrants,NASDAQ,False,warrant,nasdaqtrader
-IAE,Voya Asia Pacific High Dividend Equity Income Fund ING Asia Pacific High Dividend Equity Income Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 IAF,"abrdn Australia Equity Fund, Inc. Common Stock",A,False,common,nasdaqtrader
 IAG,Iamgold Corporation Ordinary Shares,N,False,common,nasdaqtrader
 IART,Integra LifeSciences Holdings Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -3380,7 +3379,6 @@ IGI,Western Asset Investment Grade Opportunity Trust Inc. Common Stock,N,False,c
 IGIC,International General Insurance Holdings Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 IGR,CBRE Global Real Estate Income Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 IH,"iHuman Inc. American depositary shares, each representing five Class A ordinary shares",N,False,common,nasdaqtrader
-IHD,Voya Emerging Markets High Income Dividend Equity Fund Common Shares,N,False,common,nasdaqtrader
 IHG,Intercontinental Hotels Group American Depositary Shares (Each representing one Ordinary Share),N,False,common,nasdaqtrader
 IHRT,"iHeartMedia, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 IHS,IHS Holding Limited Ordinary Shares,N,False,common,nasdaqtrader
@@ -3869,7 +3867,7 @@ LAUR,"Laureate Education, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 LAW,"CS Disco, Inc. Common Stock",N,False,common,nasdaqtrader
 LAWR,"Robot Consulting Co., Ltd. - ADS",NASDAQ,False,common,nasdaqtrader
 LAZ,"Lazard, Inc. Common Stock",N,False,common,nasdaqtrader
-LB,LandBridge Company LLC Class A Shares Representing Limited Liability Company Interests,N,False,common,nasdaqtrader
+LB,LandBridge Corporation Class A Common Stock,N,False,common,nasdaqtrader
 LBGJ,Li Bang International Corporation Inc. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 LBRT,Liberty Energy Inc. Class A common stock,N,False,common,nasdaqtrader
 LBRX,LB Pharmaceuticals Inc - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -4846,7 +4844,7 @@ NX,Quanex Building Products Corporation Common Stock,N,False,common,nasdaqtrader
 NXAT,Nexus Advanced Technologies Inc. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 NXATW,Nexus Advanced Technologies Inc. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 NXB,NextBoat Inc. Common Stcok,A,False,common,nasdaqtrader
-NXDR,"Nextdoor Holdings, Inc. Class A Common Stock",N,False,common,nasdaqtrader
+NXDR,"Nextdoor Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 NXDT,NexPoint Diversified Real Estate Trust Common Stock,N,False,common,nasdaqtrader
 NXDT-PA,NexPoint Diversified Real Estate Trust 5.50% Series A Cumulative Preferred Shares ($25.00 liquidation preference per share),N,False,preferred,nasdaqtrader
 NXE,Nexgen Energy Ltd. Common Shares,N,False,common,nasdaqtrader
@@ -5430,7 +5428,6 @@ PRHIZ,"Presurance Holdings, Inc. - 9.75% Senior Unsecured Notes due 2028",NASDAQ
 PRI,"Primerica, Inc. Common Stock",N,False,common,nasdaqtrader
 PRIF-PD,"Priority Income Fund, Inc. 7.00% Series D Term Preferred Stock due 2029",N,False,preferred,nasdaqtrader
 PRIF-PK,"Priority Income Fund, Inc. 7.000% Series K Cumulative Preferred Stock",N,False,preferred,nasdaqtrader
-PRIF-PL,"Priority Income Fund, Inc. 6.375% Series L Term Preferred Stock Due 2029",N,False,preferred,nasdaqtrader
 PRIM,Primoris Services Corporation Common Stock,N,False,common,nasdaqtrader
 PRK,Park National Corporation Common Stock,A,False,common,nasdaqtrader
 PRKS,United Parks & Resorts Inc. Common Stock,N,False,common,nasdaqtrader
@@ -5546,9 +5543,6 @@ QCLS,"Q/C Technologies, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 QCOM,QUALCOMM Incorporated - Common Stock,NASDAQ,False,common,nasdaqtrader
 QCRH,"QCR Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 QDEL,QuidelOrtho Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
-QETA,Quetta Acquisition Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
-QETAR,Quetta Acquisition Corporation - Right,NASDAQ,False,right,nasdaqtrader
-QETAU,Quetta Acquisition Corporation - Unit,NASDAQ,False,unit,nasdaqtrader
 QFIN,"Qfin Holdings, Inc.  - American Depositary Shares",NASDAQ,False,common,nasdaqtrader
 QGEN,Qiagen N.V. Common Shares,N,False,common,nasdaqtrader
 QH,Quhuo Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -6148,7 +6142,7 @@ SKY,"Champion Homes, Inc. Common Stock",N,False,common,nasdaqtrader
 SKYA,"SkyAI, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SKYAW,"SkyAI, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
 SKYD,Skydance Corporation Class B Common Stock,N,False,common,nasdaqtrader
-SKYD-V,Skydance Corporation Warrants to Purchase Class B Common Stock When-Issued,N,False,warrant,nasdaqtrader
+SKYD-W,Skydance Corporation Warrants to Purchase Class B Common Stock,N,False,warrant,nasdaqtrader
 SKYE,"Skye Bioscience, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SKYH,Sky Harbour Group Corporation Class A Common Stock,N,False,common,nasdaqtrader
 SKYH-W,"Sky Harbour Group Corporation Warrants, each whole warrant exercisable for one share of Class A common stock at an exercise price of $11.50 per share",N,False,warrant,nasdaqtrader
