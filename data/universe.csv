@@ -408,6 +408,7 @@ AMPY,Amplify Energy Corp. Common Stock,N,False,common,nasdaqtrader
 AMR,"Alpha Metallurgical Resources, Inc. Common Stock",N,False,common,nasdaqtrader
 AMRC,"Ameresco, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 AMRN,Amarin Corporation plc - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
+AMRO,Amaero Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 AMRX,"Amneal Pharmaceuticals, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 AMRZ,Amrize Ltd Ordinary Shares,N,False,common,nasdaqtrader
 AMS,American Shared Hospital Services Common Stock,A,False,common,nasdaqtrader
@@ -570,7 +571,6 @@ ASBPW,"Aspire-Lakewood Holdings, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrad
 ASC,Ardmore Shipping Corporation Common Stock,N,False,common,nasdaqtrader
 ASG,"Liberty All-Star Growth Fund, Inc.",N,False,common,nasdaqtrader
 ASGI,abrdn Global Infrastructure Income Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
-ASGI-R,"abrdn Global Infrastructure Income Fund Rights (expiring October 15, 2026) Rights",N,False,right,nasdaqtrader
 ASH,Ashland Inc. Common Stock,N,False,common,nasdaqtrader
 ASIC,Ategrity Specialty Insurance Company Holdings Common Stock,N,False,common,nasdaqtrader
 ASIX,AdvanSix Inc. Common Stock,N,False,common,nasdaqtrader
@@ -1023,6 +1023,7 @@ BML-PH,"Bank of America Corporation Depositary Shares (Each representing a 1/120
 BML-PJ,"Bank of America Corporation Depositary Shares (Each representing a 1/1200th interest in a Share of Floating Rate Non-Cumulative Preferred Stock, Series 4)",N,False,preferred,nasdaqtrader
 BML-PL,"Bank of America Corporation Depositary Shares (Each representing a 1/1200th Interest in a Share of Floating Rate Non-Cumulative Preferred Stock, Series 5)",N,False,preferred,nasdaqtrader
 BMM,Blue Moon Metals Inc. - Common Shares,NASDAQ,False,common,nasdaqtrader
+BMMX,Black Mammoth Metals Corporation - Common Shares,NASDAQ,False,common,nasdaqtrader
 BMN,BlackRock 2037 Municipal Target Term Trust Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 BMNP,"BitMine Immersion Technologies, Inc. 9.5% Series A Perpetual Preferred Stock",N,False,preferred,nasdaqtrader
 BMNR,"BitMine Immersion Technologies, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -3314,6 +3315,7 @@ IACQU,Irenic Acquisition Corp. - Unit,NASDAQ,False,unit,nasdaqtrader
 IACQW,Irenic Acquisition Corp. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 IAF,"abrdn Australia Equity Fund, Inc. Common Stock",A,False,common,nasdaqtrader
 IAG,Iamgold Corporation Ordinary Shares,N,False,common,nasdaqtrader
+IAM,"Iambic Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 IART,Integra LifeSciences Holdings Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 IAUX,i-80 Gold Corp. Common Shares,A,False,common,nasdaqtrader
 IAUX-W,"i-80 Gold Corp. Warrants, each warrant exercisable for one Common Share at an exercise price of $0.70",A,False,warrant,nasdaqtrader
@@ -6230,7 +6232,6 @@ SNT,Senstar Technologies Corporation - Common Shares,NASDAQ,False,common,nasdaqt
 SNTG,Sentage Holdings Inc. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 SNTI,"Senti Biosciences Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SNUS-PH,"Santander Holdings USA, Inc. Depositary Shares, Each Representing a 1/1,000th Interest in a Share of Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock, Series H",N,False,preferred,nasdaqtrader
-SNUS-PI,"Santander Holdings USA, Inc. Depositary Shares, Each Representing a 1/40th Interest in a Share of Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock, Series I",N,False,preferred,nasdaqtrader
 SNWV,"SANUWAVE Health, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SNX,TD SYNNEX Corporation Common Stock,N,False,common,nasdaqtrader
 SNY,Sanofi - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
