@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-15",
+  "as_of": "2026-10-16",
   "mode": "shadow",
   "shadow_note": "影子運行：只記錄、不下單。慢閘門檻未經真實資料校準，快閘的危機型事件樣本 n=1。",
   "base_alloc": {
@@ -7,7 +7,7 @@
     "qqq": 1.0,
     "sgov": 0.0,
     "source": {
-      "as_of": "2026-10-15",
+      "as_of": "2026-10-16",
       "text": "100% QQQ"
     }
   },
@@ -22,49 +22,51 @@
   "slow": {
     "gate": "CreditProxyGate",
     "regime": "WATCH",
-    "score": 29.49,
+    "score": 36.88,
     "equity_ceiling": 0.75,
     "detail": {
-      "beta": 0.5159,
+      "beta": 0.5165,
       "beta_source": "rolling",
-      "stress_level": 0.0143,
-      "chg250_pctile": 19.2,
-      "hyg_lqd_chg60": 0.00159,
-      "index_last": 111.604,
+      "stress_level": 0.0181,
+      "chg250_pctile": 0.4,
+      "hyg_lqd_chg60": -0.00115,
+      "index_last": 111.164,
       "components": {
-        "stress": 5.25,
-        "chg_pctile": 24.24,
-        "quality_dispersion": 0.0
+        "stress": 6.65,
+        "chg_pctile": 29.88,
+        "quality_dispersion": 0.35
       },
       "uncalibrated": true
     }
   },
   "fast": {
-    "raw_veto": 0,
-    "gated_veto": 0,
-    "n_categories": 0,
+    "raw_veto": 1,
+    "gated_veto": 1,
+    "n_categories": 1,
     "curve_inverted": false,
-    "vix9d": 13.97,
-    "vix": 16.46,
-    "vix3m": 18.49,
+    "vix9d": 20.12,
+    "vix": 19.99,
+    "vix3m": 20.5,
     "detail": {
-      "triggered": [],
+      "triggered": [
+        "vol_of_vol"
+      ],
       "missing": [],
-      "vvix_pctile": 37.6,
-      "hy_chg20_bp": 54.999999999999986,
-      "threshold_shift": -2.413,
-      "vvix_trigger": 77.587,
-      "hy_trigger_bp": 72.587,
+      "vvix_pctile": 84.39999999999999,
+      "hy_chg20_bp": 52.99999999999998,
+      "threshold_shift": -0.0,
+      "vvix_trigger": 80.0,
+      "hy_trigger_bp": 75.0,
       "sample_size_note": "危機型事件樣本 n=1（2020），等級不代表統計信心"
     }
   },
   "crowding": {
-    "score": 62.07,
-    "threshold_shift": -2.413,
+    "score": 49.09,
+    "threshold_shift": -0.0,
     "detail": {
       "components": {
-        "low_vol": 0.511,
-        "trailing_gain": 0.73
+        "low_vol": 0.379,
+        "trailing_gain": 0.603
       },
       "missing": [
         "cftc_jpy_net_short",
@@ -75,24 +77,26 @@
     }
   },
   "state": {
-    "active_veto": 0,
-    "clean_days": 48,
+    "active_veto": 1,
+    "clean_days": 0,
     "consec_inversion": 0
   },
   "state_meta": {
     "found": true,
     "as_of": "2026-10-15",
-    "saved_at": "2026-10-15T00:00:31+00:00",
-    "staleness_days": 0
+    "saved_at": "2026-10-15T23:44:31+00:00",
+    "staleness_days": 1
   },
   "controller": {
-    "raw_veto": 0,
-    "gated_veto": 0,
-    "effective_categories": [],
+    "raw_veto": 1,
+    "gated_veto": 1,
+    "effective_categories": [
+      "vol_of_vol"
+    ],
     "persist_days": 4,
     "reentry_clean_days": 0,
     "slow_ceiling": 0.75,
-    "veto_ceiling": 1.0,
+    "veto_ceiling": 0.75,
     "tqqq_hard_cap": 0.5
   },
   "ev": {
@@ -468,18 +472,18 @@
   },
   "log_sources": {
     "backfill": 2513,
-    "live": 43
+    "live": 44
   },
   "calibration": {
-    "n_obs": 617,
-    "beta": 0.5159,
-    "corr_level_dd_vs_oas": 0.8023,
-    "corr_change_60d": -0.9079,
-    "regime_agreement_rank": 0.3913,
-    "regime_agreement_absolute": 0.2592,
-    "regime_agreement": 0.3913,
-    "regime_agreement_expected": 0.5454,
-    "regime_agreement_shortfall": -0.1541,
+    "n_obs": 618,
+    "beta": 0.5165,
+    "corr_level_dd_vs_oas": 0.8025,
+    "corr_change_60d": -0.908,
+    "regime_agreement_rank": 0.394,
+    "regime_agreement_absolute": 0.2588,
+    "regime_agreement": 0.394,
+    "regime_agreement_expected": 0.5456,
+    "regime_agreement_shortfall": -0.1516,
     "corr_needed_for_agreement_target": 0.928,
     "targets_are_mutually_consistent": false,
     "targets": {
@@ -499,7 +503,6 @@
   "problems": [],
   "history": {
     "dates": [
-      "2026-01-27",
       "2026-01-28",
       "2026-01-29",
       "2026-01-30",
@@ -678,11 +681,11 @@
       "2026-10-10",
       "2026-10-13",
       "2026-10-14",
-      "2026-10-15"
+      "2026-10-15",
+      "2026-10-16"
     ],
     "series": {
       "cp_score": [
-        24.296,
         25.428,
         27.221,
         24.133,
@@ -861,12 +864,12 @@
         30.432,
         19.6,
         19.6,
-        29.485
+        29.485,
+        36.876
       ],
       "state_active_veto": [
         0.0,
         0.0,
-        0.0,
         1.0,
         0.0,
         0.0,
@@ -1043,12 +1046,12 @@
         0.0,
         0.0,
         0.0,
-        0.0
+        0.0,
+        1.0
       ],
       "fg_n_categories": [
         0.0,
         0.0,
-        0.0,
         1.0,
         0.0,
         0.0,
@@ -1225,10 +1228,10 @@
         0.0,
         0.0,
         0.0,
-        0.0
+        0.0,
+        1.0
       ],
       "out_w_tqqq": [
-        0.25,
         0.1875,
         0.1875,
         0.1875,
@@ -1365,6 +1368,7 @@
         0.25,
         0.25,
         0.25,
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -1415,7 +1419,6 @@
         0.25,
         0.25,
         0.25,
-        0.25,
         0.0,
         0.0,
         0.0,
@@ -1547,6 +1550,7 @@
         0.25,
         0.25,
         0.25,
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -1592,7 +1596,6 @@
         0.0
       ],
       "cr_score": [
-        70.92,
         72.35,
         69.72,
         66.4,
@@ -1771,7 +1774,8 @@
         65.43,
         68.61,
         68.61,
-        62.07
+        62.07,
+        49.09
       ]
     }
   },
