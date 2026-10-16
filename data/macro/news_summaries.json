@@ -1,4 +1,18 @@
 {
+ "INDPRO@2026-09-01": {
+  "summary_zh": "2026年9月工業生產指數較上月上升0.7%，延續8月0.1%的增幅，第三季以年率計上升2.8%。製造業產出增加0.3%，礦業上升0.2%，公用事業大幅上升3.5%。整體指數較去年同期高2.2%，產能利用率升至76.9%。",
+  "drivers": [
+   "utilities output increased 3.5 percent, with gains in the indexes for electric utilities and for natural gas utilities",
+   "consumer goods rose 0.7 percent, as a gain in nondurable consumer goods output more than offset a decline in durable consumer goods output",
+   "manufacturing output rose 0.3 percent in September",
+   "mining output moved up 0.2 percent in September"
+  ],
+  "evidence": "Industrial production (IP) increased 0.7 percent in September after edging up 0.1 percent in August.",
+  "source_url": "https://www.federalreserve.gov/releases/g17/current/default.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-09-01",
+  "fred_id": "INDPRO"
+ },
  "INDPRO@2026-08-01": {
   "summary_zh": "2026年8月工業生產指數(IP)較上月持平,前一個月(7月)則成長0.2%。其中製造業產出下降0.3%,礦業指數微幅上升0.1%,公用事業指數則上升1.8%。以2017年為基期100計算,8月總指數為103.1,較去年同期高出1.4%。產能利用率維持不變,為76.3%。",
   "drivers": [
