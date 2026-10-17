@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-10",
+  "as_of": "2026-10-17",
   "constituents": [
     {
       "ticker": "MMM",
@@ -1839,7 +1839,7 @@
     },
     {
       "ticker": "MCK",
-      "name": "McKesson Corporation",
+      "name": "McKesson",
       "sector": "Health Care",
       "sub_industry": "Health Care Distributors"
     },
