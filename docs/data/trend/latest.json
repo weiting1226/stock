@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-16",
+  "as_of": "2026-10-20",
   "close_date": "2026-10-16",
   "benchmark": {
     "ticker": "SPY",
@@ -27,7 +27,7 @@
         {
           "ticker": "XLK",
           "close": 183.47,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": -2.33,
             "3m": 4.54,
@@ -60,7 +60,7 @@
         {
           "ticker": "VGT",
           "close": 118.83,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": -2.07,
             "3m": 5.07,
@@ -93,7 +93,7 @@
         {
           "ticker": "IYW",
           "close": 251.24,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": -1.64,
             "3m": 4.72,
@@ -135,7 +135,7 @@
         {
           "ticker": "XLF",
           "close": 55.52,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": -0.29,
             "3m": -0.58,
@@ -168,7 +168,7 @@
         {
           "ticker": "VFH",
           "close": 134.75,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": -0.84,
             "3m": -1.57,
@@ -201,7 +201,7 @@
         {
           "ticker": "KRE",
           "close": 69.81,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": -3.48,
             "3m": -7.49,
@@ -243,7 +243,7 @@
         {
           "ticker": "XLV",
           "close": 176.71,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": 5.08,
             "3m": 11.39,
@@ -276,7 +276,7 @@
         {
           "ticker": "VHT",
           "close": 327.15,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": 3.51,
             "3m": 9.57,
@@ -309,7 +309,7 @@
         {
           "ticker": "XBI",
           "close": 144.32,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": -8.8,
             "3m": -4.39,
@@ -351,7 +351,7 @@
         {
           "ticker": "XLY",
           "close": 112.46,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": 1.18,
             "3m": -1.66,
@@ -384,7 +384,7 @@
         {
           "ticker": "VCR",
           "close": 375.83,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": 0.78,
             "3m": -3.05,
@@ -417,7 +417,7 @@
         {
           "ticker": "XRT",
           "close": 87.02,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": 5.29,
             "3m": -1.95,
@@ -432,7 +432,7 @@
           "golden_cross": true,
           "days_since_cross": 70,
           "high_52w": 92.1552,
-          "low_52w": 76.5919,
+          "low_52w": 76.5918,
           "from_high_pct": -5.57,
           "from_low_pct": 13.62,
           "excess": {
@@ -459,7 +459,7 @@
         {
           "ticker": "XLC",
           "close": 110.32,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": -1.48,
             "3m": -0.11,
@@ -492,7 +492,7 @@
         {
           "ticker": "VOX",
           "close": 189.02,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": -1.51,
             "3m": 0.47,
@@ -534,7 +534,7 @@
         {
           "ticker": "XLI",
           "close": 167.76,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": -0.47,
             "3m": -5.56,
@@ -567,7 +567,7 @@
         {
           "ticker": "VIS",
           "close": 320.51,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": -1.09,
             "3m": -6.17,
@@ -600,7 +600,7 @@
         {
           "ticker": "XAR",
           "close": 224.53,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": -6.91,
             "3m": -13.37,
@@ -642,7 +642,7 @@
         {
           "ticker": "XLP",
           "close": 87.62,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": 5.64,
             "3m": 3.93,
@@ -675,7 +675,7 @@
         {
           "ticker": "VDC",
           "close": 237.43,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": 6.09,
             "3m": 4.05,
@@ -717,7 +717,7 @@
         {
           "ticker": "XLE",
           "close": 68.24,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": 6.46,
             "3m": 18.48,
@@ -750,7 +750,7 @@
         {
           "ticker": "VDE",
           "close": 190.14,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": 5.68,
             "3m": 17.01,
@@ -783,7 +783,7 @@
         {
           "ticker": "XOP",
           "close": 200.38,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": 4.46,
             "3m": 18.31,
@@ -825,7 +825,7 @@
         {
           "ticker": "XLU",
           "close": 42.21,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": 1.99,
             "3m": -5.38,
@@ -858,7 +858,7 @@
         {
           "ticker": "VPU",
           "close": 182.41,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": 1.82,
             "3m": -5.4,
@@ -900,7 +900,7 @@
         {
           "ticker": "XLRE",
           "close": 42.16,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": -0.99,
             "3m": -6.0,
@@ -933,7 +933,7 @@
         {
           "ticker": "VNQ",
           "close": 91.76,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": -1.34,
             "3m": -6.96,
@@ -975,7 +975,7 @@
         {
           "ticker": "XLB",
           "close": 50.92,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": 0.88,
             "3m": 2.25,
@@ -1008,7 +1008,7 @@
         {
           "ticker": "VAW",
           "close": 225.12,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": -0.18,
             "3m": 2.08,
@@ -1041,7 +1041,7 @@
         {
           "ticker": "XME",
           "close": 100.92,
-          "history_days": 826,
+          "history_days": 823,
           "returns": {
             "1m": -9.28,
             "3m": 3.32,
@@ -1081,7 +1081,7 @@
     {
       "ticker": "SMH",
       "close": 539.79,
-      "history_days": 826,
+      "history_days": 823,
       "returns": {
         "1m": -3.71,
         "3m": -3.41,
@@ -1112,7 +1112,7 @@
     {
       "ticker": "IGV",
       "close": 104.34,
-      "history_days": 826,
+      "history_days": 823,
       "returns": {
         "1m": -1.36,
         "3m": 12.22,
@@ -1143,7 +1143,7 @@
     {
       "ticker": "ITB",
       "close": 86.4,
-      "history_days": 826,
+      "history_days": 823,
       "returns": {
         "1m": -2.43,
         "3m": -8.68,
@@ -1174,7 +1174,7 @@
     {
       "ticker": "JETS",
       "close": 25.85,
-      "history_days": 826,
+      "history_days": 823,
       "returns": {
         "1m": -8.24,
         "3m": -15.47,
@@ -2025,7 +2025,7 @@
         101.402,
         104.552,
         105.981,
-        105.259,
+        105.26,
         105.697,
         107.279,
         110.165,
@@ -2082,7 +2082,7 @@
         100.881,
         100.643,
         102.147,
-        101.265,
+        101.266,
         101.734,
         100.398,
         102.049,
@@ -2293,7 +2293,7 @@
         96.707,
         95.34,
         93.585,
-        93.998,
+        93.997,
         97.291,
         98.566,
         98.558,
@@ -2328,8 +2328,8 @@
         97.776,
         96.414,
         97.224,
-        95.596,
-        95.596,
+        95.595,
+        95.595,
         93.156,
         93.724,
         92.363,
@@ -2404,7 +2404,7 @@
         92.811,
         93.601,
         94.853,
-        94.442,
+        94.441,
         95.324
       ]
     },
@@ -2554,7 +2554,7 @@
         98.12,
         97.494,
         97.348,
-        96.224,
+        96.223,
         98.017,
         96.069,
         95.425,
@@ -2606,7 +2606,7 @@
         96.092,
         96.541,
         98.312,
-        98.433,
+        98.432,
         100.687,
         102.648,
         102.579,
@@ -3119,8 +3119,8 @@
         113.113,
         113.777,
         115.039,
-        116.483,
-        114.57,
+        116.484,
+        114.571,
         114.375,
         116.783,
         115.638,
@@ -3631,7 +3631,7 @@
         95.177,
         95.199,
         95.422,
-        95.89,
+        95.889,
         96.201,
         95.328,
         96.092,
@@ -3704,7 +3704,7 @@
         103.296,
         103.933,
         103.432,
-        102.227,
+        102.226,
         104.478,
         105.297,
         103.546,
@@ -3721,7 +3721,7 @@
         98.223,
         96.062,
         97.063,
-        97.996,
+        97.995,
         97.677,
         96.426,
         93.992,
@@ -4167,7 +4167,7 @@
         100.624,
         102.263,
         102.643,
-        102.419,
+        102.42,
         101.546,
         104.3,
         104.524,
@@ -4487,7 +4487,7 @@
         112.377,
         113.278,
         113.741,
-        113.369,
+        113.37,
         110.694,
         108.629,
         111.072,
