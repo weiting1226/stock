@@ -595,7 +595,6 @@ ASTE,"Astec Industries, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ASTH,Astrana Health Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 ASTI,"Ascent Solar Technologies, Inc - Common Stock",NASDAQ,False,common,nasdaqtrader
 ASTL,Algoma Steel Group Inc. - Common Shares,NASDAQ,False,common,nasdaqtrader
-ASTLW,Algoma Steel Group Inc. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 ASTS,"AST SpaceMobile, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 ASUR,Asure Software Inc - Common Stock,NASDAQ,False,common,nasdaqtrader
 ASX,"ASE Technology Holding Co., Ltd. American Depositary Shares (each representing Two Common Shares)",N,False,common,nasdaqtrader
@@ -1218,7 +1217,6 @@ BZAI,"Blaize Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BZAIW,"Blaize Holdings, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
 BZFD,"BuzzFeed, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 BZFDW,"BuzzFeed, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
-BZH,"Beazer Homes USA, Inc. Common Stock",N,False,common,nasdaqtrader
 BZUN,Baozun Inc. - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 C,"Citigroup, Inc. Common Stock",N,False,common,nasdaqtrader
 C-PN,Citigroup Capital XIII 7.875% Fixed rate Floating Rate trust Preferred Securities (TruPS),N,False,preferred,nasdaqtrader
@@ -5940,6 +5938,7 @@ SARO,"StandardAero, Inc. Common Stock",N,False,common,nasdaqtrader
 SATA,"Strive, Inc. - Variable Rate Series A Perpetual Preferred Stock",NASDAQ,False,preferred,nasdaqtrader
 SATL,Satellogic Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 SATLW,Satellogic Inc. - Warrant,NASDAQ,False,warrant,nasdaqtrader
+SATS,"Strive, Inc. - 15.00% Series A Perpetual SATS Preferred Stock",NASDAQ,False,preferred,nasdaqtrader
 SAV,Saratoga Investment Corp 7.50% Notes due 2031,N,False,note,nasdaqtrader
 SAX,Saratoga Investment Corp 8.00% Notes due 2031,N,False,note,nasdaqtrader
 SAY,Saratoga Investment Corp 8.125% Notes due 2027,N,False,note,nasdaqtrader
@@ -6234,7 +6233,7 @@ SNWV,"SANUWAVE Health, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SNX,TD SYNNEX Corporation Common Stock,N,False,common,nasdaqtrader
 SNY,Sanofi - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 SO,Southern Company (The) Common Stock,N,False,common,nasdaqtrader
-SOAR,"Volato Group, Inc. Class A Common Stock",A,False,common,nasdaqtrader
+SOAR,"SOAR AI, Inc. Class A Common Stock",A,False,common,nasdaqtrader
 SOBO,South Bow Corporation Common Shares,N,False,common,nasdaqtrader
 SOC,Sable Offshore Corp. Common Stock,N,False,common,nasdaqtrader
 SOCA,Solarius Capital Acquisition Corp. - Class A Ordinary Share,NASDAQ,False,common,nasdaqtrader
