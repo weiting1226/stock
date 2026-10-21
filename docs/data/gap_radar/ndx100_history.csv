@@ -99,3 +99,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-10-14,8,MSTR,Strategy Inc,56.26,113.54,high
 2026-10-14,9,TMUS,T-Mobile US,54.06,53.62,low
 2026-10-14,10,STX,Seagate Technology,52.35,79.06,moderate
+2026-10-21,1,CRWV,"CoreWeave, Inc.",122.67,172.76,extreme
+2026-10-21,2,RKLB,Rocket Lab Corporation,100.69,84.19,high
+2026-10-21,3,WDC,Western Digital,78.6,96.82,high
+2026-10-21,4,APP,AppLovin,75.02,97.51,high
+2026-10-21,5,MU,Micron Technology,74.16,169.11,extreme
+2026-10-21,6,AXON,Axon Enterprise,73.62,57.21,moderate
+2026-10-21,7,MSTR,Strategy Inc,67.65,112.84,high
+2026-10-21,8,NBIS,Nebius Group N.V.,65.41,114.95,extreme
+2026-10-21,9,STX,Seagate Technology,65.08,80.75,moderate
+2026-10-21,10,ALNY,"Alnylam Pharmaceuticals, Inc.",59.82,77.57,moderate

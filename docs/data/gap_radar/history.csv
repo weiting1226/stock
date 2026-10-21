@@ -109,3 +109,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-10-14,8,MU,Micron Technology,63.72,169.11,extreme
 2026-10-14,9,AKAM,Akamai Technologies,58.98,83.09,extreme
 2026-10-14,10,MGM,MGM Resorts,58.49,57.95,high
+2026-10-21,1,NRG,NRG Energy,85.9,91.27,extreme
+2026-10-21,2,FLEX,Flex Ltd.,82.42,23.81,low
+2026-10-21,3,ORCL,Oracle Corporation,81.0,122.18,extreme
+2026-10-21,4,WDC,Western Digital,78.6,96.82,extreme
+2026-10-21,5,AKAM,Akamai Technologies,77.25,83.09,extreme
+2026-10-21,6,APP,AppLovin,75.02,97.51,extreme
+2026-10-21,7,COHR,Coherent Corp.,74.81,55.53,moderate
+2026-10-21,8,MU,Micron Technology,74.16,169.11,extreme
+2026-10-21,9,AXON,Axon Enterprise,73.62,57.21,moderate
+2026-10-21,10,ALB,Albemarle Corporation,65.74,80.46,extreme
