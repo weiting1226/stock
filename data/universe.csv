@@ -793,7 +793,6 @@ BC,Brunswick Corporation Common Stock,N,False,common,nasdaqtrader
 BC-PC,Brunswick Corporation 6.375% Notes due 2049,N,False,preferred,nasdaqtrader
 BCAL,California BanCorp - Common Stock,NASDAQ,False,common,nasdaqtrader
 BCAT,BlackRock Capital Allocation Term Trust Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
-BCAT-R,"BlackRock Capital Allocation Term Trust Rights (expiring October 21, 2026) Rights",N,False,right,nasdaqtrader
 BCAX,Bicara Therapeutics Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 BCBP,"BCB Bancorp, Inc. (NJ) - Common Stock",NASDAQ,False,common,nasdaqtrader
 BCC,"Boise Cascade, L.L.C. Common Stock",N,False,common,nasdaqtrader
@@ -3390,6 +3389,7 @@ IIIV,"i3 Verticals, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 IIM,Invesco Value Municipal Income Trust Common Stock,N,False,common,nasdaqtrader
 IIPR,"Innovative Industrial Properties, Inc. Common Stock",N,False,common,nasdaqtrader
 IIPR-PA,"Innovative Industrial Properties, Inc. 9.00% Series A Cumulative Redeemable Preferred Stock",N,False,preferred,nasdaqtrader
+IIPR-PB,"Innovative Industrial Properties, Inc. 9.25% Series B Cumulative Redeemable Preferred Stock",N,False,preferred,nasdaqtrader
 IKT,"Inhibikase Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ILAG,Intelligent Living Application Group Inc. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ILLU,Illumination Acquisition Corp I - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -4422,7 +4422,9 @@ MSDL,Morgan Stanley Direct Lending Fund Common Stock,N,False,common,nasdaqtrader
 MSEX,Middlesex Water Company - Common Stock,NASDAQ,False,common,nasdaqtrader
 MSFT,Microsoft Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 MSGE,Madison Square Garden Entertainment Corp. Class A Common Stock,N,False,common,nasdaqtrader
+MSGK-V,Madison Square Garden Sports Corp. Class A Common Stock When-Issued,N,False,common,nasdaqtrader
 MSGM,Motorsport Games Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
+MSGR-V,MSG Rangers Corp. Class A Common Stock When-Issued,N,False,common,nasdaqtrader
 MSGS,Madison Square Garden Sports Corp. Class A Common Stock (New),N,False,common,nasdaqtrader
 MSGY,Masonglory Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 MSI,"Motorola Solutions, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -5384,7 +5386,7 @@ POLA,"Polar Power, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 POLE,Andretti Acquisition Corp. II - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 POLEU,Andretti Acquisition Corp. II - Unit,NASDAQ,False,unit,nasdaqtrader
 POLEW,Andretti Acquisition Corp. II - Warrant,NASDAQ,False,warrant,nasdaqtrader
-POM,POMDOCTOR LIMITED - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
+POM,POMDOCTOR LIMITED - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 PONO,"Pono Capital Four, Inc. - Class A Ordinary Shares",NASDAQ,False,common,nasdaqtrader
 PONOR,"Pono Capital Four, Inc. - Rights",NASDAQ,False,right,nasdaqtrader
 PONOU,"Pono Capital Four, Inc. - Units",NASDAQ,False,unit,nasdaqtrader
@@ -6646,7 +6648,7 @@ TM,Toyota Motor Corporation Common Stock,N,False,common,nasdaqtrader
 TMC,TMC the metals company Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 TMCI,"Treace Medical Concepts, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 TMCR,The Metals Royalty Company Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
-TMDE,TMD Energy Limited Ordinary Shares,A,False,common,nasdaqtrader
+TMDE,TMD Energy Limited Class A Ordinary Shares,A,False,common,nasdaqtrader
 TMDX,"TransMedics Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 TME,"Tencent Music Entertainment Group American Depositary Shares, each representing two Class A Ordinary Shares",N,False,common,nasdaqtrader
 TMO,Thermo Fisher Scientific Inc Common Stock,N,False,common,nasdaqtrader
