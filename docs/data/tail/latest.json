@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-21",
+  "as_of": "2026-10-22",
   "mode": "shadow",
   "shadow_note": "影子運行：只記錄、不下單。慢閘門檻未經真實資料校準，快閘的危機型事件樣本 n=1。",
   "base_alloc": {
@@ -7,7 +7,7 @@
     "qqq": 1.0,
     "sgov": 0.0,
     "source": {
-      "as_of": "2026-10-20",
+      "as_of": "2026-10-21",
       "text": "100% QQQ"
     }
   },
@@ -22,18 +22,18 @@
   "slow": {
     "gate": "CreditProxyGate",
     "regime": "WATCH",
-    "score": 35.75,
+    "score": 35.25,
     "equity_ceiling": 0.75,
     "detail": {
-      "beta": 0.5135,
+      "beta": 0.5147,
       "beta_source": "rolling",
-      "stress_level": 0.0167,
-      "chg250_pctile": 1.2,
-      "hyg_lqd_chg60": 0.00322,
-      "index_last": 110.907,
+      "stress_level": 0.0176,
+      "chg250_pctile": 4.0,
+      "hyg_lqd_chg60": 0.00205,
+      "index_last": 110.79,
       "components": {
-        "stress": 6.11,
-        "chg_pctile": 29.64,
+        "stress": 6.45,
+        "chg_pctile": 28.8,
         "quality_dispersion": 0.0
       },
       "uncalibrated": true
@@ -44,27 +44,29 @@
     "gated_veto": 0,
     "n_categories": 0,
     "curve_inverted": false,
-    "vix9d": 16.27,
-    "vix": 17.31,
-    "vix3m": 18.99,
+    "vix9d": 15.49,
+    "vix": 16.68,
+    "vix3m": 18.72,
     "detail": {
       "triggered": [],
-      "missing": [],
-      "vvix_pctile": 53.2,
-      "hy_chg20_bp": 62.999999999999986,
-      "threshold_shift": -1.439,
-      "vvix_trigger": 78.561,
-      "hy_trigger_bp": 73.561,
+      "missing": [
+        "credit_shock"
+      ],
+      "vvix_pctile": 44.800000000000004,
+      "hy_chg20_bp": null,
+      "threshold_shift": -1.651,
+      "vvix_trigger": 78.349,
+      "hy_trigger_bp": 73.349,
       "sample_size_note": "危機型事件樣本 n=1（2020），等級不代表統計信心"
     }
   },
   "crowding": {
-    "score": 57.2,
-    "threshold_shift": -1.439,
+    "score": 58.25,
+    "threshold_shift": -1.651,
     "detail": {
       "components": {
-        "low_vol": 0.543,
-        "trailing_gain": 0.601
+        "low_vol": 0.567,
+        "trailing_gain": 0.598
       },
       "missing": [
         "cftc_jpy_net_short",
@@ -76,13 +78,13 @@
   },
   "state": {
     "active_veto": 0,
-    "clean_days": 1,
+    "clean_days": 2,
     "consec_inversion": 0
   },
   "state_meta": {
     "found": true,
-    "as_of": "2026-10-20",
-    "saved_at": "2026-10-20T00:29:39+00:00",
+    "as_of": "2026-10-21",
+    "saved_at": "2026-10-21T00:00:23+00:00",
     "staleness_days": 1
   },
   "controller": {
@@ -468,27 +470,9 @@
   },
   "log_sources": {
     "backfill": 2513,
-    "live": 46
+    "live": 47
   },
-  "calibration": {
-    "n_obs": 615,
-    "beta": 0.5135,
-    "corr_level_dd_vs_oas": 0.8034,
-    "corr_change_60d": -0.9088,
-    "regime_agreement_rank": 0.3993,
-    "regime_agreement_absolute": 0.2601,
-    "regime_agreement": 0.3993,
-    "regime_agreement_expected": 0.5464,
-    "regime_agreement_shortfall": -0.1471,
-    "corr_needed_for_agreement_target": 0.928,
-    "targets_are_mutually_consistent": false,
-    "targets": {
-      "corr_level_dd_vs_oas": 0.6,
-      "corr_change_60d": -0.5,
-      "regime_agreement": 0.7
-    },
-    "passed": false
-  },
+  "calibration": null,
   "input_lags": {
     "vix_family": 0,
     "credit_proxy": 0,
@@ -496,10 +480,13 @@
     "cftc_jpy": 3,
     "margin_debt": 30
   },
-  "problems": [],
+  "problems": [
+    "HY OAS（BAMLH0A0HYM2）：ValueError: FRED 系列 'BAMLH0A0HYM2' 兩個端點都取不到資料：csv_with_range: ValueError: FRED 系列 'BAMLH0A0HYM2' 無法解析（代碼錯誤或已下架）；csv_full: ValueError: FRED 系列 'BAMLH0A0HYM2' 無法解析（代碼錯誤或已下架）",
+    "sofr（SOFR）：ValueError: FRED 系列 'SOFR' 兩個端點都取不到資料：csv_with_range: ValueError: FRED 系列 'SOFR' 無法解析（代碼錯誤或已下架）；csv_full: ValueError: FRED 系列 'SOFR' 無法解析（代碼錯誤或已下架）",
+    "iorb（IORB）：ValueError: FRED 系列 'IORB' 兩個端點都取不到資料：csv_with_range: ValueError: FRED 系列 'IORB' 無法解析（代碼錯誤或已下架）；csv_full: ValueError: FRED 系列 'IORB' 無法解析（代碼錯誤或已下架）"
+  ],
   "history": {
     "dates": [
-      "2026-01-30",
       "2026-02-02",
       "2026-02-03",
       "2026-02-04",
@@ -678,11 +665,11 @@
       "2026-10-15",
       "2026-10-16",
       "2026-10-20",
-      "2026-10-21"
+      "2026-10-21",
+      "2026-10-22"
     ],
     "series": {
       "cp_score": [
-        24.133,
         21.622,
         24.79,
         27.87,
@@ -861,10 +848,10 @@
         29.485,
         36.876,
         36.876,
-        35.754
+        35.754,
+        35.254
       ],
       "state_active_veto": [
-        1.0,
         0.0,
         0.0,
         1.0,
@@ -1043,10 +1030,10 @@
         0.0,
         1.0,
         1.0,
+        0.0,
         0.0
       ],
       "fg_n_categories": [
-        1.0,
         0.0,
         0.0,
         1.0,
@@ -1225,10 +1212,10 @@
         0.0,
         1.0,
         1.0,
+        0.0,
         0.0
       ],
       "out_w_tqqq": [
-        0.1875,
         0.25,
         0.25,
         0.0,
@@ -1362,6 +1349,7 @@
         0.25,
         0.25,
         0.25,
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -1412,7 +1400,6 @@
       "base_w_tqqq": [
         0.25,
         0.25,
-        0.25,
         0.0,
         0.0,
         0.0,
@@ -1544,6 +1531,7 @@
         0.25,
         0.25,
         0.25,
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -1592,7 +1580,6 @@
         0.0
       ],
       "cr_score": [
-        66.4,
         68.99,
         60.76,
         53.99,
@@ -1771,7 +1758,8 @@
         62.07,
         49.09,
         49.09,
-        57.2
+        57.2,
+        58.25
       ]
     }
   },
