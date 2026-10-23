@@ -616,9 +616,6 @@ ATHM,"Autohome Inc. American Depositary Shares, each representing four class A o
 ATHR,"Aether Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ATHS,Athene Holding Ltd. 7.250% Fixed-Rate Reset Junior Subordinated Debentures due 2064,N,False,note,nasdaqtrader
 ATI,ATI Inc. Common Stock,N,False,common,nasdaqtrader
-ATII,Archimedes Tech SPAC Partners II Co. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-ATIIU,Archimedes Tech SPAC Partners II Co. - Unit,NASDAQ,False,unit,nasdaqtrader
-ATIIW,Archimedes Tech SPAC Partners II Co. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 ATLC,Atlanticus Holdings Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 ATLCL,Atlanticus Holdings Corporation - 6.125% Senior Notes due 2026,NASDAQ,False,note,nasdaqtrader
 ATLCP,"Atlanticus Holdings Corporation - 7.625% Series B Cumulative Perpetual Preferred Stock, no par value per share",NASDAQ,False,preferred,nasdaqtrader
@@ -1870,6 +1867,7 @@ DASH,"DoorDash, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 DAVA,Endava plc American Depositary Shares (each representing one Class A Ordinary Share),N,False,common,nasdaqtrader
 DAVE,Dave Inc.  - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 DAVEW,Dave Inc.  - Warrants,NASDAQ,False,warrant,nasdaqtrader
+DAVI,Davion Healthcare Plc - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 DB,Deutsche Bank AG Common Stock,N,False,common,nasdaqtrader
 DBCA,D. Boral Acquisition I Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 DBCAU,D. Boral Acquisition I Corp. - Unit,NASDAQ,False,unit,nasdaqtrader
@@ -4531,6 +4529,8 @@ NAMMW,Namib Minerals - Warrants,NASDAQ,False,warrant,nasdaqtrader
 NAMS,NewAmsterdam Pharma Company N.V. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 NAMSW,NewAmsterdam Pharma Company N.V. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 NAN,Nuveen New York Quality Municipal Income Fund Common Stock,N,False,common,nasdaqtrader
+NANO,Forge Nano Holdings Inc. - Common stock,NASDAQ,False,common,nasdaqtrader
+NANOW,Forge Nano Holdings Inc. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 NAT,Nordic American Tankers Limited Common Stock,N,False,common,nasdaqtrader
 NATH,"Nathan's Famous, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 NATL,NCR Atleos Corporation Common Stock,N,False,common,nasdaqtrader
