@@ -492,6 +492,7 @@ APURR,Aperture AC - Rights,NASDAQ,False,right,nasdaqtrader
 APUS,"Apimeds Pharmaceuticals US, Inc. Common Stock",A,False,common,nasdaqtrader
 APVO,Aptevo Therapeutics Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 APWC,"Asia Pacific Wire & Cable Corporation Limited  - Common shares, Par value .01 per share",NASDAQ,False,common,nasdaqtrader
+APXC,Apex Critical Metals Corp. - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 APXT,Apex Treasury Corporation - Class A Ordinary Share,NASDAQ,False,common,nasdaqtrader
 APXTU,Apex Treasury Corporation - Units,NASDAQ,False,unit,nasdaqtrader
 APXTW,Apex Treasury Corporation - Warrants,NASDAQ,False,warrant,nasdaqtrader
@@ -2359,7 +2360,6 @@ EVC,Entravision Communications Corporation Common Stock,N,False,common,nasdaqtra
 EVCM,EverCommerce Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 EVER,"EverQuote, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 EVEX,"Eve Holding, Inc. Common Stock",N,False,common,nasdaqtrader
-EVEX-W,"Eve Holding, Inc. Warrants, each exercisable for one share of Common Stock at an exercise price of $11.50 per share",N,False,warrant,nasdaqtrader
 EVF,Eaton Vance Senior Income Trust Common Stock,N,False,common,nasdaqtrader
 EVG,Eaton Vance Short Diversified Income Fund Eaton Vance Short Duration Diversified Income Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 EVGN,Evogene Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -3625,7 +3625,7 @@ JHX,James Hardie Industries plc. Ordinary Shares,N,False,common,nasdaqtrader
 JILL,"J. Jill, Inc. Common Stock",N,False,common,nasdaqtrader
 JJSF,J & J Snack Foods Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 JKHY,"Jack Henry & Associates, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-JKS,JinkoSolar Holding Company Limited American Depositary Shares (each representing 4 Common Shares),N,False,common,nasdaqtrader
+JKS,Jinko Holdings Limited American Depositary Shares (each representing 4 Ordinary Shares),N,False,common,nasdaqtrader
 JL,J-Long Group Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 JLHL,Julong Holding Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 JLL,Jones Lang LaSalle Incorporated Common Stock,N,False,common,nasdaqtrader
@@ -4045,7 +4045,7 @@ LTM,"LATAM Airlines Group S.A. American Depositary Shares (each representing two
 LTRN,Lantern Pharma Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 LTRX,"Lantronix, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 LTRYW,Sports Entertainment Gaming Global Corporation  - Warrant,NASDAQ,False,warrant,nasdaqtrader
-LU,"Lufax Holding Ltd American Depositary Shares, each representing two (2) Ordinary Shares",N,False,common,nasdaqtrader
+LU,Lufax Holding Ltd American Depositary Shares (each representing twenty (20) Ordinary Shares),N,False,common,nasdaqtrader
 LUCD,Lucid Diagnostics Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 LUCK,Lucky Strike Entertainment Corporation Class A Common Stock,N,False,common,nasdaqtrader
 LUCY,"Innovative Eyewear, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -4077,6 +4077,7 @@ LXP-PC,LXP Industrial Trust 6.5% Series C Cumulative Convertible Preferred Stock
 LXRX,"Lexicon Pharmaceuticals, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 LXU,"LSB Industries, Inc. Common Stock",N,False,common,nasdaqtrader
 LYB,LyondellBasell Industries NV Ordinary Shares Class A (Netherlands),N,False,common,nasdaqtrader
+LYCA,"Lycia Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 LYEL,"Lyell Immunopharma, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 LYFT,"Lyft, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 LYG,Lloyds Banking Group Plc American Depositary Shares,N,False,common,nasdaqtrader
@@ -5140,6 +5141,8 @@ PATK,"Patrick Industries, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PAVM,PAVmed Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 PAVS,Paranovus Entertainment Technology Ltd. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 PAX,Patria Investments Limited - Class A Common Shares,NASDAQ,False,common,nasdaqtrader
+PAXG,Pine Tree Acquisition Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+PAXGR,Pine Tree Acquisition Corp. - Rights,NASDAQ,False,right,nasdaqtrader
 PAXGU,Pine Tree Acquisition Corp. - Units,NASDAQ,False,unit,nasdaqtrader
 PAXS,PIMCO Access Income Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 PAY,"Paymentus Holdings, Inc. Class A Common Stock",N,False,common,nasdaqtrader
@@ -5232,7 +5235,6 @@ PENN,"PENN Entertainment, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PEO,"Adams Natural Resources Fund, Inc. Common Stock",N,False,common,nasdaqtrader
 PEP,"PepsiCo, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PEPG,PepGen Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
-PERF,Perfect Corp. Class A Ordinary Share,N,False,common,nasdaqtrader
 PERI,Perion Network Ltd - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 PESI,"Perma-Fix Environmental Services, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PETS,"PetMed Express, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -5903,7 +5905,6 @@ SAAQW,Space Asset Acquisition Corp. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 SABA,Saba Capital Income & Opportunities Fund II Shares of Beneficial Interest,N,False,common,nasdaqtrader
 SABR,Sabre Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 SABS,"SAB Biotherapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-SABSW,"SAB Biotherapeutics, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
 SAC,Safeguard Acquisition Corp. Class A Ordinary Shares,N,False,common,nasdaqtrader
 SAC-U,"Safeguard Acquisition Corp. Units, each consisting of one Class A ordinary share and one-half of one redeemable warrant",N,False,warrant,nasdaqtrader
 SAC-W,"Safeguard Acquisition Corp. Warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50 per share",N,False,warrant,nasdaqtrader
@@ -6022,8 +6023,6 @@ SDHIU,Siddhi Acquisition Corp - Unit,NASDAQ,False,unit,nasdaqtrader
 SDHY,PGIM Short Duration High Yield Opportunities Fund Common Shares,N,False,common,nasdaqtrader
 SDOT,Sadot Group Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 SDRL,Seadrill Limited Common Shares,N,False,common,nasdaqtrader
-SDST,Stardust Power Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
-SDSTW,Stardust Power Inc. - Warrant,NASDAQ,False,warrant,nasdaqtrader
 SE,"Sea Limited American Depositary Shares, each representing one Class A Ordinary Share",N,False,common,nasdaqtrader
 SEAL-PA,Seapeak LLC 9.00% Series A Cumulative Redeemable Perpetual Preferred Units,N,False,preferred,nasdaqtrader
 SEAL-PB,Seapeak LLC 8.50% Series B Fixed-to-Floating Rate Cumulative Redeemable Perpetual Preferred Units,N,False,preferred,nasdaqtrader
