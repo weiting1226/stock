@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-17",
+  "as_of": "2026-10-24",
   "constituents": [
     {
       "ticker": "MMM",
@@ -2355,7 +2355,7 @@
     },
     {
       "ticker": "RMD",
-      "name": "ResMed|",
+      "name": "ResMed",
       "sector": "Health Care",
       "sub_industry": "Health Care Equipment"
     },
