@@ -53,7 +53,6 @@ ABVC,"ABVC BioPharma, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ABVX,Abivax SA - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 ABX,"Abacus Global Management, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 ABXL,"Abacus Global Management, Inc. 9.875% Fixed Rate Senior Notes due 2028",N,False,note,nasdaqtrader
-ACA,"Arcosa, Inc. Common Stock",N,False,common,nasdaqtrader
 ACAA,Averin Capital Acquisition Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ACAAU,Averin Capital Acquisition Corp. - Units,NASDAQ,False,unit,nasdaqtrader
 ACAAW,Averin Capital Acquisition Corp. - Warrants,NASDAQ,False,warrant,nasdaqtrader
@@ -176,6 +175,7 @@ AESP,Aeon Acquisition I Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasd
 AESPR,Aeon Acquisition I Corp. - Rights,NASDAQ,False,right,nasdaqtrader
 AESPU,Aeon Acquisition I Corp. - Units,NASDAQ,False,unit,nasdaqtrader
 AESPW,Aeon Acquisition I Corp. - Warrants,NASDAQ,False,warrant,nasdaqtrader
+AETR,Aetherion Technologies Inc. - Common Shares,NASDAQ,False,common,nasdaqtrader
 AEVA,"Aeva Technologies, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 AEXA,American Exceptionalism Acquisition Corp. A Class A Ordinary Shares,N,False,common,nasdaqtrader
 AEYE,"AudioEye, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -2202,7 +2202,6 @@ ELF,"e.l.f. Beauty, Inc. Common Stock",N,False,common,nasdaqtrader
 ELLA,Ellington Credit Company 8.50% Notes due 2031,N,False,note,nasdaqtrader
 ELLO,Ellomay Capital Ltd Ordinary Shares (Israel),A,False,common,nasdaqtrader
 ELMD,"Electromed, Inc. Common Stock",A,False,common,nasdaqtrader
-ELME,Elme Communities Common Stock,N,False,common,nasdaqtrader
 ELMT,The Elmet Group Co. - Common Stock,NASDAQ,False,common,nasdaqtrader
 ELOG,Eastern International Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ELOX,"Eloxx Pharmaceuticals, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -2446,6 +2445,7 @@ FCAP,"First Capital, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 FCBC,"First Community Bankshares, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 FCBM,"First Carolina Financial Services, Inc. Common Stock",N,False,common,nasdaqtrader
 FCCO,First Community Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
+FCDH,Forcendra Holding Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 FCEL,"FuelCell Energy, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 FCF,First Commonwealth Financial Corporation Common Stock,N,False,common,nasdaqtrader
 FCFS,"FirstCash Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -3049,6 +3049,7 @@ GUAC,Berto Acquisition Corp. II - Ordinary Shares,NASDAQ,False,common,nasdaqtrad
 GUACU,Berto Acquisition Corp. II - Units,NASDAQ,False,unit,nasdaqtrader
 GUACW,Berto Acquisition Corp. II - Warrants,NASDAQ,False,warrant,nasdaqtrader
 GUG,Guggenheim Active Allocation Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
+GUNN,Gunnison Copper Corp. American Depositary Shares (each representing thirty (30) Common Shares),A,False,common,nasdaqtrader
 GURE,"Gulf Resources, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 GUT,Gabelli Utility Trust (The) Common Stock,N,False,common,nasdaqtrader
 GUT-PC,Gabelli Utility Trust (The) 5.375% Series C Cumulative Preferred Shares,N,False,preferred,nasdaqtrader
@@ -5128,7 +5129,6 @@ PAM,Pampa Energia S.A.,N,False,common,nasdaqtrader
 PAMT,PAMT CORP - Common Stock,NASDAQ,False,common,nasdaqtrader
 PANL,Pangaea Logistics Solutions Ltd. - Common Stock,NASDAQ,False,common,nasdaqtrader
 PANW,"Palo Alto Networks, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-PAPL,Pineapple Financial Inc. Common Stock,A,False,common,nasdaqtrader
 PAR,PAR Technology Corporation Common Stock,N,False,common,nasdaqtrader
 PARA,"Banzai International, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 PARAW,"Banzai International, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
@@ -5504,6 +5504,7 @@ PTCT,"PTC Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PTEN,"Patterson-UTI Energy, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PTGX,"Protagonist Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PTHS,Pelthos Therapeutics Inc. Common Stock,A,False,common,nasdaqtrader
+PTIV,Pineapple Financial Inc. Common Stock,A,False,common,nasdaqtrader
 PTLE,PTL LTD - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 PTLO,Portillo's Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 PTN,"Palatin Technologies, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -7103,7 +7104,6 @@ VSAT,"ViaSat, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 VSEC,VSE Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 VSECU,VSE Corporation - Tangible Equity Units,NASDAQ,False,unit,nasdaqtrader
 VSH,"Vishay Intertechnology, Inc. Common Stock",N,False,common,nasdaqtrader
-VSME,VS Media Holdings Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 VSNT,"Versant Media Group, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 VST,Vistra Corp. Common Stock,N,False,common,nasdaqtrader
 VSTM,"Verastem, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -7165,7 +7165,6 @@ WDH,Waterdrop Inc. American Depositary Shares (each representing the right to re
 WDI,Western Asset Diversified Income Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 WDS,"Woodside Energy Group Limited American Depositary Shares, each representing one Ordinary Share",N,False,common,nasdaqtrader
 WEA,Western Asset Bond Fund Share of Beneficial Interest,N,False,note,nasdaqtrader
-WEAV,"Weave Communications, Inc. Common Stock",N,False,common,nasdaqtrader
 WEC,"WEC Energy Group, Inc. Common Stock",N,False,common,nasdaqtrader
 WELL,Welltower Inc. Common Stock,N,False,common,nasdaqtrader
 WEN,Wendy's Company (The) - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -7255,7 +7254,6 @@ WPAC-U,"White Pearl Acquisition Corp. Units, each consisting of one Class A ordi
 WPC,W. P. Carey Inc. REIT,N,False,common,nasdaqtrader
 WPM,Wheaton Precious Metals Corp Common Shares (Canada),N,False,common,nasdaqtrader
 WPP,WPP plc American Depositary Shares,N,False,common,nasdaqtrader
-WPRT,Westport Fuel Systems Inc - Common Shares,NASDAQ,False,common,nasdaqtrader
 WQEY,WISeQey Corp - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 WRAP,"Wrap Technologies, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 WRB,W.R. Berkley Corporation Common Stock,N,False,common,nasdaqtrader
