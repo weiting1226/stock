@@ -119,3 +119,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-10-21,8,MU,Micron Technology,74.16,169.11,extreme
 2026-10-21,9,AXON,Axon Enterprise,73.62,57.21,moderate
 2026-10-21,10,ALB,Albemarle Corporation,65.74,80.46,extreme
+2026-10-28,1,FLEX,Flex Ltd.,87.04,28.86,low
+2026-10-28,2,NRG,NRG Energy,85.5,93.93,extreme
+2026-10-28,3,ORCL,Oracle Corporation,80.65,122.98,extreme
+2026-10-28,4,APP,AppLovin,79.47,98.58,extreme
+2026-10-28,5,HWM,Howmet Aerospace,69.05,37.59,low
+2026-10-28,6,MU,Micron Technology,68.17,168.96,extreme
+2026-10-28,7,WYNN,Wynn Resorts,67.98,29.59,low
+2026-10-28,8,COHR,Coherent Corp.,67.95,68.18,high
+2026-10-28,9,SNDK,Sandisk,64.3,121.28,extreme
+2026-10-28,10,STX,Seagate Technology,63.45,82.45,extreme

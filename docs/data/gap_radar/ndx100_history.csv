@@ -109,3 +109,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-10-21,8,NBIS,Nebius Group N.V.,65.41,114.95,extreme
 2026-10-21,9,STX,Seagate Technology,65.08,80.75,moderate
 2026-10-21,10,ALNY,"Alnylam Pharmaceuticals, Inc.",59.82,77.57,moderate
+2026-10-28,1,CRWV,"CoreWeave, Inc.",125.92,177.59,extreme
+2026-10-28,2,APP,AppLovin,79.47,98.58,high
+2026-10-28,3,RKLB,Rocket Lab Corporation,75.18,84.19,high
+2026-10-28,4,SPCX,Space Exploration Technologies Corp,72.69,284.5,extreme
+2026-10-28,5,MSTR,Strategy Inc,69.21,112.84,high
+2026-10-28,6,MU,Micron Technology,68.17,168.96,extreme
+2026-10-28,7,NBIS,Nebius Group N.V.,64.84,116.01,extreme
+2026-10-28,8,SNDK,Sandisk,64.3,121.28,extreme
+2026-10-28,9,STX,Seagate Technology,63.45,82.45,high
+2026-10-28,10,ALNY,"Alnylam Pharmaceuticals, Inc.",62.17,77.76,moderate

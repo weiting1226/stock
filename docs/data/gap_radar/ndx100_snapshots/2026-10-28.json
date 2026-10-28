@@ -1,0 +1,756 @@
+{
+  "as_of": "2026-10-28",
+  "generated_at": "2026-10-28T02:32:08.801993Z",
+  "universe": "Nasdaq-100 (TradingView constituents)",
+  "source_generated_at": "2026-10-28T02:12:41.817325Z",
+  "counts": {
+    "universe": 101,
+    "candidates": 89,
+    "buy": 65,
+    "strong_buy": 24
+  },
+  "dispersion_stats": {
+    "median": 55.47,
+    "p75": 81.01,
+    "p90": 112.84
+  },
+  "median_upside_pct": 23.72,
+  "top10": [
+    {
+      "rank": 1,
+      "ticker": "CRWV",
+      "name": "CoreWeave, Inc.",
+      "sector": "Unknown",
+      "close": 59.57,
+      "consensus_target": 134.5789,
+      "target_low": 39.0,
+      "target_high": 278.0,
+      "upside_pct": 125.92,
+      "target_dispersion_pct": 177.59,
+      "risk_tier": "extreme",
+      "recommendation_key": "buy",
+      "recommendation_mean": 1.78571,
+      "analyst_count": 38,
+      "market_cap": 32855033856.0,
+      "confidence": "中",
+      "prev_rank": 1,
+      "is_new": false
+    },
+    {
+      "rank": 2,
+      "ticker": "APP",
+      "name": "AppLovin",
+      "sector": "Communication Services",
+      "close": 262.82,
+      "consensus_target": 471.6906,
+      "target_low": 325.0,
+      "target_high": 790.0,
+      "upside_pct": 79.47,
+      "target_dispersion_pct": 98.58,
+      "risk_tier": "high",
+      "recommendation_key": "buy",
+      "recommendation_mean": 1.57576,
+      "analyst_count": 31,
+      "market_cap": 87952850944.0,
+      "confidence": "中",
+      "prev_rank": 4,
+      "is_new": false
+    },
+    {
+      "rank": 3,
+      "ticker": "RKLB",
+      "name": "Rocket Lab Corporation",
+      "sector": "Unknown",
+      "close": 58.31,
+      "consensus_target": 102.15,
+      "target_low": 64.0,
+      "target_high": 150.0,
+      "upside_pct": 75.18,
+      "target_dispersion_pct": 84.19,
+      "risk_tier": "high",
+      "recommendation_key": "buy",
+      "recommendation_mean": 1.59091,
+      "analyst_count": 20,
+      "market_cap": 37284057088.0,
+      "confidence": "中",
+      "prev_rank": 2,
+      "is_new": false
+    },
+    {
+      "rank": 4,
+      "ticker": "SPCX",
+      "name": "Space Exploration Technologies Corp",
+      "sector": "Unknown",
+      "close": 148.58,
+      "consensus_target": 256.5867,
+      "target_low": 70.0,
+      "target_high": 800.0,
+      "upside_pct": 72.69,
+      "target_dispersion_pct": 284.5,
+      "risk_tier": "extreme",
+      "recommendation_key": "buy",
+      "recommendation_mean": 1.71795,
+      "analyst_count": 36,
+      "market_cap": 2017874542592.0,
+      "confidence": "中",
+      "prev_rank": null,
+      "is_new": true
+    },
+    {
+      "rank": 5,
+      "ticker": "MSTR",
+      "name": "Strategy Inc",
+      "sector": "Unknown",
+      "close": 141.4,
+      "consensus_target": 239.2667,
+      "target_low": 165.0,
+      "target_high": 435.0,
+      "upside_pct": 69.21,
+      "target_dispersion_pct": 112.84,
+      "risk_tier": "high",
+      "recommendation_key": "strong_buy",
+      "recommendation_mean": 1.25,
+      "analyst_count": 15,
+      "market_cap": 59893112832.0,
+      "confidence": "中",
+      "prev_rank": 7,
+      "is_new": false
+    },
+    {
+      "rank": 6,
+      "ticker": "MU",
+      "name": "Micron Technology",
+      "sector": "Information Technology",
+      "close": 928.76,
+      "consensus_target": 1561.9111,
+      "target_low": 361.0,
+      "target_high": 3000.0,
+      "upside_pct": 68.17,
+      "target_dispersion_pct": 168.96,
+      "risk_tier": "extreme",
+      "recommendation_key": "strong_buy",
+      "recommendation_mean": 1.36735,
+      "analyst_count": 45,
+      "market_cap": 1050820673536.0,
+      "confidence": "中",
+      "prev_rank": 5,
+      "is_new": false
+    },
+    {
+      "rank": 7,
+      "ticker": "NBIS",
+      "name": "Nebius Group N.V.",
+      "sector": "Unknown",
+      "close": 170.47,
+      "consensus_target": 281.0,
+      "target_low": 84.0,
+      "target_high": 410.0,
+      "upside_pct": 64.84,
+      "target_dispersion_pct": 116.01,
+      "risk_tier": "extreme",
+      "recommendation_key": "buy",
+      "recommendation_mean": 1.81818,
+      "analyst_count": 20,
+      "market_cap": 43282026496.0,
+      "confidence": "中",
+      "prev_rank": 8,
+      "is_new": false
+    },
+    {
+      "rank": 8,
+      "ticker": "SNDK",
+      "name": "Sandisk",
+      "sector": "Information Technology",
+      "close": 1304.84,
+      "consensus_target": 2143.8333,
+      "target_low": 1000.0,
+      "target_high": 3600.0,
+      "upside_pct": 64.3,
+      "target_dispersion_pct": 121.28,
+      "risk_tier": "extreme",
+      "recommendation_key": "buy",
+      "recommendation_mean": 1.52,
+      "analyst_count": 24,
+      "market_cap": 188585345024.0,
+      "confidence": "中",
+      "prev_rank": null,
+      "is_new": true
+    },
+    {
+      "rank": 9,
+      "ticker": "STX",
+      "name": "Seagate Technology",
+      "sector": "Information Technology",
+      "close": 667.85,
+      "consensus_target": 1091.5834,
+      "target_low": 700.0,
+      "target_high": 1600.0,
+      "upside_pct": 63.45,
+      "target_dispersion_pct": 82.45,
+      "risk_tier": "high",
+      "recommendation_key": "strong_buy",
+      "recommendation_mean": 1.38462,
+      "analyst_count": 24,
+      "market_cap": 151864410112.0,
+      "confidence": "中",
+      "prev_rank": 9,
+      "is_new": false
+    },
+    {
+      "rank": 10,
+      "ticker": "ALNY",
+      "name": "Alnylam Pharmaceuticals, Inc.",
+      "sector": "Unknown",
+      "close": 226.79,
+      "consensus_target": 367.7778,
+      "target_low": 250.0,
+      "target_high": 536.0,
+      "upside_pct": 62.17,
+      "target_dispersion_pct": 77.76,
+      "risk_tier": "moderate",
+      "recommendation_key": "buy",
+      "recommendation_mean": 1.66667,
+      "analyst_count": 27,
+      "market_cap": 30346569728.0,
+      "confidence": "中",
+      "prev_rank": 10,
+      "is_new": false
+    }
+  ],
+  "background": [
+    {
+      "ticker": "AMD",
+      "upside_pct": 13.81,
+      "target_dispersion_pct": 138.8,
+      "market_cap": 914610454528.0
+    },
+    {
+      "ticker": "GOOG",
+      "upside_pct": 33.31,
+      "target_dispersion_pct": 34.33,
+      "market_cap": 3874810232832.0
+    },
+    {
+      "ticker": "INTC",
+      "upside_pct": 25.58,
+      "target_dispersion_pct": 101.94,
+      "market_cap": 495519465472.0
+    },
+    {
+      "ticker": "MSFT",
+      "upside_pct": 13.89,
+      "target_dispersion_pct": 71.06,
+      "market_cap": 3945415311360.0
+    },
+    {
+      "ticker": "ROP",
+      "upside_pct": 6.48,
+      "target_dispersion_pct": 46.47,
+      "market_cap": 42970451968.0
+    },
+    {
+      "ticker": "SBUX",
+      "upside_pct": 6.69,
+      "target_dispersion_pct": 49.12,
+      "market_cap": 117465604096.0
+    },
+    {
+      "ticker": "AEP",
+      "upside_pct": 8.59,
+      "target_dispersion_pct": 37.46,
+      "market_cap": 70934978560.0
+    },
+    {
+      "ticker": "DASH",
+      "upside_pct": 50.89,
+      "target_dispersion_pct": 69.16,
+      "market_cap": 73903300608.0
+    },
+    {
+      "ticker": "GILD",
+      "upside_pct": 0.7,
+      "target_dispersion_pct": 36.83,
+      "market_cap": 197252071424.0
+    },
+    {
+      "ticker": "LIN",
+      "upside_pct": 7.2,
+      "target_dispersion_pct": 35.03,
+      "market_cap": 234477551616.0
+    },
+    {
+      "ticker": "MDLZ",
+      "upside_pct": 10.81,
+      "target_dispersion_pct": 31.84,
+      "market_cap": 80035561472.0
+    },
+    {
+      "ticker": "ODFL",
+      "upside_pct": 18.24,
+      "target_dispersion_pct": 42.51,
+      "market_cap": 38781911040.0
+    },
+    {
+      "ticker": "AAPL",
+      "upside_pct": -4.92,
+      "target_dispersion_pct": 50.0,
+      "market_cap": 5065640247296.0
+    },
+    {
+      "ticker": "AMZN",
+      "upside_pct": 31.27,
+      "target_dispersion_pct": 52.67,
+      "market_cap": 2730015850496.0
+    },
+    {
+      "ticker": "ASML",
+      "upside_pct": 30.47,
+      "target_dispersion_pct": 92.17,
+      "market_cap": 630377676800.0
+    },
+    {
+      "ticker": "BKNG",
+      "upside_pct": 55.0,
+      "target_dispersion_pct": 56.29,
+      "market_cap": 116340252672.0
+    },
+    {
+      "ticker": "COST",
+      "upside_pct": 7.61,
+      "target_dispersion_pct": 51.05,
+      "market_cap": 439641931776.0
+    },
+    {
+      "ticker": "DDOG",
+      "upside_pct": 4.87,
+      "target_dispersion_pct": 65.2,
+      "market_cap": 100835442688.0
+    },
+    {
+      "ticker": "MAR",
+      "upside_pct": -0.63,
+      "target_dispersion_pct": 38.42,
+      "market_cap": 101758828544.0
+    },
+    {
+      "ticker": "MRVL",
+      "upside_pct": 40.18,
+      "target_dispersion_pct": 64.45,
+      "market_cap": 218897498112.0
+    },
+    {
+      "ticker": "PDD",
+      "upside_pct": 46.74,
+      "target_dispersion_pct": 56.94,
+      "market_cap": 111594283008.0
+    },
+    {
+      "ticker": "REGN",
+      "upside_pct": 6.28,
+      "target_dispersion_pct": 34.59,
+      "market_cap": 84021567488.0
+    },
+    {
+      "ticker": "RKLB",
+      "upside_pct": 75.18,
+      "target_dispersion_pct": 84.19,
+      "market_cap": 37284057088.0
+    },
+    {
+      "ticker": "TSLA",
+      "upside_pct": 0.79,
+      "target_dispersion_pct": 114.9,
+      "market_cap": 1610579312640.0
+    },
+    {
+      "ticker": "ADSK",
+      "upside_pct": 27.03,
+      "target_dispersion_pct": 52.03,
+      "market_cap": 50598899712.0
+    },
+    {
+      "ticker": "ALNY",
+      "upside_pct": 62.17,
+      "target_dispersion_pct": 77.76,
+      "market_cap": 30346569728.0
+    },
+    {
+      "ticker": "NXPI",
+      "upside_pct": 20.42,
+      "target_dispersion_pct": 68.79,
+      "market_cap": 63923617792.0
+    },
+    {
+      "ticker": "PANW",
+      "upside_pct": -0.79,
+      "target_dispersion_pct": 84.06,
+      "market_cap": 328590622720.0
+    },
+    {
+      "ticker": "PCAR",
+      "upside_pct": 28.58,
+      "target_dispersion_pct": 41.24,
+      "market_cap": 54599839744.0
+    },
+    {
+      "ticker": "SNPS",
+      "upside_pct": 23.72,
+      "target_dispersion_pct": 38.33,
+      "market_cap": 90916257792.0
+    },
+    {
+      "ticker": "TMUS",
+      "upside_pct": 61.3,
+      "target_dispersion_pct": 53.62,
+      "market_cap": 157500375040.0
+    },
+    {
+      "ticker": "VRTX",
+      "upside_pct": 9.68,
+      "target_dispersion_pct": 55.47,
+      "market_cap": 131976904704.0
+    },
+    {
+      "ticker": "ALAB",
+      "upside_pct": 33.48,
+      "target_dispersion_pct": 81.01,
+      "market_cap": 49736445952.0
+    },
+    {
+      "ticker": "CCEP",
+      "upside_pct": -2.22,
+      "target_dispersion_pct": 22.83,
+      "market_cap": 48688033792.0
+    },
+    {
+      "ticker": "CRWD",
+      "upside_pct": -7.75,
+      "target_dispersion_pct": 78.06,
+      "market_cap": 274435014656.0
+    },
+    {
+      "ticker": "GOOGL",
+      "upside_pct": 33.86,
+      "target_dispersion_pct": 37.29,
+      "market_cap": 3920672325632.0
+    },
+    {
+      "ticker": "KDP",
+      "upside_pct": 4.37,
+      "target_dispersion_pct": 35.73,
+      "market_cap": 47438393344.0
+    },
+    {
+      "ticker": "KLAC",
+      "upside_pct": 51.23,
+      "target_dispersion_pct": 64.55,
+      "market_cap": 200527298560.0
+    },
+    {
+      "ticker": "LITE",
+      "upside_pct": 34.65,
+      "target_dispersion_pct": 64.31,
+      "market_cap": 78461059072.0
+    },
+    {
+      "ticker": "ABNB",
+      "upside_pct": 8.96,
+      "target_dispersion_pct": 46.21,
+      "market_cap": 101087002624.0
+    },
+    {
+      "ticker": "APP",
+      "upside_pct": 79.47,
+      "target_dispersion_pct": 98.58,
+      "market_cap": 87952850944.0
+    },
+    {
+      "ticker": "CSCO",
+      "upside_pct": 22.25,
+      "target_dispersion_pct": 44.07,
+      "market_cap": 439125311488.0
+    },
+    {
+      "ticker": "HONA",
+      "upside_pct": 18.64,
+      "target_dispersion_pct": 48.19,
+      "market_cap": 53216362496.0
+    },
+    {
+      "ticker": "IDXX",
+      "upside_pct": 23.73,
+      "target_dispersion_pct": 48.24,
+      "market_cap": 44273082368.0
+    },
+    {
+      "ticker": "MU",
+      "upside_pct": 68.17,
+      "target_dispersion_pct": 168.96,
+      "market_cap": 1050820673536.0
+    },
+    {
+      "ticker": "NBIS",
+      "upside_pct": 64.84,
+      "target_dispersion_pct": 116.01,
+      "market_cap": 43282026496.0
+    },
+    {
+      "ticker": "AVGO",
+      "upside_pct": 54.86,
+      "target_dispersion_pct": 83.77,
+      "market_cap": 1634156675072.0
+    },
+    {
+      "ticker": "CPRT",
+      "upside_pct": 34.85,
+      "target_dispersion_pct": 76.92,
+      "market_cap": 26789476352.0
+    },
+    {
+      "ticker": "ORLY",
+      "upside_pct": 18.74,
+      "target_dispersion_pct": 27.19,
+      "market_cap": 72660852736.0
+    },
+    {
+      "ticker": "TXN",
+      "upside_pct": 9.05,
+      "target_dispersion_pct": 44.53,
+      "market_cap": 282420248576.0
+    },
+    {
+      "ticker": "WDC",
+      "upside_pct": 61.04,
+      "target_dispersion_pct": 80.7,
+      "market_cap": 142572240896.0
+    },
+    {
+      "ticker": "ARM",
+      "upside_pct": 28.29,
+      "target_dispersion_pct": 129.0,
+      "market_cap": 242008489984.0
+    },
+    {
+      "ticker": "CRWV",
+      "upside_pct": 125.92,
+      "target_dispersion_pct": 177.59,
+      "market_cap": 32855033856.0
+    },
+    {
+      "ticker": "CTAS",
+      "upside_pct": 1.64,
+      "target_dispersion_pct": 31.61,
+      "market_cap": 85291737088.0
+    },
+    {
+      "ticker": "AMAT",
+      "upside_pct": 58.57,
+      "target_dispersion_pct": 86.33,
+      "market_cap": 314209042432.0
+    },
+    {
+      "ticker": "LRCX",
+      "upside_pct": 51.15,
+      "target_dispersion_pct": 67.3,
+      "market_cap": 301405569024.0
+    },
+    {
+      "ticker": "MELI",
+      "upside_pct": 35.31,
+      "target_dispersion_pct": 46.18,
+      "market_cap": 85196480512.0
+    },
+    {
+      "ticker": "MPWR",
+      "upside_pct": 48.51,
+      "target_dispersion_pct": 33.34,
+      "market_cap": 59555909632.0
+    },
+    {
+      "ticker": "MSTR",
+      "upside_pct": 69.21,
+      "target_dispersion_pct": 112.84,
+      "market_cap": 59893112832.0
+    },
+    {
+      "ticker": "SNDK",
+      "upside_pct": 64.3,
+      "target_dispersion_pct": 121.28,
+      "market_cap": 188585345024.0
+    },
+    {
+      "ticker": "NFLX",
+      "upside_pct": 35.58,
+      "target_dispersion_pct": 81.4,
+      "market_cap": 260329504768.0
+    },
+    {
+      "ticker": "AXON",
+      "upside_pct": 59.76,
+      "target_dispersion_pct": 57.32,
+      "market_cap": 34596577280.0
+    },
+    {
+      "ticker": "BKR",
+      "upside_pct": 19.7,
+      "target_dispersion_pct": 48.14,
+      "market_cap": 58567770112.0
+    },
+    {
+      "ticker": "CEG",
+      "upside_pct": 30.82,
+      "target_dispersion_pct": 47.52,
+      "market_cap": 91758534656.0
+    },
+    {
+      "ticker": "META",
+      "upside_pct": 36.54,
+      "target_dispersion_pct": 49.71,
+      "market_cap": 1585722294272.0
+    },
+    {
+      "ticker": "STX",
+      "upside_pct": 63.45,
+      "target_dispersion_pct": 82.45,
+      "market_cap": 151864410112.0
+    },
+    {
+      "ticker": "FER",
+      "upside_pct": 35.87,
+      "target_dispersion_pct": 38.17,
+      "market_cap": 38848057344.0
+    },
+    {
+      "ticker": "GEHC",
+      "upside_pct": 16.3,
+      "target_dispersion_pct": 31.44,
+      "market_cap": 32347355136.0
+    },
+    {
+      "ticker": "ISRG",
+      "upside_pct": 8.24,
+      "target_dispersion_pct": 74.8,
+      "market_cap": 157519609856.0
+    },
+    {
+      "ticker": "NVDA",
+      "upside_pct": 50.94,
+      "target_dispersion_pct": 101.84,
+      "market_cap": 5262596898816.0
+    },
+    {
+      "ticker": "SHOP",
+      "upside_pct": 6.36,
+      "target_dispersion_pct": 56.7,
+      "market_cap": 213338439680.0
+    },
+    {
+      "ticker": "WDAY",
+      "upside_pct": 1.85,
+      "target_dispersion_pct": 87.45,
+      "market_cap": 49515859968.0
+    },
+    {
+      "ticker": "WMT",
+      "upside_pct": 6.83,
+      "target_dispersion_pct": 58.05,
+      "market_cap": 946654609408.0
+    },
+    {
+      "ticker": "FANG",
+      "upside_pct": 16.85,
+      "target_dispersion_pct": 30.97,
+      "market_cap": 57522946048.0
+    },
+    {
+      "ticker": "INTU",
+      "upside_pct": 24.15,
+      "target_dispersion_pct": 108.4,
+      "market_cap": 87773667328.0
+    },
+    {
+      "ticker": "SPCX",
+      "upside_pct": 72.69,
+      "target_dispersion_pct": 284.5,
+      "market_cap": 2017874542592.0
+    },
+    {
+      "ticker": "TRI",
+      "upside_pct": 5.96,
+      "target_dispersion_pct": 29.19,
+      "market_cap": 50434797568.0
+    },
+    {
+      "ticker": "TTWO",
+      "upside_pct": 41.66,
+      "target_dispersion_pct": 56.11,
+      "market_cap": 37635424256.0
+    },
+    {
+      "ticker": "ADI",
+      "upside_pct": 11.07,
+      "target_dispersion_pct": 65.62,
+      "market_cap": 206109933568.0
+    },
+    {
+      "ticker": "CDNS",
+      "upside_pct": 19.47,
+      "target_dispersion_pct": 41.47,
+      "market_cap": 94626947072.0
+    },
+    {
+      "ticker": "CSX",
+      "upside_pct": 2.84,
+      "target_dispersion_pct": 52.09,
+      "market_cap": 96828866560.0
+    },
+    {
+      "ticker": "DXCM",
+      "upside_pct": 22.44,
+      "target_dispersion_pct": 37.43,
+      "market_cap": 29645461504.0
+    },
+    {
+      "ticker": "PLTR",
+      "upside_pct": 5.15,
+      "target_dispersion_pct": 88.53,
+      "market_cap": 477559783424.0
+    },
+    {
+      "ticker": "ROST",
+      "upside_pct": 18.14,
+      "target_dispersion_pct": 47.09,
+      "market_cap": 73502965760.0
+    },
+    {
+      "ticker": "XEL",
+      "upside_pct": 13.36,
+      "target_dispersion_pct": 28.22,
+      "market_cap": 48805801984.0
+    },
+    {
+      "ticker": "HON",
+      "upside_pct": 16.04,
+      "target_dispersion_pct": 40.96,
+      "market_cap": 69349638144.0
+    },
+    {
+      "ticker": "MCHP",
+      "upside_pct": 32.12,
+      "target_dispersion_pct": 56.65,
+      "market_cap": 43533004800.0
+    },
+    {
+      "ticker": "MNST",
+      "upside_pct": 9.7,
+      "target_dispersion_pct": 44.13,
+      "market_cap": 89019310080.0
+    },
+    {
+      "ticker": "TER",
+      "upside_pct": 37.63,
+      "target_dispersion_pct": 44.9,
+      "market_cap": 50604371968.0
+    }
+  ]
+}
