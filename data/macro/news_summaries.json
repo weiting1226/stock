@@ -116,6 +116,19 @@
   "reference_date": "2026-06-01",
   "fred_id": "HOUST"
  },
+ "MORTGAGE30US@2026-10-29": {
+  "summary_zh": "截至2026年10月29日,30年期固定房貸利率平均為7.24%,較前一週的7.32%下降,為本月最低水準。文件指出此次下降略微提升了潛在購屋者的購買力。去年同期該利率為6.17%。",
+  "drivers": [
+   "較前一週下降(從7.32%降至7.24%)",
+   "達本月最低水準",
+   "略微提升購屋者購買力"
+  ],
+  "evidence": "The average 30-year fixed-rate mortgage declined again this week, reaching its lowest level this month and modestly boosting purchasing power for prospective buyers.",
+  "source_url": "https://www.freddiemac.com/pmms",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-10-29",
+  "fred_id": "MORTGAGE30US"
+ },
  "MORTGAGE30US@2026-10-15": {
   "summary_zh": "截至2026年10月15日,30年期固定房貸利率平均為7.40%,與前一週持平。相較於去年同期的6.27%有所上升。15年期固定房貸利率則為6.71%,較前一週的6.73%略降。",
   "drivers": [],
@@ -169,15 +182,6 @@
   "source_url": "https://www.freddiemac.com/pmms",
   "model": "claude-sonnet-5",
   "reference_date": "2026-09-17",
-  "fred_id": "MORTGAGE30US"
- },
- "MORTGAGE30US@2026-09-10": {
-  "summary_zh": "截至2026年9月10日這一週，30年期固定利率房貸平均為6.76%，較前一週的6.71%上升，也高於去年同期的6.35%。同時，15年期固定利率房貸平均為6.09%，較前一週的6.04%上升，並高於去年同期的5.50%。",
-  "drivers": [],
-  "evidence": "The 30-year fixed-rate mortgage averaged 6.76% as of September 10, 2026, up from last week when it averaged 6.71%.",
-  "source_url": "https://www.freddiemac.com/pmms",
-  "model": "claude-sonnet-5",
-  "reference_date": "2026-09-10",
   "fred_id": "MORTGAGE30US"
  },
  "RSAFS@2026-09-01": {
@@ -513,6 +517,20 @@
   "model": "claude-sonnet-5",
   "reference_date": "2026-06-01",
   "fred_id": "CPIAUCSL"
+ },
+ "UMCSENT@2026-09-01": {
+  "summary_zh": "文件顯示密西根大學消費者信心指數在9月為48.1,與10月的48.0相差僅0.1個指數點,大致持平。文件指出消費者對經濟的看法持續受購買力議題主導,耐用品購買條件因利率上升與負擔能力疑慮而轉弱,通膨預期亦連續第二個月上升。",
+  "drivers": [
+   "buying conditions for durables, which plunged 18% on the basis of higher interest rates and rising concerns about the affordability of such purchases",
+   "Purchasing power continues to dominate consumer views of the economy",
+   "Year-ahead inflation expectations ticked up from 4.6% last month to 4.7% this month",
+   "Long-run inflation expectations also stepped up from 3.4% in September to 3.5%"
+  ],
+  "evidence": "Consumer sentiment held steady this month, registering a scant one-tenth of an index point below September.",
+  "source_url": "http://www.sca.isr.umich.edu/",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-09-01",
+  "fred_id": "UMCSENT"
  },
  "UMCSENT@2026-06-01": {
   "summary_zh": "文件顯示密大消費者信心指數在2026年6月為49.5，低於去年同期水準，反映消費者對經濈瀰於通膨居高不下與物價持續上漲的悲觀情緒。隨後7月數據回升至55.2，較6月上升近12%，但整體信心仍較去年同期低約11%。",
