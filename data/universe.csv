@@ -582,6 +582,7 @@ ASO,"Academy Sports and Outdoors, Inc. - Common Stock",NASDAQ,False,common,nasda
 ASPC,A SPAC III Acquisition Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ASPCR,A SPAC III Acquisition Corp. - Right,NASDAQ,False,right,nasdaqtrader
 ASPCU,A SPAC III Acquisition Corp. - Unit,NASDAQ,False,unit,nasdaqtrader
+ASPE,"Aspen Neuroscience, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ASPI,ASP Isotopes Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 ASPN,"Aspen Aerogels, Inc. Common Stock",N,False,common,nasdaqtrader
 ASPS,Altisource Portfolio Solutions S.A. - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -782,6 +783,7 @@ BBNX,"Beta Bionics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BBOT,"BridgeBio Oncology Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BBSI,"Barrett Business Services, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BBT,Beacon Financial Corporation Common stock,N,False,common,nasdaqtrader
+BBTX,"Bambusa Therapeutics, Inc. - Common stock",NASDAQ,False,common,nasdaqtrader
 BBUC,Brookfield Business Corporation Class A Subordinate Voting Shares,N,False,common,nasdaqtrader
 BBVA,Banco Bilbao Vizcaya Argentaria S.A. Common Stock,N,False,common,nasdaqtrader
 BBW,"Build-A-Bear Workshop, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -2096,9 +2098,6 @@ DXYZ,Destiny Tech100 Inc. Common Stock,N,False,common,nasdaqtrader
 DY,"Dycom Industries, Inc. Common Stock",N,False,common,nasdaqtrader
 DYAI,"Dyadic International, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 DYN,"Dyne Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-DYNC,Dynamix Corporation - Class A Ordinary Share,NASDAQ,False,common,nasdaqtrader
-DYNCU,Dynamix Corporation - Unit,NASDAQ,False,unit,nasdaqtrader
-DYNCW,Dynamix Corporation - Warrant,NASDAQ,False,warrant,nasdaqtrader
 DYOR,Insight Digital Partners II - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 DYORU,Insight Digital Partners II - Units,NASDAQ,False,unit,nasdaqtrader
 DYORW,Insight Digital Partners II - Warrants,NASDAQ,False,warrant,nasdaqtrader
@@ -2768,7 +2767,6 @@ GCLWW,GCL Global Holdings Ltd - Warrants,NASDAQ,False,warrant,nasdaqtrader
 GCMG,GCM Grosvenor Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 GCO,Genesco Inc. Common Stock,N,False,common,nasdaqtrader
 GCT,GigaCloud Technology Inc - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-GCTK,"GlucoTrack, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 GCTS,"GCT Semiconductor Holding, Inc. Common Stock",N,False,common,nasdaqtrader
 GCTS-W,"GCT Semiconductor Holding, Inc. Warrants, each whole warrant exercisable for one share of Common Stock at an exercise price of $11.50",N,False,warrant,nasdaqtrader
 GCV,"Gabelli Convertible and Income Securities Fund, Inc. (The) Common Stock",N,False,common,nasdaqtrader
@@ -3976,7 +3974,6 @@ LMND,"Lemonade, Inc. Common Stock",N,False,common,nasdaqtrader
 LMNR,Limoneira Co - Common Stock,NASDAQ,False,common,nasdaqtrader
 LMRI,"Lumexa Imaging Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 LMT,Lockheed Martin Corporation Common Stock,N,False,common,nasdaqtrader
-LNAI,Lunai Bioworks Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 LNC,Lincoln National Corporation Common Stock,N,False,common,nasdaqtrader
 LNC-PD,"Lincoln National Corporation Depositary Shares Each Representing a 1/1,000th Interest in a Share of 9.000% Non-Cumulative Preferred Stock, Series D",N,False,preferred,nasdaqtrader
 LND,Brasilagro Brazilian Agric Real Estate Co Sponsored ADR (Brazil),N,False,common,nasdaqtrader
@@ -4046,7 +4043,6 @@ LTH,"Life Time Group Holdings, Inc. Common Stock",N,False,common,nasdaqtrader
 LTM,"LATAM Airlines Group S.A. American Depositary Shares (each representing two thousand (2,000) shares of Common Stock)",N,False,common,nasdaqtrader
 LTRN,Lantern Pharma Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 LTRX,"Lantronix, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-LTRYW,Sports Entertainment Gaming Global Corporation  - Warrant,NASDAQ,False,warrant,nasdaqtrader
 LU,Lufax Holding Ltd American Depositary Shares (each representing twenty (20) Ordinary Shares),N,False,common,nasdaqtrader
 LUCD,Lucid Diagnostics Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 LUCK,Lucky Strike Entertainment Corporation Class A Common Stock,N,False,common,nasdaqtrader
@@ -4210,6 +4206,7 @@ MET-PA,"MetLife, Inc. Preferred Series A Floating Rate",N,False,preferred,nasdaq
 MET-PE,"MetLife, Inc. Depositary Shares",N,False,preferred,nasdaqtrader
 MET-PF,"MetLife, Inc. Depositary Shares, each representing a 1/1,000th interest in a share of 4.75% Non-Cumulative Preferred Stock, Series F",N,False,preferred,nasdaqtrader
 META,"Meta Platforms, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
+METAM,"Meta Platforms, Inc. - Depositary Shares representing a 1/20th Interest in a Share of Series A Mandatory Convertible Preferred Stock",NASDAQ,False,preferred,nasdaqtrader
 METC,"Ramaco Resources, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 METCB,"Ramaco Resources, Inc. - Class B Common Stock",NASDAQ,False,common,nasdaqtrader
 METCI,"Ramaco Resources, Inc. - 8.250% Senior Notes due 2030",NASDAQ,False,note,nasdaqtrader
@@ -4718,6 +4715,7 @@ NOG,"Northern Oil and Gas, Inc. Common Stock",N,False,common,nasdaqtrader
 NOK,Nokia Corporation Sponsored American Depositary Shares,N,False,common,nasdaqtrader
 NOMA,NOMADAR Corp. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 NOMD,Nomad Foods Limited Ordinary Shares,N,False,common,nasdaqtrader
+NORD,Nordicus Partners Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 NOV,NOV Inc. Common Stock,N,False,common,nasdaqtrader
 NOVT,Novanta Inc. - Common Shares,NASDAQ,False,common,nasdaqtrader
 NOVTU,Novanta Inc. - Tangible Equity Units,NASDAQ,False,unit,nasdaqtrader
@@ -7401,9 +7399,6 @@ YEXT,"Yext, Inc. Common Stock",N,False,common,nasdaqtrader
 YFOR,YYForce Inc. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 YHC,LQR House Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 YHGJ,Yunhong Green CTI Ltd. - Common Stock,NASDAQ,False,common,nasdaqtrader
-YHNA,YHN Acquisition I Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-YHNAR,YHN Acquisition I Limited - Right,NASDAQ,False,right,nasdaqtrader
-YHNAU,YHN Acquisition I Limited - Unit,NASDAQ,False,unit,nasdaqtrader
 YI,"111, Inc. - American Depositary Shares",NASDAQ,False,common,nasdaqtrader
 YIBO,Planet Image International Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 YICC,Yorkville International Capital Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
