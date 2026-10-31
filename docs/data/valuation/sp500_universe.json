@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-24",
+  "as_of": "2026-10-31",
   "constituents": [
     {
       "ticker": "MMM",
@@ -2252,16 +2252,16 @@
       "sub_industry": "Life & Health Insurance"
     },
     {
-      "ticker": "PEG",
-      "name": "Public Service Enterprise Group",
-      "sector": "Utilities",
-      "sub_industry": "Electric Utilities"
-    },
-    {
       "ticker": "PTC",
       "name": "PTC Inc.",
       "sector": "Information Technology",
       "sub_industry": "Application Software"
+    },
+    {
+      "ticker": "PEG",
+      "name": "Public Service Enterprise Group",
+      "sector": "Utilities",
+      "sub_industry": "Electric Utilities"
     },
     {
       "ticker": "PSA",
@@ -2276,10 +2276,10 @@
       "sub_industry": "Homebuilding"
     },
     {
-      "ticker": "PWR",
-      "name": "Quanta Services",
-      "sector": "Industrials",
-      "sub_industry": "Construction & Engineering"
+      "ticker": "Q",
+      "name": "Qnity Electronics",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductor Materials & Equipment"
     },
     {
       "ticker": "QCOM",
@@ -2288,16 +2288,16 @@
       "sub_industry": "Semiconductors"
     },
     {
+      "ticker": "PWR",
+      "name": "Quanta Services",
+      "sector": "Industrials",
+      "sub_industry": "Construction & Engineering"
+    },
+    {
       "ticker": "DGX",
       "name": "Quest Diagnostics",
       "sector": "Health Care",
       "sub_industry": "Health Care Services"
-    },
-    {
-      "ticker": "Q",
-      "name": "Qnity Electronics",
-      "sector": "Information Technology",
-      "sub_industry": "Semiconductor Materials & Equipment"
     },
     {
       "ticker": "RL",
@@ -2316,12 +2316,6 @@
       "name": "Reddit",
       "sector": "Communication Services",
       "sub_industry": "Interactive Media & Services"
-    },
-    {
-      "ticker": "RTX",
-      "name": "RTX Corporation",
-      "sector": "Industrials",
-      "sub_industry": "Aerospace & Defense"
     },
     {
       "ticker": "O",
@@ -2402,6 +2396,12 @@
       "sub_industry": "Hotels, Resorts & Cruise Lines"
     },
     {
+      "ticker": "RTX",
+      "name": "RTX Corporation",
+      "sector": "Industrials",
+      "sub_industry": "Aerospace & Defense"
+    },
+    {
       "ticker": "SPGI",
       "name": "S&P Global",
       "sector": "Financials",
@@ -2463,7 +2463,7 @@
     },
     {
       "ticker": "SKYD",
-      "name": "Skydance Corporation",
+      "name": "Skydance",
       "sector": "Communication Services",
       "sub_industry": "Movies & Entertainment"
     },
