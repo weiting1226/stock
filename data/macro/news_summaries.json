@@ -434,6 +434,20 @@
   "reference_date": "2026-06-01",
   "fred_id": "CPILFESL"
  },
+ "FEDFUNDS@2026-10-01": {
+  "summary_zh": "聯邦公開市場委員會於2026年10月28日決議維持聯邦資金利率目標區間在3-3/4%至4%不變，以支持其雙重使命。文件指出目前經濟活動擴張強勁，就業增長與勞動力同步，但通膨仍處於高位，委員會將持續蒐集資訊以確定合適的政策立場，使通膨及時回到2%的目標。有兩位委員投票反對，主張應升息1/4個百分點。",
+  "drivers": [
+   "經濟活動擴張強勁",
+   "通膨仍處於高位",
+   "就業增長與勞動力同步",
+   "維持充足準備金政策"
+  ],
+  "evidence": "The Committee decided to maintain the target range for the federal funds rate at 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate.",
+  "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-10-01",
+  "fred_id": "FEDFUNDS"
+ },
  "FEDFUNDS@2026-09-01": {
   "summary_zh": "聯邦公開市場委員會決議將聯邦資金利率目標區間上調1/4個百分點至3.75%至4%，以支持充分就業與物價穩定的雙重目標。文件指出經濟活動正以穩健步調擴張，就業增長與勞動力同步，失業率變化不大，但通膨仍處於偏高水準。此次升息旨在促使通膨更快回到2%目標。",
   "drivers": [
