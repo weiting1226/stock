@@ -657,7 +657,6 @@ AUPH,Aurinia Pharmaceuticals Inc - Common Shares,NASDAQ,False,common,nasdaqtrade
 AUR,"Aurora Innovation, Inc.  - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 AURA,"Aura Biosciences, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 AURE,Aurelion Inc.  - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-AUROW,"Aurora Innovation, Inc.  - Warrant",NASDAQ,False,warrant,nasdaqtrader
 AUST,Austin Gold Corp. Common Shares,A,False,common,nasdaqtrader
 AUTL,Autolus Therapeutics plc - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 AUUD,Auddia Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -3186,7 +3185,6 @@ HNNA,"Hennessy Advisors, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 HNRG,Hallador Energy Company - Common Stock,NASDAQ,False,common,nasdaqtrader
 HNST,"The Honest Company, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 HNVR,"Hanover Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-HODO,House of Doge Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 HOFT,Hooker Furnishings Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 HOG,"Harley-Davidson, Inc. Common Stock",N,False,common,nasdaqtrader
 HOLO,MicroCloud Hologram Inc. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -3433,7 +3431,6 @@ INDB,Independent Bank Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 INDI,"indie Semiconductor, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 INDO,Indonesia Energy Corporation Limited Ordinary Shares,A,False,common,nasdaqtrader
 INDP,"Indaptus Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-INDV,"Indivior Pharmaceuticals, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
 INEO,INNEOVA Holdings Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 INFQ,"Infleqtion, Inc. Common Stock",N,False,common,nasdaqtrader
 INFQ-W,"Infleqtion, Inc. Warrants, each whole warrant exercisable for one share of Common Stock at an exercise price of $11.50 per share",N,False,warrant,nasdaqtrader
@@ -4295,8 +4292,6 @@ MLAB,"Mesa Laboratories, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 MLCI,Mount Logan Capital Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 MLCIL,Mount Logan Capital Inc. - 8.00% Notes Due 2031,NASDAQ,False,note,nasdaqtrader
 MLCO,Melco Resorts & Entertainment Limited - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
-MLEC,Moolec Science SA - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-MLECW,Moolec Science SA - Warrant,NASDAQ,False,warrant,nasdaqtrader
 MLGO,"MicroAlgo, Inc. - Ordinary Shares",NASDAQ,False,common,nasdaqtrader
 MLI,"Mueller Industries, Inc. Common Stock",N,False,common,nasdaqtrader
 MLKN,"MillerKnoll, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -6412,7 +6407,7 @@ SUNB,"Sunbelt Rentals Holdings, Inc. Common Stock",N,False,common,nasdaqtrader
 SUNC,"SunocoCorp LLC Common Units, representing limited liability company interests",F,False,common,nasdaqtrader
 SUNE,"SUNation Energy, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SUNS,"Sunrise Realty Trust, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-SUPN,"Supernus Pharmaceuticals, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+SUPN,"Supernus, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SUPV,Grupo Supervielle S.A. American Depositary Shares each Representing five Class B shares,N,False,common,nasdaqtrader
 SUPX,SuperX AI Technology Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 SURG,"SurgePays, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -6443,7 +6438,6 @@ SWAGW,"Stran & Company, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
 SWBI,"Smith & Wesson Brands, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SWIM,"Latham Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SWK,"Stanley Black & Decker, Inc. Common Stock",N,False,common,nasdaqtrader
-SWKHL,SWK Holdings Corporation - 9.00% Senior Notes due 2027,NASDAQ,False,note,nasdaqtrader
 SWKS,"Skyworks Solutions, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SWMR,"Swarmer, Inc - common stock",NASDAQ,False,common,nasdaqtrader
 SWRD,Stewards Inc - Common Stock,NASDAQ,False,common,nasdaqtrader
