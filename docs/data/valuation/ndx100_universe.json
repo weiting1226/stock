@@ -1,35 +1,17 @@
 {
-  "as_of": "2026-10-28",
+  "as_of": "2026-11-04",
   "constituents": [
     {
-      "ticker": "AMD",
-      "name": "Advanced Micro Devices",
-      "sector": "Information Technology",
-      "sub_industry": "Semiconductors"
+      "ticker": "MNST",
+      "name": "Monster Beverage",
+      "sector": "Consumer Staples",
+      "sub_industry": "Soft Drinks & Non-alcoholic Beverages"
     },
     {
-      "ticker": "GOOG",
-      "name": "Alphabet Inc. (Class C)",
-      "sector": "Communication Services",
-      "sub_industry": "Interactive Media & Services"
-    },
-    {
-      "ticker": "INTC",
-      "name": "Intel",
-      "sector": "Information Technology",
-      "sub_industry": "Semiconductors"
-    },
-    {
-      "ticker": "MSFT",
-      "name": "Microsoft",
-      "sector": "Information Technology",
-      "sub_industry": "Systems Software"
-    },
-    {
-      "ticker": "ROP",
-      "name": "Roper Technologies",
-      "sector": "Information Technology",
-      "sub_industry": "Electronic Equipment & Instruments"
+      "ticker": "MRNA",
+      "name": "Moderna",
+      "sector": "Health Care",
+      "sub_industry": "Biotechnology"
     },
     {
       "ticker": "SBUX",
@@ -38,46 +20,94 @@
       "sub_industry": "Restaurants"
     },
     {
+      "ticker": "TRI",
+      "name": "Thomson Reuters Corp",
+      "sector": "Unknown",
+      "sub_industry": ""
+    },
+    {
       "ticker": "AEP",
       "name": "American Electric Power",
       "sector": "Utilities",
       "sub_industry": "Electric Utilities"
     },
     {
-      "ticker": "DASH",
-      "name": "DoorDash",
-      "sector": "Consumer Discretionary",
-      "sub_industry": "Specialized Consumer Services"
+      "ticker": "CCEP",
+      "name": "Coca-Cola Europacific Partners plc",
+      "sector": "Unknown",
+      "sub_industry": ""
     },
     {
-      "ticker": "FAST",
-      "name": "Fastenal",
-      "sector": "Industrials",
-      "sub_industry": "Trading Companies & Distributors"
-    },
-    {
-      "ticker": "GILD",
-      "name": "Gilead Sciences",
+      "ticker": "GEHC",
+      "name": "GE HealthCare",
       "sector": "Health Care",
-      "sub_industry": "Biotechnology"
+      "sub_industry": "Health Care Equipment"
     },
     {
-      "ticker": "LIN",
-      "name": "Linde plc",
-      "sector": "Materials",
-      "sub_industry": "Industrial Gases"
+      "ticker": "MU",
+      "name": "Micron Technology",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductors"
     },
     {
-      "ticker": "MDLZ",
-      "name": "Mondelez International",
-      "sector": "Consumer Staples",
-      "sub_industry": "Packaged Foods & Meats"
+      "ticker": "ROP",
+      "name": "Roper Technologies",
+      "sector": "Information Technology",
+      "sub_industry": "Electronic Equipment & Instruments"
     },
     {
-      "ticker": "ODFL",
-      "name": "Old Dominion",
+      "ticker": "ABNB",
+      "name": "Airbnb",
+      "sector": "Consumer Discretionary",
+      "sub_industry": "Hotels, Resorts & Cruise Lines"
+    },
+    {
+      "ticker": "ADI",
+      "name": "Analog Devices",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductors"
+    },
+    {
+      "ticker": "APP",
+      "name": "AppLovin",
+      "sector": "Communication Services",
+      "sub_industry": "Advertising"
+    },
+    {
+      "ticker": "CSX",
+      "name": "CSX Corporation",
       "sector": "Industrials",
-      "sub_industry": "Cargo Ground Transportation"
+      "sub_industry": "Rail Transportation"
+    },
+    {
+      "ticker": "MCHP",
+      "name": "Microchip Technology",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductors"
+    },
+    {
+      "ticker": "ROST",
+      "name": "Ross Stores",
+      "sector": "Consumer Discretionary",
+      "sub_industry": "Apparel Retail"
+    },
+    {
+      "ticker": "WDC",
+      "name": "Western Digital",
+      "sector": "Information Technology",
+      "sub_industry": "Technology Hardware, Storage & Peripherals"
+    },
+    {
+      "ticker": "LITE",
+      "name": "Lumentum",
+      "sector": "Information Technology",
+      "sub_industry": "Communications Equipment"
+    },
+    {
+      "ticker": "CRWV",
+      "name": "CoreWeave, Inc.",
+      "sector": "Unknown",
+      "sub_industry": ""
     },
     {
       "ticker": "AAPL",
@@ -92,84 +122,6 @@
       "sub_industry": "Application Software"
     },
     {
-      "ticker": "AMZN",
-      "name": "Amazon",
-      "sector": "Consumer Discretionary",
-      "sub_industry": "Broadline Retail"
-    },
-    {
-      "ticker": "ASML",
-      "name": "ASML Holding N.V. - New York Registry Shares",
-      "sector": "Unknown",
-      "sub_industry": ""
-    },
-    {
-      "ticker": "BKNG",
-      "name": "Booking Holdings",
-      "sector": "Consumer Discretionary",
-      "sub_industry": "Hotels, Resorts & Cruise Lines"
-    },
-    {
-      "ticker": "COST",
-      "name": "Costco",
-      "sector": "Consumer Staples",
-      "sub_industry": "Consumer Staples Merchandise Retail"
-    },
-    {
-      "ticker": "DDOG",
-      "name": "Datadog",
-      "sector": "Information Technology",
-      "sub_industry": "Application Software"
-    },
-    {
-      "ticker": "MAR",
-      "name": "Marriott International",
-      "sector": "Consumer Discretionary",
-      "sub_industry": "Hotels, Resorts & Cruise Lines"
-    },
-    {
-      "ticker": "MRVL",
-      "name": "Marvell Technology",
-      "sector": "Information Technology",
-      "sub_industry": "Semiconductors"
-    },
-    {
-      "ticker": "PDD",
-      "name": "PDD Holdings Inc.",
-      "sector": "Unknown",
-      "sub_industry": ""
-    },
-    {
-      "ticker": "PEP",
-      "name": "PepsiCo",
-      "sector": "Consumer Staples",
-      "sub_industry": "Soft Drinks & Non-alcoholic Beverages"
-    },
-    {
-      "ticker": "PYPL",
-      "name": "PayPal",
-      "sector": "Financials",
-      "sub_industry": "Transaction & Payment Processing Services"
-    },
-    {
-      "ticker": "REGN",
-      "name": "Regeneron Pharmaceuticals",
-      "sector": "Health Care",
-      "sub_industry": "Biotechnology"
-    },
-    {
-      "ticker": "RKLB",
-      "name": "Rocket Lab Corporation",
-      "sector": "Unknown",
-      "sub_industry": ""
-    },
-    {
-      "ticker": "TSLA",
-      "name": "Tesla, Inc.",
-      "sector": "Consumer Discretionary",
-      "sub_industry": "Automobile Manufacturers"
-    },
-    {
       "ticker": "ADSK",
       "name": "Autodesk",
       "sector": "Information Technology",
@@ -182,10 +134,70 @@
       "sub_industry": ""
     },
     {
-      "ticker": "NXPI",
-      "name": "NXP Semiconductors",
+      "ticker": "COST",
+      "name": "Costco",
+      "sector": "Consumer Staples",
+      "sub_industry": "Consumer Staples Merchandise Retail"
+    },
+    {
+      "ticker": "DASH",
+      "name": "DoorDash",
+      "sector": "Consumer Discretionary",
+      "sub_industry": "Specialized Consumer Services"
+    },
+    {
+      "ticker": "INTU",
+      "name": "Intuit",
       "sector": "Information Technology",
-      "sub_industry": "Semiconductors"
+      "sub_industry": "Application Software"
+    },
+    {
+      "ticker": "SNDK",
+      "name": "Sandisk",
+      "sector": "Information Technology",
+      "sub_industry": "Technology Hardware, Storage & Peripherals"
+    },
+    {
+      "ticker": "SPCX",
+      "name": "Space Exploration Technologies Corp",
+      "sector": "Unknown",
+      "sub_industry": ""
+    },
+    {
+      "ticker": "XEL",
+      "name": "Xcel Energy",
+      "sector": "Utilities",
+      "sub_industry": "Multi-Utilities"
+    },
+    {
+      "ticker": "ASML",
+      "name": "ASML Holding N.V. - New York Registry Shares",
+      "sector": "Unknown",
+      "sub_industry": ""
+    },
+    {
+      "ticker": "AXON",
+      "name": "Axon Enterprise",
+      "sector": "Industrials",
+      "sub_industry": "Aerospace & Defense"
+    },
+    {
+      "ticker": "DDOG",
+      "name": "Datadog",
+      "sector": "Information Technology",
+      "sub_industry": "Application Software"
+    },
+    {
+      "ticker": "KDP",
+      "name": "Keurig Dr Pepper",
+      "sector": "Consumer Staples",
+      "sub_industry": "Soft Drinks & Non-alcoholic Beverages"
+    },
+    {
+      "ticker": "MELI",
+      "name": "MercadoLibre, Inc.",
+      "sector": "Unknown",
+      "sub_industry": ""
     },
     {
       "ticker": "PANW",
@@ -200,94 +212,22 @@
       "sub_industry": "Construction Machinery & Heavy Transportation Equipment"
     },
     {
-      "ticker": "SNPS",
-      "name": "Synopsys",
+      "ticker": "PLTR",
+      "name": "Palantir Technologies",
       "sector": "Information Technology",
       "sub_industry": "Application Software"
     },
     {
-      "ticker": "TMUS",
-      "name": "T-Mobile US",
-      "sector": "Communication Services",
-      "sub_industry": "Wireless Telecommunication Services"
-    },
-    {
-      "ticker": "VRTX",
-      "name": "Vertex Pharmaceuticals",
-      "sector": "Health Care",
-      "sub_industry": "Biotechnology"
-    },
-    {
-      "ticker": "ALAB",
-      "name": "Astera Labs, Inc.",
-      "sector": "Unknown",
-      "sub_industry": ""
-    },
-    {
-      "ticker": "CCEP",
-      "name": "Coca-Cola Europacific Partners plc",
-      "sector": "Unknown",
-      "sub_industry": ""
-    },
-    {
-      "ticker": "CMCSA",
-      "name": "Comcast",
-      "sector": "Communication Services",
-      "sub_industry": "Cable & Satellite"
-    },
-    {
-      "ticker": "CRWD",
-      "name": "CrowdStrike",
+      "ticker": "AMD",
+      "name": "Advanced Micro Devices",
       "sector": "Information Technology",
-      "sub_industry": "Systems Software"
+      "sub_industry": "Semiconductors"
     },
     {
-      "ticker": "GOOGL",
-      "name": "Alphabet Inc. (Class A)",
-      "sector": "Communication Services",
-      "sub_industry": "Interactive Media & Services"
-    },
-    {
-      "ticker": "KDP",
-      "name": "Keurig Dr Pepper",
-      "sector": "Consumer Staples",
-      "sub_industry": "Soft Drinks & Non-alcoholic Beverages"
-    },
-    {
-      "ticker": "KLAC",
-      "name": "KLA Corporation",
-      "sector": "Information Technology",
-      "sub_industry": "Semiconductor Materials & Equipment"
-    },
-    {
-      "ticker": "LITE",
-      "name": "Lumentum",
-      "sector": "Information Technology",
-      "sub_industry": "Communications Equipment"
-    },
-    {
-      "ticker": "ABNB",
-      "name": "Airbnb",
+      "ticker": "BKNG",
+      "name": "Booking Holdings",
       "sector": "Consumer Discretionary",
       "sub_industry": "Hotels, Resorts & Cruise Lines"
-    },
-    {
-      "ticker": "APP",
-      "name": "AppLovin",
-      "sector": "Communication Services",
-      "sub_industry": "Advertising"
-    },
-    {
-      "ticker": "CSCO",
-      "name": "Cisco",
-      "sector": "Information Technology",
-      "sub_industry": "Communications Equipment"
-    },
-    {
-      "ticker": "FTNT",
-      "name": "Fortinet",
-      "sector": "Information Technology",
-      "sub_industry": "Systems Software"
     },
     {
       "ticker": "HONA",
@@ -296,14 +236,56 @@
       "sub_industry": "Aerospace & Defense"
     },
     {
-      "ticker": "IDXX",
-      "name": "Idexx Laboratories",
-      "sector": "Health Care",
-      "sub_industry": "Health Care Equipment"
+      "ticker": "LRCX",
+      "name": "Lam Research",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductor Materials & Equipment"
     },
     {
-      "ticker": "MU",
-      "name": "Micron Technology",
+      "ticker": "META",
+      "name": "Meta Platforms",
+      "sector": "Communication Services",
+      "sub_industry": "Interactive Media & Services"
+    },
+    {
+      "ticker": "ORLY",
+      "name": "O'Reilly Automotive",
+      "sector": "Consumer Discretionary",
+      "sub_industry": "Automotive Retail"
+    },
+    {
+      "ticker": "AMAT",
+      "name": "Applied Materials",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductor Materials & Equipment"
+    },
+    {
+      "ticker": "TXN",
+      "name": "Texas Instruments",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductors"
+    },
+    {
+      "ticker": "AMGN",
+      "name": "Amgen",
+      "sector": "Health Care",
+      "sub_industry": "Biotechnology"
+    },
+    {
+      "ticker": "CEG",
+      "name": "Constellation Energy",
+      "sector": "Utilities",
+      "sub_industry": "Electric Utilities"
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "Alphabet Inc. (Class A)",
+      "sector": "Communication Services",
+      "sub_industry": "Interactive Media & Services"
+    },
+    {
+      "ticker": "INTC",
+      "name": "Intel",
       "sector": "Information Technology",
       "sub_industry": "Semiconductors"
     },
@@ -314,178 +296,34 @@
       "sub_industry": ""
     },
     {
-      "ticker": "AMGN",
-      "name": "Amgen",
-      "sector": "Health Care",
-      "sub_industry": "Biotechnology"
-    },
-    {
-      "ticker": "AVGO",
-      "name": "Broadcom",
-      "sector": "Information Technology",
-      "sub_industry": "Semiconductors"
-    },
-    {
-      "ticker": "CPRT",
-      "name": "Copart",
-      "sector": "Industrials",
-      "sub_industry": "Diversified Support Services"
-    },
-    {
-      "ticker": "ORLY",
-      "name": "O'Reilly Automotive",
-      "sector": "Consumer Discretionary",
-      "sub_industry": "Automotive Retail"
-    },
-    {
-      "ticker": "TXN",
-      "name": "Texas Instruments",
-      "sector": "Information Technology",
-      "sub_industry": "Semiconductors"
-    },
-    {
-      "ticker": "WDC",
-      "name": "Western Digital",
-      "sector": "Information Technology",
-      "sub_industry": "Technology Hardware, Storage & Peripherals"
-    },
-    {
-      "ticker": "ARM",
-      "name": "Arm Holdings plc",
-      "sector": "Unknown",
-      "sub_industry": ""
-    },
-    {
-      "ticker": "CRWV",
-      "name": "CoreWeave, Inc.",
-      "sector": "Unknown",
-      "sub_industry": ""
-    },
-    {
-      "ticker": "CTAS",
-      "name": "Cintas",
-      "sector": "Industrials",
-      "sub_industry": "Diversified Support Services"
-    },
-    {
-      "ticker": "EXC",
-      "name": "Exelon",
-      "sector": "Utilities",
-      "sub_industry": "Electric Utilities"
-    },
-    {
-      "ticker": "QCOM",
-      "name": "Qualcomm",
-      "sector": "Information Technology",
-      "sub_industry": "Semiconductors"
-    },
-    {
-      "ticker": "AMAT",
-      "name": "Applied Materials",
-      "sector": "Information Technology",
-      "sub_industry": "Semiconductor Materials & Equipment"
-    },
-    {
-      "ticker": "LRCX",
-      "name": "Lam Research",
-      "sector": "Information Technology",
-      "sub_industry": "Semiconductor Materials & Equipment"
-    },
-    {
-      "ticker": "MELI",
-      "name": "MercadoLibre, Inc.",
-      "sector": "Unknown",
-      "sub_industry": ""
-    },
-    {
-      "ticker": "MPWR",
-      "name": "Monolithic Power Systems",
-      "sector": "Information Technology",
-      "sub_industry": "Semiconductors"
-    },
-    {
-      "ticker": "MSTR",
-      "name": "Strategy Inc",
-      "sector": "Unknown",
-      "sub_industry": ""
-    },
-    {
-      "ticker": "SNDK",
-      "name": "Sandisk",
-      "sector": "Information Technology",
-      "sub_industry": "Technology Hardware, Storage & Peripherals"
-    },
-    {
       "ticker": "NFLX",
       "name": "Netflix",
       "sector": "Communication Services",
       "sub_industry": "Movies & Entertainment"
     },
     {
-      "ticker": "AXON",
-      "name": "Axon Enterprise",
+      "ticker": "ODFL",
+      "name": "Old Dominion",
       "sector": "Industrials",
-      "sub_industry": "Aerospace & Defense"
+      "sub_industry": "Cargo Ground Transportation"
     },
     {
-      "ticker": "BKR",
-      "name": "Baker Hughes",
-      "sector": "Energy",
-      "sub_industry": "Oil & Gas Equipment & Services"
-    },
-    {
-      "ticker": "CEG",
-      "name": "Constellation Energy",
-      "sector": "Utilities",
-      "sub_industry": "Electric Utilities"
-    },
-    {
-      "ticker": "META",
-      "name": "Meta Platforms",
-      "sector": "Communication Services",
-      "sub_industry": "Interactive Media & Services"
-    },
-    {
-      "ticker": "MRNA",
-      "name": "Moderna",
-      "sector": "Health Care",
-      "sub_industry": "Biotechnology"
-    },
-    {
-      "ticker": "STX",
-      "name": "Seagate Technology",
-      "sector": "Information Technology",
-      "sub_industry": "Technology Hardware, Storage & Peripherals"
-    },
-    {
-      "ticker": "ADP",
-      "name": "Automatic Data Processing",
-      "sector": "Industrials",
-      "sub_industry": "Human Resource & Employment Services"
-    },
-    {
-      "ticker": "FER",
-      "name": "Ferrovial N.V.",
+      "ticker": "RKLB",
+      "name": "Rocket Lab Corporation",
       "sector": "Unknown",
       "sub_industry": ""
     },
     {
-      "ticker": "GEHC",
-      "name": "GE HealthCare",
-      "sector": "Health Care",
-      "sub_industry": "Health Care Equipment"
+      "ticker": "LIN",
+      "name": "Linde plc",
+      "sector": "Materials",
+      "sub_industry": "Industrial Gases"
     },
     {
-      "ticker": "ISRG",
-      "name": "Intuitive Surgical",
-      "sector": "Health Care",
-      "sub_industry": "Health Care Equipment"
-    },
-    {
-      "ticker": "NVDA",
-      "name": "Nvidia",
-      "sector": "Information Technology",
-      "sub_industry": "Semiconductors"
+      "ticker": "MAR",
+      "name": "Marriott International",
+      "sector": "Consumer Discretionary",
+      "sub_industry": "Hotels, Resorts & Cruise Lines"
     },
     {
       "ticker": "SHOP",
@@ -494,10 +332,16 @@
       "sub_industry": ""
     },
     {
-      "ticker": "WDAY",
-      "name": "Workday, Inc.",
-      "sector": "Information Technology",
-      "sub_industry": "Application Software"
+      "ticker": "TMUS",
+      "name": "T-Mobile US",
+      "sector": "Communication Services",
+      "sub_industry": "Wireless Telecommunication Services"
+    },
+    {
+      "ticker": "TSLA",
+      "name": "Tesla, Inc.",
+      "sector": "Consumer Discretionary",
+      "sub_industry": "Automobile Manufacturers"
     },
     {
       "ticker": "WMT",
@@ -506,16 +350,40 @@
       "sub_industry": "Consumer Staples Merchandise Retail"
     },
     {
-      "ticker": "FANG",
-      "name": "Diamondback Energy",
-      "sector": "Energy",
-      "sub_industry": "Oil & Gas Exploration & Production"
+      "ticker": "KLAC",
+      "name": "KLA Corporation",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductor Materials & Equipment"
     },
     {
-      "ticker": "INTU",
-      "name": "Intuit",
+      "ticker": "NXPI",
+      "name": "NXP Semiconductors",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductors"
+    },
+    {
+      "ticker": "QCOM",
+      "name": "Qualcomm",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductors"
+    },
+    {
+      "ticker": "SNPS",
+      "name": "Synopsys",
       "sector": "Information Technology",
       "sub_industry": "Application Software"
+    },
+    {
+      "ticker": "GOOG",
+      "name": "Alphabet Inc. (Class C)",
+      "sector": "Communication Services",
+      "sub_industry": "Interactive Media & Services"
+    },
+    {
+      "ticker": "CPRT",
+      "name": "Copart",
+      "sector": "Industrials",
+      "sub_industry": "Diversified Support Services"
     },
     {
       "ticker": "PAYX",
@@ -524,14 +392,140 @@
       "sub_industry": "Human Resource & Employment Services"
     },
     {
-      "ticker": "SPCX",
-      "name": "Space Exploration Technologies Corp",
+      "ticker": "PYPL",
+      "name": "PayPal",
+      "sector": "Financials",
+      "sub_industry": "Transaction & Payment Processing Services"
+    },
+    {
+      "ticker": "REGN",
+      "name": "Regeneron Pharmaceuticals",
+      "sector": "Health Care",
+      "sub_industry": "Biotechnology"
+    },
+    {
+      "ticker": "VRTX",
+      "name": "Vertex Pharmaceuticals",
+      "sector": "Health Care",
+      "sub_industry": "Biotechnology"
+    },
+    {
+      "ticker": "AMZN",
+      "name": "Amazon",
+      "sector": "Consumer Discretionary",
+      "sub_industry": "Broadline Retail"
+    },
+    {
+      "ticker": "CSCO",
+      "name": "Cisco",
+      "sector": "Information Technology",
+      "sub_industry": "Communications Equipment"
+    },
+    {
+      "ticker": "FANG",
+      "name": "Diamondback Energy",
+      "sector": "Energy",
+      "sub_industry": "Oil & Gas Exploration & Production"
+    },
+    {
+      "ticker": "GILD",
+      "name": "Gilead Sciences",
+      "sector": "Health Care",
+      "sub_industry": "Biotechnology"
+    },
+    {
+      "ticker": "MPWR",
+      "name": "Monolithic Power Systems",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductors"
+    },
+    {
+      "ticker": "MSFT",
+      "name": "Microsoft",
+      "sector": "Information Technology",
+      "sub_industry": "Systems Software"
+    },
+    {
+      "ticker": "NVDA",
+      "name": "Nvidia",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductors"
+    },
+    {
+      "ticker": "PEP",
+      "name": "PepsiCo",
+      "sector": "Consumer Staples",
+      "sub_industry": "Soft Drinks & Non-alcoholic Beverages"
+    },
+    {
+      "ticker": "CRWD",
+      "name": "CrowdStrike",
+      "sector": "Information Technology",
+      "sub_industry": "Systems Software"
+    },
+    {
+      "ticker": "CTAS",
+      "name": "Cintas",
+      "sector": "Industrials",
+      "sub_industry": "Diversified Support Services"
+    },
+    {
+      "ticker": "FER",
+      "name": "Ferrovial N.V.",
       "sector": "Unknown",
       "sub_industry": ""
     },
     {
-      "ticker": "TRI",
-      "name": "Thomson Reuters Corp",
+      "ticker": "HON",
+      "name": "Honeywell Technologies",
+      "sector": "Industrials",
+      "sub_industry": "Industrial Conglomerates"
+    },
+    {
+      "ticker": "PDD",
+      "name": "PDD Holdings Inc.",
+      "sector": "Unknown",
+      "sub_industry": ""
+    },
+    {
+      "ticker": "TER",
+      "name": "Teradyne",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductor Materials & Equipment"
+    },
+    {
+      "ticker": "WDAY",
+      "name": "Workday, Inc.",
+      "sector": "Information Technology",
+      "sub_industry": "Application Software"
+    },
+    {
+      "ticker": "ADP",
+      "name": "Automatic Data Processing",
+      "sector": "Industrials",
+      "sub_industry": "Human Resource & Employment Services"
+    },
+    {
+      "ticker": "AVGO",
+      "name": "Broadcom",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductors"
+    },
+    {
+      "ticker": "DXCM",
+      "name": "Dexcom",
+      "sector": "Health Care",
+      "sub_industry": "Health Care Equipment"
+    },
+    {
+      "ticker": "FAST",
+      "name": "Fastenal",
+      "sector": "Industrials",
+      "sub_industry": "Trading Companies & Distributors"
+    },
+    {
+      "ticker": "MSTR",
+      "name": "Strategy Inc",
       "sector": "Unknown",
       "sub_industry": ""
     },
@@ -542,10 +536,64 @@
       "sub_industry": "Interactive Home Entertainment"
     },
     {
-      "ticker": "ADI",
-      "name": "Analog Devices",
+      "ticker": "BKR",
+      "name": "Baker Hughes",
+      "sector": "Energy",
+      "sub_industry": "Oil & Gas Equipment & Services"
+    },
+    {
+      "ticker": "CMCSA",
+      "name": "Comcast",
+      "sector": "Communication Services",
+      "sub_industry": "Cable & Satellite"
+    },
+    {
+      "ticker": "EXC",
+      "name": "Exelon",
+      "sector": "Utilities",
+      "sub_industry": "Electric Utilities"
+    },
+    {
+      "ticker": "IDXX",
+      "name": "Idexx Laboratories",
+      "sector": "Health Care",
+      "sub_industry": "Health Care Equipment"
+    },
+    {
+      "ticker": "ISRG",
+      "name": "Intuitive Surgical",
+      "sector": "Health Care",
+      "sub_industry": "Health Care Equipment"
+    },
+    {
+      "ticker": "MDLZ",
+      "name": "Mondelez International",
+      "sector": "Consumer Staples",
+      "sub_industry": "Packaged Foods & Meats"
+    },
+    {
+      "ticker": "MRVL",
+      "name": "Marvell Technology",
       "sector": "Information Technology",
       "sub_industry": "Semiconductors"
+    },
+    {
+      "ticker": "STX",
+      "name": "Seagate Technology",
+      "sector": "Information Technology",
+      "sub_industry": "Technology Hardware, Storage & Peripherals"
+    },
+    {
+      "ticker": "ALAB",
+      "name": "Astera Labs, Inc.",
+      "sector": "Unknown",
+      "sub_industry": ""
+    },
+    {
+      "ticker": "ARM",
+      "name": "Arm Holdings plc",
+      "sector": "Unknown",
+      "sub_industry": ""
     },
     {
       "ticker": "CDNS",
@@ -554,58 +602,10 @@
       "sub_industry": "Application Software"
     },
     {
-      "ticker": "CSX",
-      "name": "CSX Corporation",
-      "sector": "Industrials",
-      "sub_industry": "Rail Transportation"
-    },
-    {
-      "ticker": "DXCM",
-      "name": "Dexcom",
-      "sector": "Health Care",
-      "sub_industry": "Health Care Equipment"
-    },
-    {
-      "ticker": "PLTR",
-      "name": "Palantir Technologies",
+      "ticker": "FTNT",
+      "name": "Fortinet",
       "sector": "Information Technology",
-      "sub_industry": "Application Software"
-    },
-    {
-      "ticker": "ROST",
-      "name": "Ross Stores",
-      "sector": "Consumer Discretionary",
-      "sub_industry": "Apparel Retail"
-    },
-    {
-      "ticker": "XEL",
-      "name": "Xcel Energy",
-      "sector": "Utilities",
-      "sub_industry": "Multi-Utilities"
-    },
-    {
-      "ticker": "HON",
-      "name": "Honeywell Technologies",
-      "sector": "Industrials",
-      "sub_industry": "Industrial Conglomerates"
-    },
-    {
-      "ticker": "MCHP",
-      "name": "Microchip Technology",
-      "sector": "Information Technology",
-      "sub_industry": "Semiconductors"
-    },
-    {
-      "ticker": "MNST",
-      "name": "Monster Beverage",
-      "sector": "Consumer Staples",
-      "sub_industry": "Soft Drinks & Non-alcoholic Beverages"
-    },
-    {
-      "ticker": "TER",
-      "name": "Teradyne",
-      "sector": "Information Technology",
-      "sub_industry": "Semiconductor Materials & Equipment"
+      "sub_industry": "Systems Software"
     }
   ]
 }
