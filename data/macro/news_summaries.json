@@ -339,6 +339,18 @@
   "reference_date": "2026-07-01",
   "fred_id": "CIVPART"
  },
+ "JTSJOL@2026-09-01": {
+  "summary_zh": "2026年9月職缺數為750萬個，較上期變動不大，職缺率維持在4.5%。文件指出，州及地方政府（不含教育）的職缺增加了10.4萬個。整體而言，雇用與總離職人數同樣變動不大，但離職中的自願離職（quits）則有所增加。",
+  "drivers": [
+   "州及地方政府，不含教育 (+104,000)",
+   "職缺率維持4.5%"
+  ],
+  "evidence": "The number and rate of job openings were little changed at 7.5 million and 4.5 percent, respectively, in September. Job openings increased in state and local government, excluding education (+104,000).",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/jolts.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-09-01",
+  "fred_id": "JTSJOL"
+ },
  "JTSJOL@2026-08-01": {
   "summary_zh": "2026年8月職缺數為710萬個，較上月變動不大，職缺率為4.3%。文件指出各產業職缺變動皆不明顯。同期僱用人數與總離職人數也大致持平，分別為520萬人與510萬人。",
   "drivers": [
