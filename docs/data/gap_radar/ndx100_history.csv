@@ -119,3 +119,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-10-28,8,SNDK,Sandisk,64.3,121.28,extreme
 2026-10-28,9,STX,Seagate Technology,63.45,82.45,high
 2026-10-28,10,ALNY,"Alnylam Pharmaceuticals, Inc.",62.17,77.76,moderate
+2026-11-04,1,CRWV,"CoreWeave, Inc.",147.49,179.7,extreme
+2026-11-04,2,ALNY,"Alnylam Pharmaceuticals, Inc.",89.18,90.91,high
+2026-11-04,3,RKLB,Rocket Lab Corporation,87.67,84.19,high
+2026-11-04,4,MRVL,Marvell Technology,87.17,85.44,high
+2026-11-04,5,NBIS,Nebius Group N.V.,85.31,116.01,extreme
+2026-11-04,6,MU,Micron Technology,82.66,168.96,extreme
+2026-11-04,7,APP,AppLovin,82.65,66.9,moderate
+2026-11-04,8,SPCX,Space Exploration Technologies Corp,81.95,283.92,extreme
+2026-11-04,9,SNDK,Sandisk,79.64,105.26,high
+2026-11-04,10,WDC,Western Digital,76.59,80.7,moderate

@@ -129,3 +129,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-10-28,8,COHR,Coherent Corp.,67.95,68.18,high
 2026-10-28,9,SNDK,Sandisk,64.3,121.28,extreme
 2026-10-28,10,STX,Seagate Technology,63.45,82.45,extreme
+2026-11-04,1,MRVL,Marvell Technology,87.17,85.44,extreme
+2026-11-04,2,COHR,Coherent Corp.,86.9,69.62,high
+2026-11-04,3,ORCL,Oracle Corporation,84.91,124.28,extreme
+2026-11-04,4,MU,Micron Technology,82.66,168.96,extreme
+2026-11-04,5,APP,AppLovin,82.65,66.9,high
+2026-11-04,6,SNDK,Sandisk,79.64,105.26,extreme
+2026-11-04,7,NRG,NRG Energy,79.61,67.67,high
+2026-11-04,8,AKAM,Akamai Technologies,78.25,85.58,extreme
+2026-11-04,9,FLEX,Flex Ltd.,77.64,33.23,low
+2026-11-04,10,WDC,Western Digital,76.59,80.7,extreme
