@@ -224,6 +224,20 @@
   "reference_date": "2026-06-01",
   "fred_id": "RSAFS"
  },
+ "UNRATE@2026-10-01": {
+  "summary_zh": "2026年10月失業率為4.1%，變動不大，失業人數約為710萬人。失業率自3月以來一直維持在4.1%至4.3%的窄幅區間內。長期失業人數（失業27週以上）約為200萬人，也變動不大。",
+  "drivers": [
+   "失業率維持在4.1%至4.3%窄幅區間",
+   "長期失業人數變動不大，佔總失業人數27.6%",
+   "勞動力參與率與就業人口比率變動不大",
+   "非自願性兼職人數增加33.9萬人"
+  ],
+  "evidence": "The unemployment rate has remained in a narrow range of 4.1 percent to 4.3 percent since March.",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/empsit.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-10-01",
+  "fred_id": "UNRATE"
+ },
  "UNRATE@2026-09-01": {
   "summary_zh": "2026年9月失業率為4.2%，較上期變動不大，失業人數約710萬人，三個月變化為0.0。失業率自3月以來一直維持在4.1%至4.3%的窄幅區間內。黑人失業率上升至7.0%，但其他主要群體（成年男性、女性、青少年、白人、亞裔、西裔）失業率變動不大。",
   "drivers": [
@@ -266,6 +280,20 @@
   "reference_date": "2026-07-01",
   "fred_id": "UNRATE"
  },
+ "PAYEMS@2026-10-01": {
+  "summary_zh": "2026年10月非農就業人數增加16.5萬人，高於過去12個月平均每月增加4.8萬人的水準。就業成長主要來自專業與商業服務業、醫療保健業，以及運輸與倉儲業。失業率維持在4.1%，變化不大。",
+  "drivers": [
+   "專業與商業服務業增加70,000人",
+   "醫療保健業增加42,000人",
+   "運輸與倉儲業增加25,000人",
+   "製造業持續上升19,000人"
+  ],
+  "evidence": "Total nonfarm payroll employment rose by 165,000 in October, higher than the average monthly gain of 48,000 over the prior 12 months.",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/empsit.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-10-01",
+  "fred_id": "PAYEMS"
+ },
  "PAYEMS@2026-09-01": {
   "summary_zh": "2026年9月非農就業人數增加2.9萬人，變動不大，所有主要產業就業情況也都變化不大。醫療保健業持續成長但增速放緩，營建業小幅增加，製造業變動不大，金融業則略為減少。",
   "drivers": [
@@ -307,6 +335,15 @@
   "model": "claude-sonnet-5",
   "reference_date": "2026-07-01",
   "fred_id": "PAYEMS"
+ },
+ "CIVPART@2026-10-01": {
+  "summary_zh": "2026年10月勞動參與率為61.9%，相較前期變動不大，自今年1月以來這項指標都呈現小幅變動的狀態，文件未提供具體驅動該指標變化的原因。",
+  "drivers": [],
+  "evidence": "Both the labor force participation rate, at 61.9 percent, and the employment-population ratio, at 59.3 percent, changed little in October. These measures have shown little net change since January.",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/empsit.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-10-01",
+  "fred_id": "CIVPART"
  },
  "CIVPART@2026-09-01": {
   "summary_zh": "2026年9月勞動參與率為61.8%，與前月相比變動不大，且自今年1月以來一直呈現小幅變動的情況，文件並未提及三個月變化的具體原因。",
