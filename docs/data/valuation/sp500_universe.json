@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-31",
+  "as_of": "2026-11-07",
   "constituents": [
     {
       "ticker": "MMM",
@@ -1616,12 +1616,6 @@
       "sub_industry": "Diversified Banks"
     },
     {
-      "ticker": "KVUE",
-      "name": "Kenvue",
-      "sector": "Consumer Staples",
-      "sub_industry": "Personal Care Products"
-    },
-    {
       "ticker": "KDP",
       "name": "Keurig Dr Pepper",
       "sector": "Consumer Staples",
@@ -2082,6 +2076,12 @@
       "name": "Occidental Petroleum",
       "sector": "Energy",
       "sub_industry": "Oil & Gas Exploration & Production"
+    },
+    {
+      "ticker": "OKTA",
+      "name": "Okta, Inc.",
+      "sector": "Information Technology",
+      "sub_industry": "Application Software"
     },
     {
       "ticker": "ODFL",
