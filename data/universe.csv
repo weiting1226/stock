@@ -303,9 +303,6 @@ ALB,Albemarle Corporation Common Stock,N,False,common,nasdaqtrader
 ALB-PA,Albemarle Corporation Depositary Shares each representing a 1/20th of 7.25% Series A Mandatory Convertible Preferred Stock,N,False,preferred,nasdaqtrader
 ALC,Alcon Inc. Ordinary Shares,N,False,common,nasdaqtrader
 ALCO,"Alico, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-ALDF,Aldel Financial II Inc. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-ALDFU,Aldel Financial II Inc. - Units,NASDAQ,False,unit,nasdaqtrader
-ALDFW,Aldel Financial II Inc. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 ALDX,"Aldeyra Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ALEC,"Alector, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ALF,Centurion Acquisition Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -3883,7 +3880,9 @@ LDP,"Cohen & Steers Limited Duration Preferred and Income Fund, Inc.",N,False,pr
 LE,"Lands' End, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 LEA,Lear Corporation Common Stock,N,False,common,nasdaqtrader
 LECO,"Lincoln Electric Holdings, Inc. - Common Shares",NASDAQ,False,common,nasdaqtrader
+LEDR,Leader's Advantage Acquisition Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 LEDRU,Leader's Advantage Acquisition Corp. - Units,NASDAQ,False,unit,nasdaqtrader
+LEDRW,Leader's Advantage Acquisition Corp. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 LEDS,SemiLEDS Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 LEE,"Lee Enterprises, Incorporated - Common Stock",NASDAQ,False,common,nasdaqtrader
 LEGH,Legacy Housing Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
