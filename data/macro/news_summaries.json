@@ -426,6 +426,20 @@
   "reference_date": "2026-06-01",
   "fred_id": "JTSJOL"
  },
+ "CPILFESL@2026-10-01": {
+  "summary_zh": "核心CPI（不含食物與能源）在10月上漲0.3%，與9月及8月的漲幅相同。推升項目包括休閒、醫療保健、汽車保險、家庭用品及服務、教育等，而二手車與通訊指數則下降。",
+  "drivers": [
+   "recreation",
+   "medical care",
+   "motor vehicle insurance",
+   "household furnishings and operations"
+  ],
+  "evidence": "The index for all items less food and energy rose 0.3 percent in October, as it did in September and August.",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/cpi.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-10-01",
+  "fred_id": "CPILFESL"
+ },
  "CPILFESL@2026-09-01": {
   "summary_zh": "2026年9月核心CPI（不含食物與能源）季調後月增0.3%，與8月增幅相同；以未季調方式計算，過去12個月上漲2.6%，較8月年增率2.4%略為擴大。住房、休閒、二手車、教育、機票與醫療保健等項目價格上漲，而通訊價格下跌。",
   "drivers": [
