@@ -5988,7 +5988,10 @@ SCOR,"comScore, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SCPQ,Social Commerce Partners Corporation - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 SCPQU,Social Commerce Partners Corporation - Unit,NASDAQ,False,unit,nasdaqtrader
 SCPQW,Social Commerce Partners Corporation - Warrant,NASDAQ,False,warrant,nasdaqtrader
+SCQC,SPACCircle Acquisition Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+SCQCR,SPACCircle Acquisition Corp. - Rights,NASDAQ,False,right,nasdaqtrader
 SCQCU,SPACCircle Acquisition Corp. - Units,NASDAQ,False,unit,nasdaqtrader
+SCQCW,SPACCircle Acquisition Corp. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 SCSC,"ScanSource, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SCTX,Scribe Therapeutics Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 SCWO,374Water Inc. - common stock,NASDAQ,False,common,nasdaqtrader
