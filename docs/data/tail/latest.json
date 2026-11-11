@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-11-10",
+  "as_of": "2026-11-11",
   "mode": "shadow",
   "shadow_note": "影子運行：只記錄、不下單。慢閘門檻未經真實資料校準，快閘的危機型事件樣本 n=1。",
   "base_alloc": {
@@ -7,7 +7,7 @@
     "qqq": 1.0,
     "sgov": 0.0,
     "source": {
-      "as_of": "2026-11-07",
+      "as_of": "2026-11-10",
       "text": "100% QQQ"
     }
   },
@@ -30,7 +30,7 @@
       "stress_level": 0.0176,
       "chg250_pctile": 1.2,
       "hyg_lqd_chg60": -0.01274,
-      "index_last": 111.244,
+      "index_last": 111.38,
       "components": {
         "stress": 6.45,
         "chg_pctile": 29.64,
@@ -44,14 +44,14 @@
     "gated_veto": 0,
     "n_categories": 0,
     "curve_inverted": false,
-    "vix9d": 19.88,
-    "vix": 19.92,
-    "vix3m": 20.85,
+    "vix9d": 18.54,
+    "vix": 19.46,
+    "vix3m": 20.64,
     "detail": {
       "triggered": [],
       "missing": [],
-      "vvix_pctile": 59.599999999999994,
-      "hy_chg20_bp": 31.000000000000007,
+      "vvix_pctile": 53.2,
+      "hy_chg20_bp": 23.0,
       "threshold_shift": -0.0,
       "vvix_trigger": 80.0,
       "hy_trigger_bp": 75.0,
@@ -76,14 +76,14 @@
   },
   "state": {
     "active_veto": 0,
-    "clean_days": 1,
+    "clean_days": 2,
     "consec_inversion": 0
   },
   "state_meta": {
     "found": true,
-    "as_of": "2026-11-07",
-    "saved_at": "2026-11-07T01:01:57+00:00",
-    "staleness_days": 3
+    "as_of": "2026-11-10",
+    "saved_at": "2026-11-10T03:41:54+00:00",
+    "staleness_days": 1
   },
   "controller": {
     "raw_veto": 0,
@@ -468,18 +468,18 @@
   },
   "log_sources": {
     "backfill": 2513,
-    "live": 59
+    "live": 60
   },
   "calibration": {
     "n_obs": 615,
     "beta": 0.5008,
-    "corr_level_dd_vs_oas": 0.807,
-    "corr_change_60d": -0.9115,
-    "regime_agreement_rank": 0.4279,
+    "corr_level_dd_vs_oas": 0.8079,
+    "corr_change_60d": -0.9117,
+    "regime_agreement_rank": 0.4312,
     "regime_agreement_absolute": 0.2601,
-    "regime_agreement": 0.4279,
-    "regime_agreement_expected": 0.5497,
-    "regime_agreement_shortfall": -0.1218,
+    "regime_agreement": 0.4312,
+    "regime_agreement_expected": 0.5506,
+    "regime_agreement_shortfall": -0.1194,
     "corr_needed_for_agreement_target": 0.928,
     "targets_are_mutually_consistent": false,
     "targets": {
@@ -499,7 +499,6 @@
   "problems": [],
   "history": {
     "dates": [
-      "2026-02-19",
       "2026-02-20",
       "2026-02-23",
       "2026-02-24",
@@ -678,11 +677,11 @@
       "2026-11-05",
       "2026-11-06",
       "2026-11-07",
-      "2026-11-10"
+      "2026-11-10",
+      "2026-11-11"
     ],
     "series": {
       "cp_score": [
-        27.096,
         23.367,
         27.136,
         29.182,
@@ -861,13 +860,13 @@
         40.878,
         39.219,
         42.687,
+        39.914,
         39.914
       ],
       "state_active_veto": [
         1.0,
         1.0,
         1.0,
-        1.0,
         0.0,
         0.0,
         1.0,
@@ -1043,13 +1042,13 @@
         0.0,
         1.0,
         1.0,
+        0.0,
         0.0
       ],
       "fg_n_categories": [
         1.0,
         1.0,
         1.0,
-        1.0,
         0.0,
         0.0,
         1.0,
@@ -1225,13 +1224,13 @@
         0.0,
         2.0,
         2.0,
+        0.0,
         0.0
       ],
       "out_w_tqqq": [
         0.0,
         0.0,
         0.0,
-        0.0,
         0.1875,
         0.0,
         0.0,
@@ -1349,6 +1348,7 @@
         0.25,
         0.25,
         0.25,
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -1413,7 +1413,6 @@
         0.0,
         0.0,
         0.0,
-        0.0,
         0.25,
         0.0,
         0.0,
@@ -1531,6 +1530,7 @@
         0.25,
         0.25,
         0.25,
+        0.0,
         0.0,
         0.0,
         0.0,
@@ -1592,7 +1592,6 @@
         0.0
       ],
       "cr_score": [
-        45.3,
         50.66,
         49.49,
         52.79,
@@ -1771,6 +1770,7 @@
         26.14,
         24.98,
         10.47,
+        15.86,
         15.86
       ]
     }
