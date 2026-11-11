@@ -129,3 +129,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-11-04,8,SPCX,Space Exploration Technologies Corp,81.95,283.92,extreme
 2026-11-04,9,SNDK,Sandisk,79.64,105.26,high
 2026-11-04,10,WDC,Western Digital,76.59,80.7,moderate
+2026-11-11,1,CRWV,"CoreWeave, Inc.",169.91,181.71,extreme
+2026-11-11,2,SNDK,Sandisk,138.07,104.04,high
+2026-11-11,3,MU,Micron Technology,115.4,168.96,extreme
+2026-11-11,4,WDC,Western Digital,112.09,80.7,moderate
+2026-11-11,5,STX,Seagate Technology,108.29,84.99,high
+2026-11-11,6,NBIS,Nebius Group N.V.,107.5,117.25,extreme
+2026-11-11,7,MRVL,Marvell Technology,101.4,88.44,high
+2026-11-11,8,ALNY,"Alnylam Pharmaceuticals, Inc.",97.81,91.68,high
+2026-11-11,9,NVDA,Nvidia,92.89,102.83,high
+2026-11-11,10,MSTR,Strategy Inc,92.67,115.75,extreme
