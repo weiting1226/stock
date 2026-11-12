@@ -598,7 +598,6 @@ ASUR,Asure Software Inc - Common Stock,NASDAQ,False,common,nasdaqtrader
 ASX,"ASE Technology Holding Co., Ltd. American Depositary Shares (each representing Two Common Shares)",N,False,common,nasdaqtrader
 ASYS,"Amtech Systems, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ATAT,Atour Lifestyle Holdings Limited - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
-ATCH,"AtlasClear Holdings, Inc. Common Stock",A,False,common,nasdaqtrader
 ATCX,Atlas Critical Minerals Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 ATEC,"Alphatec Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ATEN,"A10 Networks, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -1388,8 +1387,8 @@ CFG-PE,"Citizens Financial Group, Inc. Depositary Shares Each Representing 1/40t
 CFG-PH,"Citizens Financial Group, Inc. Depositary Shares Each Representing a 1/40th Interest in a Share of 7.375% Fixed-Rate Non-Cumulative Perpetual Preferred Stock, Series H",N,False,preferred,nasdaqtrader
 CFG-PI,"Citizens Financial Group, Inc. Depositary Shares, Each Representing a 1/40th Interest in a Share of 6.500% Fixed-Rate Reset Non-Cumulative Perpetual Preferred Stock, Series I",N,False,preferred,nasdaqtrader
 CFND,C1 Fund Inc. Common Stock,N,False,common,nasdaqtrader
-CFR,"Cullen/Frost Bankers, Inc. Common Stock",N,False,common,nasdaqtrader
-CFR-PB,"Cullen/Frost Bankers, Inc. Depositary Shares, each representing a 1/40th ownership interest in a share of 4.450% non-cumulative perpetual preferred stock, Series B",N,False,preferred,nasdaqtrader
+CFR,"Cullen/Frost Bankers, Inc. Common Stock",F,False,common,nasdaqtrader
+CFR-PB,"Cullen/Frost Bankers, Inc. Depositary Shares, each representing a 1/40th ownership interest in a share of 4.450% non-cumulative perpetual preferred stock, Series B",F,False,preferred,nasdaqtrader
 CFTR-PA,"Cantor Fitzgerald Income Trust, Inc. 9.50% Series A Cumulative Redeemable Preferred Stock",N,False,preferred,nasdaqtrader
 CG,The Carlyle Group Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 CGABL,The Carlyle Group Inc. - 4.625% Subordinated Notes due 2061,NASDAQ,False,note,nasdaqtrader
@@ -1711,6 +1710,7 @@ CRM,"Salesforce, Inc. Common Stock",N,False,common,nasdaqtrader
 CRMD,CorMedix Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 CRML,Critical Metals Corp. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 CRMLW,Critical Metals Corp. - Warrants,NASDAQ,False,warrant,nasdaqtrader
+CRMN,Skyline Builders Group Holding Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 CRMT,"America's Car-Mart, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 CRNC,Cerence Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 CRNT,Ceragon Networks Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -3162,7 +3162,6 @@ HLMN,Hillman Solutions Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 HLN,Haleon plc American Depositary Shares (Each representing two Ordinary Shares),N,False,common,nasdaqtrader
 HLNE,Hamilton Lane Incorporated - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 HLP,Hongli Group Inc. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-HLSQ,Tessera Defense and Homeland Security Inc. Common Stock,A,False,common,nasdaqtrader
 HLT,Hilton Worldwide Holdings Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 HLXC,Helix Acquisition Corp. III - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 HMC,"Honda Motor Company, Ltd. Common Stock",N,False,common,nasdaqtrader
@@ -3665,7 +3664,6 @@ KALU,Kaiser Aluminum Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 KAPA,"Kairos Pharma, Ltd. Common Stock",A,False,common,nasdaqtrader
 KARD,"Kardigan, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 KARO,Karooooo Ltd. - Ordinary shares,NASDAQ,False,common,nasdaqtrader
-KAZR,Skyline Builders Group Holding Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 KB,KB Financial Group Inc,N,False,common,nasdaqtrader
 KBDC,"Kayne Anderson BDC, Inc. Common Stock",N,False,common,nasdaqtrader
 KBH,KB Home Common Stock,N,False,common,nasdaqtrader
@@ -3750,7 +3748,6 @@ KN,Knowles Corporation Common Stock,N,False,common,nasdaqtrader
 KNDI,"Kandi Technologies Group, Inc. - Ordinary Shares",NASDAQ,False,common,nasdaqtrader
 KNF,Knife Riv Holding Co. Common Stock,N,False,common,nasdaqtrader
 KNOP,KNOT Offshore Partners LP Common Units representing Limited Partner Interests,N,False,common,nasdaqtrader
-KNRX,KNOREX LTD. Class A Ordinary Shares,A,False,common,nasdaqtrader
 KNSA,"Kiniksa Pharmaceuticals International, plc - Class A Ordinary Shares",NASDAQ,False,common,nasdaqtrader
 KNSL,"Kinsale Capital Group, Inc. Common Stock",N,False,common,nasdaqtrader
 KNTK,Kinetik Holdings Inc. Class A Common Stock,N,False,common,nasdaqtrader
@@ -3771,7 +3768,6 @@ KPET-U,"KPET Ultra Paceline Corporation Units, each consisting of one Class A Or
 KPET-W,"KPET Ultra Paceline Corporation Warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50 per share",N,False,warrant,nasdaqtrader
 KPLT,"Katapult Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 KPRX,"Kiora Pharmaceuticals, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
-KPTI,Karyopharm Therapeutics Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 KR,Kroger Company (The) Common Stock,N,False,common,nasdaqtrader
 KRAQ,KRAKacquisition Corp - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 KRAQU,KRAKacquisition Corp - Unit,NASDAQ,False,unit,nasdaqtrader
@@ -4847,7 +4843,6 @@ NXT,Nextpower Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 NXTC,"NextCure, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 NXTS,Nexentis Technologies Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 NXTT,Next Technology Holding Inc. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-NXXT,"NextNRG, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 NYAX,Nayax Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 NYC,American Strategic Investment Co. Class A Common Stock,N,False,common,nasdaqtrader
 NYT,New York Times Company (The) Common Stock,N,False,common,nasdaqtrader
