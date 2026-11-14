@@ -1505,7 +1505,6 @@ CLDT-PA,Chatham Lodging Trust (REIT) 6.625% Series A Cumulative Redeemable Prefe
 CLDX,"Celldex Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 CLF,Cleveland-Cliffs Inc. Common Stock,N,False,common,nasdaqtrader
 CLFD,"Clearfield, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-CLGN,CollPlant Biotechnologies Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 CLH,"Clean Harbors, Inc. Common Stock",N,False,common,nasdaqtrader
 CLIK,Click Holdings Limited - Ordinary Share,NASDAQ,False,common,nasdaqtrader
 CLIR,ClearSign Technologies Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -3974,6 +3973,7 @@ LOAN,"Manhattan Bridge Capital, Inc - Common Stock",NASDAQ,False,common,nasdaqtr
 LOAR,Loar Holdings Inc. Common Stock,N,False,common,nasdaqtrader
 LOB,"Live Oak Bancshares, Inc. Common Stock",N,False,common,nasdaqtrader
 LOB-PA,"Live Oak Bancshares, Inc. Depositary Shares, Each Representing a 1/40th Interest in a Share of 8.375% Fixed Rate Series A Non-Cumulative Perpetual Preferred Stock",N,False,preferred,nasdaqtrader
+LOB-PB,"Live Oak Bancshares, Inc. Depositary Shares, Each Representing a 1/40th Interest in a Share of 8.750% Fixed Rate Series B Non-Cumulative Perpetual Preferred Stock",N,False,preferred,nasdaqtrader
 LOBO,LOBO TECHNOLOGIES LTD. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 LOCL,Local Bounti Corporation Common Stock,N,False,common,nasdaqtrader
 LOCO,"El Pollo Loco Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -3986,7 +3986,9 @@ LOPE,"Grand Canyon Education, Inc. - Common Stock",NASDAQ,False,common,nasdaqtra
 LOT,Lotus Technology Inc. - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 LOTWW,Lotus Technology Inc. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 LOVE,The Lovesac Company - Common Stock,NASDAQ,False,common,nasdaqtrader
+LOVI,Live Oak Acquisition Corp. VI - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 LOVIU,Live Oak Acquisition Corp. VI - Units,NASDAQ,False,unit,nasdaqtrader
+LOVIW,Live Oak Acquisition Corp. VI - Warrants,NASDAQ,False,warrant,nasdaqtrader
 LOW,"Lowe's Companies, Inc. Common Stock",N,False,common,nasdaqtrader
 LPA,Logistic Properties of the Americas Ordinary Shares,A,False,common,nasdaqtrader
 LPAA,Launch One Acquisition Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -4161,6 +4163,7 @@ MDGL,"Madrigal Pharmaceuticals, Inc. - Common Stock",NASDAQ,False,common,nasdaqt
 MDIA,Mediaco Holding Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 MDLN,Medline Inc. - Class A common stock,NASDAQ,False,common,nasdaqtrader
 MDLZ,"Mondelez International, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
+MDRN,Modern Mining Technology Corp. Common Shares,A,False,common,nasdaqtrader
 MDRR,"Medalist Diversified, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 MDT,Medtronic plc. Ordinary Shares,N,False,common,nasdaqtrader
 MDU,"MDU Resources Group, Inc. Common Stock (Holding Company)",N,False,common,nasdaqtrader
@@ -4933,7 +4936,7 @@ OKYO,OKYO Pharma Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 OLB,"The OLB Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 OLED,Universal Display Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 OLLI,"Ollie's Bargain Outlet Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-OLMA,"Olema Pharmaceuticals, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+OLMA,"Olema Oncology, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 OLN,Olin Corporation Common Stock,N,False,common,nasdaqtrader
 OLOX,Olenox Industries Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 OLP,"One Liberty Properties, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -4982,6 +4985,7 @@ OPENW,"Opendoor Technologies Inc  - Series K Warrants, each whole warrant exerci
 OPENZ,"Opendoor Technologies Inc  - Series Z Warrants, each whole warrant exercisable to purchase one share of Common Stock at an exercise price of $17.00 per warrant",NASDAQ,False,warrant,nasdaqtrader
 OPFI,OppFi Inc. Class A Common Stock,N,False,common,nasdaqtrader
 OPHC,"OptimumBank Holdings, Inc. Common Stock",A,False,common,nasdaqtrader
+OPHI,CollPlant Biotechnologies Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 OPI,Office Properties Income Trust - Common shares of beneficial interest,NASDAQ,False,common,nasdaqtrader
 OPK,"Opko Health, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 OPLN,"OPENLANE, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -5481,7 +5485,6 @@ PTEN,"Patterson-UTI Energy, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrade
 PTGX,"Protagonist Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PTHS,Pelthos Therapeutics Inc. Common Stock,A,False,common,nasdaqtrader
 PTIV,Pineapple Financial Inc. Common Stock,A,False,common,nasdaqtrader
-PTLE,PTL LTD - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 PTLO,Portillo's Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 PTN,"Palatin Technologies, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PTON,"Peloton Interactive, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -7102,6 +7105,7 @@ VUZI,Vuzix Corporation  - Common Stock,NASDAQ,False,common,nasdaqtrader
 VVOS,"Vivos Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 VVR,Invesco Senior Income Trust Common Stock (DE),N,False,common,nasdaqtrader
 VVV,Valvoline Inc. Common Stock,N,False,common,nasdaqtrader
+VVVV,vVARDIS Holding AG Class A Ordinary Shares,N,False,common,nasdaqtrader
 VVX,"V2X, Inc. Common Stock",N,False,common,nasdaqtrader
 VWAV,"VisionWave Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 VWAVW,"VisionWave Holdings, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
@@ -7170,7 +7174,7 @@ WFC-PZ,"Wells Fargo & Company Depositary Shares, each representing a 1/1,000th i
 WFCF,"Where Food Comes From, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 WFF,WF Holding Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 WFG,West Fraser Timber Co. Ltd Common stock,N,False,common,nasdaqtrader
-WFRD,Weatherford International plc - Ordinary shares,NASDAQ,False,common,nasdaqtrader
+WFRD,Weatherford International Corp - Common Stock,NASDAQ,False,common,nasdaqtrader
 WGO,"Winnebago Industries, Inc. Common Stock",N,False,common,nasdaqtrader
 WGS,GeneDx Holdings Corp. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 WH,"Wyndham Hotels & Resorts, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -7279,6 +7283,7 @@ WVE,"Wave Life Sciences, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 WVVI,"Willamette Valley Vineyards, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 WVVIP,"Willamette Valley Vineyards, Inc. - Series A Redeemable Preferred Stock",NASDAQ,False,preferred,nasdaqtrader
 WW,"WW International, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
+WWB,Windward Bio Group AG - Common shares,NASDAQ,False,common,nasdaqtrader
 WWD,"Woodward, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 WWR,"Westwater Resources, Inc. Common Stock",A,False,common,nasdaqtrader
 WWW,"Wolverine World Wide, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -7454,3 +7459,4 @@ ZVRA,"Zevra Therapeutics, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
 ZWS,Zurn Elkay Water Solutions Corporation Common Stock,N,False,common,nasdaqtrader
 ZYBT,Zhengye Biotechnology Holding Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ZYME,Zymeworks Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
+ZYN,PTL LTD - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
