@@ -1,6 +1,6 @@
 {
-  "as_of": "2026-11-14",
-  "generated_at": "2026-11-14T03:08:09.390933Z",
+  "as_of": "2026-11-15",
+  "generated_at": "2026-11-15T02:36:48.981652Z",
   "universe": "S&P 500 (Wikipedia constituents)",
   "sources_available": [
     "yahoo"
@@ -27,67 +27,67 @@
       "sector": "Information Technology",
       "count": 76,
       "median_upside_pct": 30.61,
-      "mean_upside_pct": 36.43
+      "mean_upside_pct": 36.42
     },
     {
       "sector": "Communication Services",
       "count": 20,
       "median_upside_pct": 22.42,
-      "mean_upside_pct": 24.16
+      "mean_upside_pct": 24.2
     },
     {
       "sector": "Energy",
       "count": 21,
       "median_upside_pct": 17.48,
-      "mean_upside_pct": 20.11
+      "mean_upside_pct": 20.06
     },
     {
       "sector": "Materials",
       "count": 24,
       "median_upside_pct": 13.67,
-      "mean_upside_pct": 16.16
+      "mean_upside_pct": 16.18
     },
     {
       "sector": "Industrials",
       "count": 83,
       "median_upside_pct": 13.53,
-      "mean_upside_pct": 16.96
+      "mean_upside_pct": 16.97
     },
     {
       "sector": "Real Estate",
       "count": 30,
-      "median_upside_pct": 12.29,
-      "mean_upside_pct": 12.76
+      "median_upside_pct": 12.37,
+      "mean_upside_pct": 12.78
     },
     {
       "sector": "Consumer Discretionary",
       "count": 47,
       "median_upside_pct": 9.94,
-      "mean_upside_pct": 11.66
+      "mean_upside_pct": 11.65
     },
     {
       "sector": "Financials",
       "count": 74,
       "median_upside_pct": 8.3,
-      "mean_upside_pct": 9.79
+      "mean_upside_pct": 9.83
     },
     {
       "sector": "Health Care",
       "count": 60,
       "median_upside_pct": 6.44,
-      "mean_upside_pct": 7.22
+      "mean_upside_pct": 7.21
     },
     {
       "sector": "Utilities",
       "count": 31,
       "median_upside_pct": 4.86,
-      "mean_upside_pct": 9.58
+      "mean_upside_pct": 9.61
     },
     {
       "sector": "Consumer Staples",
       "count": 33,
       "median_upside_pct": 4.32,
-      "mean_upside_pct": 4.77
+      "mean_upside_pct": 4.79
     }
   ],
   "rows": [
@@ -261,11 +261,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": -3.84,
       "change_1m_pct": 11.37,
-      "consensus_target": 233.2121,
+      "consensus_target": 233.8371,
       "target_median": 235.0,
       "target_high": 300.0,
       "target_low": 163.0,
-      "target_dispersion_pct": 58.74,
+      "target_dispersion_pct": 58.59,
       "range_source": "yahoo",
       "analyst_count": 24,
       "basis": "consensus",
@@ -278,10 +278,10 @@
       "book_value_issue": null,
       "market_cap": 147973832704.0,
       "market_cap_issue": null,
-      "upside_pct": -6.9,
+      "upside_pct": -6.65,
       "implausible": false,
       "source_targets": {
-        "yahoo": 233.2121
+        "yahoo": 233.8371
       },
       "sources_used": [
         "yahoo"
@@ -421,11 +421,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 2.86,
       "change_1m_pct": 8.1,
-      "consensus_target": 118.9333,
-      "target_median": 116.0,
+      "consensus_target": 119.2667,
+      "target_median": 117.0,
       "target_high": 143.0,
       "target_low": 101.0,
-      "target_dispersion_pct": 35.31,
+      "target_dispersion_pct": 35.22,
       "range_source": "yahoo",
       "analyst_count": 15,
       "basis": "consensus",
@@ -438,10 +438,10 @@
       "book_value_issue": null,
       "market_cap": 63116808192.0,
       "market_cap_issue": null,
-      "upside_pct": -6.8,
+      "upside_pct": -6.54,
       "implausible": false,
       "source_targets": {
-        "yahoo": 118.9333
+        "yahoo": 119.2667
       },
       "sources_used": [
         "yahoo"
@@ -476,7 +476,7 @@
       "book_value": 26.113,
       "price_to_book": 6.662,
       "book_value_issue": null,
-      "market_cap": 49050775552.0,
+      "market_cap": 49044348928.0,
       "market_cap_issue": null,
       "upside_pct": 4.65,
       "implausible": false,
@@ -671,7 +671,7 @@
       "basis": "consensus",
       "firm_targets": [],
       "duplicates_removed": 0,
-      "recommendation_mean": 3.125,
+      "recommendation_mean": 3.1875,
       "recommendation_key": "hold",
       "book_value": 86.669,
       "price_to_book": 0.506,
@@ -821,11 +821,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 5.04,
       "change_1m_pct": 11.7,
-      "consensus_target": 277.5454,
+      "consensus_target": 277.2273,
       "target_median": 279.0,
       "target_high": 370.0,
       "target_low": 191.0,
-      "target_dispersion_pct": 64.49,
+      "target_dispersion_pct": 64.57,
       "range_source": "yahoo",
       "analyst_count": 22,
       "basis": "consensus",
@@ -838,10 +838,10 @@
       "book_value_issue": null,
       "market_cap": 66227388416.0,
       "market_cap_issue": null,
-      "upside_pct": 3.7,
+      "upside_pct": 3.58,
       "implausible": false,
       "source_targets": {
-        "yahoo": 277.5454
+        "yahoo": 277.2273
       },
       "sources_used": [
         "yahoo"
@@ -982,11 +982,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 2.84,
       "change_1m_pct": 4.67,
-      "consensus_target": 326.7237,
+      "consensus_target": 326.2903,
       "target_median": 328.0,
       "target_high": 405.0,
       "target_low": 230.0,
-      "target_dispersion_pct": 53.56,
+      "target_dispersion_pct": 53.63,
       "range_source": "yahoo",
       "analyst_count": 60,
       "basis": "consensus",
@@ -999,10 +999,10 @@
       "book_value_issue": null,
       "market_cap": 2883431432192.0,
       "market_cap_issue": null,
-      "upside_pct": 22.52,
+      "upside_pct": 22.36,
       "implausible": false,
       "source_targets": {
-        "yahoo": 326.7237
+        "yahoo": 326.2903
       },
       "sources_used": [
         "yahoo"
@@ -1182,11 +1182,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 6.57,
       "change_1m_pct": 4.73,
-      "consensus_target": 88.55,
+      "consensus_target": 88.5,
       "target_median": 89.0,
       "target_high": 103.0,
       "target_low": 80.0,
-      "target_dispersion_pct": 25.97,
+      "target_dispersion_pct": 25.99,
       "range_source": "yahoo",
       "analyst_count": 20,
       "basis": "consensus",
@@ -1199,10 +1199,10 @@
       "book_value_issue": null,
       "market_cap": 42957844480.0,
       "market_cap_issue": null,
-      "upside_pct": 6.87,
+      "upside_pct": 6.81,
       "implausible": false,
       "source_targets": {
-        "yahoo": 88.55
+        "yahoo": 88.5
       },
       "sources_used": [
         "yahoo"
@@ -1232,8 +1232,8 @@
       "basis": "consensus",
       "firm_targets": [],
       "duplicates_removed": 0,
-      "recommendation_mean": 1.52,
-      "recommendation_key": "buy",
+      "recommendation_mean": null,
+      "recommendation_key": "none",
       "book_value": 7.576,
       "price_to_book": 25.296,
       "book_value_issue": null,
@@ -1272,7 +1272,7 @@
       "basis": "consensus",
       "firm_targets": [],
       "duplicates_removed": 0,
-      "recommendation_mean": 2.84615,
+      "recommendation_mean": 2.83333,
       "recommendation_key": "hold",
       "book_value": 59.923,
       "price_to_book": 2.497,
@@ -1502,11 +1502,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 1.05,
       "change_1m_pct": 17.96,
-      "consensus_target": 363.2105,
-      "target_median": 363.0,
+      "consensus_target": 365.0,
+      "target_median": 364.0,
       "target_high": 435.0,
       "target_low": 259.0,
-      "target_dispersion_pct": 48.46,
+      "target_dispersion_pct": 48.22,
       "range_source": "yahoo",
       "analyst_count": 19,
       "basis": "consensus",
@@ -1519,10 +1519,10 @@
       "book_value_issue": null,
       "market_cap": 71774896128.0,
       "market_cap_issue": null,
-      "upside_pct": 7.36,
+      "upside_pct": 7.89,
       "implausible": false,
       "source_targets": {
-        "yahoo": 363.2105
+        "yahoo": 365.0
       },
       "sources_used": [
         "yahoo"
@@ -1582,11 +1582,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 5.76,
       "change_1m_pct": 10.37,
-      "consensus_target": 146.45,
+      "consensus_target": 146.85,
       "target_median": 145.5,
       "target_high": 173.0,
       "target_low": 124.0,
-      "target_dispersion_pct": 33.46,
+      "target_dispersion_pct": 33.37,
       "range_source": "yahoo",
       "analyst_count": 20,
       "basis": "consensus",
@@ -1599,10 +1599,10 @@
       "book_value_issue": null,
       "market_cap": 72900714496.0,
       "market_cap_issue": null,
-      "upside_pct": 18.61,
+      "upside_pct": 18.94,
       "implausible": false,
       "source_targets": {
-        "yahoo": 146.45
+        "yahoo": 146.85
       },
       "sources_used": [
         "yahoo"
@@ -1622,11 +1622,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 4.06,
       "change_1m_pct": 4.17,
-      "consensus_target": 344.6155,
-      "target_median": 352.5,
+      "consensus_target": 346.3655,
+      "target_median": 356.5,
       "target_high": 425.0,
       "target_low": 250.0,
-      "target_dispersion_pct": 50.78,
+      "target_dispersion_pct": 50.52,
       "range_source": "yahoo",
       "analyst_count": 40,
       "basis": "consensus",
@@ -1639,10 +1639,10 @@
       "book_value_issue": null,
       "market_cap": 5177380175872.0,
       "market_cap_issue": null,
-      "upside_pct": -3.27,
+      "upside_pct": -2.78,
       "implausible": false,
       "source_targets": {
-        "yahoo": 344.6155
+        "yahoo": 346.3655
       },
       "sources_used": [
         "yahoo"
@@ -1662,27 +1662,27 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 11.35,
       "change_1m_pct": -13.84,
-      "consensus_target": 588.6111,
-      "target_median": 580.0,
+      "consensus_target": 576.3889,
+      "target_median": 577.5,
       "target_high": 900.0,
       "target_low": 358.0,
-      "target_dispersion_pct": 92.08,
+      "target_dispersion_pct": 94.03,
       "range_source": "yahoo",
       "analyst_count": 36,
       "basis": "consensus",
       "firm_targets": [],
       "duplicates_removed": 0,
-      "recommendation_mean": 1.425,
+      "recommendation_mean": 1.475,
       "recommendation_key": "strong_buy",
       "book_value": 32.921,
       "price_to_book": 11.254,
       "book_value_issue": null,
       "market_cap": 294027853824.0,
       "market_cap_issue": null,
-      "upside_pct": 58.87,
+      "upside_pct": 55.57,
       "implausible": false,
       "source_targets": {
-        "yahoo": 588.6111
+        "yahoo": 576.3889
       },
       "sources_used": [
         "yahoo"
@@ -1702,11 +1702,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 4.57,
       "change_1m_pct": 46.48,
-      "consensus_target": 449.6137,
+      "consensus_target": 453.2803,
       "target_median": 450.0,
       "target_high": 600.0,
-      "target_low": 345.0,
-      "target_dispersion_pct": 56.72,
+      "target_low": 347.0,
+      "target_dispersion_pct": 55.82,
       "range_source": "yahoo",
       "analyst_count": 30,
       "basis": "consensus",
@@ -1719,10 +1719,10 @@
       "book_value_issue": null,
       "market_cap": 135543824384.0,
       "market_cap_issue": null,
-      "upside_pct": 9.9,
+      "upside_pct": 10.8,
       "implausible": false,
       "source_targets": {
-        "yahoo": 449.6137
+        "yahoo": 453.2803
       },
       "sources_used": [
         "yahoo"
@@ -2904,11 +2904,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": -0.68,
       "change_1m_pct": -3.75,
-      "consensus_target": 215.6571,
+      "consensus_target": 215.7714,
       "target_median": 215.0,
       "target_high": 267.0,
       "target_low": 150.0,
-      "target_dispersion_pct": 54.25,
+      "target_dispersion_pct": 54.22,
       "range_source": "yahoo",
       "analyst_count": 35,
       "basis": "consensus",
@@ -2921,10 +2921,10 @@
       "book_value_issue": "negative",
       "market_cap": 118679846912.0,
       "market_cap_issue": null,
-      "upside_pct": 35.14,
+      "upside_pct": 35.21,
       "implausible": false,
       "source_targets": {
-        "yahoo": 215.6571
+        "yahoo": 215.7714
       },
       "sources_used": [
         "yahoo"
@@ -3906,11 +3906,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 4.77,
       "change_1m_pct": 4.44,
-      "consensus_target": 129.836,
+      "consensus_target": 130.036,
       "target_median": 130.0,
       "target_high": 195.72,
       "target_low": 105.0,
-      "target_dispersion_pct": 69.87,
+      "target_dispersion_pct": 69.77,
       "range_source": "yahoo",
       "analyst_count": 20,
       "basis": "consensus",
@@ -3923,10 +3923,10 @@
       "book_value_issue": null,
       "market_cap": 18298779648.0,
       "market_cap_issue": null,
-      "upside_pct": 3.79,
+      "upside_pct": 3.95,
       "implausible": false,
       "source_targets": {
-        "yahoo": 129.836
+        "yahoo": 130.036
       },
       "sources_used": [
         "yahoo"
@@ -4306,27 +4306,27 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 2.25,
       "change_1m_pct": 13.41,
-      "consensus_target": 187.3333,
-      "target_median": 186.0,
+      "consensus_target": 190.6667,
+      "target_median": 192.0,
       "target_high": 204.0,
-      "target_low": 171.0,
-      "target_dispersion_pct": 17.62,
+      "target_low": 177.0,
+      "target_dispersion_pct": 14.16,
       "range_source": "yahoo",
       "analyst_count": 6,
       "basis": "consensus",
       "firm_targets": [],
       "duplicates_removed": 0,
-      "recommendation_mean": null,
-      "recommendation_key": "none",
+      "recommendation_mean": 2.5,
+      "recommendation_key": "buy",
       "book_value": 105.42,
       "price_to_book": 1.799,
       "book_value_issue": null,
       "market_cap": 29113231360.0,
       "market_cap_issue": null,
-      "upside_pct": -1.22,
+      "upside_pct": 0.54,
       "implausible": false,
       "source_targets": {
-        "yahoo": 187.3333
+        "yahoo": 190.6667
       },
       "sources_used": [
         "yahoo"
@@ -4386,11 +4386,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 1.91,
       "change_1m_pct": -12.94,
-      "consensus_target": 132.1667,
-      "target_median": 131.5,
-      "target_high": 170.0,
+      "consensus_target": 129.9583,
+      "target_median": 128.5,
+      "target_high": 160.0,
       "target_low": 109.0,
-      "target_dispersion_pct": 46.15,
+      "target_dispersion_pct": 39.24,
       "range_source": "yahoo",
       "analyst_count": 24,
       "basis": "consensus",
@@ -4401,12 +4401,12 @@
       "book_value": 12.743,
       "price_to_book": 7.505,
       "book_value_issue": null,
-      "market_cap": 377069010944.0,
+      "market_cap": 376532795392.0,
       "market_cap_issue": null,
-      "upside_pct": 38.19,
+      "upside_pct": 35.88,
       "implausible": false,
       "source_targets": {
-        "yahoo": 132.1667
+        "yahoo": 129.9583
       },
       "sources_used": [
         "yahoo"
@@ -4521,7 +4521,7 @@
       "book_value": -0.322,
       "price_to_book": null,
       "book_value_issue": "negative",
-      "market_cap": 13237893120.0,
+      "market_cap": 13260793856.0,
       "market_cap_issue": null,
       "upside_pct": -11.38,
       "implausible": false,
@@ -4837,8 +4837,8 @@
       "basis": "consensus",
       "firm_targets": [],
       "duplicates_removed": 0,
-      "recommendation_mean": null,
-      "recommendation_key": "none",
+      "recommendation_mean": 2.62963,
+      "recommendation_key": "hold",
       "book_value": 26.071,
       "price_to_book": 0.965,
       "book_value_issue": null,
@@ -5267,11 +5267,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 5.0,
       "change_1m_pct": 13.11,
-      "consensus_target": 1073.3513,
-      "target_median": 1095.0,
+      "consensus_target": 1078.0541,
+      "target_median": 1100.0,
       "target_high": 1315.0,
       "target_low": 770.0,
-      "target_dispersion_pct": 50.78,
+      "target_dispersion_pct": 50.55,
       "range_source": "yahoo",
       "analyst_count": 37,
       "basis": "consensus",
@@ -5284,10 +5284,10 @@
       "book_value_issue": null,
       "market_cap": 490194108416.0,
       "market_cap_issue": null,
-      "upside_pct": -2.97,
+      "upside_pct": -2.55,
       "implausible": false,
       "source_targets": {
-        "yahoo": 1073.3513
+        "yahoo": 1078.0541
       },
       "sources_used": [
         "yahoo"
@@ -5347,11 +5347,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 4.48,
       "change_1m_pct": -7.34,
-      "consensus_target": 249.6834,
+      "consensus_target": 250.1834,
       "target_median": 250.0,
       "target_high": 325.0,
       "target_low": 132.0,
-      "target_dispersion_pct": 77.3,
+      "target_dispersion_pct": 77.14,
       "range_source": "yahoo",
       "analyst_count": 50,
       "basis": "consensus",
@@ -5364,10 +5364,10 @@
       "book_value_issue": null,
       "market_cap": 232033878016.0,
       "market_cap_issue": null,
-      "upside_pct": 10.18,
+      "upside_pct": 10.4,
       "implausible": false,
       "source_targets": {
-        "yahoo": 249.6834
+        "yahoo": 250.1834
       },
       "sources_used": [
         "yahoo"
@@ -5468,11 +5468,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 0.47,
       "change_1m_pct": -15.12,
-      "consensus_target": 634.0579,
+      "consensus_target": 634.0053,
       "target_median": 610.0,
-      "target_high": 880.0,
+      "target_high": 879.0,
       "target_low": 462.0,
-      "target_dispersion_pct": 65.92,
+      "target_dispersion_pct": 65.77,
       "range_source": "yahoo",
       "analyst_count": 19,
       "basis": "consensus",
@@ -5485,10 +5485,10 @@
       "book_value_issue": null,
       "market_cap": 61948657664.0,
       "market_cap_issue": null,
-      "upside_pct": 40.22,
+      "upside_pct": 40.21,
       "implausible": false,
       "source_targets": {
-        "yahoo": 634.0579
+        "yahoo": 634.0053
       },
       "sources_used": [
         "yahoo"
@@ -6160,7 +6160,7 @@
       "basis": "consensus",
       "firm_targets": [],
       "duplicates_removed": 0,
-      "recommendation_mean": 2.23333,
+      "recommendation_mean": 2.16667,
       "recommendation_key": "buy",
       "book_value": -120.235,
       "price_to_book": null,
@@ -6191,27 +6191,27 @@
       "close_date": "2026-11-13",
       "change_1w_pct": -4.54,
       "change_1m_pct": -11.16,
-      "consensus_target": 250.6887,
+      "consensus_target": 249.5349,
       "target_median": 250.0,
       "target_high": 340.0,
       "target_low": 200.0,
-      "target_dispersion_pct": 55.85,
+      "target_dispersion_pct": 56.1,
       "range_source": "yahoo",
       "analyst_count": 39,
       "basis": "consensus",
       "firm_targets": [],
       "duplicates_removed": 0,
-      "recommendation_mean": 1.54762,
+      "recommendation_mean": 1.52381,
       "recommendation_key": "buy",
       "book_value": 24.583,
       "price_to_book": 6.977,
       "book_value_issue": null,
       "market_cap": 74774298624.0,
       "market_cap_issue": null,
-      "upside_pct": 46.17,
+      "upside_pct": 45.49,
       "implausible": false,
       "source_targets": {
-        "yahoo": 250.6887
+        "yahoo": 249.5349
       },
       "sources_used": [
         "yahoo"
@@ -6351,11 +6351,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 3.44,
       "change_1m_pct": 8.88,
-      "consensus_target": 148.3929,
-      "target_median": 147.5,
+      "consensus_target": 149.3214,
+      "target_median": 151.0,
       "target_high": 168.0,
       "target_low": 135.0,
-      "target_dispersion_pct": 22.24,
+      "target_dispersion_pct": 22.1,
       "range_source": "yahoo",
       "analyst_count": 14,
       "basis": "consensus",
@@ -6368,10 +6368,10 @@
       "book_value_issue": null,
       "market_cap": 29084547072.0,
       "market_cap_issue": null,
-      "upside_pct": 6.21,
+      "upside_pct": 6.87,
       "implausible": false,
       "source_targets": {
-        "yahoo": 148.3929
+        "yahoo": 149.3214
       },
       "sources_used": [
         "yahoo"
@@ -6791,11 +6791,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 2.48,
       "change_1m_pct": 2.61,
-      "consensus_target": 182.8211,
+      "consensus_target": 182.9996,
       "target_median": 189.0,
       "target_high": 209.0,
       "target_low": 113.0,
-      "target_dispersion_pct": 52.51,
+      "target_dispersion_pct": 52.46,
       "range_source": "yahoo",
       "analyst_count": 28,
       "basis": "consensus",
@@ -6808,10 +6808,10 @@
       "book_value_issue": null,
       "market_cap": 91276066816.0,
       "market_cap_issue": null,
-      "upside_pct": 9.88,
+      "upside_pct": 9.99,
       "implausible": false,
       "source_targets": {
-        "yahoo": 182.8211
+        "yahoo": 182.9996
       },
       "sources_used": [
         "yahoo"
@@ -6871,11 +6871,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 7.61,
       "change_1m_pct": 3.73,
-      "consensus_target": 168.0,
+      "consensus_target": 167.7241,
       "target_median": 166.0,
-      "target_high": 213.0,
+      "target_high": 200.0,
       "target_low": 141.0,
-      "target_dispersion_pct": 42.86,
+      "target_dispersion_pct": 35.18,
       "range_source": "yahoo",
       "analyst_count": 29,
       "basis": "consensus",
@@ -6888,10 +6888,10 @@
       "book_value_issue": null,
       "market_cap": 82086428672.0,
       "market_cap_issue": null,
-      "upside_pct": 6.11,
+      "upside_pct": 5.94,
       "implausible": false,
       "source_targets": {
-        "yahoo": 168.0
+        "yahoo": 167.7241
       },
       "sources_used": [
         "yahoo"
@@ -7227,11 +7227,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 11.62,
       "change_1m_pct": -19.05,
-      "consensus_target": 151.5263,
+      "consensus_target": 151.7369,
       "target_median": 155.0,
       "target_high": 215.0,
       "target_low": 88.0,
-      "target_dispersion_pct": 83.81,
+      "target_dispersion_pct": 83.7,
       "range_source": "yahoo",
       "analyst_count": 19,
       "basis": "consensus",
@@ -7244,10 +7244,10 @@
       "book_value_issue": null,
       "market_cap": 35985211392.0,
       "market_cap_issue": null,
-      "upside_pct": 40.32,
+      "upside_pct": 40.51,
       "implausible": false,
       "source_targets": {
-        "yahoo": 151.5263
+        "yahoo": 151.7369
       },
       "sources_used": [
         "yahoo"
@@ -7347,11 +7347,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 4.65,
       "change_1m_pct": -2.5,
-      "consensus_target": 122.0741,
-      "target_median": 122.0,
+      "consensus_target": 121.4815,
+      "target_median": 121.0,
       "target_high": 156.0,
       "target_low": 92.0,
-      "target_dispersion_pct": 52.43,
+      "target_dispersion_pct": 52.68,
       "range_source": "yahoo",
       "analyst_count": 27,
       "basis": "consensus",
@@ -7364,10 +7364,10 @@
       "book_value_issue": null,
       "market_cap": 20446652416.0,
       "market_cap_issue": null,
-      "upside_pct": 37.89,
+      "upside_pct": 37.22,
       "implausible": false,
       "source_targets": {
-        "yahoo": 122.0741
+        "yahoo": 121.4815
       },
       "sources_used": [
         "yahoo"
@@ -7387,11 +7387,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": -0.49,
       "change_1m_pct": -11.61,
-      "consensus_target": 332.7941,
+      "consensus_target": 333.1177,
       "target_median": 327.5,
       "target_high": 430.0,
       "target_low": 235.0,
-      "target_dispersion_pct": 58.59,
+      "target_dispersion_pct": 58.54,
       "range_source": "yahoo",
       "analyst_count": 34,
       "basis": "consensus",
@@ -7404,10 +7404,10 @@
       "book_value_issue": null,
       "market_cap": 30588612608.0,
       "market_cap_issue": null,
-      "upside_pct": 29.0,
+      "upside_pct": 29.13,
       "implausible": false,
       "source_targets": {
-        "yahoo": 332.7941
+        "yahoo": 333.1177
       },
       "sources_used": [
         "yahoo"
@@ -7467,11 +7467,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": -0.43,
       "change_1m_pct": 15.11,
-      "consensus_target": 161.55,
+      "consensus_target": 161.65,
       "target_median": 159.0,
       "target_high": 178.0,
       "target_low": 140.0,
-      "target_dispersion_pct": 23.52,
+      "target_dispersion_pct": 23.51,
       "range_source": "yahoo",
       "analyst_count": 20,
       "basis": "consensus",
@@ -7484,10 +7484,10 @@
       "book_value_issue": null,
       "market_cap": 34577219584.0,
       "market_cap_issue": null,
-      "upside_pct": 1.92,
+      "upside_pct": 1.99,
       "implausible": false,
       "source_targets": {
-        "yahoo": 161.55
+        "yahoo": 161.65
       },
       "sources_used": [
         "yahoo"
@@ -7602,7 +7602,7 @@
       "book_value": 56.779,
       "price_to_book": 5.859,
       "book_value_issue": null,
-      "market_cap": 11733934080.0,
+      "market_cap": 11729205248.0,
       "market_cap_issue": null,
       "upside_pct": -7.97,
       "implausible": false,
@@ -7708,11 +7708,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 0.3,
       "change_1m_pct": 6.85,
-      "consensus_target": 126.8421,
-      "target_median": 125.0,
+      "consensus_target": 127.0,
+      "target_median": 126.0,
       "target_high": 145.0,
       "target_low": 116.0,
-      "target_dispersion_pct": 22.86,
+      "target_dispersion_pct": 22.83,
       "range_source": "yahoo",
       "analyst_count": 19,
       "basis": "consensus",
@@ -7725,10 +7725,10 @@
       "book_value_issue": null,
       "market_cap": 9772996608.0,
       "market_cap_issue": null,
-      "upside_pct": 12.33,
+      "upside_pct": 12.47,
       "implausible": false,
       "source_targets": {
-        "yahoo": 126.8421
+        "yahoo": 127.0
       },
       "sources_used": [
         "yahoo"
@@ -7869,11 +7869,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 2.82,
       "change_1m_pct": -18.24,
-      "consensus_target": 35.5455,
-      "target_median": 33.0,
+      "consensus_target": 35.2727,
+      "target_median": 32.5,
       "target_high": 61.0,
       "target_low": 25.0,
-      "target_dispersion_pct": 101.28,
+      "target_dispersion_pct": 102.06,
       "range_source": "yahoo",
       "analyst_count": 22,
       "basis": "consensus",
@@ -7886,10 +7886,10 @@
       "book_value_issue": null,
       "market_cap": 15226991616.0,
       "market_cap_issue": null,
-      "upside_pct": 20.33,
+      "upside_pct": 19.41,
       "implausible": false,
       "source_targets": {
-        "yahoo": 35.5455
+        "yahoo": 35.2727
       },
       "sources_used": [
         "yahoo"
@@ -8069,11 +8069,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 7.45,
       "change_1m_pct": -23.88,
-      "consensus_target": 151.4,
-      "target_median": 155.0,
-      "target_high": 176.0,
+      "consensus_target": 156.6,
+      "target_median": 160.0,
+      "target_high": 180.0,
       "target_low": 128.0,
-      "target_dispersion_pct": 31.7,
+      "target_dispersion_pct": 33.21,
       "range_source": "yahoo",
       "analyst_count": 10,
       "basis": "consensus",
@@ -8086,10 +8086,10 @@
       "book_value_issue": null,
       "market_cap": 27702171648.0,
       "market_cap_issue": null,
-      "upside_pct": 101.92,
+      "upside_pct": 108.86,
       "implausible": false,
       "source_targets": {
-        "yahoo": 151.4
+        "yahoo": 156.6
       },
       "sources_used": [
         "yahoo"
@@ -8239,7 +8239,7 @@
       "basis": "consensus",
       "firm_targets": [],
       "duplicates_removed": 0,
-      "recommendation_mean": 1.8,
+      "recommendation_mean": 1.80952,
       "recommendation_key": "buy",
       "book_value": 29.558,
       "price_to_book": 2.315,
@@ -8866,11 +8866,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": -5.65,
       "change_1m_pct": 9.18,
-      "consensus_target": 109.0909,
+      "consensus_target": 108.9394,
       "target_median": 106.0,
       "target_high": 194.0,
       "target_low": 70.0,
-      "target_dispersion_pct": 113.67,
+      "target_dispersion_pct": 113.82,
       "range_source": "yahoo",
       "analyst_count": 33,
       "basis": "consensus",
@@ -8883,10 +8883,10 @@
       "book_value_issue": null,
       "market_cap": 24320030720.0,
       "market_cap_issue": null,
-      "upside_pct": 18.71,
+      "upside_pct": 18.54,
       "implausible": false,
       "source_targets": {
-        "yahoo": 109.0909
+        "yahoo": 108.9394
       },
       "sources_used": [
         "yahoo"
@@ -9067,11 +9067,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 2.6,
       "change_1m_pct": 3.52,
-      "consensus_target": 145.2381,
-      "target_median": 144.0,
+      "consensus_target": 145.2857,
+      "target_median": 145.0,
       "target_high": 163.0,
       "target_low": 135.0,
-      "target_dispersion_pct": 19.28,
+      "target_dispersion_pct": 19.27,
       "range_source": "yahoo",
       "analyst_count": 21,
       "basis": "consensus",
@@ -9084,10 +9084,10 @@
       "book_value_issue": null,
       "market_cap": 36763992064.0,
       "market_cap_issue": null,
-      "upside_pct": 5.64,
+      "upside_pct": 5.68,
       "implausible": false,
       "source_targets": {
-        "yahoo": 145.2381
+        "yahoo": 145.2857
       },
       "sources_used": [
         "yahoo"
@@ -9348,11 +9348,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 0.71,
       "change_1m_pct": 8.78,
-      "consensus_target": 370.5556,
-      "target_median": 375.0,
+      "consensus_target": 371.9629,
+      "target_median": 380.0,
       "target_high": 425.0,
       "target_low": 275.0,
-      "target_dispersion_pct": 40.48,
+      "target_dispersion_pct": 40.33,
       "range_source": "yahoo",
       "analyst_count": 27,
       "basis": "consensus",
@@ -9365,10 +9365,10 @@
       "book_value_issue": "negative",
       "market_cap": 83014148096.0,
       "market_cap_issue": null,
-      "upside_pct": -0.68,
+      "upside_pct": -0.3,
       "implausible": false,
       "source_targets": {
-        "yahoo": 370.5556
+        "yahoo": 371.9629
       },
       "sources_used": [
         "yahoo"
@@ -10471,11 +10471,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": -0.92,
       "change_1m_pct": 0.19,
-      "consensus_target": 32.6957,
+      "consensus_target": 32.6522,
       "target_median": 33.0,
       "target_high": 41.0,
       "target_low": 28.0,
-      "target_dispersion_pct": 39.76,
+      "target_dispersion_pct": 39.81,
       "range_source": "yahoo",
       "analyst_count": 23,
       "basis": "consensus",
@@ -10488,10 +10488,10 @@
       "book_value_issue": null,
       "market_cap": 15528727552.0,
       "market_cap_issue": null,
-      "upside_pct": 21.77,
+      "upside_pct": 21.61,
       "implausible": false,
       "source_targets": {
-        "yahoo": 32.6957
+        "yahoo": 32.6522
       },
       "sources_used": [
         "yahoo"
@@ -10684,8 +10684,8 @@
       "duplicates_removed": 0,
       "recommendation_mean": 1.7619,
       "recommendation_key": "buy",
-      "book_value": 30.116,
-      "price_to_book": 5.9,
+      "book_value": 29.284,
+      "price_to_book": 6.067,
       "book_value_issue": null,
       "market_cap": 12369156096.0,
       "market_cap_issue": null,
@@ -10727,7 +10727,7 @@
       "book_value": 27.87,
       "price_to_book": 5.677,
       "book_value_issue": null,
-      "market_cap": 18519017472.0,
+      "market_cap": 18683936768.0,
       "market_cap_issue": null,
       "upside_pct": 2.89,
       "implausible": false,
@@ -10804,10 +10804,10 @@
       "duplicates_removed": 0,
       "recommendation_mean": 2.04348,
       "recommendation_key": "buy",
-      "book_value": 22.535,
-      "price_to_book": 6.183,
+      "book_value": 22.636,
+      "price_to_book": 6.155,
       "book_value_issue": null,
-      "market_cap": 84397957120.0,
+      "market_cap": 83625828352.0,
       "market_cap_issue": null,
       "upside_pct": 25.19,
       "implausible": false,
@@ -11032,11 +11032,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 0.12,
       "change_1m_pct": 12.7,
-      "consensus_target": 26.5119,
+      "consensus_target": 26.6071,
       "target_median": 27.0,
       "target_high": 30.0,
       "target_low": 23.0,
-      "target_dispersion_pct": 26.4,
+      "target_dispersion_pct": 26.31,
       "range_source": "yahoo",
       "analyst_count": 21,
       "basis": "consensus",
@@ -11049,10 +11049,10 @@
       "book_value_issue": null,
       "market_cap": 16977684480.0,
       "market_cap_issue": null,
-      "upside_pct": 3.76,
+      "upside_pct": 4.14,
       "implausible": false,
       "source_targets": {
-        "yahoo": 26.5119
+        "yahoo": 26.6071
       },
       "sources_used": [
         "yahoo"
@@ -11112,11 +11112,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 1.63,
       "change_1m_pct": 11.89,
-      "consensus_target": 121.5252,
-      "target_median": 120.03,
+      "consensus_target": 122.8971,
+      "target_median": 122.0,
       "target_high": 156.0,
-      "target_low": 97.0,
-      "target_dispersion_pct": 48.55,
+      "target_low": 103.0,
+      "target_dispersion_pct": 43.13,
       "range_source": "yahoo",
       "analyst_count": 21,
       "basis": "consensus",
@@ -11129,10 +11129,10 @@
       "book_value_issue": null,
       "market_cap": 90019168256.0,
       "market_cap_issue": null,
-      "upside_pct": 23.94,
+      "upside_pct": 25.34,
       "implausible": false,
       "source_targets": {
-        "yahoo": 121.5252
+        "yahoo": 122.8971
       },
       "sources_used": [
         "yahoo"
@@ -11473,11 +11473,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": -5.78,
       "change_1m_pct": 7.62,
-      "consensus_target": 77.6,
+      "consensus_target": 77.2667,
       "target_median": 73.0,
-      "target_high": 120.0,
+      "target_high": 115.0,
       "target_low": 58.0,
-      "target_dispersion_pct": 79.9,
+      "target_dispersion_pct": 73.77,
       "range_source": "yahoo",
       "analyst_count": 15,
       "basis": "consensus",
@@ -11490,10 +11490,10 @@
       "book_value_issue": null,
       "market_cap": 19890839552.0,
       "market_cap_issue": null,
-      "upside_pct": -7.19,
+      "upside_pct": -7.59,
       "implausible": false,
       "source_targets": {
-        "yahoo": 77.6
+        "yahoo": 77.2667
       },
       "sources_used": [
         "yahoo"
@@ -11749,27 +11749,27 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 1.42,
       "change_1m_pct": 16.35,
-      "consensus_target": 251.0,
+      "consensus_target": 250.697,
       "target_median": 255.0,
       "target_high": 290.0,
-      "target_low": 191.0,
-      "target_dispersion_pct": 39.44,
+      "target_low": 190.0,
+      "target_dispersion_pct": 39.89,
       "range_source": "yahoo",
       "analyst_count": 33,
       "basis": "consensus",
       "firm_targets": [],
       "duplicates_removed": 0,
-      "recommendation_mean": 1.8,
+      "recommendation_mean": 1.85714,
       "recommendation_key": "buy",
       "book_value": -13.257,
       "price_to_book": null,
       "book_value_issue": "negative",
       "market_cap": 127768829952.0,
       "market_cap_issue": null,
-      "upside_pct": 10.22,
+      "upside_pct": 10.09,
       "implausible": false,
       "source_targets": {
-        "yahoo": 251.0
+        "yahoo": 250.697
       },
       "sources_used": [
         "yahoo"
@@ -11800,7 +11800,7 @@
       "basis": "consensus",
       "firm_targets": [],
       "duplicates_removed": 0,
-      "recommendation_mean": 3.24324,
+      "recommendation_mean": 3.25,
       "recommendation_key": "hold",
       "book_value": 42.9,
       "price_to_book": 2.463,
@@ -11950,11 +11950,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 11.24,
       "change_1m_pct": -13.06,
-      "consensus_target": 461.9412,
+      "consensus_target": 460.9412,
       "target_median": 458.0,
       "target_high": 564.0,
       "target_low": 236.0,
-      "target_dispersion_pct": 71.0,
+      "target_dispersion_pct": 71.16,
       "range_source": "yahoo",
       "analyst_count": 17,
       "basis": "consensus",
@@ -11967,10 +11967,10 @@
       "book_value_issue": null,
       "market_cap": 112901840896.0,
       "market_cap_issue": null,
-      "upside_pct": 11.41,
+      "upside_pct": 11.16,
       "implausible": false,
       "source_targets": {
-        "yahoo": 461.9412
+        "yahoo": 460.9412
       },
       "sources_used": [
         "yahoo"
@@ -12071,11 +12071,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": -0.88,
       "change_1m_pct": 4.56,
-      "consensus_target": 627.0417,
-      "target_median": 634.0,
+      "consensus_target": 628.0417,
+      "target_median": 639.5,
       "target_high": 800.0,
       "target_low": 500.0,
-      "target_dispersion_pct": 47.84,
+      "target_dispersion_pct": 47.77,
       "range_source": "yahoo",
       "analyst_count": 24,
       "basis": "consensus",
@@ -12088,10 +12088,10 @@
       "book_value_issue": null,
       "market_cap": 36527165440.0,
       "market_cap_issue": null,
-      "upside_pct": 22.09,
+      "upside_pct": 22.28,
       "implausible": false,
       "source_targets": {
-        "yahoo": 627.0417
+        "yahoo": 628.0417
       },
       "sources_used": [
         "yahoo"
@@ -12449,7 +12449,7 @@
       "book_value": 106.567,
       "price_to_book": 6.021,
       "book_value_issue": null,
-      "market_cap": 1640694153216.0,
+      "market_cap": 1640314437632.0,
       "market_cap_issue": null,
       "upside_pct": 32.48,
       "implausible": false,
@@ -12474,11 +12474,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 4.46,
       "change_1m_pct": 2.37,
-      "consensus_target": 110.625,
+      "consensus_target": 110.9375,
       "target_median": 111.0,
       "target_high": 131.0,
       "target_low": 84.0,
-      "target_dispersion_pct": 42.49,
+      "target_dispersion_pct": 42.37,
       "range_source": "yahoo",
       "analyst_count": 16,
       "basis": "consensus",
@@ -12491,10 +12491,10 @@
       "book_value_issue": null,
       "market_cap": 64509583360.0,
       "market_cap_issue": null,
-      "upside_pct": 7.77,
+      "upside_pct": 8.07,
       "implausible": false,
       "source_targets": {
-        "yahoo": 110.625
+        "yahoo": 110.9375
       },
       "sources_used": [
         "yahoo"
@@ -12754,13 +12754,13 @@
       "close_date": "2026-11-13",
       "change_1w_pct": -12.12,
       "change_1m_pct": -5.55,
-      "consensus_target": 158.4737,
+      "consensus_target": 155.5,
       "target_median": 125.0,
       "target_high": 305.0,
       "target_low": 45.0,
-      "target_dispersion_pct": 164.07,
+      "target_dispersion_pct": 167.2,
       "range_source": "yahoo",
-      "analyst_count": 19,
+      "analyst_count": 18,
       "basis": "consensus",
       "firm_targets": [],
       "duplicates_removed": 0,
@@ -12771,10 +12771,10 @@
       "book_value_issue": null,
       "market_cap": 90380181504.0,
       "market_cap_issue": null,
-      "upside_pct": -29.05,
+      "upside_pct": -30.38,
       "implausible": false,
       "source_targets": {
-        "yahoo": 158.4737
+        "yahoo": 155.5
       },
       "sources_used": [
         "yahoo"
@@ -13486,7 +13486,7 @@
       "book_value": 58.691,
       "price_to_book": 5.533,
       "book_value_issue": null,
-      "market_cap": 18087813120.0,
+      "market_cap": 18093846528.0,
       "market_cap_issue": null,
       "upside_pct": 7.69,
       "implausible": false,
@@ -13751,27 +13751,27 @@
       "close_date": "2026-11-13",
       "change_1w_pct": -12.75,
       "change_1m_pct": -25.03,
-      "consensus_target": 283.3076,
+      "consensus_target": 278.3076,
       "target_median": 275.0,
       "target_high": 515.0,
-      "target_low": 174.0,
-      "target_dispersion_pct": 120.36,
+      "target_low": 170.0,
+      "target_dispersion_pct": 123.96,
       "range_source": "yahoo",
       "analyst_count": 53,
       "basis": "consensus",
       "firm_targets": [],
       "duplicates_removed": 0,
-      "recommendation_mean": 1.59016,
+      "recommendation_mean": 1.62295,
       "recommendation_key": "buy",
       "book_value": 9.483,
       "price_to_book": 17.173,
       "book_value_issue": null,
       "market_cap": 3932339044352.0,
       "market_cap_issue": null,
-      "upside_pct": 73.97,
+      "upside_pct": 70.9,
       "implausible": false,
       "source_targets": {
-        "yahoo": 283.3076
+        "yahoo": 278.3076
       },
       "sources_used": [
         "yahoo"
@@ -13992,11 +13992,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 5.83,
       "change_1m_pct": -7.59,
-      "consensus_target": 213.381,
+      "consensus_target": 213.4762,
       "target_median": 215.0,
       "target_high": 245.0,
-      "target_low": 156.0,
-      "target_dispersion_pct": 41.71,
+      "target_low": 158.0,
+      "target_dispersion_pct": 40.75,
       "range_source": "yahoo",
       "analyst_count": 21,
       "basis": "consensus",
@@ -14009,10 +14009,10 @@
       "book_value_issue": null,
       "market_cap": 35962200064.0,
       "market_cap_issue": null,
-      "upside_pct": 22.25,
+      "upside_pct": 22.31,
       "implausible": false,
       "source_targets": {
-        "yahoo": 213.381
+        "yahoo": 213.4762
       },
       "sources_used": [
         "yahoo"
@@ -14368,7 +14368,7 @@
       "book_value": 33.733,
       "price_to_book": 9.553,
       "book_value_issue": null,
-      "market_cap": 263735115776.0,
+      "market_cap": 263840972800.0,
       "market_cap_issue": null,
       "upside_pct": 23.7,
       "implausible": false,
@@ -15074,11 +15074,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 3.61,
       "change_1m_pct": 6.19,
-      "consensus_target": 114.7333,
+      "consensus_target": 115.0,
       "target_median": 113.0,
       "target_high": 136.0,
       "target_low": 98.0,
-      "target_dispersion_pct": 33.12,
+      "target_dispersion_pct": 33.04,
       "range_source": "yahoo",
       "analyst_count": 15,
       "basis": "consensus",
@@ -15091,10 +15091,10 @@
       "book_value_issue": null,
       "market_cap": 42377650176.0,
       "market_cap_issue": null,
-      "upside_pct": -7.14,
+      "upside_pct": -6.92,
       "implausible": false,
       "source_targets": {
-        "yahoo": 114.7333
+        "yahoo": 115.0
       },
       "sources_used": [
         "yahoo"
@@ -15129,7 +15129,7 @@
       "book_value": 31.355,
       "price_to_book": 6.251,
       "book_value_issue": null,
-      "market_cap": 21291915264.0,
+      "market_cap": 21292097536.0,
       "market_cap_issue": null,
       "upside_pct": 2.92,
       "implausible": false,
@@ -15354,11 +15354,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 11.3,
       "change_1m_pct": -6.26,
-      "consensus_target": 769.9717,
+      "consensus_target": 774.3969,
       "target_median": 800.0,
       "target_high": 967.0,
       "target_low": 420.0,
-      "target_dispersion_pct": 71.04,
+      "target_dispersion_pct": 70.64,
       "range_source": "yahoo",
       "analyst_count": 29,
       "basis": "consensus",
@@ -15371,10 +15371,10 @@
       "book_value_issue": null,
       "market_cap": 90709155840.0,
       "market_cap_issue": null,
-      "upside_pct": 27.9,
+      "upside_pct": 28.64,
       "implausible": false,
       "source_targets": {
-        "yahoo": 769.9717
+        "yahoo": 774.3969
       },
       "sources_used": [
         "yahoo"
@@ -15489,7 +15489,7 @@
       "book_value": 66.098,
       "price_to_book": 2.551,
       "book_value_issue": null,
-      "market_cap": 32395743232.0,
+      "market_cap": 32439879680.0,
       "market_cap_issue": null,
       "upside_pct": 8.05,
       "implausible": false,
@@ -15594,11 +15594,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 1.7,
       "change_1m_pct": 4.2,
-      "consensus_target": 84.5556,
+      "consensus_target": 84.5,
       "target_median": 84.5,
       "target_high": 94.0,
       "target_low": 76.0,
-      "target_dispersion_pct": 21.29,
+      "target_dispersion_pct": 21.3,
       "range_source": "yahoo",
       "analyst_count": 18,
       "basis": "consensus",
@@ -15611,10 +15611,10 @@
       "book_value_issue": null,
       "market_cap": 14229774336.0,
       "market_cap_issue": null,
-      "upside_pct": 11.1,
+      "upside_pct": 11.02,
       "implausible": false,
       "source_targets": {
-        "yahoo": 84.5556
+        "yahoo": 84.5
       },
       "sources_used": [
         "yahoo"
@@ -15634,11 +15634,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 5.65,
       "change_1m_pct": 19.98,
-      "consensus_target": 977.9259,
-      "target_median": 982.0,
+      "consensus_target": 984.9629,
+      "target_median": 997.0,
       "target_high": 1175.0,
       "target_low": 812.0,
-      "target_dispersion_pct": 37.12,
+      "target_dispersion_pct": 36.85,
       "range_source": "yahoo",
       "analyst_count": 27,
       "basis": "consensus",
@@ -15651,10 +15651,10 @@
       "book_value_issue": null,
       "market_cap": 98841321472.0,
       "market_cap_issue": null,
-      "upside_pct": 2.35,
+      "upside_pct": 3.09,
       "implausible": false,
       "source_targets": {
-        "yahoo": 977.9259
+        "yahoo": 984.9629
       },
       "sources_used": [
         "yahoo"
@@ -15834,11 +15834,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": -3.77,
       "change_1m_pct": -25.13,
-      "consensus_target": 128.438,
+      "consensus_target": 127.769,
       "target_median": 130.0,
       "target_high": 170.0,
       "target_low": 59.0,
-      "target_dispersion_pct": 86.42,
+      "target_dispersion_pct": 86.88,
       "range_source": "yahoo",
       "analyst_count": 30,
       "basis": "consensus",
@@ -15851,10 +15851,10 @@
       "book_value_issue": null,
       "market_cap": 70112247808.0,
       "market_cap_issue": null,
-      "upside_pct": 64.96,
+      "upside_pct": 64.1,
       "implausible": false,
       "source_targets": {
-        "yahoo": 128.438
+        "yahoo": 127.769
       },
       "sources_used": [
         "yahoo"
@@ -15886,10 +15886,10 @@
       "duplicates_removed": 0,
       "recommendation_mean": 2.28571,
       "recommendation_key": "buy",
-      "book_value": 31.971,
-      "price_to_book": 12.588,
+      "book_value": 32.32,
+      "price_to_book": 12.452,
       "book_value_issue": null,
-      "market_cap": 44783312896.0,
+      "market_cap": 44173475840.0,
       "market_cap_issue": null,
       "upside_pct": 10.73,
       "implausible": false,
@@ -16009,7 +16009,7 @@
       "book_value": 21.094,
       "price_to_book": 10.983,
       "book_value_issue": null,
-      "market_cap": 74318561280.0,
+      "market_cap": 74010894336.0,
       "market_cap_issue": null,
       "upside_pct": 18.04,
       "implausible": false,
@@ -16475,11 +16475,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 1.99,
       "change_1m_pct": 14.54,
-      "consensus_target": 233.8684,
+      "consensus_target": 234.8158,
       "target_median": 229.0,
       "target_high": 275.0,
       "target_low": 207.0,
-      "target_dispersion_pct": 29.08,
+      "target_dispersion_pct": 28.96,
       "range_source": "yahoo",
       "analyst_count": 19,
       "basis": "consensus",
@@ -16492,10 +16492,10 @@
       "book_value_issue": null,
       "market_cap": 88187109376.0,
       "market_cap_issue": null,
-      "upside_pct": 0.39,
+      "upside_pct": 0.79,
       "implausible": false,
       "source_targets": {
-        "yahoo": 233.8684
+        "yahoo": 234.8158
       },
       "sources_used": [
         "yahoo"
@@ -17316,11 +17316,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 6.03,
       "change_1m_pct": 8.81,
-      "consensus_target": 283.8555,
+      "consensus_target": 283.9283,
       "target_median": 289.0,
       "target_high": 330.0,
       "target_low": 170.0,
-      "target_dispersion_pct": 56.37,
+      "target_dispersion_pct": 56.35,
       "range_source": "yahoo",
       "analyst_count": 29,
       "basis": "consensus",
@@ -17328,15 +17328,15 @@
       "duplicates_removed": 0,
       "recommendation_mean": 1.2069,
       "recommendation_key": "strong_buy",
-      "book_value": 19.624,
-      "price_to_book": 11.609,
+      "book_value": 19.296,
+      "price_to_book": 11.807,
       "book_value_issue": null,
       "market_cap": 42650976256.0,
       "market_cap_issue": null,
-      "upside_pct": 24.6,
+      "upside_pct": 24.63,
       "implausible": false,
       "source_targets": {
-        "yahoo": 283.8555
+        "yahoo": 283.9283
       },
       "sources_used": [
         "yahoo"
@@ -17451,7 +17451,7 @@
       "book_value": 39.277,
       "price_to_book": 4.111,
       "book_value_issue": null,
-      "market_cap": 73346203648.0,
+      "market_cap": 73345351680.0,
       "market_cap_issue": null,
       "upside_pct": 2.78,
       "implausible": false,
@@ -17606,7 +17606,7 @@
       "basis": "consensus",
       "firm_targets": [],
       "duplicates_removed": 0,
-      "recommendation_mean": 2.27273,
+      "recommendation_mean": 2.29545,
       "recommendation_key": "buy",
       "book_value": 22.588,
       "price_to_book": 17.276,
@@ -17811,7 +17811,7 @@
       "book_value": 9.672,
       "price_to_book": 13.893,
       "book_value_issue": null,
-      "market_cap": 147803504640.0,
+      "market_cap": 148439121920.0,
       "market_cap_issue": null,
       "upside_pct": 24.66,
       "implausible": false,
@@ -17956,11 +17956,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 1.69,
       "change_1m_pct": 7.32,
-      "consensus_target": 1432.95,
+      "consensus_target": 1441.2,
       "target_median": 1410.0,
       "target_high": 1754.0,
       "target_low": 1100.0,
-      "target_dispersion_pct": 45.64,
+      "target_dispersion_pct": 45.38,
       "range_source": "yahoo",
       "analyst_count": 20,
       "basis": "consensus",
@@ -17973,10 +17973,10 @@
       "book_value_issue": "negative",
       "market_cap": 66451116032.0,
       "market_cap_issue": null,
-      "upside_pct": 17.72,
+      "upside_pct": 18.4,
       "implausible": false,
       "source_targets": {
-        "yahoo": 1432.95
+        "yahoo": 1441.2
       },
       "sources_used": [
         "yahoo"
@@ -18277,11 +18277,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 1.6,
       "change_1m_pct": -2.22,
-      "consensus_target": 98.8791,
+      "consensus_target": 98.6617,
       "target_median": 99.7,
       "target_high": 150.0,
       "target_low": 70.0,
-      "target_dispersion_pct": 80.91,
+      "target_dispersion_pct": 81.09,
       "range_source": "yahoo",
       "analyst_count": 46,
       "basis": "consensus",
@@ -18294,10 +18294,10 @@
       "book_value_issue": null,
       "market_cap": 142299889664.0,
       "market_cap_issue": null,
-      "upside_pct": 41.88,
+      "upside_pct": 41.57,
       "implausible": false,
       "source_targets": {
-        "yahoo": 98.8791
+        "yahoo": 98.6617
       },
       "sources_used": [
         "yahoo"
@@ -18609,8 +18609,8 @@
       "duplicates_removed": 0,
       "recommendation_mean": 2.4,
       "recommendation_key": "buy",
-      "book_value": 131.771,
-      "price_to_book": 1.473,
+      "book_value": 129.209,
+      "price_to_book": 1.502,
       "book_value_issue": null,
       "market_cap": 11188546560.0,
       "market_cap_issue": null,
@@ -18717,11 +18717,11 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 0.19,
       "change_1m_pct": 4.78,
-      "consensus_target": 99.5,
-      "target_median": 99.5,
+      "consensus_target": 99.2727,
+      "target_median": 99.0,
       "target_high": 112.0,
       "target_low": 90.0,
-      "target_dispersion_pct": 22.11,
+      "target_dispersion_pct": 22.16,
       "range_source": "yahoo",
       "analyst_count": 22,
       "basis": "consensus",
@@ -18734,10 +18734,10 @@
       "book_value_issue": null,
       "market_cap": 47022673920.0,
       "market_cap_issue": null,
-      "upside_pct": 11.9,
+      "upside_pct": 11.64,
       "implausible": false,
       "source_targets": {
-        "yahoo": 99.5
+        "yahoo": 99.2727
       },
       "sources_used": [
         "yahoo"
@@ -18969,7 +18969,7 @@
       "basis": "consensus",
       "firm_targets": [],
       "duplicates_removed": 0,
-      "recommendation_mean": 1.3871,
+      "recommendation_mean": 1.41935,
       "recommendation_key": "strong_buy",
       "book_value": 14.29,
       "price_to_book": 14.141,
@@ -19251,10 +19251,10 @@
       "duplicates_removed": 0,
       "recommendation_mean": 1.6875,
       "recommendation_key": "buy",
-      "book_value": 35.92,
-      "price_to_book": 2.019,
+      "book_value": 36.704,
+      "price_to_book": 1.976,
       "book_value_issue": null,
-      "market_cap": 48406155264.0,
+      "market_cap": 48406163456.0,
       "market_cap_issue": null,
       "upside_pct": 15.11,
       "implausible": false,
@@ -19414,7 +19414,7 @@
       "book_value": 12.369,
       "price_to_book": 10.356,
       "book_value_issue": null,
-      "market_cap": 1019350286336.0,
+      "market_cap": 1016233525248.0,
       "market_cap_issue": null,
       "upside_pct": 1.8,
       "implausible": false,
@@ -19439,13 +19439,13 @@
       "close_date": "2026-11-13",
       "change_1w_pct": 1.9,
       "change_1m_pct": 7.49,
-      "consensus_target": 126.8328,
-      "target_median": 129.5,
+      "consensus_target": 126.7306,
+      "target_median": 129.0,
       "target_high": 144.0,
       "target_low": 86.0,
-      "target_dispersion_pct": 45.73,
+      "target_dispersion_pct": 45.77,
       "range_source": "yahoo",
-      "analyst_count": 32,
+      "analyst_count": 31,
       "basis": "consensus",
       "firm_targets": [],
       "duplicates_removed": 0,
@@ -19456,10 +19456,10 @@
       "book_value_issue": null,
       "market_cap": 205423935488.0,
       "market_cap_issue": null,
-      "upside_pct": 6.61,
+      "upside_pct": 6.52,
       "implausible": false,
       "source_targets": {
-        "yahoo": 126.8328
+        "yahoo": 126.7306
       },
       "sources_used": [
         "yahoo"
@@ -19814,7 +19814,7 @@
       "book_value": 18.177,
       "price_to_book": 13.976,
       "book_value_issue": null,
-      "market_cap": 29921800192.0,
+      "market_cap": 29918961664.0,
       "market_cap_issue": null,
       "upside_pct": -1.02,
       "implausible": false,
