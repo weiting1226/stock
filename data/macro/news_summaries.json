@@ -539,6 +539,20 @@
   "reference_date": "2026-07-01",
   "fred_id": "FEDFUNDS"
  },
+ "CPIAUCSL@2026-10-01": {
+  "summary_zh": "2026年10月CPI-U季調後較前月上升0.4%,低於9月的0.6%漲幅。住房指數上漲0.3%,貢獻超過三成的整體漲幅;食品指數上漲0.5%;能源指數上漲0.7%。核心CPI(扣除食品與能源)連續第三個月上漲0.3%。",
+  "drivers": [
+   "住房(shelter)上漲0.3%",
+   "食品指數上漲0.5%",
+   "能源指數上漲0.7%",
+   "休閒、醫療保健、汽車保險等指數上漲"
+  ],
+  "evidence": "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.4 percent on a seasonally adjusted basis in October after rising 0.6 percent in September",
+  "source_url": "https://web.archive.org/web/2/https://www.bls.gov/news.release/cpi.nr0.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-10-01",
+  "fred_id": "CPIAUCSL"
+ },
  "CPIAUCSL@2026-09-01": {
   "summary_zh": "2026年9月CPI季調後較上月上升0.6%，高於8月的0.4%漲幅；未經季調下，過去12個月整體物價上漲3.7%，較8月公布的3.4%擴大。能源價格大幅上漲是主要推升力道，其中汽油價格單月上漲9.1%，佔整體月增幅逾一半；扣除食品與能源後的核心指數月增0.3%，與8月持平。",
   "drivers": [
