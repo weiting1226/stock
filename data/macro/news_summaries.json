@@ -1,4 +1,18 @@
 {
+ "INDPRO@2026-10-01": {
+  "summary_zh": "工業生產指數在2026年10月較9月下降0.4%，而9月原本上升0.7%。其中製造業產出上升0.3%，但礦業產出下降0.8%，公用事業指數大幅下滑4.3%，三者互相抵消後使總指數轉為負成長。整體而言，10月工業生產指數較去年同期高出2.1%，產能利用率降至76.4%。",
+  "drivers": [
+   "manufacturing output rose 0.3 percent",
+   "mining output decreased 0.8 percent",
+   "utilities index fell 4.3 percent",
+   "business equipment index rose 1.0 percent"
+  ],
+  "evidence": "Industrial production (IP) decreased 0.4 percent in October after increasing 0.7 percent in September.",
+  "source_url": "https://www.federalreserve.gov/releases/g17/current/default.htm",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-10-01",
+  "fred_id": "INDPRO"
+ },
  "INDPRO@2026-09-01": {
   "summary_zh": "2026年9月工業生產指數較上月上升0.7%，延續8月0.1%的增幅，第三季以年率計上升2.8%。製造業產出增加0.3%，礦業上升0.2%，公用事業大幅上升3.5%。整體指數較去年同期高2.2%，產能利用率升至76.9%。",
   "drivers": [
@@ -183,6 +197,15 @@
   "model": "claude-sonnet-5",
   "reference_date": "2026-10-01",
   "fred_id": "MORTGAGE30US"
+ },
+ "RSAFS@2026-10-01": {
+  "summary_zh": "2026年10月美國零售及餐飲服務銷售額為7,482億美元，較上月上升0.2%，較2025年10月同期上升6.8%。2026年8月至10月期間的銷售總額較去年同期上升6.4%，8月至9月的變動率維持在上升0.8%不變。",
+  "drivers": [],
+  "evidence": "up 0.2 percent (&plusmn;0.4 percent)* from the previous month, and up 6.8 percent (&plusmn;0.5 percent) from October 2025",
+  "source_url": "https://www.census.gov/retail/sales.html",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-10-01",
+  "fred_id": "RSAFS"
  },
  "RSAFS@2026-09-01": {
   "summary_zh": "2026年9月美國零售與餐飲服務業銷售額為7450億美元，較上月成長0.8%，較去年同期成長6.3%。文件並指出2026年7至9月總銷售額較去年同期成長5.5%，而7月至8月的變動率由原先上修至1.3%。",
