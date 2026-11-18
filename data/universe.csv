@@ -2887,6 +2887,7 @@ GLV,Clough Global Dividend and Income Fund Common Shares of beneficial interest,
 GLW,Corning Incorporated Common Stock,N,False,common,nasdaqtrader
 GLXG,Galaxy Payroll Group Limited - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 GLXY,Galaxy Digital Inc. - Class A common stock,NASDAQ,False,common,nasdaqtrader
+GM,General Motors Company - Common Stock,NASDAQ,False,common,nasdaqtrader
 GMAB,Genmab A/S - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 GME,GameStop Corporation Common Stock,N,False,common,nasdaqtrader
 GMED,"Globus Medical, Inc. Class A Common Stock",N,False,common,nasdaqtrader
@@ -3308,7 +3309,6 @@ IBIO,"iBio, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 IBKR,"Interactive Brokers Group, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 IBM,International Business Machines Corporation Common Stock,N,False,common,nasdaqtrader
 IBN,ICICI Bank Limited Common Stock,N,False,common,nasdaqtrader
-IBO,"Impact BioMedical, Inc. Common Stock",A,False,common,nasdaqtrader
 IBOC,International Bancshares Corporation Common Stock,F,False,common,nasdaqtrader
 IBP,"Installed Building Products, Inc. Common Stock",N,False,common,nasdaqtrader
 IBRX,"ImmunityBio, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -5165,7 +5165,6 @@ PCM,"PCM Fund, Inc. Common Stock",N,False,common,nasdaqtrader
 PCN,Pimco Corporate & Income Strategy Fund Common Stock,N,False,common,nasdaqtrader
 PCOR,"Procore Technologies, Inc. Common Stock",N,False,common,nasdaqtrader
 PCQ,PIMCO California Municipal Income Fund Common Stock,N,False,common,nasdaqtrader
-PCRX,"Pacira BioSciences, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PCSA,"Processa Pharmaceuticals, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PCT,"PureCycle Technologies, Inc. - Common stock",NASDAQ,False,common,nasdaqtrader
 PCTTU,"PureCycle Technologies, Inc. - Unit",NASDAQ,False,unit,nasdaqtrader
@@ -6061,8 +6060,6 @@ SHBI,"Shore Bancshares, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SHC,Sotera Health Company - Common Stock,NASDAQ,False,common,nasdaqtrader
 SHEL,Shell PLC American Depositary Shares (each representing two (2) Ordinary Shares),N,False,common,nasdaqtrader
 SHEN,Shenandoah Telecommunications Co - Common Stock,NASDAQ,False,common,nasdaqtrader
-SHFS,"SHF Holdings, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
-SHFSW,"SHF Holdings, Inc. - Warrants",NASDAQ,False,warrant,nasdaqtrader
 SHG,Shinhan Financial Group Co Ltd American Depositary Shares,N,False,common,nasdaqtrader
 SHIM,Shimmick Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 SHIP,Seanergy Maritime Holdings Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -7436,6 +7433,7 @@ ZLAB,Zai Lab Limited - American Depositary Shares,NASDAQ,False,common,nasdaqtrad
 ZM,"Zoom Communications, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 ZNB,Zeta Network Group - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ZNTL,"Zentalis Pharmaceuticals, Inc. - common stock",NASDAQ,False,common,nasdaqtrader
+ZOAR,Zoar Limited Ordinary Shares,A,False,common,nasdaqtrader
 ZONE,Zone Frontier Inc. Class B Common Stock,A,False,common,nasdaqtrader
 ZOOZ,ZOOZ Strategy Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ZOOZW,ZOOZ Strategy Ltd. - Warrant,NASDAQ,False,warrant,nasdaqtrader
