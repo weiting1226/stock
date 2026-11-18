@@ -149,3 +149,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-11-11,8,NVDA,Nvidia,92.89,102.83,extreme
 2026-11-11,9,CIEN,Ciena,88.53,61.01,high
 2026-11-11,10,LITE,Lumentum,82.59,69.21,high
+2026-11-18,1,SNDK,Sandisk,156.81,104.04,extreme
+2026-11-18,2,MU,Micron Technology,119.24,168.96,extreme
+2026-11-18,3,WDC,Western Digital,116.49,80.7,extreme
+2026-11-18,4,FLEX,Flex Ltd.,111.25,33.68,low
+2026-11-18,5,MRVL,Marvell Technology,109.02,88.45,extreme
+2026-11-18,6,STX,Seagate Technology,107.14,84.99,extreme
+2026-11-18,7,ORCL,Oracle Corporation,105.38,122.79,extreme
+2026-11-18,8,CIEN,Ciena,93.24,61.16,high
+2026-11-18,9,LITE,Lumentum,90.14,71.94,high
+2026-11-18,10,HOOD,Robinhood Markets,83.22,87.56,extreme
