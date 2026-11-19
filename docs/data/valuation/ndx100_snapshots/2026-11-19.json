@@ -1,0 +1,4140 @@
+{
+  "as_of": "2026-11-19",
+  "generated_at": "2026-11-19T04:10:47.124217Z",
+  "universe": "Nasdaq-100 (TradingView constituents)",
+  "sources_available": [
+    "yahoo"
+  ],
+  "finnhub_enabled": true,
+  "fmp_enabled": true,
+  "firm_source_error_count": 101,
+  "firm_source_error_sample": "FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源",
+  "disabled_sources": {
+    "finnhub": "連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+    "fmp": "FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+  },
+  "counts": {
+    "universe": 101,
+    "with_target_and_price": 101,
+    "missing": 0,
+    "per_firm_basis": 0,
+    "duplicate_firms_removed": 0
+  },
+  "coverage_note": "101/101 檔同時取得共識目標價與收盤價；其餘標記暫缺，未以任何方式填補。",
+  "multi_source_note": "共識模式：資料源僅提供彙總後的共識值，無法依機構去重，consensus_target 為各啟用來源之共識價平均。　啟用來源：Yahoo Finance、Finnhub、FMP（逐機構）。　⚠️ finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用　⚠️ fmp：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源",
+  "sector_summary": [
+    {
+      "sector": "Unknown",
+      "count": 15,
+      "median_upside_pct": 52.35,
+      "mean_upside_pct": 65.73
+    },
+    {
+      "sector": "Energy",
+      "count": 2,
+      "median_upside_pct": 42.14,
+      "mean_upside_pct": 42.14
+    },
+    {
+      "sector": "Communication Services",
+      "count": 8,
+      "median_upside_pct": 37.77,
+      "mean_upside_pct": 32.1
+    },
+    {
+      "sector": "Information Technology",
+      "count": 35,
+      "median_upside_pct": 35.84,
+      "mean_upside_pct": 48.17
+    },
+    {
+      "sector": "Consumer Discretionary",
+      "count": 9,
+      "median_upside_pct": 14.0,
+      "mean_upside_pct": 18.75
+    },
+    {
+      "sector": "Industrials",
+      "count": 11,
+      "median_upside_pct": 14.0,
+      "mean_upside_pct": 16.3
+    },
+    {
+      "sector": "Utilities",
+      "count": 4,
+      "median_upside_pct": 11.95,
+      "mean_upside_pct": 14.28
+    },
+    {
+      "sector": "Materials",
+      "count": 1,
+      "median_upside_pct": 7.59,
+      "mean_upside_pct": 7.59
+    },
+    {
+      "sector": "Health Care",
+      "count": 9,
+      "median_upside_pct": 4.79,
+      "mean_upside_pct": 5.01
+    },
+    {
+      "sector": "Consumer Staples",
+      "count": 6,
+      "median_upside_pct": 4.71,
+      "mean_upside_pct": 5.1
+    },
+    {
+      "sector": "Financials",
+      "count": 1,
+      "median_upside_pct": -1.0,
+      "mean_upside_pct": -1.0
+    }
+  ],
+  "rows": [
+    {
+      "ticker": "AEP",
+      "name": "American Electric Power",
+      "sector": "Utilities",
+      "sub_industry": "Electric Utilities",
+      "close": 126.5,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -2.1,
+      "change_1m_pct": -0.57,
+      "consensus_target": 141.6137,
+      "target_median": 141.25,
+      "target_high": 154.0,
+      "target_low": 126.0,
+      "target_dispersion_pct": 19.77,
+      "range_source": "yahoo",
+      "analyst_count": 22,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.82609,
+      "recommendation_key": "buy",
+      "book_value": 60.192,
+      "price_to_book": 2.102,
+      "book_value_issue": null,
+      "market_cap": 68882579456.0,
+      "market_cap_issue": null,
+      "upside_pct": 11.95,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 141.6137
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：RuntimeError: Finnhub 回應 200 但不是 JSON（方案可能不支援此端點）：<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\n    <me",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "DXCM",
+      "name": "Dexcom",
+      "sector": "Health Care",
+      "sub_industry": "Health Care Equipment",
+      "close": 82.52,
+      "close_date": "2026-11-18",
+      "change_1w_pct": 2.7,
+      "change_1m_pct": -3.76,
+      "consensus_target": 98.5769,
+      "target_median": 96.5,
+      "target_high": 120.0,
+      "target_low": 79.0,
+      "target_dispersion_pct": 41.59,
+      "range_source": "yahoo",
+      "analyst_count": 26,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.34483,
+      "recommendation_key": "strong_buy",
+      "book_value": 6.797,
+      "price_to_book": 12.141,
+      "book_value_issue": null,
+      "market_cap": 30775908352.0,
+      "market_cap_issue": null,
+      "upside_pct": 19.46,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 98.5769
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：RuntimeError: Finnhub 回應 200 但不是 JSON（方案可能不支援此端點）：<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\n    <me",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "MCHP",
+      "name": "Microchip Technology",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductors",
+      "close": 59.67,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -3.96,
+      "change_1m_pct": -21.33,
+      "consensus_target": 86.48,
+      "target_median": 85.0,
+      "target_high": 120.0,
+      "target_low": 62.0,
+      "target_dispersion_pct": 67.07,
+      "range_source": "yahoo",
+      "analyst_count": 25,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.5,
+      "recommendation_key": "strong_buy",
+      "book_value": 12.202,
+      "price_to_book": 4.89,
+      "book_value_issue": null,
+      "market_cap": 32473821184.0,
+      "market_cap_issue": null,
+      "upside_pct": 44.93,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 86.48
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：RuntimeError: Finnhub 回應 200 但不是 JSON（方案可能不支援此端點）：<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\n    <me",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "QCOM",
+      "name": "Qualcomm",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductors",
+      "close": 159.81,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -9.49,
+      "change_1m_pct": -9.05,
+      "consensus_target": 185.25,
+      "target_median": 175.0,
+      "target_high": 305.0,
+      "target_low": 100.0,
+      "target_dispersion_pct": 110.66,
+      "range_source": "yahoo",
+      "analyst_count": 28,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.62162,
+      "recommendation_key": "hold",
+      "book_value": 28.359,
+      "price_to_book": 5.635,
+      "book_value_issue": null,
+      "market_cap": 170996695040.0,
+      "market_cap_issue": null,
+      "upside_pct": 15.92,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 185.25
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：RuntimeError: Finnhub 回應 200 但不是 JSON（方案可能不支援此端點）：<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\n    <me",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "REGN",
+      "name": "Regeneron Pharmaceuticals",
+      "sector": "Health Care",
+      "sub_industry": "Biotechnology",
+      "close": 945.53,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -1.45,
+      "change_1m_pct": 17.1,
+      "consensus_target": 990.8148,
+      "target_median": 1000.0,
+      "target_high": 1175.0,
+      "target_low": 812.0,
+      "target_dispersion_pct": 36.64,
+      "range_source": "yahoo",
+      "analyst_count": 27,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.78571,
+      "recommendation_key": "buy",
+      "book_value": 333.926,
+      "price_to_book": 2.832,
+      "book_value_issue": null,
+      "market_cap": 97813053440.0,
+      "market_cap_issue": null,
+      "upside_pct": 4.79,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 990.8148
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "ROST",
+      "name": "Ross Stores",
+      "sector": "Consumer Discretionary",
+      "sub_industry": "Apparel Retail",
+      "close": 227.64,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -5.65,
+      "change_1m_pct": -4.05,
+      "consensus_target": 273.2105,
+      "target_median": 279.0,
+      "target_high": 315.0,
+      "target_low": 187.0,
+      "target_dispersion_pct": 46.85,
+      "range_source": "yahoo",
+      "analyst_count": 19,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.61905,
+      "recommendation_key": "buy",
+      "book_value": 21.094,
+      "price_to_book": 10.792,
+      "book_value_issue": null,
+      "market_cap": 73022603264.0,
+      "market_cap_issue": null,
+      "upside_pct": 20.02,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 273.2105
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "SBUX",
+      "name": "Starbucks",
+      "sector": "Consumer Discretionary",
+      "sub_industry": "Restaurants",
+      "close": 109.11,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -0.71,
+      "change_1m_pct": 9.8,
+      "consensus_target": 111.0667,
+      "target_median": 110.5,
+      "target_high": 141.0,
+      "target_low": 82.0,
+      "target_dispersion_pct": 53.12,
+      "range_source": "yahoo",
+      "analyst_count": 30,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.33333,
+      "recommendation_key": "buy",
+      "book_value": -6.727,
+      "price_to_book": null,
+      "book_value_issue": "negative",
+      "market_cap": 124396306432.0,
+      "market_cap_issue": null,
+      "upside_pct": 1.79,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 111.0667
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "每股淨值為負（-6.73），股價淨值比不適用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "SPCX",
+      "name": "Space Exploration Technologies Corp",
+      "sector": "Unknown",
+      "sub_industry": "",
+      "close": 143.5,
+      "close_date": "2026-11-18",
+      "change_1w_pct": 2.68,
+      "change_1m_pct": -2.9,
+      "consensus_target": 257.4952,
+      "target_median": 250.0,
+      "target_high": 800.0,
+      "target_low": 70.0,
+      "target_dispersion_pct": 283.5,
+      "range_source": "yahoo",
+      "analyst_count": 37,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.7,
+      "recommendation_key": "buy",
+      "book_value": 13.018,
+      "price_to_book": 11.023,
+      "book_value_issue": null,
+      "market_cap": 1948882698240.0,
+      "market_cap_issue": null,
+      "upside_pct": 79.44,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 257.4952
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "ADBE",
+      "name": "Adobe Inc.",
+      "sector": "Information Technology",
+      "sub_industry": "Application Software",
+      "close": 226.2,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -4.8,
+      "change_1m_pct": -11.89,
+      "consensus_target": 266.9097,
+      "target_median": 260.0,
+      "target_high": 373.0,
+      "target_low": 140.0,
+      "target_dispersion_pct": 87.3,
+      "range_source": "yahoo",
+      "analyst_count": 33,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.97436,
+      "recommendation_key": "hold",
+      "book_value": 30.087,
+      "price_to_book": 7.518,
+      "book_value_issue": null,
+      "market_cap": 88037040128.0,
+      "market_cap_issue": null,
+      "upside_pct": 18.0,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 266.9097
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "FTNT",
+      "name": "Fortinet",
+      "sector": "Information Technology",
+      "sub_industry": "Systems Software",
+      "close": 131.81,
+      "close_date": "2026-11-18",
+      "change_1w_pct": 2.9,
+      "change_1m_pct": -22.89,
+      "consensus_target": 144.683,
+      "target_median": 140.0,
+      "target_high": 190.0,
+      "target_low": 110.0,
+      "target_dispersion_pct": 55.29,
+      "range_source": "yahoo",
+      "analyst_count": 37,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.88372,
+      "recommendation_key": "hold",
+      "book_value": 3.059,
+      "price_to_book": 43.089,
+      "book_value_issue": null,
+      "market_cap": 96842088448.0,
+      "market_cap_issue": null,
+      "upside_pct": 9.77,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 144.683
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "HONA",
+      "name": "Honeywell Aerospace",
+      "sector": "Industrials",
+      "sub_industry": "Aerospace & Defense",
+      "close": 157.85,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -6.89,
+      "change_1m_pct": -1.28,
+      "consensus_target": 193.2667,
+      "target_median": 190.0,
+      "target_high": 261.0,
+      "target_low": 170.0,
+      "target_dispersion_pct": 47.09,
+      "range_source": "yahoo",
+      "analyst_count": 15,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.52941,
+      "recommendation_key": "hold",
+      "book_value": -8.113,
+      "price_to_book": null,
+      "book_value_issue": "negative",
+      "market_cap": 50043478016.0,
+      "market_cap_issue": null,
+      "upside_pct": 22.44,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 193.2667
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "每股淨值為負（-8.11），股價淨值比不適用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "ROP",
+      "name": "Roper Technologies",
+      "sector": "Information Technology",
+      "sub_industry": "Electronic Equipment & Instruments",
+      "close": 470.87,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -1.43,
+      "change_1m_pct": 18.25,
+      "consensus_target": 469.1779,
+      "target_median": 474.0,
+      "target_high": 550.0,
+      "target_low": 335.0,
+      "target_dispersion_pct": 45.82,
+      "range_source": "yahoo",
+      "analyst_count": 14,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.36842,
+      "recommendation_key": "buy",
+      "book_value": 193.663,
+      "price_to_book": 2.431,
+      "book_value_issue": null,
+      "market_cap": 46633283584.0,
+      "market_cap_issue": null,
+      "upside_pct": -0.36,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 469.1779
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "STX",
+      "name": "Seagate Technology",
+      "sector": "Information Technology",
+      "sub_industry": "Technology Hardware, Storage & Peripherals",
+      "close": 515.9,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -6.49,
+      "change_1m_pct": -23.59,
+      "consensus_target": 1044.8334,
+      "target_median": 1045.0,
+      "target_high": 1588.0,
+      "target_low": 700.0,
+      "target_dispersion_pct": 84.99,
+      "range_source": "yahoo",
+      "analyst_count": 24,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.42308,
+      "recommendation_key": "strong_buy",
+      "book_value": 15.032,
+      "price_to_book": 34.32,
+      "book_value_issue": null,
+      "market_cap": 118430580736.0,
+      "market_cap_issue": null,
+      "upside_pct": 102.53,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 1044.8334
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "WDC",
+      "name": "Western Digital",
+      "sector": "Information Technology",
+      "sub_industry": "Technology Hardware, Storage & Peripherals",
+      "close": 288.19,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -8.02,
+      "change_1m_pct": -20.9,
+      "consensus_target": 613.375,
+      "target_median": 622.5,
+      "target_high": 900.0,
+      "target_low": 405.0,
+      "target_dispersion_pct": 80.7,
+      "range_source": "yahoo",
+      "analyst_count": 24,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.5,
+      "recommendation_key": "strong_buy",
+      "book_value": 24.995,
+      "price_to_book": 11.53,
+      "book_value_issue": null,
+      "market_cap": 107876220928.0,
+      "market_cap_issue": null,
+      "upside_pct": 112.84,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 613.375
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "ADI",
+      "name": "Analog Devices",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductors",
+      "close": 381.98,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -6.62,
+      "change_1m_pct": -3.8,
+      "consensus_target": 473.4242,
+      "target_median": 470.0,
+      "target_high": 675.0,
+      "target_low": 365.0,
+      "target_dispersion_pct": 65.48,
+      "range_source": "yahoo",
+      "analyst_count": 33,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.35294,
+      "recommendation_key": "strong_buy",
+      "book_value": 69.239,
+      "price_to_book": 5.517,
+      "book_value_issue": null,
+      "market_cap": 185094324224.0,
+      "market_cap_issue": null,
+      "upside_pct": 23.94,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 473.4242
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "CMCSA",
+      "name": "Comcast",
+      "sector": "Communication Services",
+      "sub_industry": "Cable & Satellite",
+      "close": 25.24,
+      "close_date": "2026-11-18",
+      "change_1w_pct": 0.88,
+      "change_1m_pct": 12.88,
+      "consensus_target": 27.9773,
+      "target_median": 27.25,
+      "target_high": 42.0,
+      "target_low": 17.0,
+      "target_dispersion_pct": 89.36,
+      "range_source": "yahoo",
+      "analyst_count": 22,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.62963,
+      "recommendation_key": "hold",
+      "book_value": 26.071,
+      "price_to_book": 0.968,
+      "book_value_issue": null,
+      "market_cap": 89627394048.0,
+      "market_cap_issue": null,
+      "upside_pct": 10.85,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 27.9773
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "EXC",
+      "name": "Exelon",
+      "sector": "Utilities",
+      "sub_industry": "Electric Utilities",
+      "close": 46.02,
+      "close_date": "2026-11-18",
+      "change_1w_pct": 0.9,
+      "change_1m_pct": 6.95,
+      "consensus_target": 47.9412,
+      "target_median": 47.0,
+      "target_high": 58.0,
+      "target_low": 44.0,
+      "target_dispersion_pct": 29.2,
+      "range_source": "yahoo",
+      "analyst_count": 17,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.72727,
+      "recommendation_key": "hold",
+      "book_value": 29.116,
+      "price_to_book": 1.581,
+      "book_value_issue": null,
+      "market_cap": 47625945088.0,
+      "market_cap_issue": null,
+      "upside_pct": 4.17,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 47.9412
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "IDXX",
+      "name": "Idexx Laboratories",
+      "sector": "Health Care",
+      "sub_industry": "Health Care Equipment",
+      "close": 698.47,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -0.59,
+      "change_1m_pct": 25.19,
+      "consensus_target": 717.1667,
+      "target_median": 717.5,
+      "target_high": 810.0,
+      "target_low": 470.0,
+      "target_dispersion_pct": 47.41,
+      "range_source": "yahoo",
+      "analyst_count": 12,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.14286,
+      "recommendation_key": "buy",
+      "book_value": 23.724,
+      "price_to_book": 29.441,
+      "book_value_issue": null,
+      "market_cap": 55029837824.0,
+      "market_cap_issue": null,
+      "upside_pct": 2.68,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 717.1667
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "INTC",
+      "name": "Intel",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductors",
+      "close": 54.67,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -12.53,
+      "change_1m_pct": -40.38,
+      "consensus_target": 90.6512,
+      "target_median": 86.0,
+      "target_high": 160.0,
+      "target_low": 63.0,
+      "target_dispersion_pct": 107.0,
+      "range_source": "yahoo",
+      "analyst_count": 43,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.5102,
+      "recommendation_key": "hold",
+      "book_value": 21.641,
+      "price_to_book": 2.526,
+      "book_value_issue": null,
+      "market_cap": 290571026432.0,
+      "market_cap_issue": null,
+      "upside_pct": 65.82,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 90.6512
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "ODFL",
+      "name": "Old Dominion",
+      "sector": "Industrials",
+      "sub_industry": "Cargo Ground Transportation",
+      "close": 175.11,
+      "close_date": "2026-11-18",
+      "change_1w_pct": 2.7,
+      "change_1m_pct": -7.02,
+      "consensus_target": 213.4762,
+      "target_median": 215.0,
+      "target_high": 245.0,
+      "target_low": 158.0,
+      "target_dispersion_pct": 40.75,
+      "range_source": "yahoo",
+      "analyst_count": 21,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.20833,
+      "recommendation_key": "buy",
+      "book_value": 22.609,
+      "price_to_book": 7.745,
+      "book_value_issue": null,
+      "market_cap": 36079644672.0,
+      "market_cap_issue": null,
+      "upside_pct": 21.91,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 213.4762
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "PEP",
+      "name": "PepsiCo",
+      "sector": "Consumer Staples",
+      "sub_industry": "Soft Drinks & Non-alcoholic Beverages",
+      "close": 141.87,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -1.44,
+      "change_1m_pct": 5.86,
+      "consensus_target": 141.1363,
+      "target_median": 140.5,
+      "target_high": 165.0,
+      "target_low": 106.0,
+      "target_dispersion_pct": 41.8,
+      "range_source": "yahoo",
+      "analyst_count": 22,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.76,
+      "recommendation_key": "hold",
+      "book_value": 16.343,
+      "price_to_book": 8.681,
+      "book_value_issue": null,
+      "market_cap": 193332068352.0,
+      "market_cap_issue": null,
+      "upside_pct": -0.52,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 141.1363
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "TTWO",
+      "name": "Take-Two Interactive",
+      "sector": "Communication Services",
+      "sub_industry": "Interactive Home Entertainment",
+      "close": 216.61,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -6.36,
+      "change_1m_pct": 4.79,
+      "consensus_target": 283.9283,
+      "target_median": 289.0,
+      "target_high": 330.0,
+      "target_low": 170.0,
+      "target_dispersion_pct": 56.35,
+      "range_source": "yahoo",
+      "analyst_count": 29,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.2069,
+      "recommendation_key": "strong_buy",
+      "book_value": 19.624,
+      "price_to_book": 11.038,
+      "book_value_issue": null,
+      "market_cap": 40552312832.0,
+      "market_cap_issue": null,
+      "upside_pct": 31.08,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 283.9283
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "LITE",
+      "name": "Lumentum",
+      "sector": "Information Technology",
+      "sub_industry": "Communications Equipment",
+      "close": 551.07,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -14.97,
+      "change_1m_pct": -33.0,
+      "consensus_target": 1064.754,
+      "target_median": 1150.0,
+      "target_high": 1425.0,
+      "target_low": 659.0,
+      "target_dispersion_pct": 71.94,
+      "range_source": "yahoo",
+      "analyst_count": 25,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.6,
+      "recommendation_key": "buy",
+      "book_value": 50.47,
+      "price_to_book": 10.919,
+      "book_value_issue": null,
+      "market_cap": 49973735424.0,
+      "market_cap_issue": null,
+      "upside_pct": 93.22,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 1064.754
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "NXPI",
+      "name": "NXP Semiconductors",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductors",
+      "close": 252.47,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -6.32,
+      "change_1m_pct": 6.26,
+      "consensus_target": 300.4828,
+      "target_median": 300.0,
+      "target_high": 400.0,
+      "target_low": 175.0,
+      "target_dispersion_pct": 74.88,
+      "range_source": "yahoo",
+      "analyst_count": 29,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.86667,
+      "recommendation_key": "buy",
+      "book_value": 47.958,
+      "price_to_book": 5.264,
+      "book_value_issue": null,
+      "market_cap": 63635820544.0,
+      "market_cap_issue": null,
+      "upside_pct": 19.02,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 300.4828
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "SNDK",
+      "name": "Sandisk",
+      "sector": "Information Technology",
+      "sub_industry": "Technology Hardware, Storage & Peripherals",
+      "close": 776.22,
+      "close_date": "2026-11-18",
+      "change_1w_pct": null,
+      "change_1m_pct": null,
+      "consensus_target": 2047.375,
+      "target_median": 2050.0,
+      "target_high": 3000.0,
+      "target_low": 870.0,
+      "target_dispersion_pct": 104.04,
+      "range_source": "yahoo",
+      "analyst_count": 24,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.48,
+      "recommendation_key": "strong_buy",
+      "book_value": 125.931,
+      "price_to_book": 6.164,
+      "book_value_issue": null,
+      "market_cap": 110447845376.0,
+      "market_cap_issue": null,
+      "upside_pct": 163.76,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 2047.375
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "TXN",
+      "name": "Texas Instruments",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductors",
+      "close": 292.43,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -5.61,
+      "change_1m_pct": 5.27,
+      "consensus_target": 338.7931,
+      "target_median": 340.0,
+      "target_high": 422.0,
+      "target_low": 250.0,
+      "target_dispersion_pct": 50.77,
+      "range_source": "yahoo",
+      "analyst_count": 29,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.02857,
+      "recommendation_key": "buy",
+      "book_value": 20.99,
+      "price_to_book": 13.932,
+      "book_value_issue": null,
+      "market_cap": 267213848576.0,
+      "market_cap_issue": null,
+      "upside_pct": 15.85,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 338.7931
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "VRTX",
+      "name": "Vertex Pharmaceuticals",
+      "sector": "Health Care",
+      "sub_industry": "Biotechnology",
+      "close": 536.45,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -1.93,
+      "change_1m_pct": 4.24,
+      "consensus_target": 595.3571,
+      "target_median": 609.5,
+      "target_high": 725.0,
+      "target_low": 350.0,
+      "target_dispersion_pct": 62.99,
+      "range_source": "yahoo",
+      "analyst_count": 28,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.625,
+      "recommendation_key": "buy",
+      "book_value": 82.468,
+      "price_to_book": 6.505,
+      "book_value_issue": null,
+      "market_cap": 136010293248.0,
+      "market_cap_issue": null,
+      "upside_pct": 10.98,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 595.3571
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "WDAY",
+      "name": "Workday, Inc.",
+      "sector": "Information Technology",
+      "sub_industry": "Application Software",
+      "close": 177.45,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -7.17,
+      "change_1m_pct": -13.01,
+      "consensus_target": 209.2532,
+      "target_median": 210.0,
+      "target_high": 275.0,
+      "target_low": 92.0,
+      "target_dispersion_pct": 87.45,
+      "range_source": "yahoo",
+      "analyst_count": 37,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.30952,
+      "recommendation_key": "buy",
+      "book_value": 26.805,
+      "price_to_book": 6.62,
+      "book_value_issue": null,
+      "market_cap": 42765451264.0,
+      "market_cap_issue": null,
+      "upside_pct": 17.92,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 209.2532
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "WMT",
+      "name": "Walmart",
+      "sector": "Consumer Staples",
+      "sub_industry": "Consumer Staples Merchandise Retail",
+      "close": 127.36,
+      "close_date": "2026-11-18",
+      "change_1w_pct": 1.34,
+      "change_1m_pct": 8.07,
+      "consensus_target": 131.9024,
+      "target_median": 132.0,
+      "target_high": 155.0,
+      "target_low": 81.0,
+      "target_dispersion_pct": 56.1,
+      "range_source": "yahoo",
+      "analyst_count": 41,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.5,
+      "recommendation_key": "strong_buy",
+      "book_value": 12.369,
+      "price_to_book": 10.297,
+      "book_value_issue": null,
+      "market_cap": 1013540913152.0,
+      "market_cap_issue": null,
+      "upside_pct": 3.57,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 131.9024
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "AMD",
+      "name": "Advanced Micro Devices",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductors",
+      "close": 530.14,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -4.12,
+      "change_1m_pct": -0.86,
+      "consensus_target": 657.7429,
+      "target_median": 650.0,
+      "target_high": 1250.0,
+      "target_low": 525.0,
+      "target_dispersion_pct": 110.23,
+      "range_source": "yahoo",
+      "analyst_count": 49,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.35185,
+      "recommendation_key": "strong_buy",
+      "book_value": 41.701,
+      "price_to_book": 12.713,
+      "book_value_issue": null,
+      "market_cap": 877416480768.0,
+      "market_cap_issue": null,
+      "upside_pct": 24.07,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 657.7429
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "AMZN",
+      "name": "Amazon",
+      "sector": "Consumer Discretionary",
+      "sub_industry": "Broadline Retail",
+      "close": 267.74,
+      "close_date": "2026-11-18",
+      "change_1w_pct": 0.59,
+      "change_1m_pct": 1.95,
+      "consensus_target": 326.0903,
+      "target_median": 328.0,
+      "target_high": 405.0,
+      "target_low": 230.0,
+      "target_dispersion_pct": 53.67,
+      "range_source": "yahoo",
+      "analyst_count": 60,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.32258,
+      "recommendation_key": "strong_buy",
+      "book_value": 56.757,
+      "price_to_book": 4.717,
+      "book_value_issue": null,
+      "market_cap": 2895109423104.0,
+      "market_cap_issue": null,
+      "upside_pct": 21.79,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 326.0903
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "ARM",
+      "name": "Arm Holdings plc",
+      "sector": "Unknown",
+      "sub_industry": "",
+      "close": 182.76,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -10.13,
+      "change_1m_pct": -17.33,
+      "consensus_target": 272.43,
+      "target_median": 265.0,
+      "target_high": 500.0,
+      "target_low": 125.0,
+      "target_dispersion_pct": 137.65,
+      "range_source": "yahoo",
+      "analyst_count": 40,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.93023,
+      "recommendation_key": "buy",
+      "book_value": 8.493,
+      "price_to_book": 21.519,
+      "book_value_issue": null,
+      "market_cap": 195553198080.0,
+      "market_cap_issue": null,
+      "upside_pct": 49.06,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 272.43
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "NVDA",
+      "name": "Nvidia",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductors",
+      "close": 150.96,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -13.11,
+      "change_1m_pct": -30.26,
+      "consensus_target": 253.6709,
+      "target_median": 245.0,
+      "target_high": 450.0,
+      "target_low": 130.0,
+      "target_dispersion_pct": 126.15,
+      "range_source": "yahoo",
+      "analyst_count": 55,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.74603,
+      "recommendation_key": "buy",
+      "book_value": 6.472,
+      "price_to_book": 23.325,
+      "book_value_issue": null,
+      "market_cap": 3645231071232.0,
+      "market_cap_issue": null,
+      "upside_pct": 68.04,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 253.6709
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "SNPS",
+      "name": "Synopsys",
+      "sector": "Information Technology",
+      "sub_industry": "Application Software",
+      "close": 434.01,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -6.08,
+      "change_1m_pct": -3.04,
+      "consensus_target": 589.546,
+      "target_median": 600.0,
+      "target_high": 700.0,
+      "target_low": 475.0,
+      "target_dispersion_pct": 38.16,
+      "range_source": "yahoo",
+      "analyst_count": 25,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.28,
+      "recommendation_key": "strong_buy",
+      "book_value": 162.587,
+      "price_to_book": 2.669,
+      "book_value_issue": null,
+      "market_cap": 83172220928.0,
+      "market_cap_issue": null,
+      "upside_pct": 35.84,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 589.546
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "CRWD",
+      "name": "CrowdStrike",
+      "sector": "Information Technology",
+      "sub_industry": "Systems Software",
+      "close": 237.03,
+      "close_date": "2026-11-18",
+      "change_1w_pct": 3.48,
+      "change_1m_pct": 4.25,
+      "consensus_target": 251.2834,
+      "target_median": 252.0,
+      "target_high": 325.0,
+      "target_low": 132.0,
+      "target_dispersion_pct": 76.81,
+      "range_source": "yahoo",
+      "analyst_count": 50,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.66038,
+      "recommendation_key": "buy",
+      "book_value": 4.983,
+      "price_to_book": 47.568,
+      "book_value_issue": null,
+      "market_cap": 242703269888.0,
+      "market_cap_issue": null,
+      "upside_pct": 6.01,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 251.2834
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "MRVL",
+      "name": "Marvell Technology",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductors",
+      "close": 145.54,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -13.78,
+      "change_1m_pct": -39.46,
+      "consensus_target": 310.8933,
+      "target_median": 301.5,
+      "target_high": 450.0,
+      "target_low": 175.0,
+      "target_dispersion_pct": 88.45,
+      "range_source": "yahoo",
+      "analyst_count": 40,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.39535,
+      "recommendation_key": "strong_buy",
+      "book_value": 21.135,
+      "price_to_book": 6.886,
+      "book_value_issue": null,
+      "market_cap": 130951921664.0,
+      "market_cap_issue": null,
+      "upside_pct": 113.61,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 310.8933
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "NFLX",
+      "name": "Netflix",
+      "sector": "Communication Services",
+      "sub_industry": "Movies & Entertainment",
+      "close": 59.82,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -7.31,
+      "change_1m_pct": -12.91,
+      "consensus_target": 84.7633,
+      "target_median": 82.0,
+      "target_high": 126.0,
+      "target_low": 57.0,
+      "target_dispersion_pct": 81.4,
+      "range_source": "yahoo",
+      "analyst_count": 43,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.92157,
+      "recommendation_key": "buy",
+      "book_value": 7.132,
+      "price_to_book": 8.388,
+      "book_value_issue": null,
+      "market_cap": 245640413184.0,
+      "market_cap_issue": null,
+      "upside_pct": 41.7,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 84.7633
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "BKR",
+      "name": "Baker Hughes",
+      "sector": "Energy",
+      "sub_industry": "Oil & Gas Equipment & Services",
+      "close": 47.3,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -4.27,
+      "change_1m_pct": -15.0,
+      "consensus_target": 69.75,
+      "target_median": 70.0,
+      "target_high": 85.0,
+      "target_low": 51.0,
+      "target_dispersion_pct": 48.75,
+      "range_source": "yahoo",
+      "analyst_count": 24,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.56,
+      "recommendation_key": "buy",
+      "book_value": 20.281,
+      "price_to_book": 2.332,
+      "book_value_issue": null,
+      "market_cap": 46972612608.0,
+      "market_cap_issue": null,
+      "upside_pct": 47.46,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 69.75
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "PCAR",
+      "name": "Paccar",
+      "sector": "Industrials",
+      "sub_industry": "Construction Machinery & Heavy Transportation Equipment",
+      "close": 103.81,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -4.0,
+      "change_1m_pct": -5.69,
+      "consensus_target": 125.1012,
+      "target_median": 121.5,
+      "target_high": 150.0,
+      "target_low": 104.0,
+      "target_dispersion_pct": 36.77,
+      "range_source": "yahoo",
+      "analyst_count": 16,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.10526,
+      "recommendation_key": "buy",
+      "book_value": 39.756,
+      "price_to_book": 2.611,
+      "book_value_issue": null,
+      "market_cap": 54656520192.0,
+      "market_cap_issue": null,
+      "upside_pct": 20.51,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 125.1012
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "TER",
+      "name": "Teradyne",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductor Materials & Equipment",
+      "close": 235.21,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -11.5,
+      "change_1m_pct": -30.12,
+      "consensus_target": 415.875,
+      "target_median": 425.0,
+      "target_high": 550.0,
+      "target_low": 284.0,
+      "target_dispersion_pct": 63.96,
+      "range_source": "yahoo",
+      "analyst_count": 16,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.55556,
+      "recommendation_key": "buy",
+      "book_value": 23.618,
+      "price_to_book": 9.959,
+      "book_value_issue": null,
+      "market_cap": 36722102272.0,
+      "market_cap_issue": null,
+      "upside_pct": 76.81,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 415.875
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "ADSK",
+      "name": "Autodesk",
+      "sector": "Information Technology",
+      "sub_industry": "Application Software",
+      "close": 253.0,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -2.7,
+      "change_1m_pct": 3.02,
+      "consensus_target": 309.6003,
+      "target_median": 310.0,
+      "target_high": 375.0,
+      "target_low": 215.0,
+      "target_dispersion_pct": 51.68,
+      "range_source": "yahoo",
+      "analyst_count": 34,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.5,
+      "recommendation_key": "strong_buy",
+      "book_value": 16.187,
+      "price_to_book": 15.63,
+      "book_value_issue": null,
+      "market_cap": 52877000704.0,
+      "market_cap_issue": null,
+      "upside_pct": 22.37,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 309.6003
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "ALAB",
+      "name": "Astera Labs, Inc.",
+      "sector": "Unknown",
+      "sub_industry": "",
+      "close": 216.75,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -6.13,
+      "change_1m_pct": -23.89,
+      "consensus_target": 344.1467,
+      "target_median": 337.5,
+      "target_high": 500.0,
+      "target_low": 225.0,
+      "target_dispersion_pct": 79.91,
+      "range_source": "yahoo",
+      "analyst_count": 22,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.8,
+      "recommendation_key": "buy",
+      "book_value": 11.442,
+      "price_to_book": 18.943,
+      "book_value_issue": null,
+      "market_cap": 37884014592.0,
+      "market_cap_issue": null,
+      "upside_pct": 58.78,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 344.1467
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "APP",
+      "name": "AppLovin",
+      "sector": "Communication Services",
+      "sub_industry": "Advertising",
+      "close": 390.91,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -3.42,
+      "change_1m_pct": 43.47,
+      "consensus_target": 455.6137,
+      "target_median": 452.5,
+      "target_high": 600.0,
+      "target_low": 347.0,
+      "target_dispersion_pct": 55.53,
+      "range_source": "yahoo",
+      "analyst_count": 30,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.59375,
+      "recommendation_key": "buy",
+      "book_value": 9.956,
+      "price_to_book": 39.264,
+      "book_value_issue": null,
+      "market_cap": 129517076480.0,
+      "market_cap_issue": null,
+      "upside_pct": 16.55,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 455.6137
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "ASML",
+      "name": "ASML Holding N.V. - New York Registry Shares",
+      "sector": "Unknown",
+      "sub_industry": "",
+      "close": 1395.27,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -9.07,
+      "change_1m_pct": -14.44,
+      "consensus_target": 2102.576,
+      "target_median": 2251.8418,
+      "target_high": 2785.9736,
+      "target_low": 848.1036,
+      "target_dispersion_pct": 92.17,
+      "range_source": "yahoo",
+      "analyst_count": 17,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.36585,
+      "recommendation_key": "strong_buy",
+      "book_value": 1.1646203,
+      "price_to_book": 1198.047,
+      "book_value_issue": null,
+      "market_cap": 537761808384.0,
+      "market_cap_issue": null,
+      "upside_pct": 50.69,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 2102.576
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "CDNS",
+      "name": "Cadence Design Systems",
+      "sector": "Information Technology",
+      "sub_industry": "Application Software",
+      "close": 305.82,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -7.12,
+      "change_1m_pct": -4.39,
+      "consensus_target": 411.7604,
+      "target_median": 420.0,
+      "target_high": 470.0,
+      "target_low": 300.0,
+      "target_dispersion_pct": 41.29,
+      "range_source": "yahoo",
+      "analyst_count": 24,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.33333,
+      "recommendation_key": "strong_buy",
+      "book_value": 25.057,
+      "price_to_book": 12.205,
+      "book_value_issue": null,
+      "market_cap": 83910590464.0,
+      "market_cap_issue": null,
+      "upside_pct": 34.64,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 411.7604
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "CPRT",
+      "name": "Copart",
+      "sector": "Industrials",
+      "sub_industry": "Diversified Support Services",
+      "close": 31.46,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -2.21,
+      "change_1m_pct": 13.04,
+      "consensus_target": 39.0,
+      "target_median": 37.0,
+      "target_high": 55.0,
+      "target_low": 25.0,
+      "target_dispersion_pct": 76.92,
+      "range_source": "yahoo",
+      "analyst_count": 10,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.33333,
+      "recommendation_key": "buy",
+      "book_value": 9.821,
+      "price_to_book": 3.203,
+      "book_value_issue": null,
+      "market_cap": 29143851008.0,
+      "market_cap_issue": null,
+      "upside_pct": 23.97,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 39.0
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "CRWV",
+      "name": "CoreWeave, Inc.",
+      "sector": "Unknown",
+      "sub_industry": "",
+      "close": 47.83,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -21.29,
+      "change_1m_pct": -23.02,
+      "consensus_target": 115.3421,
+      "target_median": 115.0,
+      "target_high": 278.0,
+      "target_low": 39.0,
+      "target_dispersion_pct": 207.21,
+      "range_source": "yahoo",
+      "analyst_count": 38,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.78049,
+      "recommendation_key": "buy",
+      "book_value": 7.265,
+      "price_to_book": 6.584,
+      "book_value_issue": null,
+      "market_cap": 26599493632.0,
+      "market_cap_issue": null,
+      "upside_pct": 141.15,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 115.3421
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "CSX",
+      "name": "CSX Corporation",
+      "sector": "Industrials",
+      "sub_industry": "Rail Transportation",
+      "close": 51.33,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -1.1,
+      "change_1m_pct": 6.76,
+      "consensus_target": 53.8074,
+      "target_median": 54.57,
+      "target_high": 60.0,
+      "target_low": 32.0,
+      "target_dispersion_pct": 52.04,
+      "range_source": "yahoo",
+      "analyst_count": 23,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.92,
+      "recommendation_key": "buy",
+      "book_value": 7.804,
+      "price_to_book": 6.577,
+      "book_value_issue": null,
+      "market_cap": 94621638656.0,
+      "market_cap_issue": null,
+      "upside_pct": 4.83,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 53.8074
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "GEHC",
+      "name": "GE HealthCare",
+      "sector": "Health Care",
+      "sub_industry": "Health Care Equipment",
+      "close": 83.66,
+      "close_date": "2026-11-18",
+      "change_1w_pct": 1.28,
+      "change_1m_pct": 19.12,
+      "consensus_target": 88.25,
+      "target_median": 89.5,
+      "target_high": 100.0,
+      "target_low": 75.0,
+      "target_dispersion_pct": 28.33,
+      "range_source": "yahoo",
+      "analyst_count": 20,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.86364,
+      "recommendation_key": "buy",
+      "book_value": 25.687,
+      "price_to_book": 3.257,
+      "book_value_issue": null,
+      "market_cap": 37825851392.0,
+      "market_cap_issue": null,
+      "upside_pct": 5.49,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 88.25
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "HON",
+      "name": "Honeywell Technologies",
+      "sector": "Industrials",
+      "sub_industry": "Industrial Conglomerates",
+      "close": 222.7,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -2.17,
+      "change_1m_pct": 4.4,
+      "consensus_target": 253.8696,
+      "target_median": 255.0,
+      "target_high": 290.0,
+      "target_low": 186.0,
+      "target_dispersion_pct": 40.97,
+      "range_source": "yahoo",
+      "analyst_count": 23,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.0,
+      "recommendation_key": "buy",
+      "book_value": 70.636,
+      "price_to_book": 3.153,
+      "book_value_issue": null,
+      "market_cap": 70675742720.0,
+      "market_cap_issue": null,
+      "upside_pct": 14.0,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 253.8696
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "ISRG",
+      "name": "Intuitive Surgical",
+      "sector": "Health Care",
+      "sub_industry": "Health Care Equipment",
+      "close": 420.95,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -6.36,
+      "change_1m_pct": -3.89,
+      "consensus_target": 488.5333,
+      "target_median": 500.0,
+      "target_high": 685.0,
+      "target_low": 324.0,
+      "target_dispersion_pct": 73.89,
+      "range_source": "yahoo",
+      "analyst_count": 30,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.76471,
+      "recommendation_key": "buy",
+      "book_value": 46.123,
+      "price_to_book": 9.127,
+      "book_value_issue": null,
+      "market_cap": 145919672320.0,
+      "market_cap_issue": null,
+      "upside_pct": 16.05,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 488.5333
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "LIN",
+      "name": "Linde plc",
+      "sector": "Materials",
+      "sub_industry": "Industrial Gases",
+      "close": 512.16,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -2.73,
+      "change_1m_pct": 2.05,
+      "consensus_target": 551.0371,
+      "target_median": 560.0,
+      "target_high": 600.0,
+      "target_low": 400.0,
+      "target_dispersion_pct": 36.3,
+      "range_source": "yahoo",
+      "analyst_count": 27,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.68966,
+      "recommendation_key": "buy",
+      "book_value": 85.871,
+      "price_to_book": 5.964,
+      "book_value_issue": null,
+      "market_cap": 235124326400.0,
+      "market_cap_issue": null,
+      "upside_pct": 7.59,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 551.0371
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "MAR",
+      "name": "Marriott International",
+      "sector": "Consumer Discretionary",
+      "sub_industry": "Hotels, Resorts & Cruise Lines",
+      "close": 425.9,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -0.76,
+      "change_1m_pct": 7.2,
+      "consensus_target": 421.7308,
+      "target_median": 425.5,
+      "target_high": 479.0,
+      "target_low": 302.0,
+      "target_dispersion_pct": 41.97,
+      "range_source": "yahoo",
+      "analyst_count": 26,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.27586,
+      "recommendation_key": "buy",
+      "book_value": -19.675,
+      "price_to_book": null,
+      "book_value_issue": "negative",
+      "market_cap": 109671120896.0,
+      "market_cap_issue": null,
+      "upside_pct": -0.98,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 421.7308
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "每股淨值為負（-19.68），股價淨值比不適用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "MSTR",
+      "name": "Strategy Inc",
+      "sector": "Unknown",
+      "sub_industry": "",
+      "close": 90.32,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -26.18,
+      "change_1m_pct": -36.72,
+      "consensus_target": 233.2667,
+      "target_median": 215.0,
+      "target_high": 435.0,
+      "target_low": 165.0,
+      "target_dispersion_pct": 115.75,
+      "range_source": "yahoo",
+      "analyst_count": 15,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.25,
+      "recommendation_key": "strong_buy",
+      "book_value": 131.384,
+      "price_to_book": 0.687,
+      "book_value_issue": null,
+      "market_cap": 38230798336.0,
+      "market_cap_issue": null,
+      "upside_pct": 158.27,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 233.2667
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "PLTR",
+      "name": "Palantir Technologies",
+      "sector": "Information Technology",
+      "sub_industry": "Application Software",
+      "close": 156.67,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -9.12,
+      "change_1m_pct": -18.66,
+      "consensus_target": 222.9,
+      "target_median": 235.0,
+      "target_high": 273.0,
+      "target_low": 80.0,
+      "target_dispersion_pct": 86.59,
+      "range_source": "yahoo",
+      "analyst_count": 29,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.76471,
+      "recommendation_key": "buy",
+      "book_value": 4.661,
+      "price_to_book": 33.613,
+      "book_value_issue": null,
+      "market_cap": 377495977984.0,
+      "market_cap_issue": null,
+      "upside_pct": 42.27,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 222.9
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "SHOP",
+      "name": "Shopify Inc.",
+      "sector": "Unknown",
+      "sub_industry": "",
+      "close": 139.42,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -6.59,
+      "change_1m_pct": -19.63,
+      "consensus_target": 177.1841,
+      "target_median": 180.0,
+      "target_high": 220.0,
+      "target_low": 120.0,
+      "target_dispersion_pct": 56.44,
+      "range_source": "yahoo",
+      "analyst_count": 49,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.66667,
+      "recommendation_key": "buy",
+      "book_value": 9.911,
+      "price_to_book": 14.067,
+      "book_value_issue": null,
+      "market_cap": 179366887424.0,
+      "market_cap_issue": null,
+      "upside_pct": 27.09,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 177.1841
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "AAPL",
+      "name": "Apple Inc.",
+      "sector": "Information Technology",
+      "sub_industry": "Technology Hardware, Storage & Peripherals",
+      "close": 352.45,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -0.89,
+      "change_1m_pct": 3.81,
+      "consensus_target": 345.6313,
+      "target_median": 355.0,
+      "target_high": 425.0,
+      "target_low": 250.0,
+      "target_dispersion_pct": 50.63,
+      "range_source": "yahoo",
+      "analyst_count": 39,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.17778,
+      "recommendation_key": "buy",
+      "book_value": 7.713,
+      "price_to_book": 45.696,
+      "book_value_issue": null,
+      "market_cap": 5121867513856.0,
+      "market_cap_issue": null,
+      "upside_pct": -1.93,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 345.6313
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "AVGO",
+      "name": "Broadcom",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductors",
+      "close": 354.05,
+      "close_date": "2026-11-18",
+      "change_1w_pct": 2.56,
+      "change_1m_pct": 5.89,
+      "consensus_target": 528.1743,
+      "target_median": 530.0,
+      "target_high": 660.0,
+      "target_low": 398.4699,
+      "target_dispersion_pct": 49.52,
+      "range_source": "yahoo",
+      "analyst_count": 47,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.27451,
+      "recommendation_key": "strong_buy",
+      "book_value": 20.882,
+      "price_to_book": 16.955,
+      "book_value_issue": null,
+      "market_cap": 1690103578624.0,
+      "market_cap_issue": null,
+      "upside_pct": 49.18,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 528.1743
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "AXON",
+      "name": "Axon Enterprise",
+      "sector": "Industrials",
+      "sub_industry": "Aerospace & Defense",
+      "close": 300.69,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -4.67,
+      "change_1m_pct": -23.42,
+      "consensus_target": 541.3158,
+      "target_median": 540.0,
+      "target_high": 700.0,
+      "target_low": 380.0,
+      "target_dispersion_pct": 59.12,
+      "range_source": "yahoo",
+      "analyst_count": 19,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.71429,
+      "recommendation_key": "buy",
+      "book_value": 46.221,
+      "price_to_book": 6.505,
+      "book_value_issue": null,
+      "market_cap": 24486002688.0,
+      "market_cap_issue": null,
+      "upside_pct": 80.02,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 541.3158
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "META",
+      "name": "Meta Platforms",
+      "sector": "Communication Services",
+      "sub_industry": "Interactive Media & Services",
+      "close": 616.38,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -1.97,
+      "change_1m_pct": -11.22,
+      "consensus_target": 848.2262,
+      "target_median": 850.0,
+      "target_high": 1050.0,
+      "target_low": 650.0,
+      "target_dispersion_pct": 47.16,
+      "range_source": "yahoo",
+      "analyst_count": 58,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.41935,
+      "recommendation_key": "strong_buy",
+      "book_value": 106.567,
+      "price_to_book": 5.784,
+      "book_value_issue": null,
+      "market_cap": 1575615987712.0,
+      "market_cap_issue": null,
+      "upside_pct": 37.61,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 848.2262
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "PANW",
+      "name": "Palo Alto Networks",
+      "sector": "Information Technology",
+      "sub_industry": "Systems Software",
+      "close": 339.92,
+      "close_date": "2026-11-18",
+      "change_1w_pct": 1.63,
+      "change_1m_pct": -0.11,
+      "consensus_target": 398.6269,
+      "target_median": 415.0,
+      "target_high": 525.0,
+      "target_low": 190.0,
+      "target_dispersion_pct": 84.04,
+      "range_source": "yahoo",
+      "analyst_count": 51,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.65455,
+      "recommendation_key": "buy",
+      "book_value": 33.733,
+      "price_to_book": 10.077,
+      "book_value_issue": null,
+      "market_cap": 278316875776.0,
+      "market_cap_issue": null,
+      "upside_pct": 17.27,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 398.6269
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "name": "Rocket Lab Corporation",
+      "sector": "Unknown",
+      "sub_industry": "",
+      "close": 53.07,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -19.77,
+      "change_1m_pct": 4.26,
+      "consensus_target": 93.15,
+      "target_median": 100.0,
+      "target_high": 127.0,
+      "target_low": 58.0,
+      "target_dispersion_pct": 74.07,
+      "range_source": "yahoo",
+      "analyst_count": 20,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.61905,
+      "recommendation_key": "buy",
+      "book_value": 9.078,
+      "price_to_book": 5.846,
+      "book_value_issue": null,
+      "market_cap": 35714633728.0,
+      "market_cap_issue": null,
+      "upside_pct": 75.52,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 93.15
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "TMUS",
+      "name": "T-Mobile US",
+      "sector": "Communication Services",
+      "sub_industry": "Wireless Telecommunication Services",
+      "close": 164.02,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -4.73,
+      "change_1m_pct": 3.97,
+      "consensus_target": 226.24,
+      "target_median": 235.0,
+      "target_high": 296.0,
+      "target_low": 169.0,
+      "target_dispersion_pct": 56.14,
+      "range_source": "yahoo",
+      "analyst_count": 25,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.60714,
+      "recommendation_key": "buy",
+      "book_value": 52.978,
+      "price_to_book": 3.096,
+      "book_value_issue": null,
+      "market_cap": 173741899776.0,
+      "market_cap_issue": null,
+      "upside_pct": 37.93,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 226.24
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "XEL",
+      "name": "Xcel Energy",
+      "sector": "Utilities",
+      "sub_industry": "Multi-Utilities",
+      "close": 80.65,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -0.55,
+      "change_1m_pct": 5.18,
+      "consensus_target": 90.2895,
+      "target_median": 92.0,
+      "target_high": 103.0,
+      "target_low": 76.0,
+      "target_dispersion_pct": 29.9,
+      "range_source": "yahoo",
+      "analyst_count": 19,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.45,
+      "recommendation_key": "strong_buy",
+      "book_value": 40.152,
+      "price_to_book": 2.009,
+      "book_value_issue": null,
+      "market_cap": 51767173120.0,
+      "market_cap_issue": null,
+      "upside_pct": 11.95,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 90.2895
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "ALNY",
+      "name": "Alnylam Pharmaceuticals, Inc.",
+      "sector": "Unknown",
+      "sub_industry": "",
+      "close": 149.4,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -6.54,
+      "change_1m_pct": -35.24,
+      "consensus_target": 284.9629,
+      "target_median": 287.0,
+      "target_high": 410.0,
+      "target_low": 180.0,
+      "target_dispersion_pct": 80.71,
+      "range_source": "yahoo",
+      "analyst_count": 27,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.83333,
+      "recommendation_key": "buy",
+      "book_value": 26.92,
+      "price_to_book": 5.55,
+      "book_value_issue": null,
+      "market_cap": 20010272768.0,
+      "market_cap_issue": null,
+      "upside_pct": 90.74,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 284.9629
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "BKNG",
+      "name": "Booking Holdings",
+      "sector": "Consumer Discretionary",
+      "sub_industry": "Hotels, Resorts & Cruise Lines",
+      "close": 153.28,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -4.33,
+      "change_1m_pct": -6.49,
+      "consensus_target": 215.5294,
+      "target_median": 213.0,
+      "target_high": 267.0,
+      "target_low": 150.0,
+      "target_dispersion_pct": 54.28,
+      "range_source": "yahoo",
+      "analyst_count": 34,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.55556,
+      "recommendation_key": "buy",
+      "book_value": -13.95,
+      "price_to_book": null,
+      "book_value_issue": "negative",
+      "market_cap": 113994522624.0,
+      "market_cap_issue": null,
+      "upside_pct": 40.61,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 215.5294
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "每股淨值為負（-13.95），股價淨值比不適用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "CCEP",
+      "name": "Coca-Cola Europacific Partners plc",
+      "sector": "Unknown",
+      "sub_industry": "",
+      "close": 118.86,
+      "close_date": "2026-11-18",
+      "change_1w_pct": 0.84,
+      "change_1m_pct": 4.81,
+      "consensus_target": 113.2834,
+      "target_median": 116.8872,
+      "target_high": 129.37296,
+      "target_low": 89.87175,
+      "target_dispersion_pct": 34.87,
+      "range_source": "yahoo",
+      "analyst_count": 12,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.0,
+      "recommendation_key": "buy",
+      "book_value": 20.984362,
+      "price_to_book": 5.664,
+      "book_value_issue": null,
+      "market_cap": 52117159936.0,
+      "market_cap_issue": null,
+      "upside_pct": -4.69,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 113.2834
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "COST",
+      "name": "Costco",
+      "sector": "Consumer Staples",
+      "sub_industry": "Consumer Staples Merchandise Retail",
+      "close": 1096.62,
+      "close_date": "2026-11-18",
+      "change_1w_pct": 0.83,
+      "change_1m_pct": 10.26,
+      "consensus_target": 1085.3513,
+      "target_median": 1100.0,
+      "target_high": 1315.0,
+      "target_low": 770.0,
+      "target_dispersion_pct": 50.21,
+      "range_source": "yahoo",
+      "analyst_count": 37,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.0,
+      "recommendation_key": "buy",
+      "book_value": 80.771,
+      "price_to_book": 13.577,
+      "book_value_issue": null,
+      "market_cap": 485944492032.0,
+      "market_cap_issue": null,
+      "upside_pct": -1.03,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 1085.3513
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "DDOG",
+      "name": "Datadog",
+      "sector": "Information Technology",
+      "sub_industry": "Application Software",
+      "close": 167.11,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -9.37,
+      "change_1m_pct": -34.83,
+      "consensus_target": 269.6546,
+      "target_median": 275.0,
+      "target_high": 330.0,
+      "target_low": 171.0,
+      "target_dispersion_pct": 58.96,
+      "range_source": "yahoo",
+      "analyst_count": 48,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.40816,
+      "recommendation_key": "strong_buy",
+      "book_value": 13.062,
+      "price_to_book": 12.794,
+      "book_value_issue": null,
+      "market_cap": 60333821952.0,
+      "market_cap_issue": null,
+      "upside_pct": 61.36,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 269.6546
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "MRNA",
+      "name": "Moderna",
+      "sector": "Health Care",
+      "sub_industry": "Biotechnology",
+      "close": 196.79,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -20.87,
+      "change_1m_pct": -18.71,
+      "consensus_target": 165.3158,
+      "target_median": 145.0,
+      "target_high": 305.0,
+      "target_low": 45.0,
+      "target_dispersion_pct": 157.27,
+      "range_source": "yahoo",
+      "analyst_count": 19,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.91304,
+      "recommendation_key": "hold",
+      "book_value": 16.923,
+      "price_to_book": 11.629,
+      "book_value_issue": null,
+      "market_cap": 79625355264.0,
+      "market_cap_issue": null,
+      "upside_pct": -15.99,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 165.3158
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "TRI",
+      "name": "Thomson Reuters Corp",
+      "sector": "Unknown",
+      "sub_industry": "",
+      "close": 103.9,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -4.53,
+      "change_1m_pct": -7.91,
+      "consensus_target": 128.4231,
+      "target_median": 130.0,
+      "target_high": 146.0,
+      "target_low": 112.0,
+      "target_dispersion_pct": 26.47,
+      "range_source": "yahoo",
+      "analyst_count": 13,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.78947,
+      "recommendation_key": "buy",
+      "book_value": 25.894,
+      "price_to_book": 4.013,
+      "book_value_issue": null,
+      "market_cap": 45036380160.0,
+      "market_cap_issue": null,
+      "upside_pct": 23.6,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 128.4231
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "TSLA",
+      "name": "Tesla, Inc.",
+      "sector": "Consumer Discretionary",
+      "sub_industry": "Automobile Manufacturers",
+      "close": 383.72,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -1.82,
+      "change_1m_pct": 2.68,
+      "consensus_target": 412.4763,
+      "target_median": 436.0,
+      "target_high": 600.0,
+      "target_low": 128.11,
+      "target_dispersion_pct": 114.4,
+      "range_source": "yahoo",
+      "analyst_count": 40,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.29545,
+      "recommendation_key": "buy",
+      "book_value": 22.588,
+      "price_to_book": 16.988,
+      "book_value_issue": null,
+      "market_cap": 1516752338944.0,
+      "market_cap_issue": null,
+      "upside_pct": 7.49,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 412.4763
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "CTAS",
+      "name": "Cintas",
+      "sector": "Industrials",
+      "sub_industry": "Diversified Support Services",
+      "close": 222.0,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -2.31,
+      "change_1m_pct": 2.29,
+      "consensus_target": 218.4375,
+      "target_median": 224.5,
+      "target_high": 250.0,
+      "target_low": 181.0,
+      "target_dispersion_pct": 31.59,
+      "range_source": "yahoo",
+      "analyst_count": 16,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.25,
+      "recommendation_key": "buy",
+      "book_value": 13.027,
+      "price_to_book": 17.042,
+      "book_value_issue": null,
+      "market_cap": 88150671360.0,
+      "market_cap_issue": null,
+      "upside_pct": -1.6,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 218.4375
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "GILD",
+      "name": "Gilead Sciences",
+      "sector": "Health Care",
+      "sub_industry": "Biotechnology",
+      "close": 168.98,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -0.44,
+      "change_1m_pct": 7.97,
+      "consensus_target": 175.9231,
+      "target_median": 178.0,
+      "target_high": 200.0,
+      "target_low": 131.0,
+      "target_dispersion_pct": 39.22,
+      "range_source": "yahoo",
+      "analyst_count": 26,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.67857,
+      "recommendation_key": "buy",
+      "book_value": 10.508,
+      "price_to_book": 16.081,
+      "book_value_issue": null,
+      "market_cap": 209592401920.0,
+      "market_cap_issue": null,
+      "upside_pct": 4.11,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 175.9231
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "PAYX",
+      "name": "Paychex",
+      "sector": "Industrials",
+      "sub_industry": "Human Resource & Employment Services",
+      "close": 113.67,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -1.47,
+      "change_1m_pct": 0.93,
+      "consensus_target": 114.5714,
+      "target_median": 111.5,
+      "target_high": 150.0,
+      "target_low": 96.0,
+      "target_dispersion_pct": 47.13,
+      "range_source": "yahoo",
+      "analyst_count": 14,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 3.0,
+      "recommendation_key": "hold",
+      "book_value": 10.409,
+      "price_to_book": 10.92,
+      "book_value_issue": null,
+      "market_cap": 40464302080.0,
+      "market_cap_issue": null,
+      "upside_pct": 0.79,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 114.5714
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "ADP",
+      "name": "Automatic Data Processing",
+      "sector": "Industrials",
+      "sub_industry": "Human Resource & Employment Services",
+      "close": 305.57,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -0.26,
+      "change_1m_pct": 4.38,
+      "consensus_target": 298.2667,
+      "target_median": 295.0,
+      "target_high": 340.0,
+      "target_low": 250.0,
+      "target_dispersion_pct": 30.17,
+      "range_source": "yahoo",
+      "analyst_count": 15,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.77778,
+      "recommendation_key": "hold",
+      "book_value": 12.872,
+      "price_to_book": 23.739,
+      "book_value_issue": null,
+      "market_cap": 120626642944.0,
+      "market_cap_issue": null,
+      "upside_pct": -2.39,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 298.2667
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "CEG",
+      "name": "Constellation Energy",
+      "sector": "Utilities",
+      "sub_industry": "Electric Utilities",
+      "close": 262.74,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -4.36,
+      "change_1m_pct": 1.51,
+      "consensus_target": 339.0713,
+      "target_median": 346.0,
+      "target_high": 399.0,
+      "target_low": 240.0,
+      "target_dispersion_pct": 46.89,
+      "range_source": "yahoo",
+      "analyst_count": 23,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.64,
+      "recommendation_key": "buy",
+      "book_value": 93.036,
+      "price_to_book": 2.824,
+      "book_value_issue": null,
+      "market_cap": 92381618176.0,
+      "market_cap_issue": null,
+      "upside_pct": 29.05,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 339.0713
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "INTU",
+      "name": "Intuit",
+      "sector": "Information Technology",
+      "sub_industry": "Application Software",
+      "close": 313.24,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -8.58,
+      "change_1m_pct": -6.58,
+      "consensus_target": 408.8561,
+      "target_median": 400.0,
+      "target_high": 732.0,
+      "target_low": 290.0,
+      "target_dispersion_pct": 108.11,
+      "range_source": "yahoo",
+      "analyst_count": 31,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.05882,
+      "recommendation_key": "buy",
+      "book_value": 70.764,
+      "price_to_book": 4.427,
+      "book_value_issue": null,
+      "market_cap": 83709001728.0,
+      "market_cap_issue": null,
+      "upside_pct": 30.52,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 408.8561
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "MELI",
+      "name": "MercadoLibre, Inc.",
+      "sector": "Unknown",
+      "sub_industry": "",
+      "close": 1423.11,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -5.88,
+      "change_1m_pct": -24.28,
+      "consensus_target": 2168.1438,
+      "target_median": 2110.0,
+      "target_high": 2700.0,
+      "target_low": 1600.0,
+      "target_dispersion_pct": 50.73,
+      "range_source": "yahoo",
+      "analyst_count": 26,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.52,
+      "recommendation_key": "buy",
+      "book_value": 161.746,
+      "price_to_book": 8.798,
+      "book_value_issue": null,
+      "market_cap": 72147124224.0,
+      "market_cap_issue": null,
+      "upside_pct": 52.35,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 2168.1438
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "MNST",
+      "name": "Monster Beverage",
+      "sector": "Consumer Staples",
+      "sub_industry": "Soft Drinks & Non-alcoholic Beverages",
+      "close": 44.91,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -1.08,
+      "change_1m_pct": -4.53,
+      "consensus_target": 50.25,
+      "target_median": 50.5,
+      "target_high": 57.0,
+      "target_low": 37.0,
+      "target_dispersion_pct": 39.8,
+      "range_source": "yahoo",
+      "analyst_count": 24,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.0,
+      "recommendation_key": "buy",
+      "book_value": 5.027,
+      "price_to_book": 8.934,
+      "book_value_issue": null,
+      "market_cap": 87911858176.0,
+      "market_cap_issue": null,
+      "upside_pct": 11.89,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 50.25
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "CSCO",
+      "name": "Cisco",
+      "sector": "Information Technology",
+      "sub_industry": "Communications Equipment",
+      "close": 97.18,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -3.55,
+      "change_1m_pct": -8.93,
+      "consensus_target": 130.5,
+      "target_median": 130.0,
+      "target_high": 160.0,
+      "target_low": 109.0,
+      "target_dispersion_pct": 39.08,
+      "range_source": "yahoo",
+      "analyst_count": 24,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.78571,
+      "recommendation_key": "buy",
+      "book_value": 13.072,
+      "price_to_book": 7.434,
+      "book_value_issue": null,
+      "market_cap": 382595727360.0,
+      "market_cap_issue": null,
+      "upside_pct": 34.29,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 130.5
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "KDP",
+      "name": "Keurig Dr Pepper",
+      "sector": "Consumer Staples",
+      "sub_industry": "Soft Drinks & Non-alcoholic Beverages",
+      "close": 35.01,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -8.47,
+      "change_1m_pct": 1.1,
+      "consensus_target": 38.8158,
+      "target_median": 40.0,
+      "target_high": 42.0,
+      "target_low": 32.0,
+      "target_dispersion_pct": 25.76,
+      "range_source": "yahoo",
+      "analyst_count": 19,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.85,
+      "recommendation_key": "buy",
+      "book_value": 18.683,
+      "price_to_book": 1.874,
+      "book_value_issue": null,
+      "market_cap": 49676365824.0,
+      "market_cap_issue": null,
+      "upside_pct": 10.87,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 38.8158
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "KLAC",
+      "name": "KLA Corporation",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductor Materials & Equipment",
+      "close": 144.88,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -10.02,
+      "change_1m_pct": -10.42,
+      "consensus_target": 219.6154,
+      "target_median": 220.0,
+      "target_high": 275.0,
+      "target_low": 175.0,
+      "target_dispersion_pct": 45.53,
+      "range_source": "yahoo",
+      "analyst_count": 26,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.75862,
+      "recommendation_key": "buy",
+      "book_value": 5.005,
+      "price_to_book": 28.947,
+      "book_value_issue": null,
+      "market_cap": 188773203968.0,
+      "market_cap_issue": null,
+      "upside_pct": 51.58,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 219.6154
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "MDLZ",
+      "name": "Mondelez International",
+      "sector": "Consumer Staples",
+      "sub_industry": "Packaged Foods & Meats",
+      "close": 66.57,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -0.19,
+      "change_1m_pct": 4.03,
+      "consensus_target": 70.4545,
+      "target_median": 72.0,
+      "target_high": 77.0,
+      "target_low": 56.0,
+      "target_dispersion_pct": 29.81,
+      "range_source": "yahoo",
+      "analyst_count": 22,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.82609,
+      "recommendation_key": "buy",
+      "book_value": 20.948,
+      "price_to_book": 3.178,
+      "book_value_issue": null,
+      "market_cap": 84260528128.0,
+      "market_cap_issue": null,
+      "upside_pct": 5.84,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 70.4545
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "MU",
+      "name": "Micron Technology",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductors",
+      "close": 705.27,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -13.07,
+      "change_1m_pct": -21.29,
+      "consensus_target": 1561.9111,
+      "target_median": 1550.0,
+      "target_high": 3000.0,
+      "target_low": 361.0,
+      "target_dispersion_pct": 168.96,
+      "range_source": "yahoo",
+      "analyst_count": 45,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.34694,
+      "recommendation_key": "strong_buy",
+      "book_value": 122.35,
+      "price_to_book": 5.764,
+      "book_value_issue": null,
+      "market_cap": 797958864896.0,
+      "market_cap_issue": null,
+      "upside_pct": 121.46,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 1561.9111
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "ABNB",
+      "name": "Airbnb",
+      "sector": "Consumer Discretionary",
+      "sub_industry": "Hotels, Resorts & Cruise Lines",
+      "close": 180.21,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -0.51,
+      "change_1m_pct": 1.85,
+      "consensus_target": 205.4405,
+      "target_median": 210.0,
+      "target_high": 245.0,
+      "target_low": 147.0,
+      "target_dispersion_pct": 47.7,
+      "range_source": "yahoo",
+      "analyst_count": 39,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.88372,
+      "recommendation_key": "buy",
+      "book_value": 15.81,
+      "price_to_book": 11.398,
+      "book_value_issue": null,
+      "market_cap": 107538915328.0,
+      "market_cap_issue": null,
+      "upside_pct": 14.0,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 205.4405
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "AMAT",
+      "name": "Applied Materials",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductor Materials & Equipment",
+      "close": 352.3,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -10.83,
+      "change_1m_pct": -13.01,
+      "consensus_target": 561.8889,
+      "target_median": 565.0,
+      "target_high": 900.0,
+      "target_low": 358.0,
+      "target_dispersion_pct": 96.46,
+      "range_source": "yahoo",
+      "analyst_count": 36,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.475,
+      "recommendation_key": "strong_buy",
+      "book_value": 32.921,
+      "price_to_book": 10.701,
+      "book_value_issue": null,
+      "market_cap": 279584374784.0,
+      "market_cap_issue": null,
+      "upside_pct": 59.49,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 561.8889
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "AMGN",
+      "name": "Amgen",
+      "sector": "Health Care",
+      "sub_industry": "Biotechnology",
+      "close": 443.89,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -5.17,
+      "change_1m_pct": 1.13,
+      "consensus_target": 432.8403,
+      "target_median": 440.0,
+      "target_high": 536.0,
+      "target_low": 230.0,
+      "target_dispersion_pct": 70.7,
+      "range_source": "yahoo",
+      "analyst_count": 29,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.70588,
+      "recommendation_key": "hold",
+      "book_value": 26.534,
+      "price_to_book": 16.729,
+      "book_value_issue": null,
+      "market_cap": 240105209856.0,
+      "market_cap_issue": null,
+      "upside_pct": -2.49,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 432.8403
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "DASH",
+      "name": "DoorDash",
+      "sector": "Consumer Discretionary",
+      "sub_industry": "Specialized Consumer Services",
+      "close": 166.8,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -6.43,
+      "change_1m_pct": -12.98,
+      "consensus_target": 250.3911,
+      "target_median": 250.0,
+      "target_high": 340.0,
+      "target_low": 200.0,
+      "target_dispersion_pct": 55.91,
+      "range_source": "yahoo",
+      "analyst_count": 38,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.43902,
+      "recommendation_key": "strong_buy",
+      "book_value": 24.583,
+      "price_to_book": 6.785,
+      "book_value_issue": null,
+      "market_cap": 72720850944.0,
+      "market_cap_issue": null,
+      "upside_pct": 50.11,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 250.3911
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "FANG",
+      "name": "Diamondback Energy",
+      "sector": "Energy",
+      "sub_industry": "Oil & Gas Exploration & Production",
+      "close": 174.32,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -3.68,
+      "change_1m_pct": -13.88,
+      "consensus_target": 238.5172,
+      "target_median": 237.0,
+      "target_high": 266.0,
+      "target_low": 192.0,
+      "target_dispersion_pct": 31.03,
+      "range_source": "yahoo",
+      "analyst_count": 29,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.51613,
+      "recommendation_key": "buy",
+      "book_value": 139.542,
+      "price_to_book": 1.249,
+      "book_value_issue": null,
+      "market_cap": 48664539136.0,
+      "market_cap_issue": null,
+      "upside_pct": 36.83,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 238.5172
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "GOOG",
+      "name": "Alphabet Inc. (Class C)",
+      "sector": "Communication Services",
+      "sub_industry": "Interactive Media & Services",
+      "close": 279.2,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -3.93,
+      "change_1m_pct": -17.0,
+      "consensus_target": 389.0,
+      "target_median": 380.0,
+      "target_high": 460.0,
+      "target_low": 320.0,
+      "target_dispersion_pct": 35.99,
+      "range_source": "yahoo",
+      "analyst_count": 15,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.38333,
+      "recommendation_key": "strong_buy",
+      "book_value": 53.646,
+      "price_to_book": 5.204,
+      "book_value_issue": null,
+      "market_cap": 3432484962304.0,
+      "market_cap_issue": null,
+      "upside_pct": 39.33,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 389.0
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "LRCX",
+      "name": "Lam Research",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductor Materials & Equipment",
+      "close": 211.67,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -10.26,
+      "change_1m_pct": -19.65,
+      "consensus_target": 362.1,
+      "target_median": 352.5,
+      "target_high": 500.0,
+      "target_low": 255.0,
+      "target_dispersion_pct": 67.66,
+      "range_source": "yahoo",
+      "analyst_count": 30,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.38235,
+      "recommendation_key": "strong_buy",
+      "book_value": 11.134,
+      "price_to_book": 19.011,
+      "book_value_issue": null,
+      "market_cap": 264412004352.0,
+      "market_cap_issue": null,
+      "upside_pct": 71.07,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 362.1
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "MPWR",
+      "name": "Monolithic Power Systems",
+      "sector": "Information Technology",
+      "sub_industry": "Semiconductors",
+      "close": 1310.91,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -11.35,
+      "change_1m_pct": 4.98,
+      "consensus_target": 1831.3572,
+      "target_median": 1810.0,
+      "target_high": 2163.0,
+      "target_low": 1500.0,
+      "target_dispersion_pct": 36.2,
+      "range_source": "yahoo",
+      "analyst_count": 14,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.1875,
+      "recommendation_key": "strong_buy",
+      "book_value": 76.524,
+      "price_to_book": 17.131,
+      "book_value_issue": null,
+      "market_cap": 63930462208.0,
+      "market_cap_issue": null,
+      "upside_pct": 39.7,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 1831.3572
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "FAST",
+      "name": "Fastenal",
+      "sector": "Industrials",
+      "sub_industry": "Trading Companies & Distributors",
+      "close": 53.96,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -2.76,
+      "change_1m_pct": 4.47,
+      "consensus_target": 51.1461,
+      "target_median": 51.0,
+      "target_high": 61.0,
+      "target_low": 39.9,
+      "target_dispersion_pct": 41.25,
+      "range_source": "yahoo",
+      "analyst_count": 13,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.77778,
+      "recommendation_key": "hold",
+      "book_value": 3.617,
+      "price_to_book": 14.918,
+      "book_value_issue": null,
+      "market_cap": 61908389888.0,
+      "market_cap_issue": null,
+      "upside_pct": -5.21,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 51.1461
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "FER",
+      "name": "Ferrovial N.V.",
+      "sector": "Unknown",
+      "sub_industry": "",
+      "close": 60.89,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -0.65,
+      "change_1m_pct": 23.68,
+      "consensus_target": 71.8004,
+      "target_median": 68.557335,
+      "target_high": 87.53673,
+      "target_low": 59.30717,
+      "target_dispersion_pct": 39.32,
+      "range_source": "yahoo",
+      "analyst_count": 3,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.33333,
+      "recommendation_key": "buy",
+      "book_value": 8.915462,
+      "price_to_book": 6.83,
+      "book_value_issue": null,
+      "market_cap": 43733766144.0,
+      "market_cap_issue": null,
+      "upside_pct": 17.92,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 71.8004
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "低",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "Alphabet Inc. (Class A)",
+      "sector": "Communication Services",
+      "sub_industry": "Interactive Media & Services",
+      "close": 282.44,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -3.75,
+      "change_1m_pct": -17.0,
+      "consensus_target": 400.3736,
+      "target_median": 400.0,
+      "target_high": 500.0,
+      "target_low": 300.0,
+      "target_dispersion_pct": 49.95,
+      "range_source": "yahoo",
+      "analyst_count": 53,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.34483,
+      "recommendation_key": "strong_buy",
+      "book_value": 53.646,
+      "price_to_book": 5.265,
+      "book_value_issue": null,
+      "market_cap": 3472317218816.0,
+      "market_cap_issue": null,
+      "upside_pct": 41.76,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 400.3736
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "MSFT",
+      "name": "Microsoft",
+      "sector": "Information Technology",
+      "sub_industry": "Systems Software",
+      "close": 508.29,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -2.46,
+      "change_1m_pct": -4.43,
+      "consensus_target": 636.1243,
+      "target_median": 631.0,
+      "target_high": 870.0,
+      "target_low": 440.0,
+      "target_dispersion_pct": 67.6,
+      "range_source": "yahoo",
+      "analyst_count": 54,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.37288,
+      "recommendation_key": "strong_buy",
+      "book_value": 63.351,
+      "price_to_book": 8.023,
+      "book_value_issue": null,
+      "market_cap": 3774660476928.0,
+      "market_cap_issue": null,
+      "upside_pct": 25.15,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 636.1243
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "NBIS",
+      "name": "Nebius Group N.V.",
+      "sector": "Unknown",
+      "sub_industry": "",
+      "close": 106.96,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -30.86,
+      "change_1m_pct": -37.61,
+      "consensus_target": 234.5,
+      "target_median": 234.0,
+      "target_high": 395.0,
+      "target_low": 84.0,
+      "target_dispersion_pct": 132.62,
+      "range_source": "yahoo",
+      "analyst_count": 20,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.81818,
+      "recommendation_key": "buy",
+      "book_value": 41.966,
+      "price_to_book": 2.549,
+      "book_value_issue": null,
+      "market_cap": 31328839680.0,
+      "market_cap_issue": null,
+      "upside_pct": 119.24,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 234.5
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "ORLY",
+      "name": "O'Reilly Automotive",
+      "sector": "Consumer Discretionary",
+      "sub_industry": "Automotive Retail",
+      "close": 93.37,
+      "close_date": "2026-11-18",
+      "change_1w_pct": 3.13,
+      "change_1m_pct": 3.72,
+      "consensus_target": 106.4074,
+      "target_median": 108.0,
+      "target_high": 122.0,
+      "target_low": 91.0,
+      "target_dispersion_pct": 29.13,
+      "range_source": "yahoo",
+      "analyst_count": 27,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 1.56667,
+      "recommendation_key": "buy",
+      "book_value": -2.601,
+      "price_to_book": null,
+      "book_value_issue": "negative",
+      "market_cap": 74887290880.0,
+      "market_cap_issue": null,
+      "upside_pct": 13.96,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 106.4074
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "每股淨值為負（-2.60），股價淨值比不適用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "PDD",
+      "name": "PDD Holdings Inc.",
+      "sector": "Unknown",
+      "sub_industry": "",
+      "close": 77.45,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -1.97,
+      "change_1m_pct": -5.12,
+      "consensus_target": 113.6399,
+      "target_median": 112.46025,
+      "target_high": 151.25346,
+      "target_low": 82.12914,
+      "target_dispersion_pct": 60.83,
+      "range_source": "yahoo",
+      "analyst_count": 33,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.02857,
+      "recommendation_key": "buy",
+      "book_value": 47.66451,
+      "price_to_book": 1.625,
+      "book_value_issue": null,
+      "market_cap": 110242054144.0,
+      "market_cap_issue": null,
+      "upside_pct": 46.73,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 113.6399
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    },
+    {
+      "ticker": "PYPL",
+      "name": "PayPal",
+      "sector": "Financials",
+      "sub_industry": "Transaction & Payment Processing Services",
+      "close": 57.89,
+      "close_date": "2026-11-18",
+      "change_1w_pct": -2.67,
+      "change_1m_pct": 1.31,
+      "consensus_target": 57.3136,
+      "target_median": 58.0,
+      "target_high": 80.0,
+      "target_low": 36.0,
+      "target_dispersion_pct": 76.77,
+      "range_source": "yahoo",
+      "analyst_count": 33,
+      "basis": "consensus",
+      "firm_targets": [],
+      "duplicates_removed": 0,
+      "recommendation_mean": 2.97674,
+      "recommendation_key": "hold",
+      "book_value": 23.277,
+      "price_to_book": 2.487,
+      "book_value_issue": null,
+      "market_cap": 48086810624.0,
+      "market_cap_issue": null,
+      "upside_pct": -1.0,
+      "implausible": false,
+      "source_targets": {
+        "yahoo": 57.3136
+      },
+      "sources_used": [
+        "yahoo"
+      ],
+      "confidence": "中",
+      "notes": [
+        "finnhub：連續 5 檔以相同方式失敗（RuntimeError），研判此來源／方案不支援，本次執行已停用",
+        "逐機構來源：FMP 回應 402：免費方案不支援逐機構目標價端點（需付費方案），本次執行已停用此來源"
+      ]
+    }
+  ]
+}
