@@ -2448,6 +2448,9 @@ FCRS-W,"FutureCrest Acquisition Corp. Redeemable warrants, each whole warrant ex
 FCUV,Focus Universal Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 FCX,"Freeport-McMoRan, Inc. Common Stock",N,False,common,nasdaqtrader
 FDBC,"Fidelity D & D Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+FDGX,First Digital Acquisition Corp Ltd. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+FDGXU,First Digital Acquisition Corp Ltd. - Units,NASDAQ,False,unit,nasdaqtrader
+FDGXW,First Digital Acquisition Corp Ltd. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 FDMM,Freedom Metals Acquisition Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 FDMMU,Freedom Metals Acquisition Corp. - Units,NASDAQ,False,unit,nasdaqtrader
 FDMMW,Freedom Metals Acquisition Corp. - Warrants,NASDAQ,False,warrant,nasdaqtrader
@@ -2568,6 +2571,7 @@ FMACR,Future Money Acquisition Corporation - Rights,NASDAQ,False,right,nasdaqtra
 FMACU,Future Money Acquisition Corporation - Units,NASDAQ,False,unit,nasdaqtrader
 FMAO,"Farmers & Merchants Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 FMBH,"First Mid Bancshares, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+FMBM,F&M Bank Corp. Common Stock,A,False,common,nasdaqtrader
 FMC,FMC Corporation Common Stock,N,False,common,nasdaqtrader
 FMFC,Kandal M Venture Limited - Class A ordinary Shares,NASDAQ,False,common,nasdaqtrader
 FMN,Federated Hermes Premier Municipal Income Fund,N,False,common,nasdaqtrader
@@ -3032,6 +3036,7 @@ GTY,Getty Realty Corporation Common Stock,N,False,common,nasdaqtrader
 GUAC,Berto Acquisition Corp. II - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 GUACU,Berto Acquisition Corp. II - Units,NASDAQ,False,unit,nasdaqtrader
 GUACW,Berto Acquisition Corp. II - Warrants,NASDAQ,False,warrant,nasdaqtrader
+GUER,"Guerrilla RF, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 GUG,Guggenheim Active Allocation Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 GUNN,Gunnison Copper Corp. American Depositary Shares (each representing thirty (30) Common Shares),A,False,common,nasdaqtrader
 GURE,"Gulf Resources, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -3755,9 +3760,6 @@ KOP,Koppers Holdings Inc. Common Stock,N,False,common,nasdaqtrader
 KOPN,Kopin Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 KOS,Kosmos Energy Ltd. Common Shares (DE),N,False,common,nasdaqtrader
 KOSS,Koss Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
-KOYN,CSLM Digital Asset Acquisition Corp III - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-KOYNU,CSLM Digital Asset Acquisition Corp III - Units,NASDAQ,False,unit,nasdaqtrader
-KOYNW,CSLM Digital Asset Acquisition Corp III - Warrants,NASDAQ,False,warrant,nasdaqtrader
 KPET,KPET Ultra Paceline Corporation Class A Ordinary Shares,N,False,common,nasdaqtrader
 KPET-U,"KPET Ultra Paceline Corporation Units, each consisting of one Class A Ordinary Share and one-sixth of one Warrant",N,False,warrant,nasdaqtrader
 KPET-W,"KPET Ultra Paceline Corporation Warrants, each whole warrant exercisable for one Class A ordinary share at an exercise price of $11.50 per share",N,False,warrant,nasdaqtrader
@@ -4050,7 +4052,6 @@ LWLG,"Lightwave Logic, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 LX,LexinFintech Holdings Ltd. - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 LXEH,"Lixiang Education Holding Co., Ltd. - American Depositary Shares",NASDAQ,False,common,nasdaqtrader
 LXEO,"Lexeo Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-LXFR,Luxfer Holdings PLC Ordinary Shares,N,False,common,nasdaqtrader
 LXRX,"Lexicon Pharmaceuticals, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 LXU,"LSB Industries, Inc. Common Stock",N,False,common,nasdaqtrader
 LYB,LyondellBasell Industries NV Ordinary Shares Class A (Netherlands),N,False,common,nasdaqtrader
@@ -5968,7 +5969,6 @@ SCI,Service Corporation International Common Stock,N,False,common,nasdaqtrader
 SCII,SC II Acquisition Corp. - Class A ordinary share,NASDAQ,False,common,nasdaqtrader
 SCIIR,SC II Acquisition Corp. - Rights,NASDAQ,False,right,nasdaqtrader
 SCIIU,SC II Acquisition Corp. - Units,NASDAQ,False,unit,nasdaqtrader
-SCKT,"Socket Mobile, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SCL,Stepan Company Common Stock,N,False,common,nasdaqtrader
 SCLX,Scilex Holding Company - Common Stock,NASDAQ,False,common,nasdaqtrader
 SCLXW,Scilex Holding Company - Warrant,NASDAQ,False,warrant,nasdaqtrader
@@ -6324,7 +6324,6 @@ SSNC,"SS&C Technologies Holdings, Inc. - Common Stock",NASDAQ,False,common,nasda
 SSP,E.W. Scripps Company (The) - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 SSRM,SSR Mining Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 SST,"System1, Inc. Class A Common Stock",N,False,common,nasdaqtrader
-SSTI,"SoundThinking, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SSTK,"Shutterstock, Inc. Common Stock",N,False,common,nasdaqtrader
 SSYS,"Stratasys, Ltd. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ST,Sensata Technologies Holding plc Ordinary Shares,N,False,common,nasdaqtrader
