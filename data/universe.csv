@@ -394,7 +394,6 @@ AMOD,"Alpha Modus Holdings, Inc. - Class A Common Stock",NASDAQ,False,common,nas
 AMODW,"Alpha Modus Holdings, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
 AMP,"Ameriprise Financial, Inc. Common Stock",N,False,common,nasdaqtrader
 AMPG,"Amplitech Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-AMPGZ,"Amplitech Group, Inc. - Series B Right",NASDAQ,False,right,nasdaqtrader
 AMPH,"Amphastar Pharmaceuticals, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 AMPL,"Amplitude, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 AMPX,"Amprius Technologies, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -441,6 +440,7 @@ ANNAW,"AleAnna, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
 ANNX,"Annexon, Inc. - common stock",NASDAQ,False,common,nasdaqtrader
 ANPA,Rich Sparkle Holdings Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ANRO,"Alto Neuroscience, Inc. Common Stock",N,False,common,nasdaqtrader
+ANT,"Anthropic, PBC - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 ANTA,Antalpha Platform Holding Company - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ANTX,"AN2 Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 ANVS,"Annovis Bio, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -2242,6 +2242,7 @@ ENTX,Entera Bio Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 ENVA,"Enova International, Inc. Common Stock",N,False,common,nasdaqtrader
 ENVB,"Enveric Biosciences, Inc.  - Common Stock",NASDAQ,False,common,nasdaqtrader
 ENVX,Enovix Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
+ENVXW,Enovix Corporation - Warrants,NASDAQ,False,warrant,nasdaqtrader
 EOCN,Eocene Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 EOD,Allspring Global Dividend Opportunity Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 EOG,"EOG Resources, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -4176,7 +4177,6 @@ MELI,"MercadoLibre, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 MENS,Jyong Biotech Ltd. - Ordinary shares,NASDAQ,False,common,nasdaqtrader
 MEOH,Methanex Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 MER-PK,"Bank of America Corporation Income Capital Obligation Notes initially due December 15, 2066",N,False,preferred,nasdaqtrader
-MERC,Mercer International Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 MESH,Meshflow Acquisition Corp. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 MESHU,Meshflow Acquisition Corp. - Units,NASDAQ,False,unit,nasdaqtrader
 MESHW,Meshflow Acquisition Corp. - Warrants,NASDAQ,False,warrant,nasdaqtrader
@@ -4970,13 +4970,9 @@ ONTO,Onto Innovation Inc. Common Stock,N,False,common,nasdaqtrader
 OOMA,"Ooma, Inc. Common Stock",N,False,common,nasdaqtrader
 OPAD,Offerpad Solutions Inc.  - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 OPAL,OPAL Fuels Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
-OPAY,"OPay Limited American Depositary Shares, each representing ten Ordinary Shares",N,False,common,nasdaqtrader
 OPBK,OP Bancorp - Common Stock,NASDAQ,False,common,nasdaqtrader
 OPCH,"Option Care Health, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 OPEN,Opendoor Technologies Inc  - Common Stock,NASDAQ,False,common,nasdaqtrader
-OPENL,"Opendoor Technologies Inc  - Series A Warrants, each whole warrant exercisable to purchase one share of Common Stock at an exercise price of $13.00 per warrant",NASDAQ,False,warrant,nasdaqtrader
-OPENW,"Opendoor Technologies Inc  - Series K Warrants, each whole warrant exercisable to purchase one share of Common Stock at an exercise price of $9.00 per warrant",NASDAQ,False,warrant,nasdaqtrader
-OPENZ,"Opendoor Technologies Inc  - Series Z Warrants, each whole warrant exercisable to purchase one share of Common Stock at an exercise price of $17.00 per warrant",NASDAQ,False,warrant,nasdaqtrader
 OPFI,OppFi Inc. Class A Common Stock,N,False,common,nasdaqtrader
 OPHC,"OptimumBank Holdings, Inc. Common Stock",A,False,common,nasdaqtrader
 OPHI,CollPlant Biotechnologies Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -6227,6 +6223,7 @@ SOLV,Solventum Corporation Common Stock,N,False,common,nasdaqtrader
 SOMN,Southern Company (The) 2025 Series A Corporate Units,N,False,unit,nasdaqtrader
 SON,Sonoco Products Company Common Stock,N,False,common,nasdaqtrader
 SONM,"DNA X, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+SONN,Southern Company (The) 2026 Series A Corporate Units,N,False,unit,nasdaqtrader
 SONO,"Sonos, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 SONY,Sony Group Corporation American Depositary Shares,N,False,common,nasdaqtrader
 SOPH,SOPHiA GENETICS SA - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -6912,7 +6909,6 @@ UTI,Universal Technical Institute Inc Common Stock,N,False,common,nasdaqtrader
 UTL,UNITIL Corporation Common Stock,N,False,common,nasdaqtrader
 UTMD,"Utah Medical Products, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 UTSI,UTStarcom Holdings Corp - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-UTZ,Utz Brands Inc Class A Common Stock,N,False,common,nasdaqtrader
 UUUU,Energy Fuels Inc Ordinary Shares (Canada),A,False,common,nasdaqtrader
 UVE,UNIVERSAL INSURANCE HOLDINGS INC Common Stock,N,False,common,nasdaqtrader
 UVSP,Univest Financial Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
