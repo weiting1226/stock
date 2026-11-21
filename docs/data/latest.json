@@ -1,13 +1,13 @@
 {
-  "as_of": "2026-11-20",
-  "generated_at": "2026-11-20T03:36:45.848564Z",
+  "as_of": "2026-11-21",
+  "generated_at": "2026-11-21T03:19:26.021079Z",
   "items": {
     "fed_bs_3m_chg": {
       "key": "fed_bs_3m_chg",
       "label": "Fed資產負債表年增率之3個月變化(pp)",
       "raw_value": 1.0382997171837216,
       "score": 1,
-      "data_date": "2026-11-20",
+      "data_date": "2026-11-21",
       "source": "FRED WALCL",
       "confidence": "高",
       "note": ""
@@ -17,7 +17,7 @@
       "label": "ON RRP 12個月百分位",
       "raw_value": null,
       "score": 0,
-      "data_date": "2026-11-20",
+      "data_date": "2026-11-21",
       "source": "FRED RRPONTSYD",
       "confidence": "高",
       "note": "結構性休眠(12個月皆<$100B)"
@@ -27,7 +27,7 @@
       "label": "M2年增率之3個月變化(pp)",
       "raw_value": 0.34899523958629164,
       "score": 0,
-      "data_date": "2026-11-20",
+      "data_date": "2026-11-21",
       "source": "FRED M2SL",
       "confidence": "中",
       "note": "月頻，已套用約4週發布時滯"
@@ -37,7 +37,7 @@
       "label": "HY OAS 水準(%)",
       "raw_value": 3.47,
       "score": 1,
-      "data_date": "2026-11-20",
+      "data_date": "2026-11-21",
       "source": "FRED BAMLH0A0HYM2",
       "confidence": "高",
       "note": ""
@@ -47,7 +47,7 @@
       "label": "HY OAS 20日變化(bp)",
       "raw_value": 20.000000000000018,
       "score": 0,
-      "data_date": "2026-11-20",
+      "data_date": "2026-11-21",
       "source": "FRED BAMLH0A0HYM2",
       "confidence": "高",
       "note": ""
@@ -57,7 +57,7 @@
       "label": "2Y-10Y公債利差(bp)",
       "raw_value": 27.000000000000046,
       "score": 0,
-      "data_date": "2026-11-20",
+      "data_date": "2026-11-21",
       "source": "FRED DGS10/DGS2",
       "confidence": "高",
       "note": ""
@@ -67,7 +67,7 @@
       "label": "SOFR-IORB利差(bp)",
       "raw_value": 0.0,
       "score": 0,
-      "data_date": "2026-11-20",
+      "data_date": "2026-11-21",
       "source": "FRED SOFR/IORB",
       "confidence": "高",
       "note": ""
@@ -75,9 +75,9 @@
     "move_index": {
       "key": "move_index",
       "label": "MOVE指數",
-      "raw_value": 96.03630065917969,
-      "score": 0,
-      "data_date": "2026-11-20",
+      "raw_value": 106.31189727783203,
+      "score": -1,
+      "data_date": "2026-11-21",
       "source": "Yahoo Finance ^MOVE",
       "confidence": "高",
       "note": ""
@@ -85,19 +85,19 @@
     "ndx_breadth_200d": {
       "key": "ndx_breadth_200d",
       "label": "NDX站上200日線比例(%)",
-      "raw_value": 39.39,
+      "raw_value": 35.35,
       "score": -1,
-      "data_date": "2026-11-20",
+      "data_date": "2026-11-21",
       "source": "TradingView NDX 成分股",
       "confidence": "中",
-      "note": "101 檔成分股；站上50日線 39.6%、20日線 19.8%；以目前成分股清單回推，非時點正確(look-back bias)"
+      "note": "101 檔成分股；站上50日線 31.68%、20日線 13.86%；以目前成分股清單回推，非時點正確(look-back bias)"
     },
     "vix_level": {
       "key": "vix_level",
       "label": "VIX",
-      "raw_value": 28.440000534057617,
-      "score": -1,
-      "data_date": "2026-11-20",
+      "raw_value": 35.88999938964844,
+      "score": -2,
+      "data_date": "2026-11-21",
       "source": "Yahoo Finance ^VIX",
       "confidence": "高",
       "note": ""
@@ -105,9 +105,9 @@
     "ivts": {
       "key": "ivts",
       "label": "VIX/VIX3M期限結構",
-      "raw_value": 1.0521642549609234,
-      "score": -1,
-      "data_date": "2026-11-20",
+      "raw_value": 1.1599870320022148,
+      "score": -2,
+      "data_date": "2026-11-21",
       "source": "Yahoo Finance ^VIX / ^VIX3M",
       "confidence": "高",
       "note": ""
@@ -117,7 +117,7 @@
       "label": "融資餘額年增率(%)",
       "raw_value": 31.38587511340496,
       "score": 0,
-      "data_date": "2026-11-20",
+      "data_date": "2026-11-21",
       "source": "FINRA margin statistics",
       "confidence": "中",
       "note": "月頻，已套用文件規定之2個月發布時滯"
@@ -125,9 +125,9 @@
     "dxy_1m_chg": {
       "key": "dxy_1m_chg",
       "label": "DXY美元指數月變動(%)",
-      "raw_value": 2.040679410409263,
+      "raw_value": 2.194661661395436,
       "score": -1,
-      "data_date": "2026-11-20",
+      "data_date": "2026-11-21",
       "source": "Yahoo Finance DX-Y.NYB",
       "confidence": "高",
       "note": ""
@@ -135,9 +135,9 @@
     "usdjpy_20d_chg": {
       "key": "usdjpy_20d_chg",
       "label": "USD/JPY 20日變化(%)",
-      "raw_value": 0.7898419611671592,
+      "raw_value": 2.053112176092986,
       "score": 0,
-      "data_date": "2026-11-20",
+      "data_date": "2026-11-21",
       "source": "Yahoo Finance JPY=X",
       "confidence": "高",
       "note": ""
@@ -155,7 +155,7 @@
     "fomc_decision": {
       "key": "fomc_decision",
       "label": "FOMC決議偏向",
-      "raw_value": "無異議；目標區間上緣 4.0%→4.0%｜AI摘要：此文件僅為聯準會發布2026年10月27-28日FOMC會議紀要的新聞稿公告，並未包含會後聲明的實際內容，無法從中擷取利率決議、投票結果或政策聲明語氣等資訊。",
+      "raw_value": "無異議；目標區間上緣 4.0%→4.0%｜AI摘要：此文件僅為聯準會發布FOMC會議紀要的新聞稿頁面，內容為網站導覽與公告連結，並未包含實際會後聲明之決議、利率變動或投票細節，因此無法從中擷取具體貨幣政策決議資訊。",
       "score": 0,
       "data_date": "2026-11-18",
       "source": "federalreserve.gov 聲明 + AI 分類（claude-sonnet-5）",
@@ -167,7 +167,7 @@
       "label": "市場隱含12個月路徑(CME FedWatch)",
       "raw_value": 74.5,
       "score": -1,
-      "data_date": "2026-11-20",
+      "data_date": "2026-11-21",
       "source": "1年期公債殖利率近似（非 FedWatch）",
       "confidence": "低",
       "note": "1年期公債 4.62% vs 目前 3.88%（+74bp）｜以一年期公債殖利率近似，含期限溢酬，非 FedWatch 的市場隱含機率；近似法精度不足以區分 1 碼與 2 碼（期限溢酬與一碼同量級），分數由 -2 保守調整為 -1｜FedWatch 未採用：CME FedWatch 頁面無法取得；已嘗試 —— cme-fedwatch-tool.html: HTTP 403（可能是 Cloudflare 或需登入）｜countdown-to-fomc.html: HTTP 403（可能是 Cloudflare 或需登入）"
@@ -177,7 +177,7 @@
       "label": "30Y殖利率60日動能",
       "raw_value": 24.00000000000002,
       "score": -1,
-      "data_date": "2026-11-20",
+      "data_date": "2026-11-21",
       "source": "FRED DGS30",
       "confidence": "高",
       "note": ""
@@ -186,8 +186,8 @@
   "category_scores": {
     "① 總體貨幣流動性": 0.3333,
     "② 資金成本與信用": 0.25,
-    "③ 市場微觀結構": -0.5,
-    "④ 風險偏好情緒": -0.6667,
+    "③ 市場微觀結構": -1.0,
+    "④ 風險偏好情緒": -1.3333,
     "⑤ 跨資產資金流向": -0.5,
     "⑥ 政策方向": -0.6667
   },
@@ -199,16 +199,23 @@
     "⑤ 跨資產資金流向": 0.15,
     "⑥ 政策方向": 0.3
   },
-  "composite_score": -0.3417,
-  "light": "🟡 黃",
+  "composite_score": -0.4917,
+  "light": "🔴 紅",
   "structural_warnings": {
     "dominance": null,
-    "divergence": []
+    "divergence": [
+      {
+        "pair": "② vs ④",
+        "credit_funding": 0.25,
+        "other": -1.333,
+        "gap": 1.583
+      }
+    ]
   },
   "gate_a": {
     "status": "觸發：禁用槓桿",
     "cap": "QQQ",
-    "detail": "NDX(26517.1) < 200日線(28070.9)"
+    "detail": "NDX(25029.0) < 200日線(28073.3)"
   },
   "gate_b": {
     "checks": {
@@ -220,7 +227,7 @@
       },
       "hy_oas": {
         "triggered": "False",
-        "percentile": 89.36,
+        "percentile": 89.48,
         "value": 3.47,
         "approx": false
       },
@@ -237,8 +244,8 @@
       },
       "vix_low_skew_high": {
         "triggered": "False",
-        "vix_percentile": 91.98,
-        "skew_percentile": 62.9,
+        "vix_percentile": 97.7,
+        "skew_percentile": 55.99,
         "approx": false
       }
     },
@@ -250,7 +257,7 @@
     "cap": null,
     "downgrade_one_level": true,
     "reasons": [
-      "綜合分數 -0.3417 落在燈號邊界 ±0.10 內，降一級處理"
+      "綜合分數 -0.4917 落在燈號邊界 ±0.10 內，降一級處理"
     ]
   },
   "position": {
@@ -273,23 +280,23 @@
   },
   "ndx_breadth_detail": {
     "constituents": 101,
-    "pct_above_200dma": 39.39,
+    "pct_above_200dma": 35.35,
     "pct_above_200dma_sample": 99,
-    "pct_above_50dma": 39.6,
+    "pct_above_50dma": 31.68,
     "pct_above_50dma_sample": 101,
-    "pct_above_20dma": 19.8,
+    "pct_above_20dma": 13.86,
     "pct_above_20dma_sample": 101,
-    "advancers": 11,
-    "decliners": 90,
-    "advance_decline_ratio": 0.12,
-    "median_rsi": 42.78,
+    "advancers": 18,
+    "decliners": 83,
+    "advance_decline_ratio": 0.22,
+    "median_rsi": 37.78,
     "overbought_rsi70": 0,
-    "oversold_rsi30": 7,
+    "oversold_rsi30": 20,
     "near_52w_high": 20,
-    "near_52w_low": 13,
-    "top10_market_cap_pct": 68.95,
+    "near_52w_low": 21,
+    "top10_market_cap_pct": 68.92,
     "source": "tradingview",
-    "as_of": "2026-11-20"
+    "as_of": "2026-11-21"
   },
   "missing_or_low_confidence_count": 2
 }
