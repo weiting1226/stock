@@ -681,6 +681,7 @@ AVTX,"Avalo Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 AVX,Avax One Technology Ltd. - Common Shares,NASDAQ,False,common,nasdaqtrader
 AVXL,Anavex Life Sciences Corp. - Common Stock,NASDAQ,False,common,nasdaqtrader
 AVY,Avery Dennison Corporation Common Stock,N,False,common,nasdaqtrader
+AVZO,"Avenzo Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 AWF,Alliancebernstein Global High Income Fund,N,False,common,nasdaqtrader
 AWI,Armstrong World Industries Inc Common Stock,N,False,common,nasdaqtrader
 AWK,"American Water Works Company, Inc. Common Stock",N,False,common,nasdaqtrader
@@ -936,10 +937,9 @@ BIOA,"BioAge Labs, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BIOT,Instinct Bio Technical Company Holdings Inc. - Common stock,NASDAQ,False,common,nasdaqtrader
 BIOTW,Instinct Bio Technical Company Holdings Inc. - Warrants,NASDAQ,False,warrant,nasdaqtrader
 BIOX,Bioceres Crop Solutions Corp. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-BIP,Brookfield Infrastructure Partners LP Limited Partnership Units,N,False,common,nasdaqtrader
-BIP-PA,"Brookfield Infrastructure Partners LP 5.125% Class A Preferred Limited Partnership Units, Series 13",N,False,preferred,nasdaqtrader
-BIP-PB,"Brookfield Infrastructure Partners LP 5.000% Class A Preferred Limited Partnership Units, Series 14",N,False,preferred,nasdaqtrader
-BIPC,Brookfield Infrastructure Corporation Brookfield Infrastructure Corporation,N,False,common,nasdaqtrader
+BIP,Brookfield Infrastructure Partners Inc. Class A Subordinate Voting Shares,N,False,common,nasdaqtrader
+BIPF-PA,"Brookfield Infrastructure Partners LP 5.125% Class A Preferred Limited Partnership Units, Series 13",N,False,preferred,nasdaqtrader
+BIPF-PB,"Brookfield Infrastructure Partners LP 5.000% Class A Preferred Limited Partnership Units, Series 14",N,False,preferred,nasdaqtrader
 BIPH,Brookfield Infrastructure Corporation 5.000% Subordinated Notes due 2081,N,False,note,nasdaqtrader
 BIPI,BIP Bermuda Holdings I Limited 5.125% Perpetual Subordinated Notes,N,False,note,nasdaqtrader
 BIPJ,Brookfield Infrastructure Corporation 7.250% Subordinated Notes due 2084,N,False,note,nasdaqtrader
@@ -957,9 +957,6 @@ BJDX,"Bluejay Diagnostics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BJRI,"BJ's Restaurants, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BKD,Brookdale Senior Living Inc. Common Stock,N,False,common,nasdaqtrader
 BKE,"Buckle, Inc. (The) Common Stock",N,False,common,nasdaqtrader
-BKHA,Black Hawk Acquisition Corporation - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-BKHAR,Black Hawk Acquisition Corporation - Rights,NASDAQ,False,right,nasdaqtrader
-BKHAU,Black Hawk Acquisition Corporation - Units,NASDAQ,False,unit,nasdaqtrader
 BKKT,"Bakkt, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 BKNG,Booking Holdings Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 BKR,Baker Hughes Company - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -2363,6 +2360,8 @@ EVOXU,Evolution Global Acquisition Corp - Units,NASDAQ,False,unit,nasdaqtrader
 EVOXW,Evolution Global Acquisition Corp - Warrants,NASDAQ,False,warrant,nasdaqtrader
 EVR,Evercore Inc. Class A Common Stock,N,False,common,nasdaqtrader
 EVRG,"Evergy, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+EVRL,Everli Global Holdings - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
+EVRLW,Everli Global Holdings - Warrant,NASDAQ,False,warrant,nasdaqtrader
 EVT,Eaton Vance Tax Advantaged Dividend Income Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 EVTC,"Evertec, Inc. Common Stock",N,False,common,nasdaqtrader
 EVTL,Vertical Aerospace Ltd. Ordinary Shares,N,False,common,nasdaqtrader
@@ -2802,7 +2801,7 @@ GERN,Geron Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 GEV,GE Vernova Inc. Common Stock,N,False,common,nasdaqtrader
 GEVO,"Gevo, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 GF,"New Germany Fund, Inc. (The) Common Stock",N,False,common,nasdaqtrader
-GFAI,"Guardforce AI Co., Limited - Ordinary Shares",NASDAQ,False,common,nasdaqtrader
+GFAI,"Guardforce AI Co., Limited - Class A Ordinary Shares",NASDAQ,False,common,nasdaqtrader
 GFF,Griffon Corporation Common Stock,N,False,common,nasdaqtrader
 GFI,Gold Fields Limited American Depositary Shares,N,False,common,nasdaqtrader
 GFL,"GFL Environmental Inc. Subordinate voting shares, no par value",N,False,common,nasdaqtrader
@@ -4074,9 +4073,6 @@ MA,Mastercard Incorporated Common Stock,N,False,common,nasdaqtrader
 MAA,"Mid-America Apartment Communities, Inc. Common Stock",N,False,common,nasdaqtrader
 MAAS,Maase Inc. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 MAC,Macerich Company (The) Common Stock,N,False,common,nasdaqtrader
-MACI,Melar Acquisition Corp. I - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-MACIU,Melar Acquisition Corp. I - Unit,NASDAQ,False,unit,nasdaqtrader
-MACIW,Melar Acquisition Corp. I - Warrant,NASDAQ,False,warrant,nasdaqtrader
 MAGH,Magnitude International Ltd - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 MAGN,Magnera Corporation Common Stock,N,False,common,nasdaqtrader
 MAIA,"MAIA Biotechnology, Inc. Common Stock",A,False,common,nasdaqtrader
@@ -5735,7 +5731,6 @@ RLJ-PA,RLJ Lodging Trust $1.95 Series A Cumulative Convertible  Preferred Shares
 RLMD,"Relmada Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 RLTY,Cohen & Steers Real Estate Opportunities and Income Fund Common Shares of Beneficial Interest,N,False,common,nasdaqtrader
 RLX,"RLX Technology Inc. American Depositary Shares, each representing the right to receive one (1) Class A ordinary share",N,False,common,nasdaqtrader
-RLYB,Rallybio Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 RM,Regional Management Corp. Common Stock,N,False,common,nasdaqtrader
 RMBI,"Richmond Mutual Bancorporation, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 RMBS,"Rambus, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -6960,6 +6955,7 @@ VERA,"Vera Therapeutics, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaq
 VERI,"Veritone, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 VERU,Veru Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 VERX,"Vertex, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
+VESI,"Vesicor Therapeutics Holdings, Inc. - Class A Ordinary Shares",NASDAQ,False,common,nasdaqtrader
 VET,Vermilion Energy Inc. Common (Canada),N,False,common,nasdaqtrader
 VFC,V.F. Corporation Common Stock,N,False,common,nasdaqtrader
 VFF,"Village Farms International, Inc. - Common Shares",NASDAQ,False,common,nasdaqtrader
