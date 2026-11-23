@@ -1,8 +1,8 @@
 {
- "as_of": "2026-11-16",
+ "as_of": "2026-11-23",
  "objective": "sharpe",
  "period": {
-  "start": "2011-11-16",
+  "start": "2011-11-23",
   "end": "2026-08-10"
  },
  "candidates": 142,
@@ -12,26 +12,26 @@
   "sgov_center": -1.0,
   "buffer": 0.2,
   "metrics": {
-   "total_return_pct": 8810.43,
-   "cagr_pct": 35.64,
-   "volatility_pct": 35.75,
-   "sharpe": 1.035,
+   "total_return_pct": 9473.61,
+   "cagr_pct": 36.36,
+   "volatility_pct": 35.73,
+   "sharpe": 1.051,
    "max_drawdown_pct": -41.78,
-   "win_rate_pct": 55.15,
-   "years": 14.73,
-   "days": 3701,
-   "rebalances": 78
+   "win_rate_pct": 55.19,
+   "years": 14.71,
+   "days": 3696,
+   "rebalances": 77
   },
   "warning": "在同一段歷史上挑出來的最佳值，必然偏樂觀，不可當成預期績效"
  },
  "walk_forward": {
   "metrics": {
-   "total_return_pct": 206.37,
-   "cagr_pct": 10.14,
-   "volatility_pct": 25.79,
-   "sharpe": 0.506,
-   "max_drawdown_pct": -50.61,
-   "win_rate_pct": 57.28,
+   "total_return_pct": 543.77,
+   "cagr_pct": 17.42,
+   "volatility_pct": 29.77,
+   "sharpe": 0.692,
+   "max_drawdown_pct": -49.66,
+   "win_rate_pct": 57.25,
    "years": 11.59,
    "days": 2905
   },
@@ -42,8 +42,8 @@
     "tqqq_center": 0.4,
     "sgov_center": -1.0,
     "buffer": 0.0,
-    "train_score": 1.31,
-    "train_cagr_pct": 52.42,
+    "train_score": 1.336,
+    "train_cagr_pct": 54.07,
     "test_return_pct": 0.84
    },
    {
@@ -52,8 +52,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -1.0,
     "buffer": 0.1,
-    "train_score": 1.08,
-    "train_cagr_pct": 25.02,
+    "train_score": 1.109,
+    "train_cagr_pct": 25.91,
     "test_return_pct": -12.99
    },
    {
@@ -62,8 +62,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -1.0,
     "buffer": 0.3,
-    "train_score": 0.878,
-    "train_cagr_pct": 20.32,
+    "train_score": 0.9,
+    "train_cagr_pct": 20.99,
     "test_return_pct": 94.1
    },
    {
@@ -72,8 +72,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -1.0,
     "buffer": 0.3,
-    "train_score": 1.168,
-    "train_cagr_pct": 30.31,
+    "train_score": 1.186,
+    "train_cagr_pct": 30.96,
     "test_return_pct": 7.05
    },
    {
@@ -82,8 +82,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -1.0,
     "buffer": 0.2,
-    "train_score": 1.117,
-    "train_cagr_pct": 25.27,
+    "train_score": 1.134,
+    "train_cagr_pct": 25.79,
     "test_return_pct": 20.21
    },
    {
@@ -92,19 +92,19 @@
     "tqqq_center": 0.8,
     "sgov_center": -1.0,
     "buffer": 0.2,
-    "train_score": 1.129,
-    "train_cagr_pct": 24.65,
+    "train_score": 1.145,
+    "train_cagr_pct": 25.09,
     "test_return_pct": 45.07
    },
    {
     "year": 2021,
-    "label": "T+0.8/S-0.4/B0.10",
-    "tqqq_center": 0.8,
-    "sgov_center": -0.4,
-    "buffer": 0.1,
-    "train_score": 1.205,
-    "train_cagr_pct": 30.12,
-    "test_return_pct": -1.33
+    "label": "T+0.2/S+0.0/B0.00",
+    "tqqq_center": 0.2,
+    "sgov_center": 0.0,
+    "buffer": 0.0,
+    "train_score": 1.219,
+    "train_cagr_pct": 51.45,
+    "test_return_pct": 78.3
    },
    {
     "year": 2022,
@@ -112,8 +112,8 @@
     "tqqq_center": 0.2,
     "sgov_center": -0.4,
     "buffer": 0.1,
-    "train_score": 1.21,
-    "train_cagr_pct": 53.4,
+    "train_score": 1.229,
+    "train_cagr_pct": 54.63,
     "test_return_pct": -41.47
    },
    {
@@ -122,8 +122,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -0.2,
     "buffer": 0.3,
-    "train_score": 1.069,
-    "train_cagr_pct": 24.84,
+    "train_score": 1.08,
+    "train_cagr_pct": 25.17,
     "test_return_pct": 11.46
    },
    {
@@ -132,8 +132,8 @@
     "tqqq_center": 0.8,
     "sgov_center": -0.2,
     "buffer": 0.3,
-    "train_score": 1.063,
-    "train_cagr_pct": 23.69,
+    "train_score": 1.073,
+    "train_cagr_pct": 23.99,
     "test_return_pct": 26.92
    },
    {
@@ -142,19 +142,19 @@
     "tqqq_center": 0.8,
     "sgov_center": -0.2,
     "buffer": 0.3,
-    "train_score": 1.077,
-    "train_cagr_pct": 23.76,
+    "train_score": 1.087,
+    "train_cagr_pct": 24.04,
     "test_return_pct": 0.36
    },
    {
     "year": 2026,
-    "label": "T+0.8/S-0.2/B0.30",
-    "tqqq_center": 0.8,
-    "sgov_center": -0.2,
-    "buffer": 0.3,
-    "train_score": 1.019,
-    "train_cagr_pct": 21.93,
-    "test_return_pct": 17.52
+    "label": "T+0.4/S-1.0/B0.20",
+    "tqqq_center": 0.4,
+    "sgov_center": -1.0,
+    "buffer": 0.2,
+    "train_score": 1.033,
+    "train_cagr_pct": 35.23,
+    "test_return_pct": 36.65
    }
   ],
   "note": "每一年的門檻只用該年之前的資料選出；這才是這套方法真正的成績"
@@ -164,15 +164,15 @@
   "sgov_center": -0.4,
   "buffer": 0.15,
   "metrics": {
-   "total_return_pct": 6049.35,
-   "cagr_pct": 32.26,
-   "volatility_pct": 35.04,
-   "sharpe": 0.977,
+   "total_return_pct": 6507.02,
+   "cagr_pct": 32.97,
+   "volatility_pct": 35.01,
+   "sharpe": 0.993,
    "max_drawdown_pct": -41.78,
-   "win_rate_pct": 55.63,
-   "years": 14.73,
-   "days": 3701,
-   "rebalances": 88
+   "win_rate_pct": 55.68,
+   "years": 14.71,
+   "days": 3696,
+   "rebalances": 87
   },
   "metrics_same_window_as_walk_forward": {
    "total_return_pct": 2073.11,
@@ -188,14 +188,14 @@
  },
  "qqq_buy_and_hold": {
   "metrics": {
-   "total_return_pct": 1160.92,
-   "cagr_pct": 18.77,
-   "volatility_pct": 20.6,
-   "sharpe": 0.939,
+   "total_return_pct": 1252.73,
+   "cagr_pct": 19.37,
+   "volatility_pct": 20.59,
+   "sharpe": 0.964,
    "max_drawdown_pct": -35.62,
-   "win_rate_pct": 55.65,
-   "years": 14.73,
-   "days": 3702
+   "win_rate_pct": 55.69,
+   "years": 14.71,
+   "days": 3697
   },
   "metrics_same_window_as_walk_forward": {
    "total_return_pct": 610.71,
@@ -213,85 +213,85 @@
   "note": "逐年前進需留訓練期，樣本外從第 5 年才開始；同期欄位才可直接比較"
  },
  "plateau": {
-  "best_score": 1.035,
-  "median_score": 0.938,
-  "z_vs_all": 1.65,
+  "best_score": 1.051,
+  "median_score": 0.947,
+  "z_vs_all": 1.74,
   "expected_z_from_noise_alone": 3.15,
   "best_is_within_noise": true,
-  "score_spread": 0.312,
-  "score_sd": 0.0592,
+  "score_spread": 0.32,
+  "score_sd": 0.0599,
   "top_n": 10,
-  "top_score_spread": 0.029,
+  "top_score_spread": 0.034,
   "top_params": [
    {
     "label": "T+0.4/S-1.0/B0.20",
-    "score": 1.035,
+    "score": 1.051,
     "tqqq_center": 0.4,
     "sgov_center": -1.0,
     "buffer": 0.2
    },
    {
-    "label": "T+0.8/S-0.2/B0.30",
-    "score": 1.032,
-    "tqqq_center": 0.8,
-    "sgov_center": -0.2,
-    "buffer": 0.3
-   },
-   {
     "label": "T+0.4/S-0.8/B0.20",
-    "score": 1.03,
+    "score": 1.045,
     "tqqq_center": 0.4,
     "sgov_center": -0.8,
     "buffer": 0.2
    },
    {
     "label": "T+0.4/S-0.6/B0.20",
-    "score": 1.027,
+    "score": 1.042,
     "tqqq_center": 0.4,
     "sgov_center": -0.6,
     "buffer": 0.2
    },
    {
+    "label": "T+0.8/S-0.2/B0.30",
+    "score": 1.04,
+    "tqqq_center": 0.8,
+    "sgov_center": -0.2,
+    "buffer": 0.3
+   },
+   {
     "label": "T+0.8/S-1.0/B0.30",
-    "score": 1.021,
+    "score": 1.029,
     "tqqq_center": 0.8,
     "sgov_center": -1.0,
     "buffer": 0.3
    },
    {
     "label": "T+0.8/S-0.8/B0.30",
-    "score": 1.021,
+    "score": 1.029,
     "tqqq_center": 0.8,
     "sgov_center": -0.8,
     "buffer": 0.3
    },
    {
+    "label": "T+0.4/S-1.0/B0.15",
+    "score": 1.025,
+    "tqqq_center": 0.4,
+    "sgov_center": -1.0,
+    "buffer": 0.15
+   },
+   {
     "label": "T+0.8/S-0.6/B0.30",
-    "score": 1.016,
+    "score": 1.024,
     "tqqq_center": 0.8,
     "sgov_center": -0.6,
     "buffer": 0.3
    },
    {
-    "label": "T+0.4/S-1.0/B0.15",
-    "score": 1.01,
-    "tqqq_center": 0.4,
-    "sgov_center": -1.0,
-    "buffer": 0.15
-   },
-   {
     "label": "T+0.4/S-0.6/B0.15",
-    "score": 1.006,
+    "score": 1.021,
     "tqqq_center": 0.4,
     "sgov_center": -0.6,
     "buffer": 0.15
    },
    {
-    "label": "T+0.6/S-1.0/B0.15",
-    "score": 1.006,
-    "tqqq_center": 0.6,
+    "label": "T+0.2/S-1.0/B0.20",
+    "score": 1.017,
+    "tqqq_center": 0.2,
     "sgov_center": -1.0,
-    "buffer": 0.15
+    "buffer": 0.2
    }
   ]
  }
