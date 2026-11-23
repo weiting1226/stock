@@ -642,6 +642,20 @@
   "reference_date": "2026-06-01",
   "fred_id": "CPIAUCSL"
  },
+ "UMCSENT@2026-10-01": {
+  "summary_zh": "文件顯示10月消費者信心指數為48.0，低於11月的51.5（後者較10月上升7.3%）。文件指出整體信心仍比2月（伊朗衝突爆發前）低9%，反映通膨相關的生活成本不確定性持續主導消費者看法。",
+  "drivers": [
+   "伊朗衝突爆發前後信心水準的落差",
+   "通膨相關的生活成本不確定性",
+   "股市中持續的AI相關波動",
+   "汽油價格下跌帶來的部分緩解"
+  ],
+  "evidence": "Sentiment remains subdued at 9% below February, prior to the start of the Iran conflict, reflecting continued uncertainty regarding the cost-of-living factors that dominate consumers’ perspectives.",
+  "source_url": "http://www.sca.isr.umich.edu/",
+  "model": "claude-sonnet-5",
+  "reference_date": "2026-10-01",
+  "fred_id": "UMCSENT"
+ },
  "UMCSENT@2026-09-01": {
   "summary_zh": "文件顯示密西根大學消費者信心指數在9月為48.1,與10月的48.0相差僅0.1個指數點,大致持平。文件指出消費者對經濟的看法持續受購買力議題主導,耐用品購買條件因利率上升與負擔能力疑慮而轉弱,通膨預期亦連續第二個月上升。",
   "drivers": [
