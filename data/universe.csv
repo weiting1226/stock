@@ -1523,6 +1523,7 @@ CLVT,Clarivate Plc Ordinary Shares,N,False,common,nasdaqtrader
 CLW,Clearwater Paper Corporation Common Stock,N,False,common,nasdaqtrader
 CLWT,Euro Tech Holdings Company Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 CLX,Clorox Company (The) Common Stock,N,False,common,nasdaqtrader
+CLYD,"Clywedog Therapeutics Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 CLYM,"Climb Bio, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 CM,Canadian Imperial Bank of Commerce Common Stock,N,False,common,nasdaqtrader
 CMBT,CMB.TECH NV Ordinary Shares,N,False,common,nasdaqtrader
@@ -2097,7 +2098,6 @@ EAT,"Brinker International, Inc. Common Stock",N,False,common,nasdaqtrader
 EBAY,eBay Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 EBC,"Eastern Bankshares, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 EBF,"Ennis, Inc. Common Stock",N,False,common,nasdaqtrader
-EBMT,"Eagle Bancorp Montana, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 EBON,Ebang International Holdings Inc. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 EBS,Emergent BioSolutions Inc. Common Stock,N,False,common,nasdaqtrader
 EC,Ecopetrol S.A. American Depositary Shares,N,False,common,nasdaqtrader
@@ -3481,9 +3481,6 @@ IOVA,"Iovance Biotherapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtr
 IP,International Paper Company Common Stock,N,False,common,nasdaqtrader
 IPAR,"Interparfums, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 IPDN,"Professional Diversity Network, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-IPFX,Inflection Point Acquisition Corp. VI - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
-IPFXU,Inflection Point Acquisition Corp. VI - Units,NASDAQ,False,unit,nasdaqtrader
-IPFXW,Inflection Point Acquisition Corp. VI - Warrant,NASDAQ,False,warrant,nasdaqtrader
 IPGP,IPG Photonics Corporation - Common Stock,NASDAQ,False,common,nasdaqtrader
 IPHA,Innate Pharma S.A. - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 IPHX,Inflection Point Acquisition Corp. VIII - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -4858,6 +4855,7 @@ OBDC,Blue Owl Capital Corporation Common Stock,N,False,common,nasdaqtrader
 OBE,Obsidian Energy Ltd. Common Shares,A,False,common,nasdaqtrader
 OBIO,"Orchestra BioMed Holdings, Inc. - Ordinary Shares",NASDAQ,False,common,nasdaqtrader
 OBK,"Origin Bancorp, Inc. Common Stock",F,False,common,nasdaqtrader
+OBMT,"Opportunity Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 OBT,"Orange County Bancorp, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 OBX,"Obsidian Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 OC,Owens Corning Inc Common Stock New,N,False,common,nasdaqtrader
@@ -5538,6 +5536,8 @@ QSEA,Quartzsea Acquisition Corporation - Ordinary Shares,NASDAQ,False,common,nas
 QSEAR,Quartzsea Acquisition Corporation - Rights,NASDAQ,False,right,nasdaqtrader
 QSEAU,Quartzsea Acquisition Corporation - Units,NASDAQ,False,unit,nasdaqtrader
 QSI,Quantum-Si Incorporated - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
+QSPC,"Quantum Space, Inc. Class A-1 Common Stock",N,False,common,nasdaqtrader
+QSPC-W,"Quantum Space, Inc. Warrants, each whole warrant exercisable for one share of Class A-1 Common Stock at an exercise price of $11.50 per share",A,False,warrant,nasdaqtrader
 QSR,Restaurant Brands International Inc. Common Shares,N,False,common,nasdaqtrader
 QTEX,QTREX Quantum Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 QTI,"QT Imaging Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
