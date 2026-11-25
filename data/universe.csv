@@ -868,6 +868,7 @@ BFH,"Bread Financial Holdings, Inc. Common Stock",N,False,common,nasdaqtrader
 BFH-PA,"Bread Financial Holdings, Inc. Depositary Shares, each representing a 1/40th interest in a share of 8.625% Non-Cumulative Perpetual Preferred Stock, Series A",N,False,preferred,nasdaqtrader
 BFH-PB,"Bread Financial Holdings, Inc. Depositary Shares, each representing a 1/40th interest in a share of 8.875% Fixed Rate Reset Non-Cumulative Perpetual Preferred Stock, Series B",N,False,preferred,nasdaqtrader
 BFH-PC,"Bread Financial Holdings, Inc. Depositary Shares, each representing a 1/40th interest in a share of its 9.375% Fixed Rate Reset Non-Cumulative Perpetual Preferred Stock, Series C",N,False,preferred,nasdaqtrader
+BFLR,"BlueFlare, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BFLY,"Butterfly Network, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 BFRG,"Bullfrog AI Holdings, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BFRGW,"Bullfrog AI Holdings, Inc. - Warrants",NASDAQ,False,warrant,nasdaqtrader
@@ -2588,7 +2589,6 @@ FND,"Floor & Decor Holdings, Inc. Common Stock",N,False,common,nasdaqtrader
 FNF,"Fidelity National Financial, Inc. Common Stock",N,False,common,nasdaqtrader
 FNGD,"MicroSectors FANG  Index -3X Inverse Leveraged ETNs due January 8, 2038",P,False,common,nasdaqtrader
 FNGO,"MicroSectors FANG  Index 2X Leveraged ETNs due January 8, 2038",P,False,common,nasdaqtrader
-FNGR,"FingerMotion, Inc. - common stock",NASDAQ,False,common,nasdaqtrader
 FNKO,"Funko, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 FNLC,"First Bancorp, Inc (ME) - Common Stock",NASDAQ,False,common,nasdaqtrader
 FNRN,First Northern Community Bancorp - Common stock,NASDAQ,False,common,nasdaqtrader
@@ -5101,7 +5101,6 @@ PARA,"Parabolic Technologies, Inc. - Class A Common Stock",NASDAQ,False,common,n
 PARAW,"Parabolic Technologies, Inc. - Warrant",NASDAQ,False,warrant,nasdaqtrader
 PARK,"Park Dental Partners, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PARR,"Par Pacific Holdings, Inc.  Common Stock",N,False,common,nasdaqtrader
-PASG,"Passage Bio, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 PASW,"Ping An Biomedical Co., Ltd. - Class A Ordinary Shares",NASDAQ,False,common,nasdaqtrader
 PATH,"UiPath, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 PATK,"Patrick Industries, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -5749,6 +5748,7 @@ RMSG,Real Messenger Corporation - Ordinary Shares,NASDAQ,False,common,nasdaqtrad
 RMSGW,Real Messenger Corporation - Warrants,NASDAQ,False,warrant,nasdaqtrader
 RMT,"Royce Micro-Cap Trust, Inc. Common Stock",N,False,common,nasdaqtrader
 RMTI,"Rockwell Medical, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
+RMTX,"Remix Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 RNA,"Atrium Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 RNAC,"Cartesian Therapeutics, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 RNAQ,Rainier Acquisition Corporation - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -5878,7 +5878,6 @@ SACH-PA,Sachem Capital Corp. 7.75% Series A Cumulative Redeemable Preferred Stoc
 SAEN,Genenta Science S.p.A. - American Depositary Shares,NASDAQ,False,common,nasdaqtrader
 SAFE,Safehold Inc. New Common Stock,N,False,common,nasdaqtrader
 SAFT,"Safety Insurance Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-SAFX,"XCF Global, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 SAGT,SAGTEC GLOBAL LIMITED - Class A Ordinary shares,NASDAQ,False,common,nasdaqtrader
 SAGU,Shreya Acquisition Group Class A Ordinary Shares,N,False,common,nasdaqtrader
 SAGU-R,"Shreya Acquisition Group Rights, each entitling the holder to receive one-fourth of one Class A Ordinary Share",N,False,right,nasdaqtrader
