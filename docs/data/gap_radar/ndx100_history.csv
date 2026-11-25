@@ -149,3 +149,13 @@ as_of,rank,ticker,name,upside_pct,target_dispersion_pct,risk_tier
 2026-11-18,8,STX,Seagate Technology,107.14,84.99,high
 2026-11-18,9,LITE,Lumentum,90.14,71.94,moderate
 2026-11-18,10,ALNY,"Alnylam Pharmaceuticals, Inc.",84.81,79.52,moderate
+2026-11-25,1,MSTR,Strategy Inc,200.8,115.75,extreme
+2026-11-25,2,CRWV,"CoreWeave, Inc.",168.87,199.91,extreme
+2026-11-25,3,NBIS,Nebius Group N.V.,165.26,127.81,extreme
+2026-11-25,4,SNDK,Sandisk,161.78,107.24,high
+2026-11-25,5,MU,Micron Technology,142.89,172.52,extreme
+2026-11-25,6,MRVL,Marvell Technology,128.79,91.36,high
+2026-11-25,7,WDC,Western Digital,119.19,99.92,high
+2026-11-25,8,LITE,Lumentum,115.21,75.07,moderate
+2026-11-25,9,STX,Seagate Technology,111.98,104.42,high
+2026-11-25,10,SPCX,Space Exploration Technologies Corp,103.68,284.88,extreme
