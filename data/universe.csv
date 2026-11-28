@@ -1057,7 +1057,6 @@ BORR,Borr Drilling Limited Common Shares,N,False,common,nasdaqtrader
 BOSC,B.O.S. Better Online Solutions - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 BOT,"RoboStrategy, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 BOTJ,"Bank of the James Financial Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-BOW,Bowhead Specialty Holdings Inc. Common Stock,N,False,common,nasdaqtrader
 BOX,"Box, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 BOXL,Boxlight Corporation - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 BP,BP p.l.c. Common Stock,N,False,common,nasdaqtrader
@@ -1817,7 +1816,7 @@ CWEN,"Clearway Energy, Inc. Class C Common Stock",N,False,common,nasdaqtrader
 CWH,"Camping World Holdings, Inc. Class A Common Stock",N,False,common,nasdaqtrader
 CWK,Cushman & Wakefield Ltd. Common Shares,N,False,common,nasdaqtrader
 CWST,"Casella Waste Systems, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
-CWT,California Water Service Group Common Stock,N,False,common,nasdaqtrader
+CWT,Watermark Utilities Common Stock,N,False,common,nasdaqtrader
 CX,"Cemex, S.A.B. de C.V. Sponsored ADR",N,False,common,nasdaqtrader
 CXAI,CXApp Inc. - Class A Common Stock,NASDAQ,False,common,nasdaqtrader
 CXAIW,CXApp Inc. - Warrant,NASDAQ,False,warrant,nasdaqtrader
@@ -2067,7 +2066,6 @@ DUKU,Duke Energy Corporation Corporate Units,N,False,unit,nasdaqtrader
 DUO,Fangdd Network Group Ltd. - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 DUOL,"Duolingo, Inc. - Class A Common Stock",NASDAQ,False,common,nasdaqtrader
 DUOT,"Duos Technologies Group, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
-DV,"DoubleVerify Holdings, Inc. Common Stock",N,False,common,nasdaqtrader
 DVA,DaVita Inc. Common Stock,N,False,common,nasdaqtrader
 DVN,Devon Energy Corporation Common Stock,N,False,common,nasdaqtrader
 DWSN,Dawson Geophysical Company - Common Stock,NASDAQ,False,common,nasdaqtrader
@@ -3243,6 +3241,7 @@ HTHT,H World Group Limited - American Depositary Shares,NASDAQ,False,common,nasd
 HTLD,"Heartland Express, Inc. - Common Stock",NASDAQ,False,common,nasdaqtrader
 HTLM,HomesToLife Ltd - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 HTO,H2O America  - Common Stock,NASDAQ,False,common,nasdaqtrader
+HTOEU,H2O America  - Equity Units,NASDAQ,False,unit,nasdaqtrader
 HTOO,Fusion Fuel Green PLC - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 HTT,"High Templar Tech Limited American depositary shares, each representing one Class A ordinary share",N,False,common,nasdaqtrader
 HTZ,"Hertz Global Holdings, Inc - Common Stock",NASDAQ,False,common,nasdaqtrader
@@ -4525,7 +4524,7 @@ NBTB,NBT Bancorp Inc. - Common Stock,NASDAQ,False,common,nasdaqtrader
 NBTX,Nanobiotix S.A. - ADSs,NASDAQ,False,common,nasdaqtrader
 NBXG,Neuberger Next Generation Connectivity Fund Inc. Common Stock,N,False,common,nasdaqtrader
 NC,"NACCO Industries, Inc. Common Stock",N,False,common,nasdaqtrader
-NCA,Nuveen California Municipal Value Fund,N,False,common,nasdaqtrader
+NCA,Nuveen California Municipal Income Fund Common Stock,N,False,common,nasdaqtrader
 NCDL,Nuveen Churchill Direct Lending Corp. Common Stock,N,False,common,nasdaqtrader
 NCEL,NewcelX Ltd. - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 NCEW,New Century Logistics (BVI) Limited - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
@@ -4675,7 +4674,7 @@ NNN,"NNN REIT, Inc. Common Stock",N,False,common,nasdaqtrader
 NNNN,Anbio Biotechnology - Class A Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 NNOX,NANO-X IMAGING LTD - Ordinary Shares,NASDAQ,False,common,nasdaqtrader
 NNVC,"NanoViricides, Inc. Common Stock",A,False,common,nasdaqtrader
-NNY,Nuveen New York Municipal Value Fund Common Stock,N,False,common,nasdaqtrader
+NNY,Nuveen New York Municipal Income Fund Common Stock,N,False,common,nasdaqtrader
 NOA,North American Construction Group Ltd. Common Shares (no par),N,False,common,nasdaqtrader
 NOAH,Noah Holdings Limited American Depositary Shares,N,False,common,nasdaqtrader
 NOC,Northrop Grumman Corporation Common Stock,N,False,common,nasdaqtrader
